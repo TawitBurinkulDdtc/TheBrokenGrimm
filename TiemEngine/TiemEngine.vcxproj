@@ -28,6 +28,7 @@
     <ClCompile Include="ImageObject.cpp" />
     <ClCompile Include="Level.cpp" />
     <ClCompile Include="LevelTest.cpp" />
+    <ClCompile Include="LevelTestZen.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="MeshVbo.cpp" />
     <ClCompile Include="Shader.cpp" />
@@ -45,6 +46,7 @@
     <ClInclude Include="ImageObject.h" />
     <ClInclude Include="Level.h" />
     <ClInclude Include="LevelTest.h" />
+    <ClInclude Include="LevelTestZen.h" />
     <ClInclude Include="MeshVbo.h" />
     <ClInclude Include="Shader.h" />
     <ClInclude Include="SquareMeshVbo.h" />
