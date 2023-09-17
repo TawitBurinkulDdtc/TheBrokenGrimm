@@ -19,12 +19,12 @@ void LevelTestZen::LevelInit()
 
 	GameObject * obj2 = new GameObject();
 	obj2->SetColor(0.0, 1.0, 0.0);
-	obj2->SetPosition(glm::vec3(2.0f, 2.0f, 0.0f));
+	obj2->SetPosition(glm::vec3(2.5f, 2.0f, 0.0f));
 	objectsList.push_back(obj2);
 
 	GameObject * obj3 = new GameObject();
 	obj3->SetColor(0.0, 1.0, 0.0);
-	obj3->SetPosition(glm::vec3(-2.0f, -2.0f, 0.0f));
+	obj3->SetPosition(glm::vec3(2.5f, -2.0f, 0.0f));
 	objectsList.push_back(obj3);
 
 	//cout << "Init Level" << endl;
@@ -67,7 +67,7 @@ void LevelTestZen::HandleKey(char key)
 	case 'd': player->Translate(glm::vec3(0.3, 0, 0)); break;
 	case 'q': GameEngine::GetInstance()->GetStateController()->gameStateNext = GameState::GS_QUIT; ; break;
 	case 'r': GameEngine::GetInstance()->GetStateController()->gameStateNext = GameState::GS_RESTART; ; break;
-	case 'e': GameEngine::GetInstance()->GetStateController()->gameStateNext = GameState::GS_LEVEL1; ; break;
+	case 'e': GameEngine::GetInstance()->GetStateController()->gameStateNext = GameState::GS_LEVEL1; ; break; //LVC. Level change testing add by Zen d13m9y2023
 	}
 }
 
