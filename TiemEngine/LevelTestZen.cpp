@@ -74,10 +74,18 @@ void LevelTestZen::HandleKey(char key)
 void LevelTestZen::HandleMouse(int type, int x, int y)
 {
 	float realX, realY;
-
-	// Calculate Real X Y 
-	realX = x;
-	realY = y;
+	float windowSizeX, windowSizeY;
+	windowSizeX = GameEngine::GetInstance()->GetWindowWidth();
+	windowSizeY = GameEngine::GetInstance()->GetWindowHeight();
+	realX = (x - (windowSizeX / 2)) / (windowSizeX / 6.0f);
+	realY = -(y - (windowSizeY / 2)) / (windowSizeY / 6.0f);
 
 	player->SetPosition(glm::vec3(realX, realY, 0));
+	
+	
+	printf("print work  ");
+
+	if (realX>0.0f && realY>0.0f) {
+		printf("press in top right");
+	}
 }
