@@ -95,7 +95,7 @@ void LevelTestZen::HandleMouse(int type, int x, int y)
 	
 	//printf("print work  ");
 
-	if (realX < -1.5f && realX > -2.5f  && realY < -1.5f && realY > -2.5f) {
+	if (realX > -2.5f && realX < -1.5f && realY > -2.5f && realY < -1.5f) { // Size 1.0f, -1.0f    Pos -2.0f, -2.0f        x> (PosX-(sizeX/2))    x< (PosX+(sizeX/2))     y> (PosY-(sizeY/2))    y< (PosY+(sizeY/2))
 		printf("\nbutton was press");
 	}
 }
