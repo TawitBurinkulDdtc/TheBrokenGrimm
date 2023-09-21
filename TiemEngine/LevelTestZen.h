@@ -5,7 +5,7 @@ class LevelTestZen : public Level
 {
 private:
 	vector<DrawableObject*> objectsList;
-	GameObject * player;
+	ImageObject * player;
 
 public:
 	virtual void LevelLoad();

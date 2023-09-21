@@ -1,5 +1,6 @@
 #include "LevelTestZen.h"
 
+
 void LevelTestZen::LevelLoad()
 {
 	SquareMeshVbo * square = new SquareMeshVbo();
@@ -11,8 +12,9 @@ void LevelTestZen::LevelLoad()
 
 void LevelTestZen::LevelInit()
 {
-	GameObject * obj = new GameObject();
-	obj->SetColor(0.0, 1.0, 0.0);
+	ImageObject * obj = new ImageObject();
+	obj->SetTexture("../Resource/Texture/uglyHand.png");
+	obj->SetSize(4.0f, -4.0f);
 	objectsList.push_back(obj);
 
 	player = obj;
