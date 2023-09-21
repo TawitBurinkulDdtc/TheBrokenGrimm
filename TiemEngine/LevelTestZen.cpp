@@ -12,22 +12,30 @@ void LevelTestZen::LevelLoad()
 
 void LevelTestZen::LevelInit()
 {
-	ImageObject * obj = new ImageObject();
-	obj->SetTexture("../Resource/Texture/uglyHand.png");
-	obj->SetSize(4.0f, -4.0f);
-	objectsList.push_back(obj);
 
-	player = obj;
+	GameObject * obj = new GameObject();
+	obj->SetColor(0.0, 1.0, 0.0);
+	obj->SetPosition(glm::vec3(2.5f, 2.0f, 0.0f));
+	objectsList.push_back(obj);
 
 	GameObject * obj2 = new GameObject();
 	obj2->SetColor(0.0, 1.0, 0.0);
-	obj2->SetPosition(glm::vec3(2.5f, 2.0f, 0.0f));
+	obj2->SetPosition(glm::vec3(2.5f, -2.0f, 0.0f));
 	objectsList.push_back(obj2);
 
-	GameObject * obj3 = new GameObject();
-	obj3->SetColor(0.0, 1.0, 0.0);
-	obj3->SetPosition(glm::vec3(2.5f, -2.0f, 0.0f));
-	objectsList.push_back(obj3);
+
+	ImageObject* testButton = new ImageObject();
+	testButton->SetTexture("../Resource/Texture/DoNotPress.png");
+	testButton->SetSize(1.0f, -1.0f);
+	testButton->SetPosition(glm::vec3(-2.0f, -2.0f, 0.0f));
+	objectsList.push_back(testButton);
+
+	ImageObject* objCursor = new ImageObject();
+	objCursor->SetTexture("../Resource/Texture/uglyHand.png");
+	objCursor->SetSize(4.0f, -4.0f);
+	objectsList.push_back(objCursor);
+
+	player = objCursor;
 
 	//cout << "Init Level" << endl;
 }
@@ -85,9 +93,9 @@ void LevelTestZen::HandleMouse(int type, int x, int y)
 	player->SetPosition(glm::vec3(realX, realY, 0));
 	
 	
-	printf("print work  ");
+	//printf("print work  ");
 
-	if (realX>0.0f && realY>0.0f) {
-		printf("press in top right");
+	if (realX < -1.5f && realX > -2.5f  && realY < -1.5f && realY > -2.5f) {
+		printf("\nbutton was press");
 	}
 }
