@@ -29,7 +29,7 @@ void Level::LevelUpdate()
 
 void Level::LevelDraw()
 {
-	GameEngine::GetInstance()->Render(objectsList);
+	GameEngine::GetInstance()->Render(objectsList,true);
 	//cout << "Draw Level" << endl;
 }
 

@@ -39,9 +39,10 @@ void GameEngine::Init(int width, int height)
 	stateController->Init(GameState::GS_LEVEL1);
 }
 
-void GameEngine::Render(vector<DrawableObject*> renderObjects)
+void GameEngine::Render(vector<DrawableObject*> renderObjects, bool isClear)
 {
-	this->GetRenderer()->Render(renderObjects);
+	
+	this->GetRenderer()->Render(renderObjects, isClear);
 }
 
 void GameEngine::SetDrawArea(float left, float right, float bottom, float top)

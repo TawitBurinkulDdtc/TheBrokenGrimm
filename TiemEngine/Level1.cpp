@@ -13,34 +13,32 @@ void Level1::LevelLoad()
 void Level1::LevelInit()
 {
 
-	
-
 	ImageObject* background = new ImageObject();
 	background->SetTexture("../Resource/Texture/testVillage.jpeg");
 	background->SetSize(20.0f, -4.0f);
 	background->SetPosition(glm::vec3(0.0f, 0.0f, 0.0f));
-	objectsList.push_back(background);
+	BackgroundList.push_back(background);
 
 	GameObject * obj = new GameObject();
 	obj->SetColor(0.0, 1.0, 0.0);
 	obj->SetPosition(glm::vec3(2.5f, 2.0f, 0.0f));
-	objectsList.push_back(obj);
+	ObjectList.push_back(obj);
 
 	GameObject * obj2 = new GameObject();
 	obj2->SetColor(0.0, 0.0, 1.0);
 	obj2->SetPosition(glm::vec3(2.5f, -2.0f, 0.0f));
-	objectsList.push_back(obj2);
+	ObjectList.push_back(obj2);
 
 	ImageObject* testButton = new ImageObject();
 	testButton->SetTexture("../Resource/Texture/DoNotPress.png");
 	testButton->SetSize(1.0f, -1.0f);
 	testButton->SetPosition(glm::vec3(-2.0f, -2.0f, 0.0f));
-	objectsList.push_back(testButton);
+	UIList.push_back(testButton);
 
 	ImageObject* objCursor = new ImageObject();
 	objCursor->SetTexture("../Resource/Texture/uglyHand.png");
 	objCursor->SetSize(4.0f, -4.0f);
-	objectsList.push_back(objCursor);
+	UIList.push_back(objCursor);
 
 	player = objCursor;
 
@@ -54,16 +52,32 @@ void Level1::LevelUpdate()
 
 void Level1::LevelDraw()
 {
-	GameEngine::GetInstance()->Render(objectsList);
+	GameEngine::GetInstance()->Render(BackgroundList,true);
+	GameEngine::GetInstance()->Render(PlayerList,false);
+	GameEngine::GetInstance()->Render(ObjectList,false);
+	GameEngine::GetInstance()->Render(UIList, false);
+
 	//cout << "Draw Level" << endl;
 }
 
 void Level1::LevelFree()
 {
-	for (DrawableObject* obj : objectsList) {
+	for (DrawableObject* obj : BackgroundList) {
 		delete obj;
 	}
-	objectsList.clear();
+	BackgroundList.clear();
+	for (DrawableObject* obj : PlayerList) {
+		delete obj;
+	}
+	PlayerList.clear();
+	for (DrawableObject* obj : ObjectList) {
+		delete obj;
+	}
+	ObjectList.clear();
+	for (DrawableObject* obj : UIList) {
+		delete obj;
+	}
+	UIList.clear();
 	//cout << "Free Level" << endl;
 }
 

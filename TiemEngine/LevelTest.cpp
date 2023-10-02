@@ -37,7 +37,7 @@ void LevelTest::LevelUpdate()
 
 void LevelTest::LevelDraw()
 {
-	GameEngine::GetInstance()->Render(objectsList);
+	GameEngine::GetInstance()->Render(objectsList,true);
 	//cout << "Draw Level" << endl;
 }
 

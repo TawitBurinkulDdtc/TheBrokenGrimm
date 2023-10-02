@@ -4,9 +4,17 @@
 class Level1 : public Level
 {
 private:
-	vector<DrawableObject*> objectsList;
+	vector<DrawableObject*> UIList;
+	vector<DrawableObject*> PlayerList;
+	vector<DrawableObject*> ObjectList;
+	vector<DrawableObject*> BackgroundList;
+
+	//vector<vector<DrawableObject*>> objectlist;
+
 	ImageObject * player;
-	//ImageObject* background;
+	/*ImageObject* background;
+	ImageObject* UI;
+	ImageObject* Object;*/
 
 public:
 	virtual void LevelLoad();

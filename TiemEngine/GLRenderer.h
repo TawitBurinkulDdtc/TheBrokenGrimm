@@ -36,7 +36,7 @@ protected:
 	void SetMeshAttribId(MeshVbo * shape);
 
 public:
-	void Render(vector <DrawableObject*> & objList);
+	void Render(vector <DrawableObject*> & objList, bool isClear);
 	GLRenderer(int w, int h);
 	bool InitGL(string vertexShaderFile, string fragmentShaderFile);
 
