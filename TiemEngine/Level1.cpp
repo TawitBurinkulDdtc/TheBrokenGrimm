@@ -1,7 +1,7 @@
-#include "LevelTestZen.h"
+#include "Level1.h"
 
 
-void LevelTestZen::LevelLoad()
+void Level1::LevelLoad()
 {
 	SquareMeshVbo * square = new SquareMeshVbo();
 	square->LoadData();
@@ -10,7 +10,7 @@ void LevelTestZen::LevelLoad()
 	//cout << "Load Level" << endl;
 }
 
-void LevelTestZen::LevelInit()
+void Level1::LevelInit()
 {
 
 	
@@ -27,7 +27,7 @@ void LevelTestZen::LevelInit()
 	objectsList.push_back(obj);
 
 	GameObject * obj2 = new GameObject();
-	obj2->SetColor(0.0, 1.0, 0.0);
+	obj2->SetColor(0.0, 0.0, 1.0);
 	obj2->SetPosition(glm::vec3(2.5f, -2.0f, 0.0f));
 	objectsList.push_back(obj2);
 
@@ -47,18 +47,18 @@ void LevelTestZen::LevelInit()
 	//cout << "Init Level" << endl;
 }
 
-void LevelTestZen::LevelUpdate()
+void Level1::LevelUpdate()
 {
 	//cout << "Update Level" << endl;
 }
 
-void LevelTestZen::LevelDraw()
+void Level1::LevelDraw()
 {
 	GameEngine::GetInstance()->Render(objectsList);
 	//cout << "Draw Level" << endl;
 }
 
-void LevelTestZen::LevelFree()
+void Level1::LevelFree()
 {
 	for (DrawableObject* obj : objectsList) {
 		delete obj;
@@ -67,13 +67,13 @@ void LevelTestZen::LevelFree()
 	//cout << "Free Level" << endl;
 }
 
-void LevelTestZen::LevelUnload()
+void Level1::LevelUnload()
 {
 	GameEngine::GetInstance()->ClearMesh();
 	//cout << "Unload Level" << endl;
 }
 
-void LevelTestZen::HandleKey(char key)
+void Level1::HandleKey(char key)
 {
 
 	switch (key)
@@ -84,11 +84,11 @@ void LevelTestZen::HandleKey(char key)
 	case 'd': player->Translate(glm::vec3(0.3, 0, 0)); break;
 	case 'q': GameEngine::GetInstance()->GetStateController()->gameStateNext = GameState::GS_QUIT; ; break;
 	case 'r': GameEngine::GetInstance()->GetStateController()->gameStateNext = GameState::GS_RESTART; ; break;
-	case 'e': GameEngine::GetInstance()->GetStateController()->gameStateNext = GameState::GS_LEVEL1; ; break; //LVC. Level change testing add by Zen d13m9y2023
+	case 'e': GameEngine::GetInstance()->GetStateController()->gameStateNext = GameState::GS_LEVEL_test1; ; break; //LVC. Level change testing add by Zen d13m9y2023
 	}
 }
 
-void LevelTestZen::HandleMouse(int type, int x, int y)
+void Level1::HandleMouse(int type, int x, int y)
 {
 	float realX, realY;
 	float windowSizeX, windowSizeY;

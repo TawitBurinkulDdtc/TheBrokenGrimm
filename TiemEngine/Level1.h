@@ -1,7 +1,7 @@
 #pragma once
 #include "Level.h"
 
-class LevelTestZen : public Level
+class Level1 : public Level
 {
 private:
 	vector<DrawableObject*> objectsList;
