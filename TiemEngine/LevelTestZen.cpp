@@ -17,19 +17,19 @@ void LevelTestZen::LevelInit()
 
 	
 
-	ImageObject* background = new ImageObject();
+	GameObject* background = new GameObject();
 	background->SetTexture("../Resource/Texture/testVillage.jpeg");
 	background->SetSize(20.0f, -4.0f);
 	background->SetPosition(glm::vec3(0.0f, 0.0f, 0.0f));
 	objectsList.push_back(background);
 
 	GameObject * obj = new GameObject();
-	obj->SetColor(0.0, 1.0, 0.0);
+	obj->SetTexture("../Resource/Texture/penguin.png");
 	obj->SetPosition(glm::vec3(2.5f, 2.0f, 0.0f));
 	objectsList.push_back(obj);
 
 	GameObject * obj2 = new GameObject();
-	obj2->SetColor(0.0, 1.0, 0.0);
+	obj2->SetTexture("../Resource/Texture/penguin.png");
 	obj2->SetPosition(glm::vec3(2.5f, -2.0f, 0.0f));
 	objectsList.push_back(obj2);
 
@@ -40,7 +40,7 @@ void LevelTestZen::LevelInit()
 	objectsList.push_back(testButton);
 	interactableList.push_back(testButton);
 
-	ImageObject* objCursor = new ImageObject();
+	GameObject* objCursor = new GameObject();
 	objCursor->SetTexture("../Resource/Texture/uglyHand.png");
 	objCursor->SetSize(4.0f, -4.0f);
 	objectsList.push_back(objCursor);
@@ -103,20 +103,7 @@ void LevelTestZen::HandleMouse(int type, int x, int y)
 	player->SetPosition(glm::vec3(realX, realY, 0));
 	
 	
-	//printf("print work  ");
-
-	/*
-	// https://stackoverflow.com/questions/22269435/how-to-iterate-through-a-list-of-objects-in-c
-	//   try objectsList[i]   and objectsList->at(i)         objectsList.at(i)
-	for (int i = 0; i < objectsList->size() - 1; i++) {  
-		objectList[i]->
-	}
-	*/
-
-
 	for (int i = 0; i < interactableList.size(); i++) {
-
-		
 			if (interactableList[i]->GetClick(realX, realY)) {
 				interactableList[i]->Interact();
 			}

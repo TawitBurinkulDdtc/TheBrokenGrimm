@@ -7,7 +7,7 @@ class LevelTestZen : public Level
 private:
 	vector<DrawableObject*> objectsList;
 	vector<InteractableObject*> interactableList;
-	ImageObject * player;
+	GameObject* player;
 	//ImageObject* background;
 
 public:

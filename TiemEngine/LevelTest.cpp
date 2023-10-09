@@ -12,18 +12,18 @@ void LevelTest::LevelLoad()
 void LevelTest::LevelInit()
 {
 	GameObject * obj = new GameObject();
-	obj->SetColor(0.0, 1.0, 0.0);
+	obj->SetTexture("../Resource/Texture/penguin.png");
 	objectsList.push_back(obj);
 
 	player = obj;
 
 	GameObject * obj2 = new GameObject();
-	obj2->SetColor(0.0, 0.0, 1.0);
+	obj2->SetTexture("../Resource/Texture/penguin.png");
 	obj2->SetPosition(glm::vec3(2.0f, 2.0f, 0.0f));
 	objectsList.push_back(obj2);
 
 	GameObject * obj3 = new GameObject();
-	obj3->SetColor(0.0, 0.0, 1.0);
+	obj3->SetTexture("../Resource/Texture/penguin.png");
 	obj3->SetPosition(glm::vec3(-2.0f, -2.0f, 0.0f));
 	objectsList.push_back(obj3);
 

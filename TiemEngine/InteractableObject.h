@@ -1,8 +1,8 @@
 #pragma once
 
-#include "ImageObject.h"
+#include "GameObject.h"
 
-class InteractableObject :public ImageObject
+class InteractableObject :public GameObject
 {
 	
 
