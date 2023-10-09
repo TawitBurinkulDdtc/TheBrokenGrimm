@@ -1,4 +1,6 @@
 #include "LevelTestZen.h"
+#include "ButtonObject.h"
+
 
 
 void LevelTestZen::LevelLoad()
@@ -31,11 +33,12 @@ void LevelTestZen::LevelInit()
 	obj2->SetPosition(glm::vec3(2.5f, -2.0f, 0.0f));
 	objectsList.push_back(obj2);
 
-	ImageObject* testButton = new ImageObject();
+	ButtonObject* testButton = new ButtonObject();
 	testButton->SetTexture("../Resource/Texture/DoNotPress.png");
 	testButton->SetSize(1.0f, -1.0f);
 	testButton->SetPosition(glm::vec3(-2.0f, -2.0f, 0.0f));
 	objectsList.push_back(testButton);
+	interactableList.push_back(testButton);
 
 	ImageObject* objCursor = new ImageObject();
 	objCursor->SetTexture("../Resource/Texture/uglyHand.png");
@@ -43,7 +46,6 @@ void LevelTestZen::LevelInit()
 	objectsList.push_back(objCursor);
 
 	player = objCursor;
-
 	//cout << "Init Level" << endl;
 }
 
@@ -85,6 +87,7 @@ void LevelTestZen::HandleKey(char key)
 	case 'q': GameEngine::GetInstance()->GetStateController()->gameStateNext = GameState::GS_QUIT; ; break;
 	case 'r': GameEngine::GetInstance()->GetStateController()->gameStateNext = GameState::GS_RESTART; ; break;
 	case 'e': GameEngine::GetInstance()->GetStateController()->gameStateNext = GameState::GS_LEVEL1; ; break; //LVC. Level change testing add by Zen d13m9y2023
+	
 	}
 }
 
@@ -102,7 +105,24 @@ void LevelTestZen::HandleMouse(int type, int x, int y)
 	
 	//printf("print work  ");
 
-	if (realX > -2.5f && realX < -1.5f && realY > -2.5f && realY < -1.5f) { // Size 1.0f, -1.0f    Pos -2.0f, -2.0f        x> (PosX-(sizeX/2))    x< (PosX+(sizeX/2))     y> (PosY-(sizeY/2))    y< (PosY+(sizeY/2))
-		printf("\nbutton was press");
+	/*
+	// https://stackoverflow.com/questions/22269435/how-to-iterate-through-a-list-of-objects-in-c
+	//   try objectsList[i]   and objectsList->at(i)         objectsList.at(i)
+	for (int i = 0; i < objectsList->size() - 1; i++) {  
+		objectList[i]->
 	}
+	*/
+
+
+	for (int i = 0; i < interactableList.size(); i++) {
+
+		
+			if (interactableList[i]->GetClick(realX, realY)) {
+				interactableList[i]->Interact();
+			}
+			
+	}
+
+	
+	
 }

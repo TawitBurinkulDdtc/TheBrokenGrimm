@@ -1,10 +1,12 @@
 #pragma once
 #include "Level.h"
+#include "InteractableObject.h"
 
 class LevelTestZen : public Level
 {
 private:
 	vector<DrawableObject*> objectsList;
+	vector<InteractableObject*> interactableList;
 	ImageObject * player;
 	//ImageObject* background;
 
