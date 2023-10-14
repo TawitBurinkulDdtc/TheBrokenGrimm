@@ -4,17 +4,20 @@
 
 class Level1 : public Level
 {
-private:
+public:
 
-	vector<DrawableObject*> UIList;
-	vector<DrawableObject*> PlayerList;
-	vector<DrawableObject*> ObjectList;
-	vector<DrawableObject*> BackgroundList;
-
+	vector<DrawableObject*> uiList;
+	vector<DrawableObject*> playerList;
 	vector<DrawableObject*> objectsList;
+	vector<DrawableObject*> backgroundList;
+	
+
 	vector<InteractableObject*> interactableList;
 	GameObject* player;
-	//ImageObject* background;
+
+
+
+	
 
 public:
 	virtual void LevelLoad();

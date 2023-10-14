@@ -19,17 +19,17 @@ void Level1::LevelInit()
 	background->SetTexture("../Resource/Texture/testVillage.jpeg");
 	background->SetSize(20.0f, -4.0f);
 	background->SetPosition(glm::vec3(0.0f, 0.0f, 0.0f));
-	BackgroundList.push_back(background);
+	backgroundList.push_back(background);
 
 	GameObject * obj = new GameObject();
 	obj->SetTexture("../Resource/Texture/penguin.png");
 	obj->SetPosition(glm::vec3(2.5f, 2.0f, 0.0f));
-	ObjectList.push_back(obj);
+	objectsList.push_back(obj);
 
 	GameObject * obj2 = new GameObject();
 	obj2->SetTexture("../Resource/Texture/penguin.png");
 	obj2->SetPosition(glm::vec3(2.5f, -2.0f, 0.0f));
-	ObjectList.push_back(obj2);
+	objectsList.push_back(obj2);
 
 	ButtonObject* testButton = new ButtonObject();
 	testButton->SetTexture("../Resource/Texture/DoNotPress.png");
@@ -41,7 +41,7 @@ void Level1::LevelInit()
 	GameObject* objCursor = new GameObject();
 	objCursor->SetTexture("../Resource/Texture/uglyHand.png");
 	objCursor->SetSize(4.0f, -4.0f);
-	UIList.push_back(objCursor);
+	uiList.push_back(objCursor);
 
 	player = objCursor;
 
@@ -55,32 +55,32 @@ void Level1::LevelUpdate()
 
 void Level1::LevelDraw()
 {
-	GameEngine::GetInstance()->Render(BackgroundList,true);
-	GameEngine::GetInstance()->Render(PlayerList,false);
-	GameEngine::GetInstance()->Render(ObjectList,false);
-	GameEngine::GetInstance()->Render(UIList, false);
+	GameEngine::GetInstance()->Render(backgroundList,true);
+	GameEngine::GetInstance()->Render(playerList,false);
+	GameEngine::GetInstance()->Render(objectsList,false);
+	GameEngine::GetInstance()->Render(uiList, false);
 
 	//cout << "Draw Level" << endl;
 }
 
 void Level1::LevelFree()
 {
-	for (DrawableObject* obj : BackgroundList) {
+	for (DrawableObject* obj : backgroundList) {
 		delete obj;
 	}
-	BackgroundList.clear();
-	for (DrawableObject* obj : PlayerList) {
+	backgroundList.clear();
+	for (DrawableObject* obj : playerList) {
 		delete obj;
 	}
-	PlayerList.clear();
-	for (DrawableObject* obj : ObjectList) {
+	playerList.clear();
+	for (DrawableObject* obj : objectsList) {
 		delete obj;
 	}
-	ObjectList.clear();
-	for (DrawableObject* obj : UIList) {
+	objectsList.clear();
+	for (DrawableObject* obj : uiList) {
 		delete obj;
 	}
-	UIList.clear();
+	uiList.clear();
 	//cout << "Free Level" << endl;
 }
 
