@@ -1,5 +1,5 @@
 #include "Level1.h"
-
+#include "ButtonObject.h"
 
 void Level1::LevelLoad()
 {
@@ -13,29 +13,32 @@ void Level1::LevelLoad()
 void Level1::LevelInit()
 {
 
-	ImageObject* background = new ImageObject();
+	
+
+	GameObject* background = new GameObject();
 	background->SetTexture("../Resource/Texture/testVillage.jpeg");
 	background->SetSize(20.0f, -4.0f);
 	background->SetPosition(glm::vec3(0.0f, 0.0f, 0.0f));
 	BackgroundList.push_back(background);
 
 	GameObject * obj = new GameObject();
-	obj->SetColor(0.0, 1.0, 0.0);
+	obj->SetTexture("../Resource/Texture/penguin.png");
 	obj->SetPosition(glm::vec3(2.5f, 2.0f, 0.0f));
 	ObjectList.push_back(obj);
 
 	GameObject * obj2 = new GameObject();
-	obj2->SetColor(0.0, 0.0, 1.0);
+	obj2->SetTexture("../Resource/Texture/penguin.png");
 	obj2->SetPosition(glm::vec3(2.5f, -2.0f, 0.0f));
 	ObjectList.push_back(obj2);
 
-	ImageObject* testButton = new ImageObject();
+	ButtonObject* testButton = new ButtonObject();
 	testButton->SetTexture("../Resource/Texture/DoNotPress.png");
 	testButton->SetSize(1.0f, -1.0f);
 	testButton->SetPosition(glm::vec3(-2.0f, -2.0f, 0.0f));
-	UIList.push_back(testButton);
+	objectsList.push_back(testButton);
+	interactableList.push_back(testButton);
 
-	ImageObject* objCursor = new ImageObject();
+	GameObject* objCursor = new GameObject();
 	objCursor->SetTexture("../Resource/Texture/uglyHand.png");
 	objCursor->SetSize(4.0f, -4.0f);
 	UIList.push_back(objCursor);
@@ -116,7 +119,10 @@ void Level1::HandleMouse(int type, int x, int y)
 	
 	//printf("print work  ");
 
-	if (realX > -2.5f && realX < -1.5f && realY > -2.5f && realY < -1.5f) { // Size 1.0f, -1.0f    Pos -2.0f, -2.0f        x> (PosX-(sizeX/2))    x< (PosX+(sizeX/2))     y> (PosY-(sizeY/2))    y< (PosY+(sizeY/2))
-		printf("\nbutton was press");
+	for (int i = 0; i < interactableList.size(); i++) {
+		if (interactableList[i]->GetClick(realX, realY)) {
+			interactableList[i]->Interact();
+		}
 	}
+
 }

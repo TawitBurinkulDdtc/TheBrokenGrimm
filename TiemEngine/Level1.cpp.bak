@@ -1,37 +1,35 @@
-#include "LevelTestZen.h"
+#include "Level1.h"
 #include "ButtonObject.h"
 
-
-
-void LevelTestZen::LevelLoad()
+void Level1::LevelLoad()
 {
-	SquareMeshVbo * square = new SquareMeshVbo();
+	SquareMeshVbo* square = new SquareMeshVbo();
 	square->LoadData();
 	GameEngine::GetInstance()->AddMesh(SquareMeshVbo::MESH_NAME, square);
 
 	//cout << "Load Level" << endl;
 }
 
-void LevelTestZen::LevelInit()
+void Level1::LevelInit()
 {
 
-	
+
 
 	GameObject* background = new GameObject();
 	background->SetTexture("../Resource/Texture/testVillage.jpeg");
 	background->SetSize(20.0f, -4.0f);
 	background->SetPosition(glm::vec3(0.0f, 0.0f, 0.0f));
-	objectsList.push_back(background);
+	BackgroundList.push_back(background);
 
-	GameObject * obj = new GameObject();
+	GameObject* obj = new GameObject();
 	obj->SetTexture("../Resource/Texture/penguin.png");
 	obj->SetPosition(glm::vec3(2.5f, 2.0f, 0.0f));
-	objectsList.push_back(obj);
+	ObjectList.push_back(obj);
 
-	GameObject * obj2 = new GameObject();
+	GameObject* obj2 = new GameObject();
 	obj2->SetTexture("../Resource/Texture/penguin.png");
 	obj2->SetPosition(glm::vec3(2.5f, -2.0f, 0.0f));
-	objectsList.push_back(obj2);
+	ObjectList.push_back(obj2);
 
 	ButtonObject* testButton = new ButtonObject();
 	testButton->SetTexture("../Resource/Texture/DoNotPress.png");
@@ -43,39 +41,56 @@ void LevelTestZen::LevelInit()
 	GameObject* objCursor = new GameObject();
 	objCursor->SetTexture("../Resource/Texture/uglyHand.png");
 	objCursor->SetSize(4.0f, -4.0f);
-	objectsList.push_back(objCursor);
+	UIList.push_back(objCursor);
 
 	player = objCursor;
+
 	//cout << "Init Level" << endl;
 }
 
-void LevelTestZen::LevelUpdate()
+void Level1::LevelUpdate()
 {
 	//cout << "Update Level" << endl;
 }
 
-void LevelTestZen::LevelDraw()
+void Level1::LevelDraw()
 {
-	GameEngine::GetInstance()->Render(objectsList,true);
+	GameEngine::GetInstance()->Render(BackgroundList, true);
+	GameEngine::GetInstance()->Render(PlayerList, false);
+	GameEngine::GetInstance()->Render(ObjectList, false);
+	GameEngine::GetInstance()->Render(UIList, false);
+
 	//cout << "Draw Level" << endl;
 }
 
-void LevelTestZen::LevelFree()
+void Level1::LevelFree()
 {
-	for (DrawableObject* obj : objectsList) {
+	for (DrawableObject* obj : BackgroundList) {
 		delete obj;
 	}
-	objectsList.clear();
+	BackgroundList.clear();
+	for (DrawableObject* obj : PlayerList) {
+		delete obj;
+	}
+	PlayerList.clear();
+	for (DrawableObject* obj : ObjectList) {
+		delete obj;
+	}
+	ObjectList.clear();
+	for (DrawableObject* obj : UIList) {
+		delete obj;
+	}
+	UIList.clear();
 	//cout << "Free Level" << endl;
 }
 
-void LevelTestZen::LevelUnload()
+void Level1::LevelUnload()
 {
 	GameEngine::GetInstance()->ClearMesh();
 	//cout << "Unload Level" << endl;
 }
 
-void LevelTestZen::HandleKey(char key)
+void Level1::HandleKey(char key)
 {
 
 	switch (key)
@@ -86,12 +101,11 @@ void LevelTestZen::HandleKey(char key)
 	case 'd': player->Translate(glm::vec3(0.3, 0, 0)); break;
 	case 'q': GameEngine::GetInstance()->GetStateController()->gameStateNext = GameState::GS_QUIT; ; break;
 	case 'r': GameEngine::GetInstance()->GetStateController()->gameStateNext = GameState::GS_RESTART; ; break;
-	case 'e': GameEngine::GetInstance()->GetStateController()->gameStateNext = GameState::GS_LEVEL1; ; break; //LVC. Level change testing add by Zen d13m9y2023
-	
+	case 'e': GameEngine::GetInstance()->GetStateController()->gameStateNext = GameState::GS_LEVEL_test1; ; break; //LVC. Level change testing add by Zen d13m9y2023
 	}
 }
 
-void LevelTestZen::HandleMouse(int type, int x, int y)
+void Level1::HandleMouse(int type, int x, int y)
 {
 	float realX, realY;
 	float windowSizeX, windowSizeY;
@@ -101,15 +115,14 @@ void LevelTestZen::HandleMouse(int type, int x, int y)
 	realY = -(y - (windowSizeY / 2)) / (windowSizeY / 6.0f);
 
 	player->SetPosition(glm::vec3(realX, realY, 0));
-	
-	
+
+
+	//printf("print work  ");
+
 	for (int i = 0; i < interactableList.size(); i++) {
-			if (interactableList[i]->GetClick(realX, realY)) {
-				interactableList[i]->Interact();
-			}
-			
+		if (interactableList[i]->GetClick(realX, realY)) {
+			interactableList[i]->Interact();
+		}
 	}
 
-	
-	
 }

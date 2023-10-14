@@ -12,7 +12,7 @@ void Level::LevelLoad()
 
 void Level::LevelInit()
 {
-	ImageObject * obj = new ImageObject();
+	GameObject* obj = new GameObject();
 	obj->SetTexture("../Resource/Texture/penguin.png");
 	obj->SetSize(1.0f, -1.0f);
 	objectsList.push_back(obj);
