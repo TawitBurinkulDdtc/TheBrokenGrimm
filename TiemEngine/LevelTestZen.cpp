@@ -1,6 +1,6 @@
 #include "LevelTestZen.h"
 #include "ButtonObject.h"
-
+#include "sdl.h"
 
 
 void LevelTestZen::LevelLoad()
@@ -16,22 +16,12 @@ void LevelTestZen::LevelInit()
 {
 
 	
-
 	GameObject* background = new GameObject();
 	background->SetTexture("../Resource/Texture/testVillage.jpeg");
 	background->SetSize(20.0f, -4.0f);
 	background->SetPosition(glm::vec3(0.0f, 0.0f, 0.0f));
 	objectsList.push_back(background);
 
-	GameObject * obj = new GameObject();
-	obj->SetTexture("../Resource/Texture/penguin.png");
-	obj->SetPosition(glm::vec3(2.5f, 2.0f, 0.0f));
-	objectsList.push_back(obj);
-
-	GameObject * obj2 = new GameObject();
-	obj2->SetTexture("../Resource/Texture/penguin.png");
-	obj2->SetPosition(glm::vec3(2.5f, -2.0f, 0.0f));
-	objectsList.push_back(obj2);
 
 	ButtonObject* testButton = new ButtonObject();
 	testButton->SetTexture("../Resource/Texture/DoNotPress.png");
@@ -40,18 +30,48 @@ void LevelTestZen::LevelInit()
 	objectsList.push_back(testButton);
 	interactableList.push_back(testButton);
 
+
+	GameObject* objPlayer = new GameObject();
+	objPlayer->SetTexture("../Resource/Texture/penguin.png");
+	objPlayer->SetPosition(glm::vec3(2.5f, -2.0f, 0.0f));
+	objPlayer->SetSize(1.0f, -1.0f);
+	objectsList.push_back(objPlayer);
+
+
 	GameObject* objCursor = new GameObject();
 	objCursor->SetTexture("../Resource/Texture/uglyHand.png");
 	objCursor->SetSize(4.0f, -4.0f);
 	objectsList.push_back(objCursor);
 
-	player = objCursor;
+	cursor = objCursor;
+	player = objPlayer;
+	
 	//cout << "Init Level" << endl;
 }
 
-void LevelTestZen::LevelUpdate()
+
+
+
+
+
+int playerFrameDelay = 1;
+float playerStepPerFrame = 0.1;
+
+void LevelTestZen::LevelUpdate()              //Do animation and thing that need "per frame" here
 {
-	//cout << "Update Level" << endl;
+	if (SDL_GetTicks() > currentTime + playerFrameDelay) {
+
+		if (player->GetX() < playerWalkTo - playerStepPerFrame || player->GetX() > playerWalkTo + playerStepPerFrame) {
+			if (player->GetX() < playerWalkTo) {
+				player->Translate(glm::vec3(playerStepPerFrame, 0, 0));
+			}
+			else {
+				player->Translate(glm::vec3(-playerStepPerFrame, 0, 0));
+			}
+		}
+
+		currentTime = SDL_GetTicks();
+	}
 }
 
 void LevelTestZen::LevelDraw()
@@ -100,7 +120,7 @@ void LevelTestZen::HandleMouse(int type, int x, int y)
 	realX = (x - (windowSizeX / 2)) / (windowSizeX / 6.0f);
 	realY = -(y - (windowSizeY / 2)) / (windowSizeY / 6.0f);
 
-	player->SetPosition(glm::vec3(realX, realY, 0));
+	cursor->SetPosition(glm::vec3(realX, realY, 0));
 	
 	
 	for (int i = 0; i < interactableList.size(); i++) {
@@ -110,6 +130,6 @@ void LevelTestZen::HandleMouse(int type, int x, int y)
 			
 	}
 
-	
+	playerWalkTo = realX;
 	
 }
