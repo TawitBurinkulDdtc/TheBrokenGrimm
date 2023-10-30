@@ -2,7 +2,7 @@
 
 #include "GameStateList.h"
 
-class Level;
+class Level; //forward delcaration 
 
 class GameStateController
 {

@@ -1,6 +1,7 @@
 #include "Level1.h"
 #include "ButtonObject.h"
 
+
 void Level1::LevelLoad()
 {
 	SquareMeshVbo * square = new SquareMeshVbo();

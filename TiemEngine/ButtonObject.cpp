@@ -4,10 +4,24 @@
 #include "SquareMeshVbo.h"
 
 
-ButtonObject::ButtonObject(){}
+
+//#pragma comment(lib, "irrKlang.lib") // link with irrKlang.dll
+
+ButtonObject::ButtonObject(){
+	SoundEngine = createIrrKlangDevice();
+}
 
 void ButtonObject::Interact(){  // pos.x-(size.x/2)
-		printf("\nButton.cpp press working well");
+
+		if (SoundEngine) {
+			SoundEngine->play2D("Ahhh.ogg", false);
+			printf("\nButton.cpp press working well");
+			//SoundEngine->drop(); // Release resources
+		}
+		else {
+			// Handle the case when the sound engine creation fails
+			printf("\nFailed to create the sound engine");
+		}
 }
 
 
