@@ -1,6 +1,6 @@
 #include "Level1.h"
 #include "ButtonObject.h"
-
+#include "sdl.h"
 
 void Level1::LevelLoad()
 {
@@ -51,13 +51,33 @@ void Level1::LevelInit()
 	uiList.push_back(objCursor);
 
 	cursor = objCursor;
+	player = objPlayer;
 
+	playerWalkTo = player->GetX();
+	playerFrameDelay = 10;
+	playerStepPerFrame = 4;
+	playerCurrentTime = 0;
 	//cout << "Init Level" << endl;
 }
 
+
+
+
 void Level1::LevelUpdate()
 {
-	//cout << "Update Level" << endl;
+	if (SDL_GetTicks() > playerCurrentTime + playerFrameDelay) {
+
+		if (player->GetX() < playerWalkTo - playerStepPerFrame || player->GetX() > playerWalkTo + playerStepPerFrame) {
+			if (player->GetX() < playerWalkTo) {
+				player->Translate(glm::vec3(playerStepPerFrame, 0, 0));
+			}
+			else {
+				player->Translate(glm::vec3(-playerStepPerFrame, 0, 0));
+			}
+		}
+
+		playerCurrentTime = SDL_GetTicks();
+	}
 }
 
 void Level1::LevelDraw()
@@ -129,6 +149,6 @@ void Level1::HandleMouse(int type, int x, int y)
 		}
 	}
 
-
+	playerWalkTo = x;
 
 }

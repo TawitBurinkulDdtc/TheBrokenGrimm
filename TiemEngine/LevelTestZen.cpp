@@ -47,6 +47,9 @@ void LevelTestZen::LevelInit()
 	player = objPlayer;
 	
 	playerWalkTo = player->GetX();
+	playerFrameDelay = 10;
+	playerStepPerFrame = 4;
+	playerCurrentTime = 0;
 
 	//cout << "Init Level" << endl;
 }
@@ -56,9 +59,7 @@ void LevelTestZen::LevelInit()
 
 
 
-int playerFrameDelay = 10;
-float playerStepPerFrame = 4;
-float playerCurrentTime = 0;
+
 
 void LevelTestZen::LevelUpdate()              //Do animation and thing that need "per frame" here
 {

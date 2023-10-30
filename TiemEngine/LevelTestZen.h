@@ -23,4 +23,7 @@ public:
 	virtual void HandleMouse(int type, int x, int y);
 
 	float playerWalkTo;
+	int playerFrameDelay;
+	float playerStepPerFrame;
+	float playerCurrentTime;
 };
