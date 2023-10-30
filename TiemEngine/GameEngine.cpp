@@ -32,7 +32,7 @@ void GameEngine::Init(int width, int height)
 	winHeight = height;
 	renderer = new GLRenderer(width, height);
 	renderer->InitGL("../Resource/Shader/vertext.shd", "../Resource/Shader/fragment.shd");
-	SetDrawArea(-3, 3, -3, 3);
+	SetDrawArea(0, 1920, 0, 1080);
 	SetBackgroundColor(1.0f, 1.0f, 200.0f / 255);
 
 	stateController = new GameStateController();
@@ -47,7 +47,7 @@ void GameEngine::Render(vector<DrawableObject*> renderObjects, bool isClear)
 
 void GameEngine::SetDrawArea(float left, float right, float bottom, float top)
 {
-	renderer->SetOrthoProjection(-3, 3, -3, 3);
+	renderer->SetOrthoProjection(left, right, bottom, top);
 }
 
 void GameEngine::SetBackgroundColor(float r, float g, float b)

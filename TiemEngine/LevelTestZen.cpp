@@ -25,27 +25,29 @@ void LevelTestZen::LevelInit()
 
 	ButtonObject* testButton = new ButtonObject();
 	testButton->SetTexture("../Resource/Texture/DoNotPress.png");
-	testButton->SetSize(1.0f, -1.0f);
-	testButton->SetPosition(glm::vec3(-2.0f, -2.0f, 0.0f));
+	testButton->SetSize(100.0f, -100.0f);
+	testButton->SetPosition(glm::vec3(300.0f, 800.0f, 0.0f));
 	objectsList.push_back(testButton);
 	interactableList.push_back(testButton);
 
 
 	GameObject* objPlayer = new GameObject();
 	objPlayer->SetTexture("../Resource/Texture/penguin.png");
-	objPlayer->SetPosition(glm::vec3(2.5f, -2.0f, 0.0f));
-	objPlayer->SetSize(1.0f, -1.0f);
+	objPlayer->SetPosition(glm::vec3(950.0f, 300.0f, 0.0f));
+	objPlayer->SetSize(100.0f, -100.0f);
 	objectsList.push_back(objPlayer);
 
 
 	GameObject* objCursor = new GameObject();
 	objCursor->SetTexture("../Resource/Texture/uglyHand.png");
-	objCursor->SetSize(4.0f, -4.0f);
+	objCursor->SetSize(100.0f, -100.0f);
 	objectsList.push_back(objCursor);
 
 	cursor = objCursor;
 	player = objPlayer;
 	
+	playerWalkTo = player->GetX();
+
 	//cout << "Init Level" << endl;
 }
 
@@ -54,12 +56,13 @@ void LevelTestZen::LevelInit()
 
 
 
-int playerFrameDelay = 1;
-float playerStepPerFrame = 0.1;
+int playerFrameDelay = 10;
+float playerStepPerFrame = 4;
+float playerCurrentTime = 0;
 
 void LevelTestZen::LevelUpdate()              //Do animation and thing that need "per frame" here
 {
-	if (SDL_GetTicks() > currentTime + playerFrameDelay) {
+	if (SDL_GetTicks() > playerCurrentTime + playerFrameDelay) {
 
 		if (player->GetX() < playerWalkTo - playerStepPerFrame || player->GetX() > playerWalkTo + playerStepPerFrame) {
 			if (player->GetX() < playerWalkTo) {
@@ -70,7 +73,7 @@ void LevelTestZen::LevelUpdate()              //Do animation and thing that need
 			}
 		}
 
-		currentTime = SDL_GetTicks();
+		playerCurrentTime = SDL_GetTicks();
 	}
 }
 
@@ -113,23 +116,21 @@ void LevelTestZen::HandleKey(char key)
 
 void LevelTestZen::HandleMouse(int type, int x, int y)
 {
-	float realX, realY;
-	float windowSizeX, windowSizeY;
-	windowSizeX = GameEngine::GetInstance()->GetWindowWidth();
-	windowSizeY = GameEngine::GetInstance()->GetWindowHeight();
-	realX = (x - (windowSizeX / 2)) / (windowSizeX / 6.0f);
-	realY = -(y - (windowSizeY / 2)) / (windowSizeY / 6.0f);
-
-	cursor->SetPosition(glm::vec3(realX, realY, 0));
 	
+	//float windowSizeX, windowSizeY;
+	//windowSizeX = GameEngine::GetInstance()->GetWindowWidth();
+	//windowSizeY = GameEngine::GetInstance()->GetWindowHeight();
+	
+
+	cursor->SetPosition(glm::vec3(x, y, 0));
 	
 	for (int i = 0; i < interactableList.size(); i++) {
-			if (interactableList[i]->GetClick(realX, realY)) {
+			if (interactableList[i]->GetClick(x, y)) {
 				interactableList[i]->Interact();
 			}
 			
 	}
 
-	playerWalkTo = realX;
+	playerWalkTo = x;
 	
 }

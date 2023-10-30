@@ -11,14 +11,9 @@ public:
 	vector<DrawableObject*> objectsList;
 	vector<DrawableObject*> backgroundList;
 	
-
 	vector<InteractableObject*> interactableList;
 	GameObject* player;
-
-
-
-	
-
+	GameObject* cursor;
 public:
 	virtual void LevelLoad();
 	virtual void LevelInit();
@@ -29,4 +24,6 @@ public:
 
 	virtual void HandleKey(char key);
 	virtual void HandleMouse(int type, int x, int y);
+
+	float playerWalkTo;
 };

@@ -23,5 +23,4 @@ public:
 	virtual void HandleMouse(int type, int x, int y);
 
 	float playerWalkTo;
-	float currentTime = 0;
 };
