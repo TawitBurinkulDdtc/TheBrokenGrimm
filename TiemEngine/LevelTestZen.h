@@ -8,6 +8,7 @@ private:
 	vector<DrawableObject*> objectsList;
 	vector<InteractableObject*> interactableList;
 	GameObject* player;
+	GameObject* cursor;
 	//ImageObject* background;
 
 public:
@@ -20,4 +21,7 @@ public:
 
 	virtual void HandleKey(char key);
 	virtual void HandleMouse(int type, int x, int y);
+
+	float playerWalkTo;
+	float currentTime = 0;
 };
