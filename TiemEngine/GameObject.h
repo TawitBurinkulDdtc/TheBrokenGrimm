@@ -7,13 +7,18 @@
 
 class GameObject :public DrawableObject
 {
+protected:
 	unsigned int texture;
 
 public:
 	GameObject();
 	~GameObject();
+	
+	// function is override from DrawableObject 
+	virtual void UpdateFrame();
+
 	void SetTexture(string path);
-	void Render(glm::mat4 globalModelTransform);
+	virtual void Render(glm::mat4 globalModelTransform);
 };
 
 

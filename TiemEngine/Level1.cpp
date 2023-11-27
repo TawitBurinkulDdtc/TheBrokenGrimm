@@ -1,6 +1,10 @@
 #include "Level1.h"
 #include "ButtonObject.h"
 #include "sdl.h"
+#include "SpriteObject.h"
+
+
+#define GIRL_SCALE 2
 
 void Level1::LevelLoad()
 {
@@ -14,23 +18,11 @@ void Level1::LevelLoad()
 void Level1::LevelInit()
 {
 
-	
-
 	GameObject* background = new GameObject();
 	background->SetTexture("../Resource/Texture/testVillage.jpeg");
 	background->SetSize(20.0f, -4.0f);
 	background->SetPosition(glm::vec3(0.0f, 0.0f, 0.0f));
 	backgroundList.push_back(background);
-
-	GameObject * obj = new GameObject();
-	obj->SetTexture("../Resource/Texture/penguin.png");
-	obj->SetPosition(glm::vec3(2.5f, 2.0f, 0.0f));
-	objectsList.push_back(obj);
-
-	GameObject * obj2 = new GameObject();
-	obj2->SetTexture("../Resource/Texture/penguin.png");
-	obj2->SetPosition(glm::vec3(2.5f, -2.0f, 0.0f));
-	objectsList.push_back(obj2);
 
 	ButtonObject* testButton = new ButtonObject();
 	testButton->SetTexture("../Resource/Texture/DoNotPress.png");
@@ -50,14 +42,22 @@ void Level1::LevelInit()
 	objCursor->SetSize(100.0f, -100.0f);
 	uiList.push_back(objCursor);
 
+	SpriteObject* Girl = new SpriteObject("../Resource/Texture/girl.png", 4, 10);
+	Girl->SetPosition(glm::vec3(950.0f, 300.0f, 0.0f));
+	Girl->SetSize(64.0f * 2, 128.0f * 2);
+	objectsList.push_back(Girl);
+
+	
 	cursor = objCursor;
-	player = objPlayer;
+	//player = objPlayer;
+	player = Girl;
 
 	playerWalkTo = player->GetX();
 	playerFrameDelay = 10;
 	playerStepPerFrame = 4;
 	playerCurrentTime = 0;
 	//cout << "Init Level" << endl;
+
 }
 
 
@@ -78,6 +78,8 @@ void Level1::LevelUpdate()
 
 		playerCurrentTime = SDL_GetTicks();
 	}
+	player->UpdateFrame();
+
 }
 
 void Level1::LevelDraw()

@@ -2,7 +2,7 @@
 #include "GameObject.h"
 #include "GameEngine.h"
 #include "SquareMeshVbo.h"
-
+#include "SpriteObject.h"
 
 GameObject::GameObject()
 {
@@ -14,6 +14,10 @@ GameObject::~GameObject()
 {
 }
 
+void GameObject::UpdateFrame() {
+	//CalculateUV(0,0);
+	
+}
 void GameObject::SetTexture(string path)
 {
 	texture = GameEngine::GetInstance()->GetRenderer()->LoadTexture(path);
@@ -40,11 +44,12 @@ void GameObject::Render(glm::mat4 globalModelTransform)
 	glm::mat4 currentMatrix = this->getTransform();
 
 	if (squareMesh != nullptr) {
-
+            
 		currentMatrix = globalModelTransform * currentMatrix;
 		glUniformMatrix4fv(modelMatixId, 1, GL_FALSE, glm::value_ptr(currentMatrix));
 		glUniform1i(renderModeId, 1);
 		glBindTexture(GL_TEXTURE_2D, texture);
+		squareMesh->ResetUV();
 		squareMesh->Render();
 
 	}

@@ -20,6 +20,9 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ButtonObject.cpp" />
+    <ClCompile Include="CDT.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+    </ClCompile>
     <ClCompile Include="CombineObject.cpp" />
     <ClCompile Include="DrawableObject.cpp" />
     <ClCompile Include="GameEngine.cpp" />
@@ -35,11 +38,15 @@
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="MeshVbo.cpp" />
     <ClCompile Include="Shader.cpp" />
+    <ClCompile Include="SpriteObject.cpp" />
     <ClCompile Include="SquareMeshVbo.cpp" />
     <ClCompile Include="TriangleMeshVbo.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ButtonObject.h" />
+    <ClInclude Include="CDT.h">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+    </ClInclude>
     <ClInclude Include="CombineObject.h" />
     <ClInclude Include="DrawableObject.h" />
     <ClInclude Include="GameEngine.h" />
@@ -55,6 +62,7 @@
     <ClInclude Include="LevelTestZen.h" />
     <ClInclude Include="MeshVbo.h" />
     <ClInclude Include="Shader.h" />
+    <ClInclude Include="SpriteObject.h" />
     <ClInclude Include="SquareMeshVbo.h" />
     <ClInclude Include="TriangleMeshVbo.h" />
   </ItemGroup>

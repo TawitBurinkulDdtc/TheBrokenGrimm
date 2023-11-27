@@ -5,7 +5,9 @@
 #include "gtc/type_ptr.hpp"
 
 
+void DrawableObject::UpdateFrame() {
 
+}
 glm::mat4 DrawableObject::getTransform()
 {
 	glm::mat4 transform = glm::mat4(1.0);
