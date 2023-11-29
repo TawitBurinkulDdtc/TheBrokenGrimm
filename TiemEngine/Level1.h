@@ -1,6 +1,7 @@
 #pragma once
 #include "Level.h"
 #include "InteractableObject.h"
+#include "TextObject.h"
 
 class Level1 : public Level
 {
@@ -25,9 +26,10 @@ public:
 	virtual void HandleKey(char key);
 	virtual void HandleMouse(int type, int x, int y);
 
-	float playerWalkTo;
+	float playerWalkTo; //might not needed anymore if change to key press movement instead of mouse movement
 	int playerFrameDelay;
 	float playerStepPerFrame;
 	float playerCurrentTime;
 	int playerWalkSide = 0; //0 stop, 1 walk left, 2 walk right
+	TextObject* testText;
 };

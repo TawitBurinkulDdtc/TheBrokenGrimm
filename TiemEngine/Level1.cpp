@@ -3,7 +3,6 @@
 #include "sdl.h"
 #include "SpriteObject.h"
 
-
 #define GIRL_SCALE 2
 
 void Level1::LevelLoad()
@@ -46,7 +45,16 @@ void Level1::LevelInit()
 	Girl->SetPosition(glm::vec3(950.0f, 300.0f, 0.0f));
 	Girl->SetSize(64.0f * 2, 128.0f * 2);
 	objectsList.push_back(Girl);
+	
+	TextObject* testPointa = new TextObject();
+	SDL_Color textColor = { 255, 255, 255 };
+	testPointa->LoadText("Hello??? anybody?", textColor, 10);
+	testPointa->SetPosition(glm::vec3(960.0f, 200.0f, 0.0f));
+	testPointa->SetSize(1000.0f, -100.0f);
+	objectsList.push_back(testPointa);
 
+	testText = testPointa;
+	
 	
 	cursor = objCursor;
 	//player = objPlayer;

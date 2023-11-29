@@ -40,6 +40,7 @@
     <ClCompile Include="Shader.cpp" />
     <ClCompile Include="SpriteObject.cpp" />
     <ClCompile Include="SquareMeshVbo.cpp" />
+    <ClCompile Include="TextObject.cpp" />
     <ClCompile Include="TriangleMeshVbo.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -64,6 +65,7 @@
     <ClInclude Include="Shader.h" />
     <ClInclude Include="SpriteObject.h" />
     <ClInclude Include="SquareMeshVbo.h" />
+    <ClInclude Include="TextObject.h" />
     <ClInclude Include="TriangleMeshVbo.h" />
   </ItemGroup>
   <ItemGroup>
@@ -162,13 +164,13 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>..\Resource\SDL2-2.0.5\include;..\Resource\irrKlang-64bit-1.6.0\include;..\Resource\glew\include;..\Resource\glm;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\Resource\SDL2-2.0.5\include;..\Resource\irrKlang-64bit-1.6.0\include;..\Resource\glew\include;..\Resource\glm;..\Resource\SDL2_ttf\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>SDL2main.lib;SDL2.lib;opengl32.lib;glew32.lib;glew32s.lib;SDL2_image.lib;irrKlang.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <AdditionalLibraryDirectories>../Resource/SDL2-2.0.5/lib/x64;../Resource/glew/lib/Release/x64;../Resource/irrKlang-64bit-1.6.0/lib/Winx64-visualStudio;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>SDL2main.lib;SDL2.lib;opengl32.lib;glew32.lib;glew32s.lib;SDL2_image.lib;irrKlang.lib;SDL2_ttf.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>../Resource/SDL2-2.0.5/lib/x64;../Resource/glew/lib/Release/x64;../Resource/irrKlang-64bit-1.6.0/lib/Winx64-visualStudio;../Resource/SDL2_ttf/lib/x64;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
