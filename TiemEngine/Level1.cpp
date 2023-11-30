@@ -47,11 +47,20 @@ void Level1::LevelInit()
 	objectsList.push_back(Girl);
 	
 	TextObject* testPointa = new TextObject();
-	SDL_Color textColor = { 255, 255, 255 };
-	testPointa->LoadText("Hello??? anybody?", textColor, 10);
+	SDL_Color textColor = { 0, 0, 0 }; //(0 to 255)
+	testPointa->LoadText("Hello??? anybody?", textColor, 100);
 	testPointa->SetPosition(glm::vec3(960.0f, 200.0f, 0.0f));
-	testPointa->SetSize(1000.0f, -100.0f);
-	objectsList.push_back(testPointa);
+	testPointa->SetSize(500.0f, -100.0f);
+	uiList.push_back(testPointa);
+
+	TextObject* animationTextBug = new TextObject();
+	//SDL_Color textColor = { 0, 0, 0 }; //(0 to 255)
+	animationTextBug->LoadText("Why is this one bug.. idk probably pointer thingy", textColor, 100);
+	animationTextBug->SetPosition(glm::vec3(960.0f, 500.0f, 0.0f));
+	animationTextBug->SetSize(500.0f, -100.0f);
+	objectsList.push_back(animationTextBug);
+
+
 
 	testText = testPointa;
 	
