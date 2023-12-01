@@ -35,4 +35,5 @@ public:
 	TextObject* uiText;
 	string displayText;
 	ButtonObject* button1;
+	ButtonObject* button2;
 };

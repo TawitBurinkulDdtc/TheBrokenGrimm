@@ -29,6 +29,13 @@ void Level1::LevelInit()
 	objectsList.push_back(testButton);
 	interactableList.push_back(testButton);
 
+	ButtonObject* testButton2 = new ButtonObject();
+	testButton2->SetTexture("../Resource/Texture/DoNotPress.png");
+	testButton2->SetSize(100.0f, -100.0f);
+	testButton2->SetPosition(glm::vec3(1200.0f, 800.0f, 0.0f));
+	objectsList.push_back(testButton2);
+	interactableList.push_back(testButton2);
+
 	GameObject* objPlayer = new GameObject();
 	objPlayer->SetTexture("../Resource/Texture/penguin.png");
 	objPlayer->SetPosition(glm::vec3(950.0f, 300.0f, 0.0f));
@@ -63,6 +70,7 @@ void Level1::LevelInit()
 
 	uiText = objUiText;
 	button1 = testButton;
+	button2 = testButton2;
 	cursor = objCursor;
 	//player = objPlayer;
 	player = Girl;
@@ -206,6 +214,12 @@ void Level1::HandleMouse(int type, int x, int y)
 		uiText->LoadText("Why the hell this unholy button moaning", button1TextColor, 100);
 		uiText->SetSize(700.0f, -100.0f);
 		button1->Interacted = false;
+	}
+	if (button2->Interacted == true) {
+		SDL_Color button1TextColor = { 0, 0, 0 };
+		uiText->LoadText("Evidence that prove god nonexistence", button1TextColor, 100);
+		uiText->SetSize(700.0f, -100.0f);
+		button2->Interacted = false;
 	}
 
 	//playerWalkTo = x;
