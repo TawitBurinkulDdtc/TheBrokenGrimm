@@ -46,12 +46,12 @@ void Level1::LevelInit()
 	Girl->SetSize(64.0f * 2, 128.0f * 2);
 	objectsList.push_back(Girl);
 	
-	TextObject* testPointa = new TextObject();
+	TextObject* objUiText = new TextObject();
 	SDL_Color textColor = { 0, 0, 0 }; //(0 to 255)
-	testPointa->LoadText("Hello??? anybody?", textColor, 100);
-	testPointa->SetPosition(glm::vec3(960.0f, 200.0f, 0.0f));
-	testPointa->SetSize(500.0f, -100.0f);
-	uiList.push_back(testPointa);
+	objUiText->LoadText("Hello??? anybody?", textColor, 100);
+	objUiText->SetPosition(glm::vec3(960.0f, 200.0f, 0.0f));
+	objUiText->SetSize(500.0f, -100.0f);
+	uiList.push_back(objUiText);
 
 	TextObject* animationTextBug = new TextObject();
 	//SDL_Color textColor = { 0, 0, 0 }; //(0 to 255)
@@ -62,7 +62,7 @@ void Level1::LevelInit()
 
 
 
-	testText = testPointa;
+	uiText = objUiText;
 	
 	
 	cursor = objCursor;

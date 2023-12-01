@@ -31,5 +31,5 @@ public:
 	float playerStepPerFrame;
 	float playerCurrentTime;
 	int playerWalkSide = 0; //0 stop, 1 walk left, 2 walk right
-	TextObject* testText;
+	TextObject* uiText;
 };
