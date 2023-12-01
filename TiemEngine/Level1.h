@@ -1,6 +1,7 @@
 #pragma once
 #include "Level.h"
 #include "InteractableObject.h"
+#include "ButtonObject.h"
 #include "TextObject.h"
 
 class Level1 : public Level
@@ -32,4 +33,6 @@ public:
 	float playerCurrentTime;
 	int playerWalkSide = 0; //0 stop, 1 walk left, 2 walk right
 	TextObject* uiText;
+	string displayText;
+	ButtonObject* button1;
 };

@@ -22,6 +22,7 @@ void ButtonObject::Interact(){  // pos.x-(size.x/2)
 			// Handle the case when the sound engine creation fails
 			printf("\nFailed to create the sound engine");
 		}
+		Interacted = true;
 }
 
 

@@ -1,5 +1,4 @@
 #include "Level1.h"
-#include "ButtonObject.h"
 #include "sdl.h"
 #include "SpriteObject.h"
 
@@ -63,8 +62,7 @@ void Level1::LevelInit()
 
 
 	uiText = objUiText;
-	
-	
+	button1 = testButton;
 	cursor = objCursor;
 	//player = objPlayer;
 	player = Girl;
@@ -202,6 +200,12 @@ void Level1::HandleMouse(int type, int x, int y)
 		if (interactableList[i]->GetClick(x, y)) {
 			interactableList[i]->Interact();
 		}
+	}
+	if (button1->Interacted == true) {
+		SDL_Color button1TextColor = { 0, 0, 0 };
+		uiText->LoadText("Why the hell this unholy button moaning", button1TextColor, 100);
+		uiText->SetSize(700.0f, -100.0f);
+		button1->Interacted = false;
 	}
 
 	//playerWalkTo = x;

@@ -18,6 +18,6 @@ public:
 	void printButtonInfo();
 
 	ISoundEngine* SoundEngine;
-	
+	bool Interacted = false;
 };
 
