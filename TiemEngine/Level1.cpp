@@ -221,6 +221,9 @@ void Level1::HandleMouse(int type, int x, int y)
 	if (player->GetX() > 960 && player->GetX() < (7764.5f - 960.0f)) {
 		trueX = (x-960) + player->GetX();
 	}
+	else if (player->GetX() >= (7764.5f - 960.0f)) {
+		trueX = x+((7764.5f - 1920.0f));
+	}
 	else {
 		trueX = x;
 	}
