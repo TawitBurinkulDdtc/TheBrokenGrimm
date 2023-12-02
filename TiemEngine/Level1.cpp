@@ -22,14 +22,22 @@ void Level1::LevelInit()
 	background->SetPosition(glm::vec3(3882.25f, 540.0f, 0.0f));
 	backgroundList.push_back(background);
 
-	/*
+
+	GameObject* floatyEarthPic = new GameObject();
+	floatyEarthPic->SetTexture("../Resource/Texture/Interact_1.png");
+	floatyEarthPic->SetSize(7764.5f, -1080.0f);
+	floatyEarthPic->SetPosition(glm::vec3(3882.25f, 540.0f, 0.0f));
+	backgroundList.push_back(floatyEarthPic);
+
+	
 	ButtonObject* floatyEarth = new ButtonObject();
-	floatyEarth->SetTexture("../Resource/Texture/Interact_1.png");
-	floatyEarth->SetSize(7764.5f, -1080.0f);
-	floatyEarth->SetPosition(glm::vec3(3882.25f, 540.0f, 0.0f));
+	floatyEarth->SetTexture("../Resource/Texture/DoNotPress.png");
+	floatyEarth->SetSize(330.0f, -330.0f);
+	floatyEarth->SetPosition(glm::vec3(3995.25f, 584.0f, 0.0f));
 	objectsList.push_back(floatyEarth);
 	interactableList.push_back(floatyEarth);
-	*/
+	
+
 	ButtonObject* testButton = new ButtonObject();
 	testButton->SetTexture("../Resource/Texture/DoNotPress.png");
 	testButton->SetSize(100.0f, -100.0f);
@@ -83,7 +91,7 @@ void Level1::LevelInit()
 	//player = objPlayer;
 	player = Girl;
 
-	//floatyGlobe = floatyEarth;
+	floatyGlobe = floatyEarth;
 
 
 	playerWalkTo = player->GetX();
@@ -213,6 +221,9 @@ void Level1::HandleMouse(int type, int x, int y)
 	if (player->GetX() > 960 && player->GetX() < (7764.5f - 960.0f)) {
 		trueX = (x-960) + player->GetX();
 	}
+	else {
+		trueX = x;
+	}
 	
 	
 	//printf("print work  ");
@@ -236,14 +247,14 @@ void Level1::HandleMouse(int type, int x, int y)
 		uiText->SetSize(700.0f, -100.0f);
 		button2->Interacted = false;
 	}
-	/*
+	
 	if (floatyGlobe->Interacted == true) {
 		SDL_Color button3TextColor = { 0, 0, 0 };
 		uiText->LoadText("Interact with sus floaty thingy", button3TextColor, 100);
 		uiText->SetSize(700.0f, -100.0f);
 		floatyGlobe->Interacted = false;
 	}
-	*/
+	
 	//playerWalkTo = x;
 
 }
