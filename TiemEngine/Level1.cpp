@@ -17,11 +17,19 @@ void Level1::LevelInit()
 {
 
 	GameObject* background = new GameObject();
-	background->SetTexture("../Resource/Texture/testVillage.jpeg");
-	background->SetSize(2000.0f, -1000.0f);
-	background->SetPosition(glm::vec3(900.0f, 960.0f, 0.0f));
+	background->SetTexture("../Resource/Texture/BackGround.png");
+	background->SetSize(7764.5f, -1080.0f);
+	background->SetPosition(glm::vec3(3882.25f, 540.0f, 0.0f));
 	backgroundList.push_back(background);
 
+	/*
+	ButtonObject* floatyEarth = new ButtonObject();
+	floatyEarth->SetTexture("../Resource/Texture/Interact_1.png");
+	floatyEarth->SetSize(7764.5f, -1080.0f);
+	floatyEarth->SetPosition(glm::vec3(3882.25f, 540.0f, 0.0f));
+	objectsList.push_back(floatyEarth);
+	interactableList.push_back(floatyEarth);
+	*/
 	ButtonObject* testButton = new ButtonObject();
 	testButton->SetTexture("../Resource/Texture/DoNotPress.png");
 	testButton->SetSize(100.0f, -100.0f);
@@ -75,6 +83,9 @@ void Level1::LevelInit()
 	//player = objPlayer;
 	player = Girl;
 
+	//floatyGlobe = floatyEarth;
+
+
 	playerWalkTo = player->GetX();
 	playerCurrentTime = 0;
 
@@ -112,14 +123,16 @@ void Level1::LevelUpdate()
 		playerCurrentTime = SDL_GetTicks();
 	}
 	*/
-
+	//uiText->SetPosition(glm::vec3(960.0f, 200.0f, 0.0f));
 	if (SDL_GetTicks() > playerCurrentTime + playerFrameDelay) {
 		if (playerWalkSide != 0) {
-			if (player->GetX() > 960 && player->GetX() < 3000) {										//set camera limit here
+			if (player->GetX() > 960 && player->GetX() < (7764.5f-960.0f)) {										//set camera limit here
 				GameEngine::GetInstance()->SetDrawArea(player->GetX() - 960, 960 + player->GetX(), 0, 1080);
+				uiText->SetPosition(glm::vec3(player->GetX(), 200.0f, 0.0f));
 			}
 			if (playerWalkSide == 2) {
 				player->Translate(glm::vec3(playerStepPerFrame, 0, 0));
+
 				//GameEngine::GetInstance()->SetDrawArea(player->GetX() - 960, 960 + player->GetX(), 0, 1080);
 				playerWalkSide = 0;
 			}
@@ -196,32 +209,41 @@ void Level1::HandleKey(char key)
 void Level1::HandleMouse(int type, int x, int y)
 {
 	
-
-	
+	float trueX = x;
+	if (player->GetX() > 960 && player->GetX() < (7764.5f - 960.0f)) {
+		trueX = (x-960) + player->GetX();
+	}
 	
 	
 	//printf("print work  ");
 
-	cursor->SetPosition(glm::vec3(x, y, 0));
+	cursor->SetPosition(glm::vec3(trueX, y, 0));
 
 	for (int i = 0; i < interactableList.size(); i++) {
-		if (interactableList[i]->GetClick(x, y)) {
+		if (interactableList[i]->GetClick(trueX, y)) {
 			interactableList[i]->Interact();
 		}
 	}
 	if (button1->Interacted == true) {
-		SDL_Color button1TextColor = { 0, 0, 0 };
+		SDL_Color button1TextColor = { 255, 255, 255 };
 		uiText->LoadText("Why the hell this unholy button moaning", button1TextColor, 100);
 		uiText->SetSize(700.0f, -100.0f);
 		button1->Interacted = false;
 	}
 	if (button2->Interacted == true) {
-		SDL_Color button1TextColor = { 0, 0, 0 };
+		SDL_Color button1TextColor = { 255, 255, 255 };
 		uiText->LoadText("Evidence that prove god nonexistence", button1TextColor, 100);
 		uiText->SetSize(700.0f, -100.0f);
 		button2->Interacted = false;
 	}
-
+	/*
+	if (floatyGlobe->Interacted == true) {
+		SDL_Color button3TextColor = { 0, 0, 0 };
+		uiText->LoadText("Interact with sus floaty thingy", button3TextColor, 100);
+		uiText->SetSize(700.0f, -100.0f);
+		floatyGlobe->Interacted = false;
+	}
+	*/
 	//playerWalkTo = x;
 
 }

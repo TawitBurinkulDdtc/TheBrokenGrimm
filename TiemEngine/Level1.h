@@ -36,4 +36,5 @@ public:
 	string displayText;
 	ButtonObject* button1;
 	ButtonObject* button2;
+	ButtonObject* floatyGlobe;
 };
