@@ -11,13 +11,13 @@ public:
 
 	//items
 	int testIntInstance=0;
-	struct items {
+	/*struct items {
 		string name;
 		string fileName;
 		int amount;
 	};
 	vector<items> inventory;
-	
+	*/
 	//info
 	int PlayerFrom = 0; 
 	
