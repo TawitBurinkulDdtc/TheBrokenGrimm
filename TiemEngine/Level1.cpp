@@ -256,6 +256,8 @@ void Level1::HandleMouse(int type, int x, int y)
 		uiText->LoadText("Evidence that prove god nonexistence", button1TextColor, 100);
 		uiText->SetSize(700.0f, -100.0f);
 		button2->Interacted = false;
+		//test = test + 1;
+		GameInstance::GetInstance()->testIntInstance = GameInstance::GetInstance()->testIntInstance + 1;
 	}
 	
 	if (floatyGlobe->Interacted == true) {
@@ -265,6 +267,11 @@ void Level1::HandleMouse(int type, int x, int y)
 		floatyGlobe->Interacted = false;
 	}
 	
+
+
+	if (y > 990) {
+		printf("test:%d\n", GameInstance::GetInstance()->testIntInstance);
+	}
 	//playerWalkTo = x;
 
 }

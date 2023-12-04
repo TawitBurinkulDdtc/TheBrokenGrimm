@@ -37,4 +37,6 @@ public:
 	ButtonObject* button1;
 	ButtonObject* button2;
 	ButtonObject* floatyGlobe;
+
+	//extern howManyTimeButton1WasPressed;
 };

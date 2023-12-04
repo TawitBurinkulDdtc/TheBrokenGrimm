@@ -3,6 +3,7 @@
 #include "SquareMeshVbo.h"
 #include "GameObject.h"
 #include "ImageObject.h"
+#include "GameInstance.h"
 
 class Level
 {

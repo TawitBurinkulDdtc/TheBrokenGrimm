@@ -264,6 +264,10 @@ void Level2::HandleMouse(int type, int x, int y)
 		uiText->SetSize(700.0f, -100.0f);
 		floatyGlobe->Interacted = false;
 	}
+
+	if (y > 990) {
+		printf("test:%d\n", GameInstance::GetInstance()->testIntInstance);
+	}
 	
 	//playerWalkTo = x;
 

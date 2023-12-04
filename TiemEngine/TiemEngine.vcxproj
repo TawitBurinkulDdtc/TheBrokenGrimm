@@ -26,6 +26,7 @@
     <ClCompile Include="CombineObject.cpp" />
     <ClCompile Include="DrawableObject.cpp" />
     <ClCompile Include="GameEngine.cpp" />
+    <ClCompile Include="GameInstance.cpp" />
     <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="GameStateController.cpp" />
     <ClCompile Include="GlobalVariables.cpp" />
@@ -53,6 +54,7 @@
     <ClInclude Include="CombineObject.h" />
     <ClInclude Include="DrawableObject.h" />
     <ClInclude Include="GameEngine.h" />
+    <ClInclude Include="GameInstance.h" />
     <ClInclude Include="GameObject.h" />
     <ClInclude Include="GameStateController.h" />
     <ClInclude Include="GameStateList.h" />
