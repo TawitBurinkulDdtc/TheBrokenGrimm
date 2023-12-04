@@ -64,7 +64,7 @@ void Level2::LevelInit()
 	uiList.push_back(objCursor);
 
 	SpriteObject* Girl = new SpriteObject("../Resource/Texture/girlCensorVersion.png", 4, 10);
-	Girl->SetPosition(glm::vec3(950.0f, 300.0f, 0.0f));
+	Girl->SetPosition(glm::vec3(7764.5f-950.0f, 300.0f, 0.0f));
 	Girl->SetSize(64.0f * 2, 128.0f * 2);
 	objectsList.push_back(Girl);
 	
@@ -137,6 +137,9 @@ void Level2::LevelUpdate()
 			if (player->GetX() > 960 && player->GetX() < (7764.5f-960.0f)) {										//set camera limit here
 				GameEngine::GetInstance()->SetDrawArea(player->GetX() - 960, 960 + player->GetX(), 0, 1080);
 				uiText->SetPosition(glm::vec3(player->GetX(), 200.0f, 0.0f));
+			}
+			else if (player->GetX() > 7764.5f-100) {
+				GameEngine::GetInstance()->GetStateController()->gameStateNext = GameState::GS_LEVEL1;
 			}
 			if (playerWalkSide == 2) {
 				player->Translate(glm::vec3(playerStepPerFrame, 0, 0));

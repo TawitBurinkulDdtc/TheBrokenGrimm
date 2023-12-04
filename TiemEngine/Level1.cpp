@@ -138,6 +138,9 @@ void Level1::LevelUpdate()
 				GameEngine::GetInstance()->SetDrawArea(player->GetX() - 960, 960 + player->GetX(), 0, 1080);
 				uiText->SetPosition(glm::vec3(player->GetX(), 200.0f, 0.0f));
 			}
+			else if(player->GetX()<100) {
+				GameEngine::GetInstance()->GetStateController()->gameStateNext = GameState::GS_LEVEL2;
+			}
 			if (playerWalkSide == 2) {
 				player->Translate(glm::vec3(playerStepPerFrame, 0, 0));
 
