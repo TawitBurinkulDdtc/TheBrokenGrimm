@@ -8,6 +8,11 @@ class GameInstance
 	
 public:
 	static GameInstance* GetInstance();
+
+	//items
 	int testIntInstance=0;
+
+	//info
+	int PlayerFrom = 0; 
 	
 };

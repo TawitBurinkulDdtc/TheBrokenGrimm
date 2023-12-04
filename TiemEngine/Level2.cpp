@@ -40,14 +40,14 @@ void Level2::LevelInit()
 
 	ButtonObject* testButton = new ButtonObject();
 	testButton->SetTexture("../Resource/Texture/DoNotPress.png");
-	testButton->SetSize(10.0f, -100.0f);
+	testButton->SetSize(100.0f, -200.0f);
 	testButton->SetPosition(glm::vec3(500.0f, 800.0f, 0.0f));
 	objectsList.push_back(testButton);
 	interactableList.push_back(testButton);
 
 	ButtonObject* testButton2 = new ButtonObject();
 	testButton2->SetTexture("../Resource/Texture/DoNotPress.png");
-	testButton2->SetSize(10.0f, -100.0f);
+	testButton2->SetSize(200.0f, -100.0f);
 	testButton2->SetPosition(glm::vec3(1200.0f, 800.0f, 0.0f));
 	objectsList.push_back(testButton2);
 	interactableList.push_back(testButton2);
@@ -64,10 +64,21 @@ void Level2::LevelInit()
 	uiList.push_back(objCursor);
 
 	SpriteObject* Girl = new SpriteObject("../Resource/Texture/girlCensorVersion.png", 4, 10);
-	Girl->SetPosition(glm::vec3(7764.5f-950.0f, 300.0f, 0.0f));
 	Girl->SetSize(64.0f * 2, 128.0f * 2);
 	objectsList.push_back(Girl);
+	if (GameInstance::GetInstance()->PlayerFrom == 1) {
+		Girl->SetPosition(glm::vec3(7764.5f - 950.0f, 300.0f, 0.0f));
+		GameEngine::GetInstance()->SetDrawArea(7764.5f - 1980.0f, 7764.5f, 0, 1080);
+	}
+	else if(GameInstance::GetInstance()->PlayerFrom == 2){
+		Girl->SetPosition(glm::vec3(950.0f, 300.0f, 0.0f));
+		GameEngine::GetInstance()->SetDrawArea(0, 1920, 0, 1080);
+	}
+	else{ Girl->SetPosition(glm::vec3(950.0f, 300.0f, 0.0f)); }
 	
+
+
+
 	TextObject* objUiText = new TextObject();
 	SDL_Color textColor = { 0, 0, 0 }; //(0 to 255)
 	objUiText->LoadText("Hello??? anybody?", textColor, 100);
@@ -138,7 +149,12 @@ void Level2::LevelUpdate()
 				GameEngine::GetInstance()->SetDrawArea(player->GetX() - 960, 960 + player->GetX(), 0, 1080);
 				uiText->SetPosition(glm::vec3(player->GetX(), 200.0f, 0.0f));
 			}
+			else if (player->GetX() < 100) {
+				GameInstance::GetInstance()->PlayerFrom = 2;
+				GameEngine::GetInstance()->GetStateController()->gameStateNext = GameState::GS_LEVEL1;
+			}
 			else if (player->GetX() > 7764.5f-100) {
+				GameInstance::GetInstance()->PlayerFrom = 1;
 				GameEngine::GetInstance()->GetStateController()->gameStateNext = GameState::GS_LEVEL1;
 			}
 			if (playerWalkSide == 2) {

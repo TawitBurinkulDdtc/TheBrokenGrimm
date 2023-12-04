@@ -53,10 +53,11 @@ void Level1::LevelInit()
 	interactableList.push_back(testButton2);
 
 	GameObject* objPlayer = new GameObject();
-	objPlayer->SetTexture("../Resource/Texture/penguin.png");
 	objPlayer->SetPosition(glm::vec3(950.0f, 300.0f, 0.0f));
+	objPlayer->SetTexture("../Resource/Texture/penguin.png");
 	objPlayer->SetSize(100.0f, -100.0f);
 	objectsList.push_back(objPlayer);
+	
 
 	GameObject* objCursor = new GameObject();
 	objCursor->SetTexture("../Resource/Texture/uglyHand.png");
@@ -64,9 +65,17 @@ void Level1::LevelInit()
 	uiList.push_back(objCursor);
 
 	SpriteObject* Girl = new SpriteObject("../Resource/Texture/girlCensorVersion.png", 4, 10);
-	Girl->SetPosition(glm::vec3(950.0f, 300.0f, 0.0f));
 	Girl->SetSize(64.0f * 2, 128.0f * 2);
 	objectsList.push_back(Girl);
+	if (GameInstance::GetInstance()->PlayerFrom == 1) {
+		Girl->SetPosition(glm::vec3(950.0f, 300.0f, 0.0f));
+		GameEngine::GetInstance()->SetDrawArea(0, 1920, 0, 1080);
+	}
+	else if (GameInstance::GetInstance()->PlayerFrom == 2) {
+		Girl->SetPosition(glm::vec3(7764.5f - 950.0f, 300.0f, 0.0f));
+		GameEngine::GetInstance()->SetDrawArea(7764.5f - 1980.0f, 7764.5f, 0, 1080);
+	}
+	else { Girl->SetPosition(glm::vec3(950.0f, 300.0f, 0.0f)); }
 	
 	TextObject* objUiText = new TextObject();
 	SDL_Color textColor = { 0, 0, 0 }; //(0 to 255)
@@ -139,6 +148,11 @@ void Level1::LevelUpdate()
 				uiText->SetPosition(glm::vec3(player->GetX(), 200.0f, 0.0f));
 			}
 			else if(player->GetX()<100) {
+				GameInstance::GetInstance()->PlayerFrom = 1;
+				GameEngine::GetInstance()->GetStateController()->gameStateNext = GameState::GS_LEVEL2;
+			}
+			else if (player->GetX() > (7764.5f-100)) {
+				GameInstance::GetInstance()->PlayerFrom = 2;
 				GameEngine::GetInstance()->GetStateController()->gameStateNext = GameState::GS_LEVEL2;
 			}
 			if (playerWalkSide == 2) {
@@ -259,7 +273,7 @@ void Level1::HandleMouse(int type, int x, int y)
 		//test = test + 1;
 		GameInstance::GetInstance()->testIntInstance = GameInstance::GetInstance()->testIntInstance + 1;
 	}
-	
+		
 	if (floatyGlobe->Interacted == true) {
 		SDL_Color button3TextColor = { 0, 0, 0 };
 		uiText->LoadText("Interact with sus floaty thingy", button3TextColor, 100);
