@@ -28,11 +28,13 @@
     <ClCompile Include="GameEngine.cpp" />
     <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="GameStateController.cpp" />
+    <ClCompile Include="GlobalVariables.cpp" />
     <ClCompile Include="GLRenderer.cpp" />
     <ClCompile Include="ImageObject.cpp" />
     <ClCompile Include="InteractableObject.cpp" />
     <ClCompile Include="Level.cpp" />
     <ClCompile Include="Level1.cpp" />
+    <ClCompile Include="Level2.cpp" />
     <ClCompile Include="LevelTest.cpp" />
     <ClCompile Include="LevelTestZen.cpp" />
     <ClCompile Include="Main.cpp" />
@@ -59,6 +61,7 @@
     <ClInclude Include="InteractableObject.h" />
     <ClInclude Include="Level.h" />
     <ClInclude Include="Level1.h" />
+    <ClInclude Include="Level2.h" />
     <ClInclude Include="LevelTest.h" />
     <ClInclude Include="LevelTestZen.h" />
     <ClInclude Include="MeshVbo.h" />
