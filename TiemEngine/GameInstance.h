@@ -1,6 +1,6 @@
 #pragma once
-
-
+#include<string>
+#include<vector>
 
 class GameInstance
 {
@@ -11,7 +11,13 @@ public:
 
 	//items
 	int testIntInstance=0;
-
+	struct items {
+		string name;
+		string fileName;
+		int amount;
+	};
+	vector<items> inventory;
+	
 	//info
 	int PlayerFrom = 0; 
 	

@@ -77,6 +77,26 @@ void Level1::LevelInit()
 		GameEngine::GetInstance()->SetDrawArea(mapWidth - 1980.0f, mapWidth, 0, 1080);
 	}
 	else { Girl->SetPosition(glm::vec3(950.0f, 300.0f, 0.0f)); }
+
+
+	//	inventory display stuff
+	/*
+	GameObject* inventoryBar = new GameObject();						// position, set in PlayerFrom if else logic
+	inventoryBar->SetTexture("../Resource/Texture/inventoryBar.png");
+	inventoryBar->SetSize(100.0f, -100.0f);
+	uiList.push_back(inventoryBar);
+	*/
+
+	//for(int i=0;i<GameInstance::GetInstance()->inventory.getSize();i++){	//i++ = (i = i+1)
+	//		if(GameInstance::GetInstance()->inventory.getSize() != 0){
+	//			GameObject* inventoryBar = new GameObject();
+	//			inventoryBar->SetTexture("../Resource/Texture/inventoryBar.png");
+	//			inventoryBar->SetSize(100.0f, -100.0f);
+	//			uiList.push_back(inventoryBar);
+	//		}
+	// }
+
+
 	
 	TextObject* objUiText = new TextObject();
 	SDL_Color textColor = { 0, 0, 0 }; //(0 to 255)
