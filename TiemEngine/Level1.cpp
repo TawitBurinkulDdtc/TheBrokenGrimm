@@ -31,7 +31,7 @@ void Level1::LevelInit()
 
 	
 	ButtonObject* floatyEarth = new ButtonObject();
-	floatyEarth->SetTexture("../Resource/Texture/DoNotPress.png");
+	floatyEarth->SetTexture("../Resource/Texture/invisible.png");
 	floatyEarth->SetSize(330.0f, -330.0f);
 	floatyEarth->SetPosition(glm::vec3(3995.25f, 584.0f, 0.0f));
 	objectsList.push_back(floatyEarth);
@@ -198,8 +198,12 @@ void Level1::HandleKey(char key)
 
 	switch (key)
 	{
-	//case 'w': player->Translate(glm::vec3(0, 0.3, 0)); break;
-	//case 's': player->Translate(glm::vec3(0, -0.3, 0)); break;
+	case 'w':
+		if (player->GetY() < 320){player->Translate(glm::vec3(0, 3.0, 0));}
+		break;
+	case 's': 
+		if (player->GetY() > 200) { player->Translate(glm::vec3(0, -3.0, 0)); }
+		break;
 	case 'a': playerWalkSide = 1;
 		//player->Translate(glm::vec3(-50, 0, 0)); 
 		//GameEngine::GetInstance()->SetDrawArea(player->GetX() - 960, 960 + player->GetX(), 0, 1080);
