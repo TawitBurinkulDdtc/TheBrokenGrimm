@@ -15,10 +15,11 @@ void Level2::LevelLoad()
 
 void Level2::LevelInit()
 {
+	mapWidth = 7764.5f;
 
 	GameObject* background = new GameObject();
 	background->SetTexture("../Resource/Texture/BackGround.png");
-	background->SetSize(7764.5f, -100.0f);
+	background->SetSize(mapWidth, -100.0f);
 	background->SetPosition(glm::vec3(3882.25f, 540.0f, 0.0f));
 	backgroundList.push_back(background);
 
@@ -67,8 +68,8 @@ void Level2::LevelInit()
 	Girl->SetSize(64.0f * 2, 128.0f * 2);
 	objectsList.push_back(Girl);
 	if (GameInstance::GetInstance()->PlayerFrom == 1) {
-		Girl->SetPosition(glm::vec3(7764.5f - 950.0f, 300.0f, 0.0f));
-		GameEngine::GetInstance()->SetDrawArea(7764.5f - 1980.0f, 7764.5f, 0, 1080);
+		Girl->SetPosition(glm::vec3(mapWidth - 950.0f, 300.0f, 0.0f));
+		GameEngine::GetInstance()->SetDrawArea(7764.5f - 1980.0f, mapWidth, 0, 1080);
 	}
 	else if(GameInstance::GetInstance()->PlayerFrom == 2){
 		Girl->SetPosition(glm::vec3(950.0f, 300.0f, 0.0f));
@@ -145,7 +146,7 @@ void Level2::LevelUpdate()
 	//uiText->SetPosition(glm::vec3(960.0f, 200.0f, 0.0f));
 	if (SDL_GetTicks() > playerCurrentTime + playerFrameDelay) {
 		if (playerWalkSide != 0) {
-			if (player->GetX() > 960 && player->GetX() < (7764.5f-960.0f)) {										//set camera limit here
+			if (player->GetX() > 960 && player->GetX() < (mapWidth-960.0f)) {										//set camera limit here
 				GameEngine::GetInstance()->SetDrawArea(player->GetX() - 960, 960 + player->GetX(), 0, 1080);
 				uiText->SetPosition(glm::vec3(player->GetX(), 200.0f, 0.0f));
 			}
@@ -153,7 +154,7 @@ void Level2::LevelUpdate()
 				GameInstance::GetInstance()->PlayerFrom = 2;
 				GameEngine::GetInstance()->GetStateController()->gameStateNext = GameState::GS_LEVEL1;
 			}
-			else if (player->GetX() > 7764.5f-100) {
+			else if (player->GetX() > mapWidth-100) {
 				GameInstance::GetInstance()->PlayerFrom = 1;
 				GameEngine::GetInstance()->GetStateController()->gameStateNext = GameState::GS_LEVEL1;
 			}
@@ -241,11 +242,11 @@ void Level2::HandleMouse(int type, int x, int y)
 {
 	
 	float trueX = x;
-	if (player->GetX() > 960 && player->GetX() < (7764.5f - 960.0f)) {
+	if (player->GetX() > 960 && player->GetX() < (mapWidth - 960.0f)) {
 		trueX = (x-960) + player->GetX();
 	}
-	else if (player->GetX() >= (7764.5f - 960.0f)) {
-		trueX = x+((7764.5f - 1920.0f));
+	else if (player->GetX() >= (mapWidth - 960.0f)) {
+		trueX = x+((mapWidth - 1920.0f));
 	}
 	else {
 		trueX = x;
