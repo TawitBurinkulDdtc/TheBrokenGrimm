@@ -427,7 +427,7 @@ void Level1::HandleMouse(int type, int x, int y)
 			for (int i = 0; i < 8; i++) { if (i >= GameInstance::GetInstance()->inventory.size()) { inventoryL[i]->SetTexture("../Resource/Texture/invisible.png"); } else { inventoryL[i]->SetTexture(GameInstance::GetInstance()->inventory[i].fileName); } }
 			
 			GameInstance::GetInstance()->potatoEaten = GameInstance::GetInstance()->potatoEaten + 1;
-			string potatoEatenText[2] = { "you have eated ", " potatos" };dddddddd
+			string potatoEatenText[2] = { "you have eated ", " potatos" };
 			uiText->LoadText(potatoEatenText[0] + to_string(GameInstance::GetInstance()->potatoEaten) + potatoEatenText[1], whiteText, 100);
 			uiText->SetSize(700.0f, -100.0f);
 
