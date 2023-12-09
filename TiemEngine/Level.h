@@ -4,6 +4,7 @@
 #include "GameObject.h"
 #include "ImageObject.h"
 #include "GameInstance.h"
+#include "ItemUi.h"
 
 class Level
 {
@@ -22,4 +23,5 @@ public:
 	virtual void HandleKey(char key);
 	virtual void HandleMouse(int type, int x, int y);
 
+	ItemUi* inventoryL[8];
 };

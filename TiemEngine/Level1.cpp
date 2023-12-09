@@ -30,14 +30,14 @@ void Level1::LevelInit()
 	floatyEarthPic->SetPosition(glm::vec3(3882.25f, 540.0f, 0.0f));
 	backgroundList.push_back(floatyEarthPic);
 
-	
+
 	ButtonObject* floatyEarth = new ButtonObject();
 	floatyEarth->SetTexture("../Resource/Texture/invisible.png");
 	floatyEarth->SetSize(330.0f, -330.0f);
 	floatyEarth->SetPosition(glm::vec3(3995.25f, 584.0f, 0.0f));
 	objectsList.push_back(floatyEarth);
 	interactableList.push_back(floatyEarth);
-	
+
 
 	ButtonObject* testButton = new ButtonObject();
 	testButton->SetTexture("../Resource/Texture/DoNotPress.png");
@@ -58,7 +58,7 @@ void Level1::LevelInit()
 	objPlayer->SetTexture("../Resource/Texture/penguin.png");
 	objPlayer->SetSize(100.0f, -100.0f);
 	objectsList.push_back(objPlayer);
-	
+
 
 	GameObject* objCursor = new GameObject();
 	objCursor->SetTexture("../Resource/Texture/uglyHand.png");
@@ -79,7 +79,7 @@ void Level1::LevelInit()
 	else { Girl->SetPosition(glm::vec3(950.0f, 300.0f, 0.0f)); }
 
 
-	//	inventory display stuff
+	//	inventory display stuff  comment
 	/*
 	GameObject* inventoryBar = new GameObject();						// position, set in PlayerFrom if else logic
 	inventoryBar->SetTexture("../Resource/Texture/inventoryBar.png");
@@ -96,8 +96,120 @@ void Level1::LevelInit()
 	//		}
 	// }
 
-
+	//ItemUi* showItem[8];// = new ItemUi();
 	
+
+	//int inventoryPic() {
+	//	return 1;
+	//}
+	/*										//not working
+	ItemUi* itemSlot[8];// = new ItemUi;
+	////Test* arr = new Test[N];
+	//Employee[] obj = new Employee[2] ;
+	for (int i = 0; i < 8; i++) {
+		//itemSlot[i] = new ItemUi();
+		//itemSlot[i]->SetTexture(GameInstance::GetInstance()->inventory[0].fileName);
+		itemSlot[i]->SetTexture("../Resource/Texture/inventoryBar.png");
+		itemSlot[i]->SetSize(100.0f, -100.0f);
+		itemSlot[i]->SetPosition(glm::vec3(100.0f, 100.0f, 0.0f));
+		uiList.push_back(itemSlot[i]);
+		interactableList.push_back(itemSlot[i]);
+	}
+	*/
+	/*
+	if (GameInstance::GetInstance()->inventory.size() < 8) {
+		for (int i = 0; i < 8; i++) {
+			Item defaultItem;
+			GameInstance::GetInstance()->inventory.push_back(defaultItem);
+		}
+	}
+	//it  almost make sense but it actually not cause what the point of using vector if I doing this.
+	*/
+
+
+	//inventory display stuff
+	
+	ItemUi* itemSlot0 = new ItemUi();
+	//itemSlot0->SetTexture(GameInstance::GetInstance()->inventory[0].fileName);
+	itemSlot0->SetSize(100.0f, -100.0f);
+	itemSlot0->SetPosition(glm::vec3(100.0f, 100.0f, 0.0f));
+	uiList.push_back(itemSlot0);
+	interactableList.push_back(itemSlot0);
+
+	ItemUi* itemSlot1 = new ItemUi();
+	//itemSlot1->SetTexture(GameInstance::GetInstance()->inventory[1].fileName); 
+	itemSlot1->SetSize(100.0f, -100.0f);
+	itemSlot1->SetPosition(glm::vec3(300.0f, 100.0f, 0.0f));
+	uiList.push_back(itemSlot1);
+	interactableList.push_back(itemSlot1);
+	
+	ItemUi* itemSlot2 = new ItemUi();
+	//itemSlot2->SetTexture(GameInstance::GetInstance()->inventory[1].fileName);
+	itemSlot2->SetSize(100.0f, -100.0f);
+	itemSlot2->SetPosition(glm::vec3(500.0f, 100.0f, 0.0f));
+	uiList.push_back(itemSlot2);
+	interactableList.push_back(itemSlot2);
+
+	ItemUi* itemSlot3 = new ItemUi();
+	//itemSlot3->SetTexture(GameInstance::GetInstance()->inventory[3].fileName);
+	itemSlot3->SetSize(100.0f, -100.0f);
+	itemSlot3->SetPosition(glm::vec3(700.0f, 100.0f, 0.0f));
+	uiList.push_back(itemSlot3);
+	interactableList.push_back(itemSlot3);
+
+	ItemUi* itemSlot4 = new ItemUi();
+	//itemSlot4->SetTexture(GameInstance::GetInstance()->inventory[1].fileName);
+	itemSlot4->SetSize(100.0f, -100.0f);
+	itemSlot4->SetPosition(glm::vec3(900.0f, 100.0f, 0.0f));
+	uiList.push_back(itemSlot4);
+	interactableList.push_back(itemSlot4);
+
+	ItemUi* itemSlot5 = new ItemUi();
+	//itemSlot5->SetTexture(GameInstance::GetInstance()->inventory[1].fileName);
+	itemSlot5->SetSize(100.0f, -100.0f);
+	itemSlot5->SetPosition(glm::vec3(1100.0f, 100.0f, 0.0f));
+	uiList.push_back(itemSlot5);
+	interactableList.push_back(itemSlot5);
+
+	ItemUi* itemSlot6 = new ItemUi();
+	//itemSlot6->SetTexture(GameInstance::GetInstance()->inventory[1].fileName);
+	itemSlot6->SetSize(100.0f, -100.0f);
+	itemSlot6->SetPosition(glm::vec3(1300.0f, 100.0f, 0.0f));
+	uiList.push_back(itemSlot6);
+	interactableList.push_back(itemSlot6);
+	
+	ItemUi* itemSlot7 = new ItemUi();
+	//itemSlot7->SetTexture(GameInstance::GetInstance()->inventory[1].fileName);
+	itemSlot7->SetSize(100.0f, -100.0f);
+	itemSlot7->SetPosition(glm::vec3(1500.0f, 100.0f, 0.0f));
+	uiList.push_back(itemSlot7);
+	interactableList.push_back(itemSlot7);
+
+	inventoryL[0] = itemSlot0;
+	inventoryL[1] = itemSlot1;
+	inventoryL[2] = itemSlot2;
+	inventoryL[3] = itemSlot3;
+	inventoryL[4] = itemSlot4;
+	inventoryL[5] = itemSlot5;
+	inventoryL[6] = itemSlot6;
+	inventoryL[7] = itemSlot7; 
+
+	/*Item testTem;
+	testTem.fileName = "../Resource/Texture/potato.png";
+	GameInstance::GetInstance()->inventory.push_back(testTem);
+	*/
+	for (int i = 0; i < 8; i++) {
+		if (i >= GameInstance::GetInstance()->inventory.size()) {
+			inventoryL[i]->SetTexture("../Resource/Texture/invisible.png");
+		}
+		else{
+			inventoryL[i]->SetTexture(GameInstance::GetInstance()->inventory[i].fileName);
+		}
+	}
+	
+	
+
+
 	TextObject* objUiText = new TextObject();
 	SDL_Color textColor = { 0, 0, 0 }; //(0 to 255)
 	objUiText->LoadText("Hello??? anybody?", textColor, 100);
@@ -162,6 +274,9 @@ void Level1::LevelUpdate()
 			if (player->GetX() > 960 && player->GetX() < (mapWidth-960.0f)) {										//set camera limit here
 				GameEngine::GetInstance()->SetDrawArea(player->GetX() - 960, 960 + player->GetX(), 0, 1080);
 				uiText->SetPosition(glm::vec3(player->GetX(), 200.0f, 0.0f));
+				for (int i = 0; i < 8; i++) {
+					inventoryL[i]->SetPosition(glm::vec3((player->GetX()-960)+100.0f+(200*i), 100.0f, 0.0f));
+				}
 			}
 			else if(player->GetX()<100) {
 				GameInstance::GetInstance()->PlayerFrom = 1;
@@ -267,6 +382,7 @@ void Level1::HandleMouse(int type, int x, int y)
 	
 	
 	//printf("print work  ");
+	SDL_Color whiteText = { 255, 255, 255 };
 
 	cursor->SetPosition(glm::vec3(trueX, y, 0));
 
@@ -276,16 +392,14 @@ void Level1::HandleMouse(int type, int x, int y)
 		}
 	}
 	if (button1->Interacted == true) {
-		SDL_Color button1TextColor = { 255, 255, 255 };
-		uiText->LoadText("button pressed", button1TextColor, 100);
+		uiText->LoadText("button pressed", whiteText, 100);
 		uiText->SetSize(700.0f, -100.0f);
 		button1->Interacted = false;
 	}
 	if (button2->Interacted == true) {
 		//string st = "You now have " + GameInstance::GetInstance()->testIntInstance + "keys";
 		GameInstance::GetInstance()->testIntInstance = GameInstance::GetInstance()->testIntInstance + 1;
-		SDL_Color button1TextColor = { 255, 255, 255 };
-		uiText->LoadText("pick up key", button1TextColor, 100);
+		uiText->LoadText("pick up key", whiteText, 100);
 		uiText->SetSize(700.0f, -100.0f);
 		button2->Interacted = false;
 		//test = test + 1;
@@ -293,12 +407,33 @@ void Level1::HandleMouse(int type, int x, int y)
 	}
 		
 	if (floatyGlobe->Interacted == true) {
-		SDL_Color button3TextColor = { 0, 0, 0 };
-		uiText->LoadText("Interact with earth thingy", button3TextColor, 100);
+		uiText->LoadText("Getting potato", whiteText, 100);
 		uiText->SetSize(700.0f, -100.0f);
+
+		if (GameInstance::GetInstance()->inventory.size() < 8) {
+			Item potatoItem;
+			potatoItem.fileName = "../Resource/Texture/potato.png";
+			potatoItem.name = "potato from god";
+			GameInstance::GetInstance()->inventory.push_back(potatoItem);
+			for (int i = 0; i < 8; i++) { if (i >= GameInstance::GetInstance()->inventory.size()) { inventoryL[i]->SetTexture("../Resource/Texture/invisible.png"); } else { inventoryL[i]->SetTexture(GameInstance::GetInstance()->inventory[i].fileName); } }
+		}
 		floatyGlobe->Interacted = false;
 	}
 	
+	//inventory logic
+	for (int i = 0; i < 8; i++) {
+		if(inventoryL[i]->Interacted == true && GameInstance::GetInstance()->inventory[i].name == "potato from god") {
+			GameInstance::GetInstance()->inventory.erase(GameInstance::GetInstance()->inventory.begin() + i);
+			for (int i = 0; i < 8; i++) { if (i >= GameInstance::GetInstance()->inventory.size()) { inventoryL[i]->SetTexture("../Resource/Texture/invisible.png"); } else { inventoryL[i]->SetTexture(GameInstance::GetInstance()->inventory[i].fileName); } }
+			
+			GameInstance::GetInstance()->potatoEaten = GameInstance::GetInstance()->potatoEaten + 1;
+			string potatoEatenText[2] = { "you have eated ", " potatos" };
+			uiText->LoadText(potatoEatenText[0] + to_string(GameInstance::GetInstance()->potatoEaten) + potatoEatenText[1], whiteText, 100);
+			uiText->SetSize(700.0f, -100.0f);
+
+			inventoryL[i]->Interacted = false;
+		}
+	}
 
 
 	if (y > 990) {

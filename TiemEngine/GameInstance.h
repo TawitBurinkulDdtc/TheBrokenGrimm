@@ -1,6 +1,7 @@
 #pragma once
 #include<string>
 #include<vector>
+#include"Item.h"
 
 class GameInstance
 {
@@ -11,14 +12,11 @@ public:
 
 	//items
 	int testIntInstance=0;
-	/*struct items {
-		string name;
-		string fileName;
-		int amount;
-	};
-	vector<items> inventory;
-	*/
+	
+	vector<Item> inventory;
+	
 	//info
 	int PlayerFrom = 0; 
+	int potatoEaten = 0;
 	
 };

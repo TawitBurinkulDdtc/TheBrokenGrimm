@@ -29,10 +29,10 @@
     <ClCompile Include="GameInstance.cpp" />
     <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="GameStateController.cpp" />
-    <ClCompile Include="GlobalVariables.cpp" />
     <ClCompile Include="GLRenderer.cpp" />
     <ClCompile Include="ImageObject.cpp" />
     <ClCompile Include="InteractableObject.cpp" />
+    <ClCompile Include="ItemUi.cpp" />
     <ClCompile Include="Level.cpp" />
     <ClCompile Include="Level1.cpp" />
     <ClCompile Include="Level2.cpp" />
@@ -61,6 +61,8 @@
     <ClInclude Include="GLRenderer.h" />
     <ClInclude Include="ImageObject.h" />
     <ClInclude Include="InteractableObject.h" />
+    <ClInclude Include="Item.h" />
+    <ClInclude Include="ItemUi.h" />
     <ClInclude Include="Level.h" />
     <ClInclude Include="Level1.h" />
     <ClInclude Include="Level2.h" />
