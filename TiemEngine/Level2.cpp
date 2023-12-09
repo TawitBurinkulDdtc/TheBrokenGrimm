@@ -20,7 +20,7 @@ void Level2::LevelInit()
 	GameObject* background = new GameObject();
 	background->SetTexture("../Resource/Texture/BackGround.png");
 	background->SetSize(mapWidth, -100.0f);
-	background->SetPosition(glm::vec3(3882.25f, 540.0f, 0.0f));
+	background->SetPosition(glm::vec3(3882.25f, 1080.0f, 0.0f));
 	backgroundList.push_back(background);
 
 
@@ -64,7 +64,7 @@ void Level2::LevelInit()
 	objCursor->SetSize(100.0f, -100.0f);
 	uiList.push_back(objCursor);
 
-	SpriteObject* Girl = new SpriteObject("../Resource/Texture/girlCensorVersion.png", 4, 10);
+	SpriteObject* Girl = new SpriteObject("../Resource/Texture/girl.png", 4, 10);
 	Girl->SetSize(64.0f * 2, 128.0f * 2);
 	objectsList.push_back(Girl);
 	if (GameInstance::GetInstance()->PlayerFrom == 1) {
@@ -264,21 +264,36 @@ void Level2::HandleMouse(int type, int x, int y)
 	}
 	if (button1->Interacted == true) {
 		SDL_Color button1TextColor = { 255, 255, 255 };
-		uiText->LoadText("Why the hell this unholy button moaning", button1TextColor, 100);
+		uiText->LoadText("map 2", button1TextColor, 100);
 		uiText->SetSize(700.0f, -100.0f);
 		button1->Interacted = false;
 	}
 	if (button2->Interacted == true) {
 		SDL_Color button1TextColor = { 255, 255, 255 };
-		uiText->LoadText("Evidence that prove god nonexistence", button1TextColor, 100);
+		uiText->LoadText("button 2 in map 2 so 22", button1TextColor, 100);
 		uiText->SetSize(700.0f, -100.0f);
+		/*
+		if(GameInstance::GetInstance()->testIntInstance < 1){
+			uiText->LoadText("No key", button1TextColor, 100);
+			uiText->SetSize(700.0f, -100.0f);
+		}
+		else if (GameInstance::GetInstance()->testIntInstance >= 1) {
+			uiText->LoadText("now u have key", button1TextColor, 100);
+			uiText->SetSize(700.0f, -100.0f);
+		}*/
 		button2->Interacted = false;
 	}
 	
 	if (floatyGlobe->Interacted == true) {
 		SDL_Color button3TextColor = { 0, 0, 0 };
-		uiText->LoadText("Interact with sus floaty thingy", button3TextColor, 100);
-		uiText->SetSize(700.0f, -100.0f);
+		if(GameInstance::GetInstance()->testIntInstance < 1){
+			uiText->LoadText("no key", button3TextColor, 100);
+			uiText->SetSize(700.0f, -100.0f);
+		}
+		else if (GameInstance::GetInstance()->testIntInstance >= 1) {
+			uiText->LoadText("Now u have key", button3TextColor, 100);
+			uiText->SetSize(700.0f, -100.0f);
+		}
 		floatyGlobe->Interacted = false;
 	}
 

@@ -65,7 +65,7 @@ void Level1::LevelInit()
 	objCursor->SetSize(100.0f, -100.0f);
 	uiList.push_back(objCursor);
 
-	SpriteObject* Girl = new SpriteObject("../Resource/Texture/girlCensorVersion.png", 4, 10);
+	SpriteObject* Girl = new SpriteObject("../Resource/Texture/girl.png", 4, 10);
 	Girl->SetSize(64.0f * 2, 128.0f * 2);
 	objectsList.push_back(Girl);
 	if (GameInstance::GetInstance()->PlayerFrom == 1) {
@@ -105,12 +105,7 @@ void Level1::LevelInit()
 	objUiText->SetSize(500.0f, -100.0f);
 	uiList.push_back(objUiText);
 
-	TextObject* animationTextBug = new TextObject();
-	//SDL_Color textColor = { 0, 0, 0 }; //(0 to 255)
-	animationTextBug->LoadText("Why is this one bug.. idk probably pointer thingy", textColor, 100);
-	animationTextBug->SetPosition(glm::vec3(960.0f, 500.0f, 0.0f));
-	animationTextBug->SetSize(500.0f, -100.0f);
-	objectsList.push_back(animationTextBug);
+	
 
 
 
@@ -282,22 +277,24 @@ void Level1::HandleMouse(int type, int x, int y)
 	}
 	if (button1->Interacted == true) {
 		SDL_Color button1TextColor = { 255, 255, 255 };
-		uiText->LoadText("Why the hell this unholy button moaning", button1TextColor, 100);
+		uiText->LoadText("button pressed", button1TextColor, 100);
 		uiText->SetSize(700.0f, -100.0f);
 		button1->Interacted = false;
 	}
 	if (button2->Interacted == true) {
+		//string st = "You now have " + GameInstance::GetInstance()->testIntInstance + "keys";
+		GameInstance::GetInstance()->testIntInstance = GameInstance::GetInstance()->testIntInstance + 1;
 		SDL_Color button1TextColor = { 255, 255, 255 };
-		uiText->LoadText("Evidence that prove god nonexistence", button1TextColor, 100);
+		uiText->LoadText("pick up key", button1TextColor, 100);
 		uiText->SetSize(700.0f, -100.0f);
 		button2->Interacted = false;
 		//test = test + 1;
-		GameInstance::GetInstance()->testIntInstance = GameInstance::GetInstance()->testIntInstance + 1;
+		
 	}
 		
 	if (floatyGlobe->Interacted == true) {
 		SDL_Color button3TextColor = { 0, 0, 0 };
-		uiText->LoadText("Interact with sus floaty thingy", button3TextColor, 100);
+		uiText->LoadText("Interact with earth thingy", button3TextColor, 100);
 		uiText->SetSize(700.0f, -100.0f);
 		floatyGlobe->Interacted = false;
 	}
