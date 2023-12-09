@@ -42,7 +42,7 @@ void Level1::LevelInit()
 	ButtonObject* testButton = new ButtonObject();
 	testButton->SetTexture("../Resource/Texture/DoNotPress.png");
 	testButton->SetSize(100.0f, -100.0f);
-	testButton->SetPosition(glm::vec3(500.0f, 800.0f, 0.0f));
+	testButton->SetPosition(glm::vec3(3500.25f, 800.0f, 0.0f));
 	objectsList.push_back(testButton);
 	interactableList.push_back(testButton);
 
@@ -392,9 +392,16 @@ void Level1::HandleMouse(int type, int x, int y)
 		}
 	}
 	if (button1->Interacted == true) {
-		uiText->LoadText("button pressed", whiteText, 100);
+		uiText->LoadText("curse u with this", whiteText, 100);
 		uiText->SetSize(700.0f, -100.0f);
 		button1->Interacted = false;
+		if (GameInstance::GetInstance()->inventory.size() < 8) {
+			Item tomatoItem;
+			tomatoItem.fileName = "../Resource/Texture/tomato.png";
+			tomatoItem.name = "tomato from god";
+			GameInstance::GetInstance()->inventory.push_back(tomatoItem);
+			for (int i = 0; i < 8; i++) { if (i >= GameInstance::GetInstance()->inventory.size()) { inventoryL[i]->SetTexture("../Resource/Texture/invisible.png"); } else { inventoryL[i]->SetTexture(GameInstance::GetInstance()->inventory[i].fileName); } }
+		}
 	}
 	if (button2->Interacted == true) {
 		//string st = "You now have " + GameInstance::GetInstance()->testIntInstance + "keys";
@@ -429,6 +436,15 @@ void Level1::HandleMouse(int type, int x, int y)
 			GameInstance::GetInstance()->potatoEaten = GameInstance::GetInstance()->potatoEaten + 1;
 			string potatoEatenText[2] = { "you have eated ", " potatos" };
 			uiText->LoadText(potatoEatenText[0] + to_string(GameInstance::GetInstance()->potatoEaten) + potatoEatenText[1], whiteText, 100);
+			uiText->SetSize(700.0f, -100.0f);
+
+			inventoryL[i]->Interacted = false;
+		}
+		if (inventoryL[i]->Interacted == true && GameInstance::GetInstance()->inventory[i].name == "tomato from god") {
+			GameInstance::GetInstance()->inventory.erase(GameInstance::GetInstance()->inventory.begin() + i);
+			for (int i = 0; i < 8; i++) { if (i >= GameInstance::GetInstance()->inventory.size()) { inventoryL[i]->SetTexture("../Resource/Texture/invisible.png"); } else { inventoryL[i]->SetTexture(GameInstance::GetInstance()->inventory[i].fileName); } }
+
+			uiText->LoadText("Tomato is too sour", whiteText, 100);
 			uiText->SetSize(700.0f, -100.0f);
 
 			inventoryL[i]->Interacted = false;
