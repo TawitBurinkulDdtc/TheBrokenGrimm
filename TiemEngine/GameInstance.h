@@ -18,5 +18,6 @@ public:
 	//info
 	int PlayerFrom = 0; 
 	int potatoEaten = 0;
-	
+
+	int gameEvent[64] = { 0 };
 };

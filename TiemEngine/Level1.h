@@ -37,7 +37,9 @@ public:
 	ButtonObject* button1;
 	ButtonObject* button2;
 	ButtonObject* floatyGlobe;
+	//ButtonObject* chest1;
+	ButtonObject* key1;
 
-	float mapWidth;
+
 	//extern howManyTimeButton1WasPressed;
 };

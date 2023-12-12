@@ -16,6 +16,7 @@ void Level1::LevelLoad()
 void Level1::LevelInit()
 {
 	mapWidth = 7764.5f;
+	holdedItemIndex = -1;
 
 	GameObject* background = new GameObject();
 	background->SetTexture("../Resource/Texture/BackGround.png");
@@ -53,6 +54,15 @@ void Level1::LevelInit()
 	objectsList.push_back(testButton2);
 	interactableList.push_back(testButton2);
 
+	ButtonObject* lv1Key1 = new ButtonObject();
+	if (GameInstance::GetInstance()->gameEvent[0] < 1) {
+		lv1Key1->SetTexture("../Resource/Texture/key1.png");
+		lv1Key1->SetSize(60.0f, -60.0f);
+		lv1Key1->SetPosition(glm::vec3(1800.0f, 600.0f, 0.0f));
+		objectsList.push_back(lv1Key1);
+		interactableList.push_back(lv1Key1);
+	}
+
 	GameObject* objPlayer = new GameObject();
 	objPlayer->SetPosition(glm::vec3(950.0f, 300.0f, 0.0f));
 	objPlayer->SetTexture("../Resource/Texture/penguin.png");
@@ -61,7 +71,8 @@ void Level1::LevelInit()
 
 
 	GameObject* objCursor = new GameObject();
-	objCursor->SetTexture("../Resource/Texture/uglyHand.png");
+	//objCursor->SetTexture("../Resource/Texture/uglyHand.png");
+	objCursor->SetTexture("../Resource/Texture/invisible.png");
 	objCursor->SetSize(100.0f, -100.0f);
 	uiList.push_back(objCursor);
 
@@ -79,56 +90,29 @@ void Level1::LevelInit()
 	else { Girl->SetPosition(glm::vec3(950.0f, 300.0f, 0.0f)); }
 
 
-	//	inventory display stuff  comment
-	/*
-	GameObject* inventoryBar = new GameObject();						// position, set in PlayerFrom if else logic
-	inventoryBar->SetTexture("../Resource/Texture/inventoryBar.png");
-	inventoryBar->SetSize(100.0f, -100.0f);
-	uiList.push_back(inventoryBar);
-	*/
-
-	//for(int i=0;i<GameInstance::GetInstance()->inventory.getSize();i++){	//i++ = (i = i+1)
-	//		if(GameInstance::GetInstance()->inventory.getSize() != 0){
-	//			GameObject* inventoryBar = new GameObject();
-	//			inventoryBar->SetTexture("../Resource/Texture/inventoryBar.png");
-	//			inventoryBar->SetSize(100.0f, -100.0f);
-	//			uiList.push_back(inventoryBar);
-	//		}
-	// }
-
-	//ItemUi* showItem[8];// = new ItemUi();
 	
 
-	//int inventoryPic() {
-	//	return 1;
-	//}
-	/*										//not working
-	ItemUi* itemSlot[8];// = new ItemUi;
-	////Test* arr = new Test[N];
-	//Employee[] obj = new Employee[2] ;
-	for (int i = 0; i < 8; i++) {
-		//itemSlot[i] = new ItemUi();
-		//itemSlot[i]->SetTexture(GameInstance::GetInstance()->inventory[0].fileName);
-		itemSlot[i]->SetTexture("../Resource/Texture/inventoryBar.png");
-		itemSlot[i]->SetSize(100.0f, -100.0f);
-		itemSlot[i]->SetPosition(glm::vec3(100.0f, 100.0f, 0.0f));
-		uiList.push_back(itemSlot[i]);
-		interactableList.push_back(itemSlot[i]);
-	}
-	*/
-	/*
-	if (GameInstance::GetInstance()->inventory.size() < 8) {
-		for (int i = 0; i < 8; i++) {
-			Item defaultItem;
-			GameInstance::GetInstance()->inventory.push_back(defaultItem);
-		}
-	}
-	//it  almost make sense but it actually not cause what the point of using vector if I doing this.
-	*/
+
+
+
 
 
 	//inventory display stuff
-	
+	GameObject* inventoryBarUi = new GameObject();
+	inventoryBarUi->SetPosition(glm::vec3(960.0f, 100.0f, 0.0f));
+	inventoryBarUi->SetTexture("../Resource/Texture/inventoryBar.png");
+	inventoryBarUi->SetSize(1980.0f, -200.0f);
+	uiList.push_back(inventoryBarUi);
+
+	GameObject* selectDisplayUi = new GameObject();
+	selectDisplayUi->SetPosition(glm::vec3(1000.0f, 100.0f, 0.0f));
+	selectDisplayUi->SetTexture("../Resource/Texture/selectionOutline.png");
+	selectDisplayUi->SetSize(120.0f, -120.0f);
+	uiList.push_back(selectDisplayUi);
+
+	inventoryBar = inventoryBarUi;
+	selectUi = selectDisplayUi;
+
 	ItemUi* itemSlot0 = new ItemUi();
 	//itemSlot0->SetTexture(GameInstance::GetInstance()->inventory[0].fileName);
 	itemSlot0->SetSize(100.0f, -100.0f);
@@ -194,10 +178,6 @@ void Level1::LevelInit()
 	inventoryL[6] = itemSlot6;
 	inventoryL[7] = itemSlot7; 
 
-	/*Item testTem;
-	testTem.fileName = "../Resource/Texture/potato.png";
-	GameInstance::GetInstance()->inventory.push_back(testTem);
-	*/
 	for (int i = 0; i < 8; i++) {
 		if (i >= GameInstance::GetInstance()->inventory.size()) {
 			inventoryL[i]->SetTexture("../Resource/Texture/invisible.png");
@@ -229,6 +209,7 @@ void Level1::LevelInit()
 	player = Girl;
 
 	floatyGlobe = floatyEarth;
+	key1 = lv1Key1;
 
 
 	playerWalkTo = player->GetX();
@@ -248,32 +229,21 @@ void Level1::LevelInit()
 
 
 
+
+
+
+
 void Level1::LevelUpdate()
 {	
-	/*
-	if (SDL_GetTicks() > playerCurrentTime + playerFrameDelay) {
-
-
-		if (player->GetX() < playerWalkTo - playerStepPerFrame || player->GetX() > playerWalkTo + playerStepPerFrame) {
-			if (player->GetX() < playerWalkTo) {
-				player->Translate(glm::vec3(playerStepPerFrame, 0, 0));
-				GameEngine::GetInstance()->SetDrawArea(player->GetX() - 960, 960 + player->GetX(), 0, 1080);
-			}
-			else {
-				player->Translate(glm::vec3(-playerStepPerFrame, 0, 0));
-				GameEngine::GetInstance()->SetDrawArea(player->GetX() - 960, 960 + player->GetX(), 0, 1080);
-			}
-		}
-
-		playerCurrentTime = SDL_GetTicks();
-	}
-	*/
+	
 	//uiText->SetPosition(glm::vec3(960.0f, 200.0f, 0.0f));
 	if (SDL_GetTicks() > playerCurrentTime + playerFrameDelay) {
 		if (playerWalkSide != 0) {
 			if (player->GetX() > 960 && player->GetX() < (mapWidth-960.0f)) {										//set camera limit here
 				GameEngine::GetInstance()->SetDrawArea(player->GetX() - 960, 960 + player->GetX(), 0, 1080);
 				uiText->SetPosition(glm::vec3(player->GetX(), 200.0f, 0.0f));
+				inventoryBar->SetPosition(glm::vec3(player->GetX(), 100.0f, 0.0f));
+				selectUi->SetPosition(glm::vec3((player->GetX() - 960) + 100.0f + (200 * holdedItemIndex), 100.0f, 0.0f));
 				for (int i = 0; i < 8; i++) {
 					inventoryL[i]->SetPosition(glm::vec3((player->GetX()-960)+100.0f+(200*i), 100.0f, 0.0f));
 				}
@@ -406,8 +376,15 @@ void Level1::HandleMouse(int type, int x, int y)
 	if (button2->Interacted == true) {
 		//string st = "You now have " + GameInstance::GetInstance()->testIntInstance + "keys";
 		GameInstance::GetInstance()->testIntInstance = GameInstance::GetInstance()->testIntInstance + 1;
-		uiText->LoadText("pick up key", whiteText, 100);
+		uiText->LoadText("a fire match drop from the ceiling", whiteText, 100);
 		uiText->SetSize(700.0f, -100.0f);
+		if (GameInstance::GetInstance()->inventory.size() < 8) {
+			Item fireMatchItem;
+			fireMatchItem.fileName = "../Resource/Texture/fireMatch.png";
+			fireMatchItem.name = "fire match";
+			GameInstance::GetInstance()->inventory.push_back(fireMatchItem);
+			for (int i = 0; i < 8; i++) { if (i >= GameInstance::GetInstance()->inventory.size()) { inventoryL[i]->SetTexture("../Resource/Texture/invisible.png"); } else { inventoryL[i]->SetTexture(GameInstance::GetInstance()->inventory[i].fileName); } }
+		}
 		button2->Interacted = false;
 		//test = test + 1;
 		
@@ -425,6 +402,21 @@ void Level1::HandleMouse(int type, int x, int y)
 			for (int i = 0; i < 8; i++) { if (i >= GameInstance::GetInstance()->inventory.size()) { inventoryL[i]->SetTexture("../Resource/Texture/invisible.png"); } else { inventoryL[i]->SetTexture(GameInstance::GetInstance()->inventory[i].fileName); } }
 		}
 		floatyGlobe->Interacted = false;
+	} 
+	if (key1->Interacted == true) {
+		uiText->LoadText("Grabing Key", whiteText, 100);
+		uiText->SetSize(700.0f, -100.0f);
+
+		if (GameInstance::GetInstance()->inventory.size() < 8) {
+			Item key1Item;
+			key1Item.fileName = "../Resource/Texture/key1.png";
+			key1Item.name = "key1";
+			GameInstance::GetInstance()->inventory.push_back(key1Item);
+			for (int i = 0; i < 8; i++) { if (i >= GameInstance::GetInstance()->inventory.size()) { inventoryL[i]->SetTexture("../Resource/Texture/invisible.png"); } else { inventoryL[i]->SetTexture(GameInstance::GetInstance()->inventory[i].fileName); } }
+		}
+		GameInstance::GetInstance()->gameEvent[0] = 1;
+		key1->SetPosition(glm::vec3(0.0f, 5000.0f, 0.0f));
+		key1->Interacted = false;
 	}
 	
 	//inventory logic
@@ -432,20 +424,43 @@ void Level1::HandleMouse(int type, int x, int y)
 		if(inventoryL[i]->Interacted == true){
 			if(GameInstance::GetInstance()->inventory[i].name == "potato from god") {
 				GameInstance::GetInstance()->inventory.erase(GameInstance::GetInstance()->inventory.begin() + i);
-				for (int i = 0; i < 8; i++) { if (i >= GameInstance::GetInstance()->inventory.size()) { inventoryL[i]->SetTexture("../Resource/Texture/invisible.png"); } else { inventoryL[i]->SetTexture(GameInstance::GetInstance()->inventory[i].fileName); } }
+				for (int j = 0; j < 8; j++) { if (j >= GameInstance::GetInstance()->inventory.size()) { inventoryL[j]->SetTexture("../Resource/Texture/invisible.png"); } else { inventoryL[j]->SetTexture(GameInstance::GetInstance()->inventory[j].fileName); } }
 			
 				GameInstance::GetInstance()->potatoEaten = GameInstance::GetInstance()->potatoEaten + 1;
 				string potatoEatenText[2] = { "you have eated ", " potatos" };
 				uiText->LoadText(potatoEatenText[0] + to_string(GameInstance::GetInstance()->potatoEaten) + potatoEatenText[1], whiteText, 100);
 				uiText->SetSize(700.0f, -100.0f);
-
 				inventoryL[i]->Interacted = false;
 			}
 			else if (GameInstance::GetInstance()->inventory[i].name == "tomato from god") {
 				GameInstance::GetInstance()->inventory.erase(GameInstance::GetInstance()->inventory.begin() + i);
-				for (int i = 0; i < 8; i++) { if (i >= GameInstance::GetInstance()->inventory.size()) { inventoryL[i]->SetTexture("../Resource/Texture/invisible.png"); } else { inventoryL[i]->SetTexture(GameInstance::GetInstance()->inventory[i].fileName); } }
+				for (int j = 0; j < 8; j++) { if (j >= GameInstance::GetInstance()->inventory.size()) { inventoryL[j]->SetTexture("../Resource/Texture/invisible.png"); } else { inventoryL[j]->SetTexture(GameInstance::GetInstance()->inventory[j].fileName); } }
 
 				uiText->LoadText("Tomato is too sour", whiteText, 100);
+				uiText->SetSize(700.0f, -100.0f);
+
+				inventoryL[i]->Interacted = false;
+			}
+			else if (GameInstance::GetInstance()->inventory[i].name == "fire match") {
+				holdedItemIndex = i;
+				selectUi->SetPosition(glm::vec3((player->GetX() - 960) + 100.0f + (200 * holdedItemIndex), 100.0f, 0.0f));
+				uiText->LoadText("a fire match", whiteText, 100);
+				uiText->SetSize(700.0f, -100.0f);
+
+				inventoryL[i]->Interacted = false;
+			}
+			else if (GameInstance::GetInstance()->inventory[i].name == "key1") {
+				holdedItemIndex = i;
+				selectUi->SetPosition(glm::vec3((player->GetX() - 960) + 100.0f + (200 * holdedItemIndex), 100.0f, 0.0f));
+				uiText->LoadText("a key", whiteText, 100);
+				uiText->SetSize(700.0f, -100.0f);
+
+				inventoryL[i]->Interacted = false;
+			}
+			else if (GameInstance::GetInstance()->inventory[i].name == "endOfDemoNote") {
+				holdedItemIndex = i;
+				selectUi->SetPosition(glm::vec3((player->GetX() - 960) + 100.0f + (200 * holdedItemIndex), 100.0f, 0.0f));
+				uiText->LoadText("END OF ENGINE DEMO", whiteText, 100);
 				uiText->SetSize(700.0f, -100.0f);
 
 				inventoryL[i]->Interacted = false;
@@ -453,10 +468,7 @@ void Level1::HandleMouse(int type, int x, int y)
 		}
 	}
 
-
-	if (y > 990) {
-		printf("test:%d\n", GameInstance::GetInstance()->testIntInstance);
-	}
+	
 	//playerWalkTo = x;
 
 }

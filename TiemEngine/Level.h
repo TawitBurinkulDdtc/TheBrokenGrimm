@@ -24,4 +24,9 @@ public:
 	virtual void HandleMouse(int type, int x, int y);
 
 	ItemUi* inventoryL[8];
+	int holdedItemIndex = -1;
+
+	float mapWidth;
+	GameObject* inventoryBar;
+	GameObject* selectUi;
 };

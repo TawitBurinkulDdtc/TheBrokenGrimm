@@ -37,6 +37,7 @@ public:
 	ButtonObject* button1;
 	ButtonObject* button2;
 	ButtonObject* floatyGlobe;
+	ButtonObject* chest1;
 
 	float mapWidth;
 };
