@@ -428,7 +428,7 @@ void Level1::HandleMouse(int type, int x, int y)
 	}
 	
 	//inventory logic
-	for (int i = 0; i < 8; i++) {
+	for (int i = 0; i < GameInstance::GetInstance()->inventory.size(); i++) {
 		if(inventoryL[i]->Interacted == true && GameInstance::GetInstance()->inventory[i].name == "potato from god") {
 			GameInstance::GetInstance()->inventory.erase(GameInstance::GetInstance()->inventory.begin() + i);
 			for (int i = 0; i < 8; i++) { if (i >= GameInstance::GetInstance()->inventory.size()) { inventoryL[i]->SetTexture("../Resource/Texture/invisible.png"); } else { inventoryL[i]->SetTexture(GameInstance::GetInstance()->inventory[i].fileName); } }
