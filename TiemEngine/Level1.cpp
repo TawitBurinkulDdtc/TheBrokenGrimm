@@ -429,25 +429,27 @@ void Level1::HandleMouse(int type, int x, int y)
 	
 	//inventory logic
 	for (int i = 0; i < GameInstance::GetInstance()->inventory.size(); i++) {
-		if(inventoryL[i]->Interacted == true && GameInstance::GetInstance()->inventory[i].name == "potato from god") {
-			GameInstance::GetInstance()->inventory.erase(GameInstance::GetInstance()->inventory.begin() + i);
-			for (int i = 0; i < 8; i++) { if (i >= GameInstance::GetInstance()->inventory.size()) { inventoryL[i]->SetTexture("../Resource/Texture/invisible.png"); } else { inventoryL[i]->SetTexture(GameInstance::GetInstance()->inventory[i].fileName); } }
+		if(inventoryL[i]->Interacted == true){
+			if(GameInstance::GetInstance()->inventory[i].name == "potato from god") {
+				GameInstance::GetInstance()->inventory.erase(GameInstance::GetInstance()->inventory.begin() + i);
+				for (int i = 0; i < 8; i++) { if (i >= GameInstance::GetInstance()->inventory.size()) { inventoryL[i]->SetTexture("../Resource/Texture/invisible.png"); } else { inventoryL[i]->SetTexture(GameInstance::GetInstance()->inventory[i].fileName); } }
 			
-			GameInstance::GetInstance()->potatoEaten = GameInstance::GetInstance()->potatoEaten + 1;
-			string potatoEatenText[2] = { "you have eated ", " potatos" };
-			uiText->LoadText(potatoEatenText[0] + to_string(GameInstance::GetInstance()->potatoEaten) + potatoEatenText[1], whiteText, 100);
-			uiText->SetSize(700.0f, -100.0f);
+				GameInstance::GetInstance()->potatoEaten = GameInstance::GetInstance()->potatoEaten + 1;
+				string potatoEatenText[2] = { "you have eated ", " potatos" };
+				uiText->LoadText(potatoEatenText[0] + to_string(GameInstance::GetInstance()->potatoEaten) + potatoEatenText[1], whiteText, 100);
+				uiText->SetSize(700.0f, -100.0f);
 
-			inventoryL[i]->Interacted = false;
-		}
-		if (inventoryL[i]->Interacted == true && GameInstance::GetInstance()->inventory[i].name == "tomato from god") {
-			GameInstance::GetInstance()->inventory.erase(GameInstance::GetInstance()->inventory.begin() + i);
-			for (int i = 0; i < 8; i++) { if (i >= GameInstance::GetInstance()->inventory.size()) { inventoryL[i]->SetTexture("../Resource/Texture/invisible.png"); } else { inventoryL[i]->SetTexture(GameInstance::GetInstance()->inventory[i].fileName); } }
+				inventoryL[i]->Interacted = false;
+			}
+			else if (GameInstance::GetInstance()->inventory[i].name == "tomato from god") {
+				GameInstance::GetInstance()->inventory.erase(GameInstance::GetInstance()->inventory.begin() + i);
+				for (int i = 0; i < 8; i++) { if (i >= GameInstance::GetInstance()->inventory.size()) { inventoryL[i]->SetTexture("../Resource/Texture/invisible.png"); } else { inventoryL[i]->SetTexture(GameInstance::GetInstance()->inventory[i].fileName); } }
 
-			uiText->LoadText("Tomato is too sour", whiteText, 100);
-			uiText->SetSize(700.0f, -100.0f);
+				uiText->LoadText("Tomato is too sour", whiteText, 100);
+				uiText->SetSize(700.0f, -100.0f);
 
-			inventoryL[i]->Interacted = false;
+				inventoryL[i]->Interacted = false;
+			}
 		}
 	}
 
