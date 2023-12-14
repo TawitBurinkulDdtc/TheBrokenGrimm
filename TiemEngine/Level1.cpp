@@ -15,13 +15,13 @@ void Level1::LevelLoad()
 
 void Level1::LevelInit()
 {
-	mapWidth = 7764.5f;
+	mapWidth = 6326.6f;
 	holdedItemIndex = -1;
 
 	GameObject* background = new GameObject();
 	background->SetTexture("../Resource/Texture/BackGround.png");
-	background->SetSize(mapWidth, -1080.0f);
-	background->SetPosition(glm::vec3(3882.25f, 540.0f, 0.0f));
+	background->SetSize(mapWidth, -880.0f);//1080 + 200.0f
+	background->SetPosition(glm::vec3(mapWidth/2, 540.0f+100.0f, 0.0f));
 	backgroundList.push_back(background);
 
 
@@ -69,25 +69,27 @@ void Level1::LevelInit()
 	objPlayer->SetSize(100.0f, -100.0f);
 	objectsList.push_back(objPlayer);
 
-
+	
 	GameObject* objCursor = new GameObject();
 	//objCursor->SetTexture("../Resource/Texture/uglyHand.png");
 	objCursor->SetTexture("../Resource/Texture/invisible.png");
 	objCursor->SetSize(100.0f, -100.0f);
 	uiList.push_back(objCursor);
 
-	SpriteObject* Girl = new SpriteObject("../Resource/Texture/girl.png", 4, 10);
-	Girl->SetSize(64.0f * 2, 128.0f * 2);
+
+	//Avery   y max 530   min 360
+	SpriteObject* Girl = new SpriteObject("../Resource/Texture/AveryIdle.png", 1, 6);
+	Girl->SetSize(540.0f * 0.5f, 695.0f * 0.5f);
 	objectsList.push_back(Girl);
 	if (GameInstance::GetInstance()->PlayerFrom == 1) {
-		Girl->SetPosition(glm::vec3(950.0f, 300.0f, 0.0f));
+		Girl->SetPosition(glm::vec3(950.0f, 600.0f, 0.0f));
 		GameEngine::GetInstance()->SetDrawArea(0, 1920, 0, 1080);
 	}
 	else if (GameInstance::GetInstance()->PlayerFrom == 2) {
-		Girl->SetPosition(glm::vec3(mapWidth - 950.0f, 300.0f, 0.0f));
+		Girl->SetPosition(glm::vec3(mapWidth - 950.0f, 600.0f, 0.0f));
 		GameEngine::GetInstance()->SetDrawArea(mapWidth - 1980.0f, mapWidth, 0, 1080);
 	}
-	else { Girl->SetPosition(glm::vec3(950.0f, 300.0f, 0.0f)); }
+	else { Girl->SetPosition(glm::vec3(950.0f, 400.0f, 0.0f)); }
 
 
 	
@@ -239,6 +241,12 @@ void Level1::LevelUpdate()
 	//uiText->SetPosition(glm::vec3(960.0f, 200.0f, 0.0f));
 	if (SDL_GetTicks() > playerCurrentTime + playerFrameDelay) {
 		if (playerWalkSide != 0) {
+
+			if (pSpriteInt == 0) {
+				pSpriteInt = 1;
+				//SpriteObject* Girl = new SpriteObject("../Resource/Texture/AveryWalk.png", 1, 6);
+			}
+
 			if (player->GetX() > 960 && player->GetX() < (mapWidth-960.0f)) {										//set camera limit here
 				GameEngine::GetInstance()->SetDrawArea(player->GetX() - 960, 960 + player->GetX(), 0, 1080);
 				uiText->SetPosition(glm::vec3(player->GetX(), 200.0f, 0.0f));
@@ -258,21 +266,46 @@ void Level1::LevelUpdate()
 			}
 			if (playerWalkSide == 2) {
 				player->Translate(glm::vec3(playerStepPerFrame, 0, 0));
-
-				//GameEngine::GetInstance()->SetDrawArea(player->GetX() - 960, 960 + player->GetX(), 0, 1080);
+				if (pSpriteInt ==0) {
+					pSpriteInt = 2;}
+																						//GameEngine::GetInstance()->SetDrawArea(player->GetX() - 960, 960 + player->GetX(), 0, 1080);
 				playerWalkSide = 0;
 			}
 			else if (playerWalkSide == 1) {
 				player->Translate(glm::vec3(-playerStepPerFrame, 0, 0));
-				//GameEngine::GetInstance()->SetDrawArea(player->GetX() - 960, 960 + player->GetX(), 0, 1080);
+				if (pSpriteInt == 0) {
+					pSpriteInt = 1;}
+																							//GameEngine::GetInstance()->SetDrawArea(player->GetX() - 960, 960 + player->GetX(), 0, 1080);
 				playerWalkSide = 0;
 			}
 		}
+		/*if (pSpriteInt != 0) {
+			if (pSpriteInt == 1) {
+				SpriteObject* Girl = new SpriteObject("../Resource/Texture/AveryWalk.png", 1, 6);
+				Girl->SetSize(540.0f * 0.5f, 695.0f * 0.5f);
+				pSpriteInt = 3;
+			}
+			else if (pSpriteInt == 2) {
+				SpriteObject* Girl = new SpriteObject("../Resource/Texture/AveryWalk.png", 1, 6);
+				Girl->SetSize(-540.0f * 0.5f, 695.0f * 0.5f);
+				pSpriteInt = 3;
+			}
+			else if (pSpriteInt == 3) {
+				SpriteObject* Girl = new SpriteObject("../Resource/Texture/AveryIdle.png", 1, 6);
+				pSpriteInt = 0;
+			}
+
+		}*/
 		playerCurrentTime = SDL_GetTicks();
 	}
+
+
 	player->UpdateFrame();
 
 }
+
+//SpriteObject* Girl = new SpriteObject("../Resource/Texture/AveryWalk.png", 1, 6);
+//Girl->SetSize(540.0f * 0.5f, 695.0f * 0.5f);
 
 void Level1::LevelDraw()
 {
@@ -316,11 +349,11 @@ void Level1::HandleKey(char key)
 
 	switch (key)
 	{
-	case 'w':
-		if (player->GetY() < 320){player->Translate(glm::vec3(0, 3.0, 0));}
+	case 'w':	//Avery   y max 530   min 360
+		if (player->GetY() < 530){player->Translate(glm::vec3(0, 3.0, 0));}
 		break;
 	case 's': 
-		if (player->GetY() > 200) { player->Translate(glm::vec3(0, -3.0, 0)); }
+		if (player->GetY() > 360) { player->Translate(glm::vec3(0, -3.0, 0)); }
 		break;
 	case 'a': playerWalkSide = 1;
 		//player->Translate(glm::vec3(-50, 0, 0)); 

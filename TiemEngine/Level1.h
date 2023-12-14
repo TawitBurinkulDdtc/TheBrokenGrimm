@@ -32,6 +32,7 @@ public:
 	float playerStepPerFrame;
 	float playerCurrentTime;
 	int playerWalkSide = 0; //0 stop, 1 walk left, 2 walk right
+	int pSpriteInt = 0;
 	TextObject* uiText;
 	string displayText;
 	ButtonObject* button1;
