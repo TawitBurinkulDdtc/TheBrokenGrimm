@@ -224,6 +224,11 @@ void Level1::LevelInit()
 	playerFrameDelay = 1;
 	playerStepPerFrame = 10;
 	//---------------------------------------------------------------------
+	
+
+	// ---------------------manage animation stuff-------------------------
+	playerStandStillDelay = 100;
+	//---------------------------------------------------------------------
 	//cout << "Init Level" << endl;
 
 }
@@ -243,8 +248,8 @@ void Level1::LevelUpdate()
 		if (playerWalkSide != 0) {
 
 			if (pSpriteInt == 0) {
+				player->SetTexture("../Resource/Texture/AveryWalk.png");
 				pSpriteInt = 1;
-				//SpriteObject* Girl = new SpriteObject("../Resource/Texture/AveryWalk.png", 1, 6);
 			}
 
 			if (player->GetX() > 960 && player->GetX() < (mapWidth-960.0f)) {										//set camera limit here
@@ -266,36 +271,20 @@ void Level1::LevelUpdate()
 			}
 			if (playerWalkSide == 2) {
 				player->Translate(glm::vec3(playerStepPerFrame, 0, 0));
-				if (pSpriteInt ==0) {
-					pSpriteInt = 2;}
-																						//GameEngine::GetInstance()->SetDrawArea(player->GetX() - 960, 960 + player->GetX(), 0, 1080);
+				player->SetSize(-540.0f * 0.5f, 695.0f * 0.5f);
 				playerWalkSide = 0;
 			}
 			else if (playerWalkSide == 1) {
 				player->Translate(glm::vec3(-playerStepPerFrame, 0, 0));
-				if (pSpriteInt == 0) {
-					pSpriteInt = 1;}
-																							//GameEngine::GetInstance()->SetDrawArea(player->GetX() - 960, 960 + player->GetX(), 0, 1080);
+				player->SetSize(540.0f * 0.5f, 695.0f * 0.5f);
 				playerWalkSide = 0;
 			}
+			playerStartStandStill = SDL_GetTicks();
 		}
-		/*if (pSpriteInt != 0) {
-			if (pSpriteInt == 1) {
-				SpriteObject* Girl = new SpriteObject("../Resource/Texture/AveryWalk.png", 1, 6);
-				Girl->SetSize(540.0f * 0.5f, 695.0f * 0.5f);
-				pSpriteInt = 3;
-			}
-			else if (pSpriteInt == 2) {
-				SpriteObject* Girl = new SpriteObject("../Resource/Texture/AveryWalk.png", 1, 6);
-				Girl->SetSize(-540.0f * 0.5f, 695.0f * 0.5f);
-				pSpriteInt = 3;
-			}
-			else if (pSpriteInt == 3) {
-				SpriteObject* Girl = new SpriteObject("../Resource/Texture/AveryIdle.png", 1, 6);
-				pSpriteInt = 0;
-			}
-
-		}*/
+		else if (pSpriteInt == 1 && SDL_GetTicks() > playerStartStandStill+playerStandStillDelay) {
+			player->SetTexture("../Resource/Texture/AveryIdle.png");
+			pSpriteInt = 0;
+		}
 		playerCurrentTime = SDL_GetTicks();
 	}
 

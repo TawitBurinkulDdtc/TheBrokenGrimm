@@ -65,7 +65,7 @@ void Level2::LevelInit()
 	objCursor->SetSize(100.0f, -100.0f);
 	uiList.push_back(objCursor);
 
-	SpriteObject* Girl = new SpriteObject("../Resource/Texture/girl.png", 4, 10);
+	SpriteObject* Girl = new SpriteObject("../Resource/Texture/AveryIdle.png", 1, 6);
 	Girl->SetSize(64.0f * 2, 128.0f * 2);
 	objectsList.push_back(Girl);
 	if (GameInstance::GetInstance()->PlayerFrom == 1) {
