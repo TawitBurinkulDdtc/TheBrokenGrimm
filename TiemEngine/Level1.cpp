@@ -391,6 +391,7 @@ void Level1::HandleMouse(int type, int x, int y)
 			Item tomatoItem;
 			tomatoItem.fileName = "../Resource/Texture/tomato.png";
 			tomatoItem.name = "tomato from god";
+			tomatoItem.showText = "Tomato";
 			GameInstance::GetInstance()->inventory.push_back(tomatoItem);
 			for (int i = 0; i < 8; i++) { if (i >= GameInstance::GetInstance()->inventory.size()) { inventoryL[i]->SetTexture("../Resource/Texture/invisible.png"); } else { inventoryL[i]->SetTexture(GameInstance::GetInstance()->inventory[i].fileName); } }
 		}
@@ -404,6 +405,7 @@ void Level1::HandleMouse(int type, int x, int y)
 			Item fireMatchItem;
 			fireMatchItem.fileName = "../Resource/Texture/fireMatch.png";
 			fireMatchItem.name = "fire match";
+			fireMatchItem.showText = "fire match";
 			GameInstance::GetInstance()->inventory.push_back(fireMatchItem);
 			for (int i = 0; i < 8; i++) { if (i >= GameInstance::GetInstance()->inventory.size()) { inventoryL[i]->SetTexture("../Resource/Texture/invisible.png"); } else { inventoryL[i]->SetTexture(GameInstance::GetInstance()->inventory[i].fileName); } }
 		}
@@ -420,11 +422,14 @@ void Level1::HandleMouse(int type, int x, int y)
 			Item potatoItem;
 			potatoItem.fileName = "../Resource/Texture/potato.png";
 			potatoItem.name = "potato from god";
+			potatoItem.showText = "Potato";
 			GameInstance::GetInstance()->inventory.push_back(potatoItem);
 			for (int i = 0; i < 8; i++) { if (i >= GameInstance::GetInstance()->inventory.size()) { inventoryL[i]->SetTexture("../Resource/Texture/invisible.png"); } else { inventoryL[i]->SetTexture(GameInstance::GetInstance()->inventory[i].fileName); } }
 		}
 		floatyGlobe->Interacted = false;
 	} 
+
+
 	if (key1->Interacted == true) {
 		uiText->LoadText("Grabing Key", whiteText, 100);
 		uiText->SetSize(700.0f, -100.0f);
@@ -433,6 +438,7 @@ void Level1::HandleMouse(int type, int x, int y)
 			Item key1Item;
 			key1Item.fileName = "../Resource/Texture/key1.png";
 			key1Item.name = "key1";
+			key1Item.showText = "The key";
 			GameInstance::GetInstance()->inventory.push_back(key1Item);
 			for (int i = 0; i < 8; i++) { if (i >= GameInstance::GetInstance()->inventory.size()) { inventoryL[i]->SetTexture("../Resource/Texture/invisible.png"); } else { inventoryL[i]->SetTexture(GameInstance::GetInstance()->inventory[i].fileName); } }
 		}
@@ -441,52 +447,17 @@ void Level1::HandleMouse(int type, int x, int y)
 		key1->Interacted = false;
 	}
 	
+
+
 	//inventory logic
 	for (int i = 0; i < GameInstance::GetInstance()->inventory.size(); i++) {
 		if(inventoryL[i]->Interacted == true){
-			if(GameInstance::GetInstance()->inventory[i].name == "potato from god") {
-				GameInstance::GetInstance()->inventory.erase(GameInstance::GetInstance()->inventory.begin() + i);
-				for (int j = 0; j < 8; j++) { if (j >= GameInstance::GetInstance()->inventory.size()) { inventoryL[j]->SetTexture("../Resource/Texture/invisible.png"); } else { inventoryL[j]->SetTexture(GameInstance::GetInstance()->inventory[j].fileName); } }
+				holdedItemIndex = i;
+				selectUi->SetPosition(glm::vec3((player->GetX() - 960) + 100.0f + (200 * holdedItemIndex), 100.0f, 0.0f));
+				uiText->LoadText(GameInstance::GetInstance()->inventory[i].showText, GameInstance::GetInstance()->inventory[i].textColor, GameInstance::GetInstance()->inventory[i].textFontSize);
+				uiText->SetSize(GameInstance::GetInstance()->inventory[i].textSizeX, -(GameInstance::GetInstance()->inventory[i].textSizeY));
+				inventoryL[i]->Interacted = false;
 			
-				GameInstance::GetInstance()->potatoEaten = GameInstance::GetInstance()->potatoEaten + 1;
-				string potatoEatenText[2] = { "you have eated ", " potatos" };
-				uiText->LoadText(potatoEatenText[0] + to_string(GameInstance::GetInstance()->potatoEaten) + potatoEatenText[1], whiteText, 100);
-				uiText->SetSize(700.0f, -100.0f);
-				inventoryL[i]->Interacted = false;
-			}
-			else if (GameInstance::GetInstance()->inventory[i].name == "tomato from god") {
-				GameInstance::GetInstance()->inventory.erase(GameInstance::GetInstance()->inventory.begin() + i);
-				for (int j = 0; j < 8; j++) { if (j >= GameInstance::GetInstance()->inventory.size()) { inventoryL[j]->SetTexture("../Resource/Texture/invisible.png"); } else { inventoryL[j]->SetTexture(GameInstance::GetInstance()->inventory[j].fileName); } }
-
-				uiText->LoadText("Tomato is too sour", whiteText, 100);
-				uiText->SetSize(700.0f, -100.0f);
-
-				inventoryL[i]->Interacted = false;
-			}
-			else if (GameInstance::GetInstance()->inventory[i].name == "fire match") {
-				holdedItemIndex = i;
-				selectUi->SetPosition(glm::vec3((player->GetX() - 960) + 100.0f + (200 * holdedItemIndex), 100.0f, 0.0f));
-				uiText->LoadText("a fire match", whiteText, 100);
-				uiText->SetSize(700.0f, -100.0f);
-
-				inventoryL[i]->Interacted = false;
-			}
-			else if (GameInstance::GetInstance()->inventory[i].name == "key1") {
-				holdedItemIndex = i;
-				selectUi->SetPosition(glm::vec3((player->GetX() - 960) + 100.0f + (200 * holdedItemIndex), 100.0f, 0.0f));
-				uiText->LoadText("a key", whiteText, 100);
-				uiText->SetSize(700.0f, -100.0f);
-
-				inventoryL[i]->Interacted = false;
-			}
-			else if (GameInstance::GetInstance()->inventory[i].name == "endOfDemoNote") {
-				holdedItemIndex = i;
-				selectUi->SetPosition(glm::vec3((player->GetX() - 960) + 100.0f + (200 * holdedItemIndex), 100.0f, 0.0f));
-				uiText->LoadText("END OF ENGINE DEMO", whiteText, 100);
-				uiText->SetSize(700.0f, -100.0f);
-
-				inventoryL[i]->Interacted = false;
-			}
 		}
 	}
 
@@ -494,3 +465,64 @@ void Level1::HandleMouse(int type, int x, int y)
 	//playerWalkTo = x;
 
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*			//old inventory code
+if(GameInstance::GetInstance()->inventory[i].name == "potato from god") {
+	GameInstance::GetInstance()->inventory.erase(GameInstance::GetInstance()->inventory.begin() + i);
+	for (int j = 0; j < 8; j++) { if (j >= GameInstance::GetInstance()->inventory.size()) { inventoryL[j]->SetTexture("../Resource/Texture/invisible.png"); } else { inventoryL[j]->SetTexture(GameInstance::GetInstance()->inventory[j].fileName); } }
+
+	GameInstance::GetInstance()->potatoEaten = GameInstance::GetInstance()->potatoEaten + 1;
+	string potatoEatenText[2] = { "you have eated ", " potatos" };
+	uiText->LoadText(potatoEatenText[0] + to_string(GameInstance::GetInstance()->potatoEaten) + potatoEatenText[1], whiteText, 100);
+	uiText->SetSize(700.0f, -100.0f);
+	inventoryL[i]->Interacted = false;
+}
+else if (GameInstance::GetInstance()->inventory[i].name == "tomato from god") {
+	GameInstance::GetInstance()->inventory.erase(GameInstance::GetInstance()->inventory.begin() + i);
+	for (int j = 0; j < 8; j++) { if (j >= GameInstance::GetInstance()->inventory.size()) { inventoryL[j]->SetTexture("../Resource/Texture/invisible.png"); } else { inventoryL[j]->SetTexture(GameInstance::GetInstance()->inventory[j].fileName); } }
+
+	uiText->LoadText("Tomato is too sour", whiteText, 100);
+	uiText->SetSize(700.0f, -100.0f);
+
+	inventoryL[i]->Interacted = false;
+}
+else if (GameInstance::GetInstance()->inventory[i].name == "fire match") {
+	holdedItemIndex = i;
+	selectUi->SetPosition(glm::vec3((player->GetX() - 960) + 100.0f + (200 * holdedItemIndex), 100.0f, 0.0f));
+	uiText->LoadText("a fire match", whiteText, 100);
+	uiText->SetSize(700.0f, -100.0f);
+
+	inventoryL[i]->Interacted = false;
+}
+else if (GameInstance::GetInstance()->inventory[i].name == "key1") {
+	holdedItemIndex = i;
+	selectUi->SetPosition(glm::vec3((player->GetX() - 960) + 100.0f + (200 * holdedItemIndex), 100.0f, 0.0f));
+	uiText->LoadText("a key", whiteText, 100);
+	uiText->SetSize(700.0f, -100.0f);
+
+	inventoryL[i]->Interacted = false;
+}
+else if (GameInstance::GetInstance()->inventory[i].name == "endOfDemoNote") {
+	holdedItemIndex = i;
+	selectUi->SetPosition(glm::vec3((player->GetX() - 960) + 100.0f + (200 * holdedItemIndex), 100.0f, 0.0f));
+	uiText->LoadText("END OF ENGINE DEMO", whiteText, 100);
+	uiText->SetSize(700.0f, -100.0f);
+
+	inventoryL[i]->Interacted = false;
+}
+*/
