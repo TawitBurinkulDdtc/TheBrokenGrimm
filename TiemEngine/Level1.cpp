@@ -27,17 +27,70 @@ void Level1::LevelInit()
 
 	GameObject* floatyEarthPic = new GameObject();
 	floatyEarthPic->SetTexture("../Resource/Texture/Interact_1.png");
-	floatyEarthPic->SetSize(mapWidth, -1080.0f);
-	floatyEarthPic->SetPosition(glm::vec3(3882.25f, 540.0f, 0.0f));
+	floatyEarthPic->SetSize(mapWidth, -880.0f);
+	floatyEarthPic->SetPosition(glm::vec3(mapWidth / 2, 540.0f + 100.0f, 0.0f));
 	backgroundList.push_back(floatyEarthPic);
+
+
+
 
 
 	ButtonObject* floatyEarth = new ButtonObject();
 	floatyEarth->SetTexture("../Resource/Texture/invisible.png");
-	floatyEarth->SetSize(330.0f, -330.0f);
-	floatyEarth->SetPosition(glm::vec3(3995.25f, 584.0f, 0.0f));
+	floatyEarth->SetSize(300.0f, -300.0f);
+	floatyEarth->SetPosition(glm::vec3((mapWidth / 2)+90, 675.0f, 0.0f));
 	objectsList.push_back(floatyEarth);
 	interactableList.push_back(floatyEarth);
+
+
+
+	GameObject* bookPic = new GameObject();
+	bookPic->SetTexture("../Resource/Texture/Interact_6.png");
+	bookPic->SetSize(mapWidth, -880.0f);//1080 + 200.0f
+	bookPic->SetPosition(glm::vec3(mapWidth / 2, 540.0f + 100.0f, 0.0f));
+	backgroundList.push_back(bookPic);
+
+
+	ButtonObject* bookInter = new ButtonObject();
+	bookInter->SetTexture("../Resource/Texture/test.png");
+	bookInter->SetSize(400.0f, -240.0f);
+	bookInter->SetPosition(glm::vec3(1000.0f, 680.0f, 0.0f));
+	objectsList.push_back(bookInter);
+	interactableList.push_back(bookInter);
+
+
+
+	GameObject* mapPic = new GameObject();
+	mapPic->SetTexture("../Resource/Texture/Interact_5.png");
+	mapPic->SetSize(mapWidth, -880.0f);//1080 + 200.0f
+	mapPic->SetPosition(glm::vec3(mapWidth / 2, 540.0f + 100.0f, 0.0f));
+	backgroundList.push_back(mapPic);
+
+	ButtonObject* mapInter = new ButtonObject();
+	mapInter->SetTexture("../Resource/Texture/test.png");
+	mapInter->SetPosition(glm::vec3(5231.0f, 872.0f, 0.0f));
+	mapInter->SetSize(100.0f, -100.0f);
+	objectsList.push_back(mapInter);
+	interactableList.push_back(mapInter);
+
+	GameObject* mirrorPic = new GameObject();
+	mirrorPic->SetTexture("../Resource/Texture/Interact_4.png");
+	mirrorPic->SetSize(mapWidth, -880.0f);//1080 + 200.0f
+	mirrorPic->SetPosition(glm::vec3(mapWidth / 2, 540.0f + 100.0f, 0.0f));
+	backgroundList.push_back(mirrorPic);
+
+	
+	ButtonObject* mirrorInter = new ButtonObject();
+	mirrorInter->SetTexture("../Resource/Texture/test.png");
+	mirrorInter->SetSize(600.0f, -370.0f);
+	mirrorInter->SetPosition(glm::vec3(1530.0f, 775.0f, 0.0f));
+	objectsList.push_back(mirrorInter);
+	interactableList.push_back(mirrorInter);
+
+
+
+
+
 
 
 	ButtonObject* testButton = new ButtonObject();
@@ -53,6 +106,16 @@ void Level1::LevelInit()
 	testButton2->SetPosition(glm::vec3(1200.0f, 800.0f, 0.0f));
 	objectsList.push_back(testButton2);
 	interactableList.push_back(testButton2);
+
+
+	
+
+	
+
+
+
+	
+
 
 	ButtonObject* lv1Key1 = new ButtonObject();
 	if (GameInstance::GetInstance()->gameEvent[0] < 1) {
@@ -71,8 +134,8 @@ void Level1::LevelInit()
 
 	
 	GameObject* objCursor = new GameObject();
-	//objCursor->SetTexture("../Resource/Texture/uglyHand.png");
-	objCursor->SetTexture("../Resource/Texture/invisible.png");
+	objCursor->SetTexture("../Resource/Texture/uglyHand.png");
+	//objCursor->SetTexture("../Resource/Texture/invisible.png");
 	objCursor->SetSize(100.0f, -100.0f);
 	uiList.push_back(objCursor);
 
@@ -222,7 +285,7 @@ void Level1::LevelInit()
 
 	//--------------------- walk speed editer----------------------------
 	playerFrameDelay = 1;
-	playerStepPerFrame = 10;
+	playerStepPerFrame = 60; //10
 	//---------------------------------------------------------------------
 	
 
@@ -252,30 +315,47 @@ void Level1::LevelUpdate()
 				pSpriteInt = 1;
 			}
 
-			if (player->GetX() > 960 && player->GetX() < (mapWidth-960.0f)) {										//set camera limit here
-				GameEngine::GetInstance()->SetDrawArea(player->GetX() - 960, 960 + player->GetX(), 0, 1080);
-				uiText->SetPosition(glm::vec3(player->GetX(), 200.0f, 0.0f));
-				inventoryBar->SetPosition(glm::vec3(player->GetX(), 100.0f, 0.0f));
-				selectUi->SetPosition(glm::vec3((player->GetX() - 960) + 100.0f + (200 * holdedItemIndex), 100.0f, 0.0f));
-				for (int i = 0; i < 8; i++) {
-					inventoryL[i]->SetPosition(glm::vec3((player->GetX()-960)+100.0f+(200*i), 100.0f, 0.0f));
-				}
-			}
-			else if(player->GetX()<100) {
-				GameInstance::GetInstance()->PlayerFrom = 1;
-				GameEngine::GetInstance()->GetStateController()->gameStateNext = GameState::GS_LEVEL2;
-			}
-			else if (player->GetX() > (mapWidth-100)) {
-				GameInstance::GetInstance()->PlayerFrom = 2;
-				GameEngine::GetInstance()->GetStateController()->gameStateNext = GameState::GS_LEVEL2;
-			}
 			if (playerWalkSide == 2) {
 				player->Translate(glm::vec3(playerStepPerFrame, 0, 0));
+				if (player->GetX() > 960 && player->GetX() < (mapWidth - 960.0f)) {										//set camera limit here
+					GameEngine::GetInstance()->SetDrawArea(player->GetX() - 960, 960 + player->GetX(), 0, 1080);
+					uiText->SetPosition(glm::vec3(player->GetX(), 200.0f, 0.0f));
+					inventoryBar->SetPosition(glm::vec3(player->GetX(), 100.0f, 0.0f));
+					selectUi->SetPosition(glm::vec3((player->GetX() - 960) + 100.0f + (200 * holdedItemIndex), 100.0f, 0.0f));
+					for (int i = 0; i < 8; i++) {
+						inventoryL[i]->SetPosition(glm::vec3((player->GetX() - 960) + 100.0f + (200 * i), 100.0f, 0.0f));
+					}
+				}
+				else if (player->GetX() < 100) {
+					GameInstance::GetInstance()->PlayerFrom = 1;
+					GameEngine::GetInstance()->GetStateController()->gameStateNext = GameState::GS_LEVEL2;
+				}
+				else if (player->GetX() > (mapWidth - 100)) {
+					GameInstance::GetInstance()->PlayerFrom = 2;
+					GameEngine::GetInstance()->GetStateController()->gameStateNext = GameState::GS_LEVEL2;
+				}
 				player->SetSize(-540.0f * 0.5f, 695.0f * 0.5f);
 				playerWalkSide = 0;
 			}
 			else if (playerWalkSide == 1) {
 				player->Translate(glm::vec3(-playerStepPerFrame, 0, 0));
+				if (player->GetX() > 960 && player->GetX() < (mapWidth - 960.0f)) {										//set camera limit here
+					GameEngine::GetInstance()->SetDrawArea(player->GetX() - 960, 960 + player->GetX(), 0, 1080);
+					uiText->SetPosition(glm::vec3(player->GetX(), 200.0f, 0.0f));
+					inventoryBar->SetPosition(glm::vec3(player->GetX(), 100.0f, 0.0f));
+					selectUi->SetPosition(glm::vec3((player->GetX() - 960) + 100.0f + (200 * holdedItemIndex), 100.0f, 0.0f));
+					for (int i = 0; i < 8; i++) {
+						inventoryL[i]->SetPosition(glm::vec3((player->GetX() - 960) + 100.0f + (200 * i), 100.0f, 0.0f));
+					}
+				}
+				else if (player->GetX() < 100) {
+					GameInstance::GetInstance()->PlayerFrom = 1;
+					GameEngine::GetInstance()->GetStateController()->gameStateNext = GameState::GS_LEVEL2;
+				}
+				else if (player->GetX() > (mapWidth - 100)) {
+					GameInstance::GetInstance()->PlayerFrom = 2;
+					GameEngine::GetInstance()->GetStateController()->gameStateNext = GameState::GS_LEVEL2;
+				}
 				player->SetSize(540.0f * 0.5f, 695.0f * 0.5f);
 				playerWalkSide = 0;
 			}
@@ -360,6 +440,8 @@ void Level1::HandleKey(char key)
 
 void Level1::HandleMouse(int type, int x, int y)
 {
+
+	
 	
 	float trueX = x;
 	if (player->GetX() > 960 && player->GetX() < (mapWidth - 960.0f)) {
@@ -372,6 +454,9 @@ void Level1::HandleMouse(int type, int x, int y)
 		trueX = x;
 	}
 	
+
+	cout << "pos: x " << trueX << " y " << y << endl;    //set to 1920 x 1200 to see display
+
 	
 	//printf("print work  ");
 	SDL_Color whiteText = { 255, 255, 255 };
