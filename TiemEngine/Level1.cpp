@@ -68,8 +68,8 @@ void Level1::LevelInit()
 
 	ButtonObject* mapInter = new ButtonObject();
 	mapInter->SetTexture("../Resource/Texture/test.png");
-	mapInter->SetPosition(glm::vec3(5231.0f, 872.0f, 0.0f));
-	mapInter->SetSize(100.0f, -100.0f);
+	mapInter->SetPosition(glm::vec3(5167.0f, 872.0f, 0.0f));
+	mapInter->SetSize(140.0f, -100.0f);
 	objectsList.push_back(mapInter);
 	interactableList.push_back(mapInter);
 
@@ -82,8 +82,8 @@ void Level1::LevelInit()
 	
 	ButtonObject* mirrorInter = new ButtonObject();
 	mirrorInter->SetTexture("../Resource/Texture/test.png");
-	mirrorInter->SetSize(600.0f, -370.0f);
-	mirrorInter->SetPosition(glm::vec3(1530.0f, 775.0f, 0.0f));
+	mirrorInter->SetSize(560.0f, -340.0f);
+	mirrorInter->SetPosition(glm::vec3(1536.0f, 775.0f, 0.0f));
 	objectsList.push_back(mirrorInter);
 	interactableList.push_back(mirrorInter);
 
@@ -262,10 +262,17 @@ void Level1::LevelInit()
 	objUiText->SetSize(500.0f, -100.0f);
 	uiList.push_back(objUiText);
 
-	
 
 
 
+	GameObject* talkingChar = new GameObject();			//(char for character)							///////////////
+	talkingChar->SetTexture("../Resource/Texture/invisible.png");
+	talkingChar->SetSize(1980, -1080.0f);//1080 + 200.0f
+	talkingChar->SetPosition(glm::vec3(0, 0, 0));
+	uiList.push_back(talkingChar);
+
+
+	dialogueCharacter = talkingChar;
 	uiText = objUiText;
 	button1 = testButton;
 	button2 = testButton2;
@@ -463,6 +470,9 @@ void Level1::HandleMouse(int type, int x, int y)
 
 	cursor->SetPosition(glm::vec3(trueX, y, 0));
 
+	if (talk.talking == false) {	//no talk
+
+	
 	for (int i = 0; i < interactableList.size(); i++) {
 		if (interactableList[i]->GetClick(trueX, y)) {
 			interactableList[i]->Interact();
@@ -511,6 +521,8 @@ void Level1::HandleMouse(int type, int x, int y)
 			GameInstance::GetInstance()->inventory.push_back(potatoItem);
 			for (int i = 0; i < 8; i++) { if (i >= GameInstance::GetInstance()->inventory.size()) { inventoryL[i]->SetTexture("../Resource/Texture/invisible.png"); } else { inventoryL[i]->SetTexture(GameInstance::GetInstance()->inventory[i].fileName); } }
 		}
+		talk.event = "talk to globe thingy";
+		talk.talking = true;
 		floatyGlobe->Interacted = false;
 	} 
 
@@ -532,6 +544,34 @@ void Level1::HandleMouse(int type, int x, int y)
 		key1->Interacted = false;
 	}
 	
+
+	}//no talk
+
+	else{ //do talk
+		talk.count = talk.count + 1;
+
+
+
+		if (talk.event == "talk to globe thingy") {
+			switch (talk.count) {
+				case 1: talk.d("hello"); break;
+				case 2:	talk.d("hi"); break;
+				case 3:	talk.d("bye"); break;
+				case 4: talk.event = ""; talk.dp(" ", "../Resource/Texture/invisible.png"); talk.talking = false; talk.count = 0; break;
+			}
+
+		}
+
+
+		
+		dialogueCharacter->SetTexture(talk.pictureFileName);			//SetPosition(glm::vec3(0, 0, 0));
+		uiText->LoadText(talk.dialogue, whiteText, 100);
+		uiText->SetSize(700.0f, -100.0f);
+
+	}//do talk
+
+
+
 
 
 	//inventory logic

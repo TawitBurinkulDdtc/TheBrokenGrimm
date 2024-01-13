@@ -43,6 +43,7 @@
     <ClCompile Include="Shader.cpp" />
     <ClCompile Include="SpriteObject.cpp" />
     <ClCompile Include="SquareMeshVbo.cpp" />
+    <ClCompile Include="talkClass.cpp" />
     <ClCompile Include="TextObject.cpp" />
     <ClCompile Include="TriangleMeshVbo.cpp" />
   </ItemGroup>
@@ -72,6 +73,7 @@
     <ClInclude Include="Shader.h" />
     <ClInclude Include="SpriteObject.h" />
     <ClInclude Include="SquareMeshVbo.h" />
+    <ClInclude Include="talkClass.h" />
     <ClInclude Include="TextObject.h" />
     <ClInclude Include="TriangleMeshVbo.h" />
   </ItemGroup>

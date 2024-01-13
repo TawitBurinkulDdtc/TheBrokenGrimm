@@ -5,6 +5,7 @@
 #include "ImageObject.h"
 #include "GameInstance.h"
 #include "ItemUi.h"
+#include "talkClass.h"
 
 class Level
 {
@@ -29,4 +30,7 @@ public:
 	float mapWidth;
 	GameObject* inventoryBar;
 	GameObject* selectUi;
+
+	talkClass talk;
+	GameObject* dialogueCharacter;
 };
