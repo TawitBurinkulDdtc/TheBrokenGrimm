@@ -14,13 +14,13 @@ ButtonObject::ButtonObject(){
 void ButtonObject::Interact(){  // pos.x-(size.x/2)
 
 		if (SoundEngine) {
-			SoundEngine->play2D("Ahhh.ogg", false);
-			printf("\nButton.cpp press working well");
+			//SoundEngine->play2D("Ahhh.ogg", false);
+			//printf("\nButton.cpp press working well");
 			//SoundEngine->drop(); // Release resources
 		}
 		else {
 			// Handle the case when the sound engine creation fails
-			printf("\nFailed to create the sound engine");
+			//printf("\nFailed to create the sound engine");
 		}
 		Interacted = true;
 }

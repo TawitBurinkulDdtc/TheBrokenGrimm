@@ -249,11 +249,11 @@ void Level2::LevelUpdate()
 				}
 			}
 			else if (player->GetX() < 100) {
-				GameInstance::GetInstance()->PlayerFrom = 2;
+				GameInstance::GetInstance()->PlayerFrom = PlayerFrom::Right;
 				GameEngine::GetInstance()->GetStateController()->gameStateNext = GameState::GS_LEVEL1;
 			}
 			else if (player->GetX() > mapWidth-100) {
-				GameInstance::GetInstance()->PlayerFrom = 1;
+				GameInstance::GetInstance()->PlayerFrom = PlayerFrom::Left;
 				GameEngine::GetInstance()->GetStateController()->gameStateNext = GameState::GS_LEVEL1;
 			}
 			if (playerWalkSide == 2) {
@@ -375,24 +375,23 @@ void Level2::HandleMouse(int type, int x, int y)
 	
 	if (chest1->Interacted == true) {
 		SDL_Color button3TextColor = { 255, 255, 255 };
-		if (holdedItemIndex >= 0 && holdedItemIndex < GameInstance::GetInstance()->inventory.size()&& GameInstance::GetInstance()->gameEvent[0] == 1) {
+		if (holdedItemIndex >= 0 && holdedItemIndex < GameInstance::GetInstance()->inventory.size()) {
 			if (GameInstance::GetInstance()->inventory[holdedItemIndex].name == "key1") { 
+				GameInstance::GetInstance()->inventory.erase(GameInstance::GetInstance()->inventory.begin() + holdedItemIndex);
+				uiText->LoadText("You get a paper note", button3TextColor, 100);
+				uiText->SetSize(700.0f, -100.0f);
+				GameInstance::GetInstance()->gameEvent[0] = 2;
+				chest1->SetTexture("../Resource/Texture/chest1Open.png");
+
 				if (GameInstance::GetInstance()->inventory.size() < 8) {
-					uiText->LoadText("You get a paper note", button3TextColor, 100);
-					uiText->SetSize(700.0f, -100.0f);
-					GameInstance::GetInstance()->inventory.erase(GameInstance::GetInstance()->inventory.begin() + holdedItemIndex);
 					Item EngineDemoNoteThingy;
 					EngineDemoNoteThingy.fileName = "../Resource/Texture/endOfEngineDemo.png";
 					EngineDemoNoteThingy.name = "endOfDemoNote";
 					GameInstance::GetInstance()->inventory.push_back(EngineDemoNoteThingy);
 					for (int i = 0; i < 8; i++) { if (i >= GameInstance::GetInstance()->inventory.size()) { inventoryL[i]->SetTexture("../Resource/Texture/invisible.png"); } else { inventoryL[i]->SetTexture(GameInstance::GetInstance()->inventory[i].fileName); } }
-					GameInstance::GetInstance()->gameEvent[0] = 2;
-					chest1->SetTexture("../Resource/Texture/chest1Open.png");
+					
 				}
-				else {
-					uiText->LoadText("You got no inventory space", button3TextColor, 100);
-					uiText->SetSize(700.0f, -100.0f);
-				}
+				
 			}
 			else if (GameInstance::GetInstance()->inventory[holdedItemIndex].name == "fire match") {
 				uiText->LoadText("when in doubt   commit arson    lol just kidding", button3TextColor, 100);

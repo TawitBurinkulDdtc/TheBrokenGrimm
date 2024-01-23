@@ -4,6 +4,8 @@
 #include "LevelTestZen.h"           //LVC. Level change testing add by Zen d13m9y2023
 #include "Level1.h"					// First real level we work in
 #include "Level2.h"	
+#include "LevelTemplate.h"	
+
 
 GameStateController::GameStateController()
 {
@@ -42,6 +44,9 @@ void GameStateController::LoadLevel()
 			break;
 		case GameState::GS_LEVEL_Zen:				//LVC. Level change testing add by Zen d13m9y2023
 			currentLevel = new LevelTestZen();
+			break;
+		case GameState::GS_LEVEL_Template:				//LVC. Level change testing add by Zen d13m9y2023
+			currentLevel = new LevelTemplate();
 			break;
 		default:
 			cout << "gGameStateCurr : invalid state!!" << endl;

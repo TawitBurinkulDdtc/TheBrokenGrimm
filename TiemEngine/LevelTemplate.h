@@ -4,7 +4,7 @@
 #include "ButtonObject.h"
 #include "TextObject.h"
 
-class Level1 : public Level
+class LevelTemplate : public Level
 {
 public:
 
@@ -15,6 +15,7 @@ public:
 	
 	vector<InteractableObject*> interactableList;
 	GameObject* player;
+	GameObject* cursor;
 public:
 	virtual void LevelLoad();
 	virtual void LevelInit();
@@ -37,12 +38,11 @@ public:
 
 	TextObject* uiText;
 	string displayText;
-	ButtonObject* button1;
-	ButtonObject* button2;
-	ButtonObject* floatyGlobe;
-	//ButtonObject* chest1;
-	ButtonObject* key1;
+	
 
 
+	ButtonObject* keyTem;
+	ButtonObject* chestTem;
+	ButtonObject* talkTem;
 	//extern howManyTimeButton1WasPressed;
 };
