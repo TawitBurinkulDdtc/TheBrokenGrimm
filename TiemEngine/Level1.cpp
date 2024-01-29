@@ -1,5 +1,4 @@
 #include "Level1.h"
-#include "sdl.h"
 #include "SpriteObject.h"
 
 void Level1::LevelLoad()
@@ -142,11 +141,11 @@ void Level1::LevelInit()
 	player->SetSize(540.0f * 0.5f, 695.0f * 0.5f);
 	objectsList.push_back(player);
 	if (GameInstance::GetInstance()->PlayerFrom == PlayerFrom::Left) {
-		player->SetPosition(glm::vec3(950.0f, 400.0f, 0.0f));
+		player->SetPosition(glm::vec3(300.0f, 400.0f, 0.0f));
 		GameEngine::GetInstance()->SetDrawArea(0, 1920, 0, 1080);
 	}
 	else if (GameInstance::GetInstance()->PlayerFrom == PlayerFrom::Right) {
-		player->SetPosition(glm::vec3(mapWidth - 950.0f, 400.0f, 0.0f));
+		player->SetPosition(glm::vec3(mapWidth - 300.0f, 400.0f, 0.0f));
 		GameEngine::GetInstance()->SetDrawArea(mapWidth - 1980.0f, mapWidth, 0, 1080);
 	}
 	else { player->SetPosition(glm::vec3(950.0f, 400.0f, 0.0f)); }
@@ -154,99 +153,14 @@ void Level1::LevelInit()
 
 
 
-	//inventory display stuff
-	inventoryBar = new GameObject();
-	inventoryBar->SetPosition(glm::vec3(960.0f, 100.0f, 0.0f));
-	inventoryBar->SetTexture("../Resource/Texture/inventoryBar.png");
-	inventoryBar->SetSize(1980.0f, -200.0f);
-	uiList.push_back(inventoryBar);
-
-	selectUi = new GameObject();
-	selectUi->SetPosition(glm::vec3(1000.0f, 100.0f, 0.0f));
-	selectUi->SetTexture("../Resource/Texture/selectionOutline.png");
-	selectUi->SetSize(120.0f, -120.0f);
-	uiList.push_back(selectUi);
-
-	ItemUi* itemSlot0 = new ItemUi();
-	//itemSlot0->SetTexture(GameInstance::GetInstance()->inventory[0].fileName);
-	itemSlot0->SetSize(100.0f, -100.0f);
-	itemSlot0->SetPosition(glm::vec3(100.0f, 100.0f, 0.0f));
-	uiList.push_back(itemSlot0);
-	interactableList.push_back(itemSlot0);
-
-	ItemUi* itemSlot1 = new ItemUi();
-	//itemSlot1->SetTexture(GameInstance::GetInstance()->inventory[1].fileName); 
-	itemSlot1->SetSize(100.0f, -100.0f);
-	itemSlot1->SetPosition(glm::vec3(300.0f, 100.0f, 0.0f));
-	uiList.push_back(itemSlot1);
-	interactableList.push_back(itemSlot1);
-	
-	ItemUi* itemSlot2 = new ItemUi();
-	//itemSlot2->SetTexture(GameInstance::GetInstance()->inventory[1].fileName);
-	itemSlot2->SetSize(100.0f, -100.0f);
-	itemSlot2->SetPosition(glm::vec3(500.0f, 100.0f, 0.0f));
-	uiList.push_back(itemSlot2);
-	interactableList.push_back(itemSlot2);
-
-	ItemUi* itemSlot3 = new ItemUi();
-	//itemSlot3->SetTexture(GameInstance::GetInstance()->inventory[3].fileName);
-	itemSlot3->SetSize(100.0f, -100.0f);
-	itemSlot3->SetPosition(glm::vec3(700.0f, 100.0f, 0.0f));
-	uiList.push_back(itemSlot3);
-	interactableList.push_back(itemSlot3);
-
-	ItemUi* itemSlot4 = new ItemUi();
-	//itemSlot4->SetTexture(GameInstance::GetInstance()->inventory[1].fileName);
-	itemSlot4->SetSize(100.0f, -100.0f);
-	itemSlot4->SetPosition(glm::vec3(900.0f, 100.0f, 0.0f));
-	uiList.push_back(itemSlot4);
-	interactableList.push_back(itemSlot4);
-
-	ItemUi* itemSlot5 = new ItemUi();
-	//itemSlot5->SetTexture(GameInstance::GetInstance()->inventory[1].fileName);
-	itemSlot5->SetSize(100.0f, -100.0f);
-	itemSlot5->SetPosition(glm::vec3(1100.0f, 100.0f, 0.0f));
-	uiList.push_back(itemSlot5);
-	interactableList.push_back(itemSlot5);
-
-	ItemUi* itemSlot6 = new ItemUi();
-	//itemSlot6->SetTexture(GameInstance::GetInstance()->inventory[1].fileName);
-	itemSlot6->SetSize(100.0f, -100.0f);
-	itemSlot6->SetPosition(glm::vec3(1300.0f, 100.0f, 0.0f));
-	uiList.push_back(itemSlot6);
-	interactableList.push_back(itemSlot6);
-	
-	ItemUi* itemSlot7 = new ItemUi();
-	//itemSlot7->SetTexture(GameInstance::GetInstance()->inventory[1].fileName);
-	itemSlot7->SetSize(100.0f, -100.0f);
-	itemSlot7->SetPosition(glm::vec3(1500.0f, 100.0f, 0.0f));
-	uiList.push_back(itemSlot7);
-	interactableList.push_back(itemSlot7);
-
-	inventoryL[0] = itemSlot0;
-	inventoryL[1] = itemSlot1;
-	inventoryL[2] = itemSlot2;
-	inventoryL[3] = itemSlot3;
-	inventoryL[4] = itemSlot4;
-	inventoryL[5] = itemSlot5;
-	inventoryL[6] = itemSlot6;
-	inventoryL[7] = itemSlot7; 
-
-	for (int i = 0; i < 8; i++) {
-		if (i >= GameInstance::GetInstance()->inventory.size()) {
-			inventoryL[i]->SetTexture("../Resource/Texture/invisible.png");
-		}
-		else{
-			inventoryL[i]->SetTexture(GameInstance::GetInstance()->inventory[i].fileName);
-		}
-	}
-	
+	//create inventory here
+	createInventory();
 	
 
 
 	uiText = new TextObject();
 	SDL_Color textColor = { 0, 0, 0 }; //(0 to 255)
-	uiText->LoadText("Hello??? anybody?", textColor, 100);
+	uiText->LoadText(" ", textColor, 100);
 	uiText->SetPosition(glm::vec3(960.0f, 200.0f, 0.0f));
 	uiText->SetSize(500.0f, -100.0f);
 	uiList.push_back(uiText);
@@ -294,7 +208,6 @@ void Level1::LevelInit()
 
 
 
-
 void Level1::LevelUpdate()
 {	
 	
@@ -318,10 +231,6 @@ void Level1::LevelUpdate()
 					}
 				}
 				else if (player->GetX() < 100) {
-					GameInstance::GetInstance()->PlayerFrom = PlayerFrom::Left;
-					GameEngine::GetInstance()->GetStateController()->gameStateNext = GameState::GS_LEVEL2;
-				}
-				else if (player->GetX() > (mapWidth - 100)) {
 					GameInstance::GetInstance()->PlayerFrom = PlayerFrom::Right;
 					GameEngine::GetInstance()->GetStateController()->gameStateNext = GameState::GS_LEVEL2;
 				}
@@ -339,14 +248,10 @@ void Level1::LevelUpdate()
 						inventoryL[i]->SetPosition(glm::vec3((player->GetX() - 960) + 100.0f + (200 * i), 100.0f, 0.0f));
 					}
 				}
-				else if (player->GetX() < 100) {
+				/*else if (player->GetX() >(mapWidth - 100)) {
 					GameInstance::GetInstance()->PlayerFrom = PlayerFrom::Left;
 					GameEngine::GetInstance()->GetStateController()->gameStateNext = GameState::GS_LEVEL2;
-				}
-				else if (player->GetX() > (mapWidth - 100)) {
-					GameInstance::GetInstance()->PlayerFrom = PlayerFrom::Right;
-					GameEngine::GetInstance()->GetStateController()->gameStateNext = GameState::GS_LEVEL2;
-				}
+				}*/
 				player->SetSize(-540.0f * 0.5f, 695.0f * 0.5f);
 				playerWalkSide = 0;
 			}
@@ -462,7 +367,7 @@ void Level1::HandleMouse(int type, int x, int y)
 				interactableList[i]->Interact();
 			}
 		}
-		if (button1->Interacted == true) {
+		if (button1->Interacted == true) {	//showText(string word,SDL_Color textColor,int fontSize,int sizeX,int size Y);
 			uiText->LoadText("curse u with this", whiteText, 100);
 			uiText->SetSize(700.0f, -100.0f);
 			button1->Interacted = false;
@@ -472,22 +377,13 @@ void Level1::HandleMouse(int type, int x, int y)
 				tomatoItem.name = "tomato from god";
 				tomatoItem.showText = "Tomato";
 				GameInstance::GetInstance()->inventory.push_back(tomatoItem);
-				for (int i = 0; i < 8; i++) { if (i >= GameInstance::GetInstance()->inventory.size()) { inventoryL[i]->SetTexture("../Resource/Texture/invisible.png"); } else { inventoryL[i]->SetTexture(GameInstance::GetInstance()->inventory[i].fileName); } }
+				refreshInventoryPic();
 			}
 		}
 		if (button2->Interacted == true) {
-			//string st = "You now have " + GameInstance::GetInstance()->testIntInstance + "keys";
 			GameInstance::GetInstance()->testIntInstance = GameInstance::GetInstance()->testIntInstance + 1;
-			uiText->LoadText("a fire match drop from the ceiling", whiteText, 100);
-			uiText->SetSize(700.0f, -100.0f);
-			if (GameInstance::GetInstance()->inventory.size() < 8) {
-				Item fireMatchItem;
-				fireMatchItem.fileName = "../Resource/Texture/fireMatch.png";
-				fireMatchItem.name = "fire match";
-				fireMatchItem.showText = "fire match";
-				GameInstance::GetInstance()->inventory.push_back(fireMatchItem);
-				for (int i = 0; i < 8; i++) { if (i >= GameInstance::GetInstance()->inventory.size()) { inventoryL[i]->SetTexture("../Resource/Texture/invisible.png"); } else { inventoryL[i]->SetTexture(GameInstance::GetInstance()->inventory[i].fileName); } }
-			}
+			showText("a fire match drop from the ceiling",whiteText, 100, 700.0f, 100.0f);
+			getItem("fire match", "It's fire match", "../Resource/Texture/fireMatch.png");
 			button2->Interacted = false;
 			//test = test + 1;
 		
@@ -500,32 +396,23 @@ void Level1::HandleMouse(int type, int x, int y)
 				potatoItem.name = "potato from god";
 				potatoItem.showText = "Potato";
 				GameInstance::GetInstance()->inventory.push_back(potatoItem);
-				for (int i = 0; i < 8; i++) { if (i >= GameInstance::GetInstance()->inventory.size()) { inventoryL[i]->SetTexture("../Resource/Texture/invisible.png"); } else { inventoryL[i]->SetTexture(GameInstance::GetInstance()->inventory[i].fileName); } }
+				refreshInventoryPic();
 			}
 			talk.event = "talk to globe thingy";
 			talk.talking = true;
 			floatyGlobe->Interacted = false;
 		} 
 
-
+		/*
 		if (key1->Interacted == true) {
-			uiText->LoadText("Grabing Key", whiteText, 100);
-			uiText->SetSize(700.0f, -100.0f);
-
-			if (GameInstance::GetInstance()->inventory.size() < 8) {
-				Item key1Item;
-				key1Item.fileName = "../Resource/Texture/key1.png";
-				key1Item.name = "key1";
-				key1Item.showText = "The key";
-				GameInstance::GetInstance()->inventory.push_back(key1Item);
-				for (int i = 0; i < 8; i++) { if (i >= GameInstance::GetInstance()->inventory.size()) { inventoryL[i]->SetTexture("../Resource/Texture/invisible.png"); } else { inventoryL[i]->SetTexture(GameInstance::GetInstance()->inventory[i].fileName); } }
-			}
-			//GameInstance::GetInstance()->gameEvent[0] = 1;
+			showText("Grabing Key", whiteText, 100, 700.0f, 100.0f);
+			getItem("key1", "it is a key", "../Resource/Texture/key1.png");
 			GameInstance::GetInstance()->key1 = GameEventType::AlreadyPick;
 			key1->SetPosition(glm::vec3(0.0f, 5000.0f, 0.0f));
 			key1->Interacted = false;
-		}
-	
+		}*/
+		//objectPickableItem(key1, GameInstance::GetInstance()->key1,/*getItem info*/ "key1", "it is a key", "../Resource/Texture/key1.png",/*showText info*/"Grabing Key", whiteText, 100, 700.0f, 100.0f);
+		objectPickableItem(key1, GameInstance::GetInstance()->key1,"key1", "it is a key", "../Resource/Texture/key1.png","Grabing Key", whiteText, 100, 700.0f, 100.0f);
 
 	}//no talk
 
@@ -544,8 +431,6 @@ void Level1::HandleMouse(int type, int x, int y)
 
 		}
 
-
-		
 		dialogueCharacter->SetTexture(talk.pictureFileName);			//SetPosition(glm::vec3(0, 0, 0));
 		uiText->LoadText(talk.dialogue, whiteText, 100);
 		
@@ -557,16 +442,7 @@ void Level1::HandleMouse(int type, int x, int y)
 
 
 	//inventory logic
-	for (int i = 0; i < GameInstance::GetInstance()->inventory.size(); i++) {
-		if(inventoryL[i]->Interacted == true){
-				holdedItemIndex = i;
-				selectUi->SetPosition(glm::vec3((player->GetX() - 960) + 100.0f + (200 * holdedItemIndex), 100.0f, 0.0f));
-				uiText->LoadText(GameInstance::GetInstance()->inventory[i].showText, GameInstance::GetInstance()->inventory[i].textColor, GameInstance::GetInstance()->inventory[i].textFontSize);
-				uiText->SetSize(GameInstance::GetInstance()->inventory[i].textSizeX, -(GameInstance::GetInstance()->inventory[i].textSizeY));
-				inventoryL[i]->Interacted = false;
-			
-		}
-	}
+	inventoryLogic();
 
 	
 	//playerWalkTo = x;
@@ -578,58 +454,135 @@ void Level1::HandleMouse(int type, int x, int y)
 
 
 
-
-
-
-
-
-
-
-
-
-
-/*			//old inventory code
-if(GameInstance::GetInstance()->inventory[i].name == "potato from god") {
-	GameInstance::GetInstance()->inventory.erase(GameInstance::GetInstance()->inventory.begin() + i);
-	for (int j = 0; j < 8; j++) { if (j >= GameInstance::GetInstance()->inventory.size()) { inventoryL[j]->SetTexture("../Resource/Texture/invisible.png"); } else { inventoryL[j]->SetTexture(GameInstance::GetInstance()->inventory[j].fileName); } }
-
-	GameInstance::GetInstance()->potatoEaten = GameInstance::GetInstance()->potatoEaten + 1;
-	string potatoEatenText[2] = { "you have eated ", " potatos" };
-	uiText->LoadText(potatoEatenText[0] + to_string(GameInstance::GetInstance()->potatoEaten) + potatoEatenText[1], whiteText, 100);
-	uiText->SetSize(700.0f, -100.0f);
-	inventoryL[i]->Interacted = false;
+void Level1::refreshInventoryPic() {
+	for (int i = 0; i < 8; i++) { if (i >= GameInstance::GetInstance()->inventory.size()) { inventoryL[i]->SetTexture("../Resource/Texture/invisible.png"); } else { inventoryL[i]->SetTexture(GameInstance::GetInstance()->inventory[i].fileName); } }
 }
-else if (GameInstance::GetInstance()->inventory[i].name == "tomato from god") {
-	GameInstance::GetInstance()->inventory.erase(GameInstance::GetInstance()->inventory.begin() + i);
-	for (int j = 0; j < 8; j++) { if (j >= GameInstance::GetInstance()->inventory.size()) { inventoryL[j]->SetTexture("../Resource/Texture/invisible.png"); } else { inventoryL[j]->SetTexture(GameInstance::GetInstance()->inventory[j].fileName); } }
+void Level1::createInventory() {
+	//inventory display stuff
+	inventoryBar = new GameObject();
+	inventoryBar->SetPosition(glm::vec3(960.0f, 100.0f, 0.0f));
+	inventoryBar->SetTexture("../Resource/Texture/inventoryBar.png");
+	inventoryBar->SetSize(1980.0f, -200.0f);
+	uiList.push_back(inventoryBar);
 
-	uiText->LoadText("Tomato is too sour", whiteText, 100);
-	uiText->SetSize(700.0f, -100.0f);
+	selectUi = new GameObject();
+	selectUi->SetPosition(glm::vec3(1000.0f, 100.0f, 0.0f));
+	selectUi->SetTexture("../Resource/Texture/selectionOutline.png");
+	selectUi->SetSize(120.0f, -120.0f);
+	uiList.push_back(selectUi);
 
-	inventoryL[i]->Interacted = false;
+	ItemUi* itemSlot0 = new ItemUi();
+	//itemSlot0->SetTexture(GameInstance::GetInstance()->inventory[0].fileName);
+	itemSlot0->SetSize(100.0f, -100.0f);
+	itemSlot0->SetPosition(glm::vec3(100.0f, 100.0f, 0.0f));
+	uiList.push_back(itemSlot0);
+	interactableList.push_back(itemSlot0);
+
+	ItemUi* itemSlot1 = new ItemUi();
+	//itemSlot1->SetTexture(GameInstance::GetInstance()->inventory[1].fileName); 
+	itemSlot1->SetSize(100.0f, -100.0f);
+	itemSlot1->SetPosition(glm::vec3(300.0f, 100.0f, 0.0f));
+	uiList.push_back(itemSlot1);
+	interactableList.push_back(itemSlot1);
+
+	ItemUi* itemSlot2 = new ItemUi();
+	//itemSlot2->SetTexture(GameInstance::GetInstance()->inventory[1].fileName);
+	itemSlot2->SetSize(100.0f, -100.0f);
+	itemSlot2->SetPosition(glm::vec3(500.0f, 100.0f, 0.0f));
+	uiList.push_back(itemSlot2);
+	interactableList.push_back(itemSlot2);
+
+	ItemUi* itemSlot3 = new ItemUi();
+	//itemSlot3->SetTexture(GameInstance::GetInstance()->inventory[3].fileName);
+	itemSlot3->SetSize(100.0f, -100.0f);
+	itemSlot3->SetPosition(glm::vec3(700.0f, 100.0f, 0.0f));
+	uiList.push_back(itemSlot3);
+	interactableList.push_back(itemSlot3);
+
+	ItemUi* itemSlot4 = new ItemUi();
+	//itemSlot4->SetTexture(GameInstance::GetInstance()->inventory[1].fileName);
+	itemSlot4->SetSize(100.0f, -100.0f);
+	itemSlot4->SetPosition(glm::vec3(900.0f, 100.0f, 0.0f));
+	uiList.push_back(itemSlot4);
+	interactableList.push_back(itemSlot4);
+
+	ItemUi* itemSlot5 = new ItemUi();
+	//itemSlot5->SetTexture(GameInstance::GetInstance()->inventory[1].fileName);
+	itemSlot5->SetSize(100.0f, -100.0f);
+	itemSlot5->SetPosition(glm::vec3(1100.0f, 100.0f, 0.0f));
+	uiList.push_back(itemSlot5);
+	interactableList.push_back(itemSlot5);
+
+	ItemUi* itemSlot6 = new ItemUi();
+	//itemSlot6->SetTexture(GameInstance::GetInstance()->inventory[1].fileName);
+	itemSlot6->SetSize(100.0f, -100.0f);
+	itemSlot6->SetPosition(glm::vec3(1300.0f, 100.0f, 0.0f));
+	uiList.push_back(itemSlot6);
+	interactableList.push_back(itemSlot6);
+
+	ItemUi* itemSlot7 = new ItemUi();
+	//itemSlot7->SetTexture(GameInstance::GetInstance()->inventory[1].fileName);
+	itemSlot7->SetSize(100.0f, -100.0f);
+	itemSlot7->SetPosition(glm::vec3(1500.0f, 100.0f, 0.0f));
+	uiList.push_back(itemSlot7);
+	interactableList.push_back(itemSlot7);
+
+	inventoryL[0] = itemSlot0;
+	inventoryL[1] = itemSlot1;
+	inventoryL[2] = itemSlot2;
+	inventoryL[3] = itemSlot3;
+	inventoryL[4] = itemSlot4;
+	inventoryL[5] = itemSlot5;
+	inventoryL[6] = itemSlot6;
+	inventoryL[7] = itemSlot7;
+
+	for (int i = 0; i < 8; i++) {
+		if (i >= GameInstance::GetInstance()->inventory.size()) {
+			inventoryL[i]->SetTexture("../Resource/Texture/invisible.png");
+		}
+		else {
+			inventoryL[i]->SetTexture(GameInstance::GetInstance()->inventory[i].fileName);
+		}
+	}
 }
-else if (GameInstance::GetInstance()->inventory[i].name == "fire match") {
-	holdedItemIndex = i;
-	selectUi->SetPosition(glm::vec3((player->GetX() - 960) + 100.0f + (200 * holdedItemIndex), 100.0f, 0.0f));
-	uiText->LoadText("a fire match", whiteText, 100);
-	uiText->SetSize(700.0f, -100.0f);
+void Level1::inventoryLogic() {
+	for (int i = 0; i < GameInstance::GetInstance()->inventory.size(); i++) {
+		if (inventoryL[i]->Interacted == true) {
+			holdedItemIndex = i;
+			selectUi->SetPosition(glm::vec3((player->GetX() - 960) + 100.0f + (200 * holdedItemIndex), 100.0f, 0.0f));
+			uiText->LoadText(GameInstance::GetInstance()->inventory[i].showText, GameInstance::GetInstance()->inventory[i].textColor, GameInstance::GetInstance()->inventory[i].textFontSize);
+			uiText->SetSize(GameInstance::GetInstance()->inventory[i].textSizeX, -(GameInstance::GetInstance()->inventory[i].textSizeY));
+			inventoryL[i]->Interacted = false;
 
-	inventoryL[i]->Interacted = false;
+		}
+	}
 }
-else if (GameInstance::GetInstance()->inventory[i].name == "key1") {
-	holdedItemIndex = i;
-	selectUi->SetPosition(glm::vec3((player->GetX() - 960) + 100.0f + (200 * holdedItemIndex), 100.0f, 0.0f));
-	uiText->LoadText("a key", whiteText, 100);
-	uiText->SetSize(700.0f, -100.0f);
 
-	inventoryL[i]->Interacted = false;
-}
-else if (GameInstance::GetInstance()->inventory[i].name == "endOfDemoNote") {
-	holdedItemIndex = i;
-	selectUi->SetPosition(glm::vec3((player->GetX() - 960) + 100.0f + (200 * holdedItemIndex), 100.0f, 0.0f));
-	uiText->LoadText("END OF ENGINE DEMO", whiteText, 100);
-	uiText->SetSize(700.0f, -100.0f);
+void Level1::showText(string word, SDL_Color textColor, int fontSize, float sizeX, float sizeY){
+	uiText->LoadText(word, textColor, fontSize);
+	uiText->SetSize(sizeX, -sizeY);
+}	
 
-	inventoryL[i]->Interacted = false;
+void Level1::getItem(string name, string displayText, string fileName) {
+	if (GameInstance::GetInstance()->inventory.size() < 8) {	
+		Item theItem;
+		theItem.fileName = fileName;
+		theItem.name = name;
+		theItem.showText = displayText;
+		GameInstance::GetInstance()->inventory.push_back(theItem);
+		refreshInventoryPic();
+	}
 }
-*/
+
+
+
+
+void Level1::objectPickableItem(ButtonObject *object, GameEventType ge,/*getItem info*/ string name, string displayText, string fileName,/*showText info*/string word, SDL_Color textColor, int fontSize, float sizeX, float sizeY){
+	if (object->Interacted == true) {
+		showText(word, textColor, fontSize, sizeX, sizeY);
+		getItem(name, displayText, fileName);
+		ge = GameEventType::AlreadyPick;
+		object->SetPosition(glm::vec3(0.0f, 5000.0f, 0.0f));
+		object->Interacted = false;
+	}
+}

@@ -68,12 +68,12 @@ void Level2::LevelInit()
 	SpriteObject* Girl = new SpriteObject("../Resource/Texture/AveryIdle.png", 1, 6);
 	Girl->SetSize(64.0f * 2, 128.0f * 2);
 	objectsList.push_back(Girl);
-	if (GameInstance::GetInstance()->PlayerFrom == 1) {
-		Girl->SetPosition(glm::vec3(mapWidth - 950.0f, 300.0f, 0.0f));
+	if (GameInstance::GetInstance()->PlayerFrom == PlayerFrom::Right) {
+		Girl->SetPosition(glm::vec3(mapWidth - 300.0f, 300.0f, 0.0f));
 		GameEngine::GetInstance()->SetDrawArea(7764.5f - 1980.0f, mapWidth, 0, 1080);
 	}
-	else if(GameInstance::GetInstance()->PlayerFrom == 2){
-		Girl->SetPosition(glm::vec3(950.0f, 300.0f, 0.0f));
+	else if(GameInstance::GetInstance()->PlayerFrom == PlayerFrom::Left){
+		Girl->SetPosition(glm::vec3(300.0f, 300.0f, 0.0f));
 		GameEngine::GetInstance()->SetDrawArea(0, 1920, 0, 1080);
 	}
 	else{ Girl->SetPosition(glm::vec3(950.0f, 300.0f, 0.0f)); }
@@ -206,7 +206,7 @@ void Level2::LevelInit()
 
 
 	//--------------------- walk speed editer----------------------------
-	playerFrameDelay = 1;
+	playerFrameDelay = 0.1;
 	playerStepPerFrame = 10;
 	//---------------------------------------------------------------------
 	//cout << "Init Level" << endl;

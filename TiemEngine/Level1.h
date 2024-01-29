@@ -1,8 +1,10 @@
 #pragma once
 #include "Level.h"
+#include "sdl.h"
 #include "InteractableObject.h"
 #include "ButtonObject.h"
 #include "TextObject.h"
+#include "SpriteObject.h"
 
 class Level1 : public Level
 {
@@ -22,9 +24,17 @@ public:
 	virtual void LevelDraw();
 	virtual void LevelFree();
 	virtual void LevelUnload();
-
 	virtual void HandleKey(char key);
 	virtual void HandleMouse(int type, int x, int y);
+	
+	void refreshInventoryPic();
+	void createInventory();
+	void inventoryLogic(); //put in handle mouse
+
+	void showText(string word, SDL_Color textColor, int fontSize, float sizeX, float sizeY);
+	void getItem(string name, string displayText, string fileName);
+	void objectPickableItem(ButtonObject* object, GameEventType ge,/*getItem info*/ string name, string displayText, string fileName,/*showText info*/string word, SDL_Color textColor, int fontSize, float sizeX, float sizeY);
+
 
 	float playerWalkTo; //might not needed anymore if change to key press movement instead of mouse movement
 	int playerFrameDelay;
