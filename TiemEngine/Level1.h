@@ -32,6 +32,9 @@ public:
 	void inventoryLogic(); //put in handle mouse
 
 	void showText(string word, SDL_Color textColor, int fontSize, float sizeX, float sizeY);
+	void setDialoguePosition();
+
+
 	void getItem(string name, string displayText, string fileName);
 	void objectPickableItem(ButtonObject* object, GameEventType ge,/*getItem info*/ string name, string displayText, string fileName,/*showText info*/string word, SDL_Color textColor, int fontSize, float sizeX, float sizeY);
 
@@ -47,12 +50,22 @@ public:
 
 	TextObject* uiText;
 	string displayText;
+	SDL_Color whiteText = { 255, 255, 255 };
+	SDL_Color blackText = { 0, 0, 0 };
+	private:
 	ButtonObject* button1;
 	ButtonObject* button2;
 	ButtonObject* floatyGlobe;
 	//ButtonObject* chest1;
 	ButtonObject* key1;
+	ButtonObject* bird;
+	ButtonObject* book1;
+	ButtonObject* book2;
+	ButtonObject* book3;
+	ButtonObject* bookHunselAndGretel;
+	
 
+	
 
 	//extern howManyTimeButton1WasPressed;
 };

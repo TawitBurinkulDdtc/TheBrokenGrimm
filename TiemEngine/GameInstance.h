@@ -34,5 +34,8 @@ public:
 
 	int gameEvent[500] = { 0 };
 
+
 	GameEventType key1 = NotPick;
+
+	int birdTalking = 0;
 };
