@@ -52,17 +52,25 @@ public:
 	string displayText;
 	SDL_Color whiteText = { 255, 255, 255 };
 	SDL_Color blackText = { 0, 0, 0 };
+
+
+
+
+
 	private:
 	ButtonObject* button1;
 	ButtonObject* button2;
 	ButtonObject* floatyGlobe;
 	//ButtonObject* chest1;
 	ButtonObject* key1;
+	GameObject* birdAnim;
 	ButtonObject* bird;
 	ButtonObject* book1;
 	ButtonObject* book2;
 	ButtonObject* book3;
 	ButtonObject* bookHunselAndGretel;
+	ButtonObject* mirrorInter;
+	bool checkBookInInventory = false;
 	
 
 	

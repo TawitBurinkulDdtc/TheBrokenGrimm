@@ -74,7 +74,7 @@ void Level1::LevelInit()
 	backgroundList.push_back(mirrorPic);
 
 	
-	ButtonObject* mirrorInter = new ButtonObject();
+	mirrorInter = new ButtonObject();
 	mirrorInter->SetTexture("../Resource/Texture/test.png");
 	mirrorInter->SetSize(560.0f, -340.0f);
 	mirrorInter->SetPosition(glm::vec3(1536.0f, 775.0f, 0.0f));
@@ -82,21 +82,21 @@ void Level1::LevelInit()
 	interactableList.push_back(mirrorInter);
 
 	ButtonObject* testButton = new ButtonObject();
-	testButton->SetTexture("../Resource/Texture/DoNotPress.png");
+	testButton->SetTexture("../Resource/Texture/test.png");
 	testButton->SetSize(100.0f, -100.0f);
 	testButton->SetPosition(glm::vec3(3500.25f, 800.0f, 0.0f));
 	objectsList.push_back(testButton);
 	interactableList.push_back(testButton);
 
 	ButtonObject* testButton2 = new ButtonObject();
-	testButton2->SetTexture("../Resource/Texture/DoNotPress.png");
+	testButton2->SetTexture("../Resource/Texture/test.png");
 	testButton2->SetSize(100.0f, -100.0f);
 	testButton2->SetPosition(glm::vec3(1200.0f, 800.0f, 0.0f));
 	objectsList.push_back(testButton2);
 	interactableList.push_back(testButton2);
 
 	ButtonObject* lv1Key1 = new ButtonObject();
-	lv1Key1->SetTexture("../Resource/Texture/key1.png");
+	lv1Key1->SetTexture("../Resource/Texture/test.png");
 	lv1Key1->SetSize(60.0f, -60.0f);
 	lv1Key1->SetPosition(glm::vec3(1800.0f, 600.0f, 0.0f));
 	objectsList.push_back(lv1Key1);
@@ -122,6 +122,20 @@ void Level1::LevelInit()
 	objectsList.push_back(book1);
 	interactableList.push_back(book1);
 
+	book2 = new ButtonObject();
+	book2->SetTexture("../Resource/Texture/testItem.png");
+	book2->SetSize(50, -130.0f);
+	book2->SetPosition(glm::vec3(5000.0f, 600.0f, 0.0f));
+	objectsList.push_back(book2);
+	interactableList.push_back(book2);
+
+	book3 = new ButtonObject();
+	book3->SetTexture("../Resource/Texture/testItem.png");
+	book3->SetSize(50, -130.0f);
+	book3->SetPosition(glm::vec3(5400.0f, 600.0f, 0.0f));
+	objectsList.push_back(book3);
+	interactableList.push_back(book3);
+
 	bookHunselAndGretel = new ButtonObject();
 	bookHunselAndGretel->SetTexture("../Resource/Texture/testItem.png");
 	bookHunselAndGretel->SetSize(50, -130.0f);
@@ -137,8 +151,16 @@ void Level1::LevelInit()
 	*/
 
 
-	bird = new ButtonObject();
-	bird->SetTexture("../Resource/Texture/protoBird.png");
+
+	birdAnim = new SpriteObject("../Resource/Texture/ProtoBirdAnimation.png", 1, 2);
+	//birdAnim = new GameObject();
+	//birdAnim->SetTexture("../Resource/Texture/protoBird.png");
+	birdAnim->SetSize(-300, 450.0f);
+	birdAnim->SetPosition(glm::vec3(mapWidth / 2, 4000.0f, 0.0f));
+	objectsList.push_back(birdAnim);
+
+	bird = new ButtonObject();	
+	bird->SetTexture("../Resource/Texture/test.png");
 	bird->SetSize(300, -450.0f);
 	bird->SetPosition(glm::vec3(mapWidth / 2, 4000.0f, 0.0f));
 	objectsList.push_back(bird);
@@ -163,6 +185,15 @@ void Level1::LevelInit()
 		GameEngine::GetInstance()->SetDrawArea(mapWidth - 1980.0f, mapWidth, 0, 1080);
 	}
 	else { player->SetPosition(glm::vec3(950.0f, 400.0f, 0.0f)); }
+
+
+
+
+	GameObject* backgroundPillar = new GameObject();
+	backgroundPillar->SetTexture("../Resource/Texture/Level1_Library_Pillar.png");
+	backgroundPillar->SetSize(mapWidth, -880.0f);//1080 + 200.0f
+	backgroundPillar->SetPosition(glm::vec3(mapWidth / 2, 540.0f + 100.0f, 0.0f));
+	objectsList.push_back(backgroundPillar);
 
 
 
@@ -208,7 +239,7 @@ void Level1::LevelInit()
 
 	//--------------------- walk speed editer----------------------------
 	playerFrameDelay = 1;
-	playerStepPerFrame = 60; //10 real   // 60 debug
+	playerStepPerFrame = 10; //10 real   // 60 debug
 	//---------------------------------------------------------------------
 	
 
@@ -278,6 +309,7 @@ void Level1::LevelUpdate()
 					talk.event = "bird talking first";
 					printf("Bird star talking");
 					bird->SetPosition(glm::vec3(mapWidth / 2, 700.0f, 0.0f));
+					birdAnim->SetPosition(glm::vec3(mapWidth / 2, 700.0f, 0.0f));
 					talk.talking = true;
 				}
 
@@ -296,7 +328,7 @@ void Level1::LevelUpdate()
 
 
 	player->UpdateFrame();
-
+	birdAnim->UpdateFrame();
 }
 
 //SpriteObject* Girl = new SpriteObject("../Resource/Texture/AveryWalk.png", 1, 6);
@@ -396,7 +428,7 @@ void Level1::HandleMouse(int type, int x, int y)
 				interactableList[i]->Interact();
 			}
 		}
-		if (button1->Interacted == true) {	//showText(string word,SDL_Color textColor,int fontSize,int sizeX,int size Y); /////////////will be gone soon start
+		/*if (button1->Interacted == true) {	//showText(string word,SDL_Color textColor,int fontSize,int sizeX,int size Y); /////////////will be gone soon start
 			uiText->LoadText("curse u with this", whiteText, 100);
 			uiText->SetSize(700.0f, -100.0f);
 			button1->Interacted = false;
@@ -439,21 +471,68 @@ void Level1::HandleMouse(int type, int x, int y)
 			GameInstance::GetInstance()->key1 = GameEventType::AlreadyPick;
 			key1->SetPosition(glm::vec3(0.0f, 5000.0f, 0.0f));
 			key1->Interacted = false;
-		}																																		/////////////will be gone soon end
+		}	
+		*/																																	/////////////will be gone soon end
 
 
-
-		if (book1->Interacted == true) {
-			talk.event = "read book 1";
-			talk.talking = true;
-			book1->Interacted = false;
-		}	//bookHunselAndGretel
+		if (book1->Interacted == true) {	//not read yet				GameInstance::GetInstance()->birdTalking = 1
+			if (GameInstance::GetInstance()->birdTalking == 1) {
+				talk.event = "read book 1";
+				talk.talking = true;
+			}
+			else {
+				talk.event = "not read yet";
+				talk.talking = true;
+			}
+				book1->Interacted = false;
+		}	
 		
 		if (bookHunselAndGretel->Interacted == true) {
-			showText("Read Hansel and Gretel book", whiteText, 100, 700.0f, 100.0f);
-			talk.event = "read Hansel and Gretel";
-			talk.talking = true;
+			if (GameInstance::GetInstance()->birdTalking == 1) {
+				talk.event = "read Hansel and Gretel";
+				talk.talking = true;
+			}
+			else {
+				talk.event = "not read yet";
+				talk.talking = true;
+			}
 			bookHunselAndGretel->Interacted = false;
+		}
+		
+		if (mirrorInter->Interacted == true) {
+			talk.event = "mirrors";
+			talk.talking = true;
+			mirrorInter->Interacted = false;
+		}
+		if (bird->Interacted == true) {
+			for (int i = 0; i < GameInstance::GetInstance()->inventory.size(); i++) {
+				if (GameInstance::GetInstance()->inventory[i].name == "bookH&G") {
+					checkBookInInventory = true;
+				}
+			}
+			if (holdedItemIndex >= 0 && holdedItemIndex < GameInstance::GetInstance()->inventory.size()) {
+				if (GameInstance::GetInstance()->inventory[holdedItemIndex].name == "bookH&G") {
+					talk.event = "enter the book";
+					talk.talking = true;
+				}
+				else if (GameInstance::GetInstance()->inventory[holdedItemIndex].name != "bookH&G" && checkBookInInventory == true) {
+					talk.event = "tutorial";
+					talk.talking = true;
+				}
+				else {
+					talk.event = "bird remind objective";
+					talk.talking = true;
+				}
+			}
+			else if (checkBookInInventory == true) {
+				talk.event = "tutorial";
+				talk.talking = true;
+			}
+			else {
+				talk.event = "bird remind objective";
+				talk.talking = true;
+			}
+			bird->Interacted = false;
 		}
 
 		//objectPickableItem(key1, GameInstance::GetInstance()->key1,"key1", "it is a key", "../Resource/Texture/key1.png","Grabing Key", whiteText, 100, 700.0f, 100.0f);   //alternative code
@@ -462,6 +541,15 @@ void Level1::HandleMouse(int type, int x, int y)
 
 	if (talk.talking == true) { //do talk
 		talk.count = talk.count + 1;
+
+		if (talk.event == "not read yet") {
+			switch (talk.count) {
+			case 1: talk.d("I want to check this place first before reading"); uiText->SetSize(700.0f, -100.0f);  break;
+			case 2: talk.event = " "; talk.d(" "); talk.talking = false; talk.count = 0; break;
+			}
+		}
+
+
 
 		if (talk.event == "talk to globe thingy") {		//SetPosition(glm::vec3(3500.25f, 800.0f, 0.0f));
 			switch (talk.count) {
@@ -483,7 +571,17 @@ void Level1::HandleMouse(int type, int x, int y)
 				case 5: talk.event = " "; talk.d(" "); talk.talking = false; talk.count = 0; break;
 			}
 
-		}														
+		}		
+
+
+		if (talk.event == "bird remind objective") {		//SetPosition(glm::vec3(3500.25f, 800.0f, 0.0f));
+			switch (talk.count) {
+			case 1: talk.d("Find a book where the story are weird"); uiText->SetSize(700.0f, -100.0f);  break;
+			case 2: talk.d("OBEY"); uiText->SetSize(700.0f, -100.0f);  break;
+			case 3: talk.event = " "; talk.d(" "); talk.talking = false; talk.count = 0; break;
+			}
+
+		}
 
 		if (talk.event == "read book 1") {		
 			switch (talk.count) {
@@ -493,7 +591,25 @@ void Level1::HandleMouse(int type, int x, int y)
 			case 4: talk.event = " ";  talk.dp(" ", "../Resource/Texture/invisible.png"); talk.talking = false; talk.count = 0; break;
 			}
 
+		}		
+		if (talk.event == "mirrors") {				
+			switch (talk.count) {
+			case 1: talk.d("Pictures of ugly people"); uiText->SetSize(700.0f, -100.0f); setDialoguePosition();  break;
+			case 2:	talk.d("Wait"); uiText->SetSize(400.0f, -100.0f); break;
+			case 3:	talk.d("They are mirrors"); uiText->SetSize(700.0f, -100.0f); break;
+			case 4: talk.event = " ";  talk.d(" "); talk.talking = false; talk.count = 0; break;
+			}
 		}
+
+		if (talk.event == "tutorial") {				//tutorial
+			switch (talk.count) {
+			case 1: talk.d("bird			Oh so you got the book"); uiText->SetSize(700.0f, -100.0f); setDialoguePosition();  break;
+			case 2:	talk.d("bird			Click on book to select item"); uiText->SetSize(400.0f, -100.0f); break;
+			case 3:	talk.d("bird			Then click on me to give item to me"); uiText->SetSize(300.0f, -100.0f); break;
+			case 4: talk.event = " ";  talk.d(" "); talk.talking = false; talk.count = 0; break;
+			}
+		}
+
 
 		if (talk.event == "read Hansel and Gretel") {
 			switch (talk.count) {
@@ -501,9 +617,21 @@ void Level1::HandleMouse(int type, int x, int y)
 			case 2:	talk.d("What a classic story"); uiText->SetSize(400.0f, -100.0f); break;
 			case 3:	talk.d("Wait why both Hansel and Gretel die at the end?"); uiText->SetSize(700.0f, -100.0f); break;
 			case 5:	talk.d("Yeah it's this book"); uiText->SetSize(700.0f, -100.0f); break;
-			case 6: talk.event = " ";  talk.dp(" ", "../Resource/Texture/invisible.png"); talk.talking = false; talk.count = 0; getItem("bookH&G", "A distorted story of Hansel and Gretel", "../Resource/Texture/testItem.png"); bookHunselAndGretel->SetPosition(glm::vec3(0.0f, 5000.0f, 0.0f)); break;
+			case 6: talk.event = " ";  talk.dp(" ", "../Resource/Texture/invisible.png"); talk.talking = false; talk.count = 0; getItem("bookH&G", "A distorted story of Hansel and Gretel", "../Resource/Texture/HanselAndGretelBook.png"); bookHunselAndGretel->SetPosition(glm::vec3(0.0f, 5000.0f, 0.0f)); break;
 			}
 		}
+
+		if (talk.event == "enter the book") {
+			switch (talk.count) {
+			case 1: talk.d("Bird			Go in the book!"); uiText->SetSize(700.0f, -100.0f); setDialoguePosition();  break;
+			case 2:	talk.d("Avery			Wait what"); uiText->SetSize(400.0f, -100.0f); break;
+			case 3:	talk.dp(" ", "../Resource/Texture/Level1AverySuxInBuk.png");; uiText->SetSize(700.0f, -100.0f); break;
+			case 4: talk.event = " ";  talk.dp(" ", "../Resource/Texture/Level1AverySuxInBuk.png"); talk.talking = false; 
+				talk.count = 0; GameInstance::GetInstance()->PlayerFrom = PlayerFrom::Right;
+				GameEngine::GetInstance()->GetStateController()->gameStateNext = GameState::GS_LEVEL2; break;
+			}
+		}
+
 
 		dialogueCharacter->SetTexture(talk.pictureFileName);			//SetPosition(glm::vec3(0, 0, 0));
 		uiText->LoadText(talk.dialogue, whiteText, 100);
