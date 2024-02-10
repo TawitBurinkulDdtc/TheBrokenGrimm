@@ -62,7 +62,7 @@ void TextObject::LoadText(string text, SDL_Color textColor, int fontSize)
 	glEnable(GL_BLEND);
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 	//TTF_Font * font = TTF_OpenFont("airstrikeexpand.ttf", fontSize);
-	TTF_Font* font = TTF_OpenFont("../Resource/Font/Gabilo Display Demo.otf", fontSize);//Gabilo Display Demo.otf	//ShortBaby-Mg2w.ttf
+	TTF_Font* font = TTF_OpenFont(fontFileName, fontSize);//Gabilo Display Demo.otf	//ShortBaby-Mg2w.ttf
 	
 	if (font)
 	{
@@ -78,4 +78,9 @@ void TextObject::LoadText(string text, SDL_Color textColor, int fontSize)
 		return;
 	}
 	
+}
+
+
+void TextObject::setFont(const char* fontLocation) {
+	fontFileName = fontLocation;
 }

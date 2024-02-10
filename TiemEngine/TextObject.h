@@ -10,6 +10,7 @@ class TextObject :public DrawableObject
 {
 private:
 	unsigned int texture;
+	const char* fontFileName = "../Resource/Font/Gabilo Display Demo.otf";
 
 public:
 	TextObject();
@@ -17,5 +18,5 @@ public:
 	void Render(glm::mat4 globalModelTransform);
 	void Update(float deltaTime);
 	void LoadText(string text, SDL_Color textColor, int fontSize);
-	
+	void setFont(const char* fontLocation);			// example    uiText->setFont("../Resource/Font/ShortBaby-Mg2w.ttf");
 };
