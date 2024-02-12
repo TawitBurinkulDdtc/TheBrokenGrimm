@@ -564,10 +564,10 @@ void Level1::HandleMouse(int type, int x, int y)
 
 		if (talk.event == "bird talking first") {		//SetPosition(glm::vec3(3500.25f, 800.0f, 0.0f));
 			switch (talk.count) {
-				case 1: talk.d("Avery			Why"); uiText->SetSize(700.0f, -100.0f);  break;
-				case 2:	talk.d("Bird			ehhh"); uiText->SetSize(400.0f, -100.0f); break;
-				case 3:	talk.d("Bird			please"); uiText->SetSize(700.0f, -100.0f); break;
-				case 4: talk.d("Avery			sure just fix book ez"); uiText->SetSize(700.0f, -100.0f); GameInstance::GetInstance()->birdTalking = 1; break;
+				case 1: talk.d("Avery: What"); uiText->SetSize(700.0f, -100.0f);  break;
+				case 2:	talk.d("Bird: Hello "); uiText->SetSize(400.0f, -100.0f); break;
+				case 3:	talk.d("please"); uiText->SetSize(700.0f, -100.0f); break;
+				case 4: talk.d("sure just fix book ez"); uiText->SetSize(700.0f, -100.0f); GameInstance::GetInstance()->birdTalking = 1; break;
 				case 5: talk.event = " "; talk.d(" "); talk.talking = false; talk.count = 0; break;
 			}
 
@@ -585,27 +585,27 @@ void Level1::HandleMouse(int type, int x, int y)
 
 		if (talk.event == "read book 1") {		
 			switch (talk.count) {
-			case 1: talk.dp("It about some sort of ancient language", "../Resource/Texture/book1Proto.png"); uiText->SetSize(700.0f, -100.0f); setDialoguePosition();  break;
-			case 2:	talk.d("Seem like it create to talk with god"); uiText->SetSize(400.0f, -100.0f); break;
-			case 3:	talk.d("Bunch of gibberish nonsense"); uiText->SetSize(700.0f, -100.0f); break;
+			case 1: talk.dp("It about some sort of unkown language", "../Resource/Texture/book1Proto.png"); uiText->SetSize(700.0f, -100.0f); setDialoguePosition();  break;
+			case 2:	talk.d("It's look like the list of somethings"); uiText->SetSize(400.0f, -100.0f); break;
+			case 3:	talk.d("Whatever"); uiText->SetSize(700.0f, -100.0f); break;
 			case 4: talk.event = " ";  talk.dp(" ", "../Resource/Texture/invisible.png"); talk.talking = false; talk.count = 0; break;
 			}
 
 		}		
 		if (talk.event == "mirrors") {				
 			switch (talk.count) {
-			case 1: talk.d("Pictures of ugly people"); uiText->SetSize(700.0f, -100.0f); setDialoguePosition();  break;
-			case 2:	talk.d("Wait"); uiText->SetSize(400.0f, -100.0f); break;
-			case 3:	talk.d("They are mirrors"); uiText->SetSize(700.0f, -100.0f); break;
-			case 4: talk.event = " ";  talk.d(" "); talk.talking = false; talk.count = 0; break;
+			case 1: talk.d("Oh that me"); uiText->SetSize(700.0f, -100.0f); setDialoguePosition();  break;
+			case 2:	talk.d("It is mirror anyway."); uiText->SetSize(400.0f, -100.0f); break;
+			
+			case 3: talk.event = " ";  talk.d(" "); talk.talking = false; talk.count = 0; break;
 			}
 		}
 
 		if (talk.event == "tutorial") {				//tutorial
 			switch (talk.count) {
-			case 1: talk.d("bird			Oh so you got the book"); uiText->SetSize(700.0f, -100.0f); setDialoguePosition();  break;
-			case 2:	talk.d("bird			Click on book to select item"); uiText->SetSize(400.0f, -100.0f); break;
-			case 3:	talk.d("bird			Then click on me to give item to me"); uiText->SetSize(300.0f, -100.0f); break;
+			case 1: talk.d("Well good job, AVERY. "); uiText->SetSize(700.0f, -100.0f); setDialoguePosition();  break;
+			case 2:	talk.d("Okay, then click on the book on the iventory bar”"); uiText->SetSize(400.0f, -100.0f); break;
+			case 3:	talk.d("and click on me to give book to me"); uiText->SetSize(300.0f, -100.0f); break;
 			case 4: talk.event = " ";  talk.d(" "); talk.talking = false; talk.count = 0; break;
 			}
 		}
@@ -613,11 +613,11 @@ void Level1::HandleMouse(int type, int x, int y)
 
 		if (talk.event == "read Hansel and Gretel") {
 			switch (talk.count) {
-			case 1: talk.dp("It's Hansel and Gretel", "../Resource/Texture/book1Proto.png"); uiText->SetSize(700.0f, -100.0f); setDialoguePosition();  break;
+			case 1: talk.dp("It's Hansel and Gretel story", "../Resource/Texture/book1Proto.png"); uiText->SetSize(700.0f, -100.0f); setDialoguePosition();  break;
 			case 2:	talk.d("What a classic story"); uiText->SetSize(400.0f, -100.0f); break;
-			case 3:	talk.d("Wait why both Hansel and Gretel die at the end?"); uiText->SetSize(700.0f, -100.0f); break;
-			case 5:	talk.d("Yeah it's this book"); uiText->SetSize(700.0f, -100.0f); break;
-			case 6: talk.event = " ";  talk.dp(" ", "../Resource/Texture/invisible.png"); talk.talking = false; talk.count = 0; getItem("bookH&G", "A distorted story of Hansel and Gretel", "../Resource/Texture/HanselAndGretelBook.png"); bookHunselAndGretel->SetPosition(glm::vec3(0.0f, 5000.0f, 0.0f)); break;
+			case 3:	talk.d("Wait why does the ending look like this?"); uiText->SetSize(700.0f, -100.0f); break;
+			case 4:	talk.d("This is the book she means"); uiText->SetSize(700.0f, -100.0f); break;
+			case 5: talk.event = " ";  talk.dp(" ", "../Resource/Texture/invisible.png"); talk.talking = false; talk.count = 0; getItem("bookH&G", "A distorted story of Hansel and Gretel", "../Resource/Texture/HanselAndGretelBook.png"); bookHunselAndGretel->SetPosition(glm::vec3(0.0f, 5000.0f, 0.0f)); break;
 			}
 		}
 
