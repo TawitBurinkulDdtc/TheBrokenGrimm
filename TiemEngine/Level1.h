@@ -49,6 +49,7 @@ public:
 	float playerStandStillDelay;
 
 	TextObject* uiText;
+	TextObject* nameText;
 	string displayText;
 	SDL_Color whiteText = { 255, 255, 255 };
 	SDL_Color blackText = { 0, 0, 0 };

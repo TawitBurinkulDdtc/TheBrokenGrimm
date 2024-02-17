@@ -152,16 +152,16 @@ void Level1::LevelInit()
 
 
 
-	birdAnim = new SpriteObject("../Resource/Texture/ProtoBirdAnimation.png", 1, 2);
-	//birdAnim = new GameObject();
+	birdAnim = new SpriteObject("../Resource/Texture/ProtoBirdAnimation.png", 1, 2); //("..Resource/Texture/FileName.png")
+	//birdAnim = new GameObject(); 
 	//birdAnim->SetTexture("../Resource/Texture/protoBird.png");
-	birdAnim->SetSize(-167, 225.0f);
+	birdAnim->SetSize(-167, 225.0f); //in animation y gotta be +
 	birdAnim->SetPosition(glm::vec3(0.0f, 5000.0f, 0.0f));
 	objectsList.push_back(birdAnim);
 
 	bird = new ButtonObject();	
 	bird->SetTexture("../Resource/Texture/test.png");
-	bird->SetSize(-167, -225.0f);
+	bird->SetSize(167, -225.0f);
 	bird->SetPosition(glm::vec3(0.0f, 5000.0f, 0.0f));
 	objectsList.push_back(bird);
 	interactableList.push_back(bird);			
@@ -219,6 +219,11 @@ void Level1::LevelInit()
 	uiText->SetSize(500.0f, -100.0f);
 	uiList.push_back(uiText);
 
+	nameText = new TextObject();
+	nameText->LoadText(" ", textColor, 100);
+	nameText->SetPosition(glm::vec3(960.0f, 300.0f, 0.0f));
+	nameText->SetSize(500.0f, -100.0f);
+	uiList.push_back(nameText);
 
 
 
@@ -239,7 +244,7 @@ void Level1::LevelInit()
 
 	//--------------------- walk speed editer----------------------------
 	playerFrameDelay = 1;
-	playerStepPerFrame = 10; //10 real   // 60 debug
+	playerStepPerFrame = 60; //10 real   // 60 debug
 	//---------------------------------------------------------------------
 	
 
@@ -272,6 +277,7 @@ void Level1::LevelUpdate()
 				if (player->GetX() > 960 && player->GetX() < (mapWidth - 960.0f)) {										//set camera limit here
 					GameEngine::GetInstance()->SetDrawArea(player->GetX() - 960, 960 + player->GetX(), 0, 1080);
 					uiText->SetPosition(glm::vec3(player->GetX(), 200.0f, 0.0f));
+					nameText->SetPosition(glm::vec3(player->GetX(), 300.0f, 0.0f));
 					inventoryBar->SetPosition(glm::vec3(player->GetX(), 100.0f, 0.0f));
 					selectUi->SetPosition(glm::vec3((player->GetX() - 960) + 100.0f + (200 * holdedItemIndex), 100.0f, 0.0f));
 					for (int i = 0; i < 8; i++) {
@@ -290,6 +296,7 @@ void Level1::LevelUpdate()
 				if (player->GetX() > 960 && player->GetX() < (mapWidth - 960.0f)) {										//set camera limit here
 					GameEngine::GetInstance()->SetDrawArea(player->GetX() - 960, 960 + player->GetX(), 0, 1080);
 					uiText->SetPosition(glm::vec3(player->GetX(), 200.0f, 0.0f));
+					nameText->SetPosition(glm::vec3(player->GetX(), 300.0f, 0.0f));
 					inventoryBar->SetPosition(glm::vec3(player->GetX(), 100.0f, 0.0f));
 					selectUi->SetPosition(glm::vec3((player->GetX() - 960) + 100.0f + (200 * holdedItemIndex), 100.0f, 0.0f));
 					for (int i = 0; i < 8; i++) {
@@ -305,7 +312,8 @@ void Level1::LevelUpdate()
 					uiText->SetSize(700.0f, -100.0f); 
 					//dialogueCharacter->SetPosition(glm::vec3(player->GetX(), 540.0f, 0.0f));
 					//dialogueCharacter->SetTexture("../Resource/Texture/penguin.png");			//../Resource/Texture/talkingGlobeTest1.png
-					uiText->LoadText("Bird			I am bird    Fix my BOOK", whiteText, 100);
+					uiText->LoadText("I am bird    Fix my BOOK", whiteText, 100);
+					nameText->LoadText("Bird", whiteText, 100);
 					talk.event = "bird talking first";
 					printf("Bird star talking");
 					bird->SetPosition(glm::vec3(mapWidth / 2, 700.0f, 0.0f));
@@ -472,6 +480,12 @@ void Level1::HandleMouse(int type, int x, int y)
 			key1->SetPosition(glm::vec3(0.0f, 5000.0f, 0.0f));
 			key1->Interacted = false;
 		}	
+
+		//if (chest1->Interacted == true) {
+		//if (holdedItemIndex >= 0 && holdedItemIndex < GameInstance::GetInstance()->inventory.size()) {
+		//	if (GameInstance::GetInstance()->inventory[holdedItemIndex].name == "key1") { }
+		//}
+		//}
 		*/																																	/////////////will be gone soon end
 
 
@@ -532,11 +546,12 @@ void Level1::HandleMouse(int type, int x, int y)
 				talk.event = "bird remind objective";
 				talk.talking = true;
 			}
+			//cout << "Bird work" << endl;
 			bird->Interacted = false;
 		}
 
 		//objectPickableItem(key1, GameInstance::GetInstance()->key1,"key1", "it is a key", "../Resource/Texture/key1.png","Grabing Key", whiteText, 100, 700.0f, 100.0f);   //alternative code
-
+		//inventoryLogic();
 	}//no talk
 
 	if (talk.talking == true) { //do talk
@@ -564,11 +579,11 @@ void Level1::HandleMouse(int type, int x, int y)
 
 		if (talk.event == "bird talking first") {		//SetPosition(glm::vec3(3500.25f, 800.0f, 0.0f));
 			switch (talk.count) {
-				case 1: talk.d("Avery: What"); uiText->SetSize(700.0f, -100.0f);  break;
-				case 2:	talk.d("Bird: Hello "); uiText->SetSize(400.0f, -100.0f); break;
+				case 1: talk.d("Avery: What"); uiText->SetSize(700.0f, -100.0f); nameText->LoadText("Avery", whiteText, 100); break;
+				case 2:	talk.d("Bird: Hello "); uiText->SetSize(400.0f, -100.0f); nameText->LoadText("Bird", whiteText, 100); break;
 				case 3:	talk.d("please"); uiText->SetSize(700.0f, -100.0f); break;
-				case 4: talk.d("sure just fix book ez"); uiText->SetSize(700.0f, -100.0f); GameInstance::GetInstance()->birdTalking = 1; break;
-				case 5: talk.event = " "; talk.d(" "); talk.talking = false; talk.count = 0; break;
+				case 4: talk.d("sure just fix book ez"); uiText->SetSize(700.0f, -100.0f); nameText->LoadText("Avery", whiteText, 100);  GameInstance::GetInstance()->birdTalking = 1; break;
+				case 5: talk.event = " "; talk.d(" "); talk.talking = false; talk.count = 0; nameText->LoadText(" ", whiteText, 100); break;
 			}
 
 		}		
@@ -650,7 +665,6 @@ void Level1::HandleMouse(int type, int x, int y)
 
 	//inventory logic
 	inventoryLogic();
-
 	
 	//playerWalkTo = x;
 
