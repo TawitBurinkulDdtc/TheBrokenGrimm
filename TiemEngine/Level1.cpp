@@ -313,7 +313,7 @@ void Level1::LevelUpdate()
 					//dialogueCharacter->SetPosition(glm::vec3(player->GetX(), 540.0f, 0.0f));
 					//dialogueCharacter->SetTexture("../Resource/Texture/penguin.png");			//../Resource/Texture/talkingGlobeTest1.png
 					uiText->LoadText("I am bird    Fix my BOOK", whiteText, 100);
-					nameText->LoadText("Bird", whiteText, 100);
+					name("Bird");
 					talk.event = "bird talking first";
 					printf("Bird star talking");
 					bird->SetPosition(glm::vec3(mapWidth / 2, 700.0f, 0.0f));
@@ -579,11 +579,11 @@ void Level1::HandleMouse(int type, int x, int y)
 
 		if (talk.event == "bird talking first") {		//SetPosition(glm::vec3(3500.25f, 800.0f, 0.0f));
 			switch (talk.count) {
-				case 1: talk.d("Avery: What"); uiText->SetSize(700.0f, -100.0f); nameText->LoadText("Avery", whiteText, 100); break;
-				case 2:	talk.d("Bird: Hello "); uiText->SetSize(400.0f, -100.0f); nameText->LoadText("Bird", whiteText, 100); break;
-				case 3:	talk.d("please"); uiText->SetSize(700.0f, -100.0f); break;
-				case 4: talk.d("sure just fix book ez"); uiText->SetSize(700.0f, -100.0f); nameText->LoadText("Avery", whiteText, 100);  GameInstance::GetInstance()->birdTalking = 1; break;
-				case 5: talk.event = " "; talk.d(" "); talk.talking = false; talk.count = 0; nameText->LoadText(" ", whiteText, 100); break;
+			case 1: talk.d("Avery: What"); uiText->SetSize(700.0f, -100.0f); name("Avery"); break;
+				case 2:	talk.d("Bird: Hello "); uiText->SetSize(400.0f, -100.0f); name("Bird"); break;
+				case 3:	talk.d("please"); uiText->SetSize(700.0f, -100.0f);  break;
+				case 4: talk.d("sure just fix book ez"); uiText->SetSize(700.0f, -100.0f); name("Avery");  GameInstance::GetInstance()->birdTalking = 1; break;
+				case 5: talk.event = " "; talk.d(" "); talk.talking = false; talk.count = 0; name(" ");  break;
 			}
 
 		}		
@@ -843,5 +843,9 @@ void Level1::objectPickableItem(ButtonObject *object, GameEventType ge,/*getItem
 	}
 }
 
+//nameText->LoadText("Avery", whiteText, 100);
 
+void Level1::name(string input) {
+	nameText->LoadText(input, whiteText, 100);
+}
 
