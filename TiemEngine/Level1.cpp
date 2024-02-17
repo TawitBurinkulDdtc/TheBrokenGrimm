@@ -155,14 +155,14 @@ void Level1::LevelInit()
 	birdAnim = new SpriteObject("../Resource/Texture/ProtoBirdAnimation.png", 1, 2);
 	//birdAnim = new GameObject();
 	//birdAnim->SetTexture("../Resource/Texture/protoBird.png");
-	birdAnim->SetSize(-300, 450.0f);
-	birdAnim->SetPosition(glm::vec3(mapWidth / 2, 4000.0f, 0.0f));
+	birdAnim->SetSize(-167, 225.0f);
+	birdAnim->SetPosition(glm::vec3(0.0f, 5000.0f, 0.0f));
 	objectsList.push_back(birdAnim);
 
 	bird = new ButtonObject();	
 	bird->SetTexture("../Resource/Texture/test.png");
-	bird->SetSize(300, -450.0f);
-	bird->SetPosition(glm::vec3(mapWidth / 2, 4000.0f, 0.0f));
+	bird->SetSize(-167, -225.0f);
+	bird->SetPosition(glm::vec3(0.0f, 5000.0f, 0.0f));
 	objectsList.push_back(bird);
 	interactableList.push_back(bird);			
 
