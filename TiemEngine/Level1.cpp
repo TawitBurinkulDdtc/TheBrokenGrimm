@@ -174,7 +174,7 @@ void Level1::LevelInit()
 
 	//Avery   y max 530   min 360
 	player = new SpriteObject("../Resource/Texture/AveryIdle.png", 1, 6);
-	player->SetSize(540.0f * 0.5f, 695.0f * 0.5f);
+	player->SetSize(540.0f * AverySizeRatio, 695.0f * AverySizeRatio);
 	objectsList.push_back(player);
 	if (GameInstance::GetInstance()->PlayerFrom == PlayerFrom::Left) {
 		player->SetPosition(glm::vec3(300.0f, 400.0f, 0.0f));
@@ -220,7 +220,7 @@ void Level1::LevelInit()
 	uiText = new TextObject();
 	SDL_Color textColor = { 0, 0, 0 }; //(0 to 255)
 	uiText->LoadText(" ", textColor, 100);
-	uiText->SetPosition(glm::vec3(960.0f, 200.0f, 0.0f));
+	uiText->SetPosition(glm::vec3(960.0f, 880.0f, 0.0f));
 	uiText->SetSize(500.0f, -100.0f);
 	uiList.push_back(uiText);
 
@@ -281,7 +281,7 @@ void Level1::LevelUpdate()
 				player->Translate(glm::vec3(-playerStepPerFrame, 0, 0));
 				if (player->GetX() > 960 && player->GetX() < (mapWidth - 960.0f)) {										//set camera limit here
 					GameEngine::GetInstance()->SetDrawArea(player->GetX() - 960, 960 + player->GetX(), 0, 1080);
-					uiText->SetPosition(glm::vec3(player->GetX(), 200.0f, 0.0f));
+					uiText->SetPosition(glm::vec3(player->GetX(), 880.0f, 0.0f));
 					nameText->SetPosition(glm::vec3(player->GetX(), 300.0f, 0.0f));
 					inventoryBar->SetPosition(glm::vec3(player->GetX(), 100.0f, 0.0f));
 					selectUi->SetPosition(glm::vec3((player->GetX() - 960) + 100.0f + (200 * holdedItemIndex), 100.0f, 0.0f));
@@ -293,14 +293,14 @@ void Level1::LevelUpdate()
 					GameInstance::GetInstance()->PlayerFrom = PlayerFrom::Right;
 					GameEngine::GetInstance()->GetStateController()->gameStateNext = GameState::GS_LEVEL2;
 				}
-				player->SetSize(540.0f * 0.5f, 695.0f * 0.5f);
+				player->SetSize(540.0f * AverySizeRatio, 695.0f * AverySizeRatio);
 				playerWalkSide = 0;
 			}
 			else if (playerWalkSide == 2) {	//player walk here
 				player->Translate(glm::vec3(playerStepPerFrame, 0, 0));
 				if (player->GetX() > 960 && player->GetX() < (mapWidth - 960.0f)) {										//set camera limit here
 					GameEngine::GetInstance()->SetDrawArea(player->GetX() - 960, 960 + player->GetX(), 0, 1080);
-					uiText->SetPosition(glm::vec3(player->GetX(), 200.0f, 0.0f));
+					uiText->SetPosition(glm::vec3(player->GetX(), 880.0f, 0.0f));
 					nameText->SetPosition(glm::vec3(player->GetX(), 300.0f, 0.0f));
 					inventoryBar->SetPosition(glm::vec3(player->GetX(), 100.0f, 0.0f));
 					selectUi->SetPosition(glm::vec3((player->GetX() - 960) + 100.0f + (200 * holdedItemIndex), 100.0f, 0.0f));
@@ -323,7 +323,7 @@ void Level1::LevelUpdate()
 					talk.talking = true;
 				}
 
-				player->SetSize(-540.0f * 0.5f, 695.0f * 0.5f);
+				player->SetSize(-540.0f * AverySizeRatio, 695.0f * AverySizeRatio);
 				playerWalkSide = 0;
 			}
 			
@@ -844,10 +844,10 @@ void Level1::box(bool open){
 	if(open == true) {
 		dialogueBox->SetTexture("../Resource/Texture/dialogueBox.png");
 		if (player->GetX() > 960 && player->GetX() < (mapWidth - 960.0f)) {
-			dialogueBox->SetPosition(glm::vec3(player->GetX(), 200.0f, 0.0f));
+			dialogueBox->SetPosition(glm::vec3(player->GetX(), 880.0f, 0.0f));
 		}
-		else if(player->GetX() <= 960){ dialogueBox->SetPosition(glm::vec3(960, 200.0f, 0.0f)); }
-		else if (player->GetX() >= (mapWidth - 960.0f)) { dialogueBox->SetPosition(glm::vec3((mapWidth - 960.0f), 200.0f, 0.0f)); }
+		else if(player->GetX() <= 960){ dialogueBox->SetPosition(glm::vec3(960, 880.0f, 0.0f)); }
+		else if (player->GetX() >= (mapWidth - 960.0f)) { dialogueBox->SetPosition(glm::vec3((mapWidth - 960.0f), 880.0f, 0.0f)); }
 	}
 	else {
 		dialogueBox->SetTexture("../Resource/Texture/invisible.png");

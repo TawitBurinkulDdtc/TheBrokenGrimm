@@ -48,6 +48,7 @@ public:
 	int pSpriteInt = 0;
 	float playerStartStandStill = 0;
 	float playerStandStillDelay;
+	float AverySizeRatio = 0.7f;
 
 	TextObject* uiText;
 	TextObject* nameText;
