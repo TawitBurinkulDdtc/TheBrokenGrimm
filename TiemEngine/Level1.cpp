@@ -211,6 +211,11 @@ void Level1::LevelInit()
 	talk.p("../Resource/Texture/invisible.png");
 
 
+	dialogueBox = new GameObject();
+	dialogueBox->SetPosition(glm::vec3(960.0f, 200.0f, 0.0f));
+	dialogueBox->SetTexture("../Resource/Texture/invisible.png");
+	dialogueBox->SetSize(1144.0f, -434.0f);
+	uiList.push_back(dialogueBox);
 
 	uiText = new TextObject();
 	SDL_Color textColor = { 0, 0, 0 }; //(0 to 255)
@@ -244,7 +249,7 @@ void Level1::LevelInit()
 
 	//--------------------- walk speed editer----------------------------
 	playerFrameDelay = 1;
-	playerStepPerFrame = 60; //10 real   // 60 debug
+	playerStepPerFrame = 10; //10 real   // 60 debug (60 will have some interact area bug abit)
 	//---------------------------------------------------------------------
 	
 
@@ -309,15 +314,12 @@ void Level1::LevelUpdate()
 					player->SetPosition(glm::vec3(mapWidth - 150.0f, 400.0f, 0.0f));	//
 				}
 				if (player->GetX() > ((mapWidth/2) - 600) && GameInstance::GetInstance()->birdTalking == 0) {
-					uiText->SetSize(700.0f, -100.0f); 
-					//dialogueCharacter->SetPosition(glm::vec3(player->GetX(), 540.0f, 0.0f));
-					//dialogueCharacter->SetTexture("../Resource/Texture/penguin.png");			//../Resource/Texture/talkingGlobeTest1.png
-					uiText->LoadText("I am bird    Fix my BOOK", whiteText, 100);
-					name("Bird");
-					talk.event = "bird talking first";
-					printf("Bird star talking");
+					uiText->LoadText("I am bird    Fix my BOOK", blackText, 100);
+					nameText->LoadText("Bird", blackText, 100);
 					bird->SetPosition(glm::vec3(mapWidth / 2, 700.0f, 0.0f));
 					birdAnim->SetPosition(glm::vec3(mapWidth / 2, 700.0f, 0.0f));
+					talk.event = "bird talking first";
+					box(true);
 					talk.talking = true;
 				}
 
@@ -556,105 +558,94 @@ void Level1::HandleMouse(int type, int x, int y)
 
 	if (talk.talking == true) { //do talk
 		talk.count = talk.count + 1;
+		
 
 		if (talk.event == "not read yet") {
 			switch (talk.count) {
-			case 1: talk.d("I want to check this place first before reading"); uiText->SetSize(700.0f, -100.0f);  break;
-			case 2: talk.event = " "; talk.d(" "); talk.talking = false; talk.count = 0; break;
+			case 1: talk.nd("Avery", "I want to check this place first before reading"); talk.f = 50;  box(true);  break;
+			case 2: talk.event = " "; talk.nd(" ", " "); talk.talking = false; talk.count = 0; box(false); break;
 			}
 		}
 
-
-
-		if (talk.event == "talk to globe thingy") {		//SetPosition(glm::vec3(3500.25f, 800.0f, 0.0f));
-			switch (talk.count) {
-			case 1: talk.dp("give my potato back", "../Resource/Texture/talkingGlobeTest1.png"); uiText->SetSize(700.0f, -100.0f); setDialoguePosition(); break;
-			case 2:	talk.dp("No", "../Resource/Texture/stickAvery.png"); uiText->SetSize(400.0f, -100.0f); break;
-			case 3:	talk.dp("you monster", "../Resource/Texture/talkingGlobeTest2.png"); uiText->SetSize(700.0f, -100.0f); break;
-			case 4: talk.event = " "; talk.dp(" ", "../Resource/Texture/invisible.png"); talk.talking = false; talk.count = 0; break;
-			}
-
-		}
 
 
 		if (talk.event == "bird talking first") {		//SetPosition(glm::vec3(3500.25f, 800.0f, 0.0f));
 			switch (talk.count) {
-			case 1: talk.d("Avery: What"); uiText->SetSize(700.0f, -100.0f); name("Avery"); break;
-				case 2:	talk.d("Bird: Hello "); uiText->SetSize(400.0f, -100.0f); name("Bird"); break;
-				case 3:	talk.d("please"); uiText->SetSize(700.0f, -100.0f);  break;
-				case 4: talk.d("sure just fix book ez"); uiText->SetSize(700.0f, -100.0f); name("Avery");  GameInstance::GetInstance()->birdTalking = 1; break;
-				case 5: talk.event = " "; talk.d(" "); talk.talking = false; talk.count = 0; name(" ");  break;
+			case 1: talk.nd("Avery", "What"); talk.f = 170; break; //box.(true); in update func
+			case 2:	talk.nd("Bird", "Find a book with weird story for me.   Book with distorted story"); talk.f = 35;   break;
+			case 3:	talk.d("please"); talk.f = 160;  break;
+			case 4: talk.nd("Avery", "sure just fix book ez"); talk.f = 100;  GameInstance::GetInstance()->birdTalking = 1; break;
+			case 5: talk.event = " "; talk.nd(" ", " "); talk.talking = false; box(false); talk.count = 0;   break;
 			}
-
-		}		
+		}
+	
 
 
 		if (talk.event == "bird remind objective") {		//SetPosition(glm::vec3(3500.25f, 800.0f, 0.0f));
 			switch (talk.count) {
-			case 1: talk.d("Find a book where the story are weird"); uiText->SetSize(700.0f, -100.0f);  break;
-			case 2: talk.d("OBEY"); uiText->SetSize(700.0f, -100.0f);  break;
-			case 3: talk.event = " "; talk.d(" "); talk.talking = false; talk.count = 0; break;
+			case 1: talk.nd("Bird","Find a book where the story are weird");  box(true);  talk.f = 60; break;
+			case 2: talk.d("OBEY"); talk.f = 190; break;
+			case 3: talk.event = " "; talk.nd(" "," "); talk.talking = false; box(false); talk.count = 0; break;
 			}
 
 		}
 
 		if (talk.event == "read book 1") {		
 			switch (talk.count) {
-			case 1: talk.dp("It about some sort of unkown language", "../Resource/Texture/book1Proto.png"); uiText->SetSize(700.0f, -100.0f); setDialoguePosition();  break;
-			case 2:	talk.d("It's look like the list of somethings"); uiText->SetSize(400.0f, -100.0f); break;
-			case 3:	talk.d("Whatever"); uiText->SetSize(700.0f, -100.0f); break;
-			case 4: talk.event = " ";  talk.dp(" ", "../Resource/Texture/invisible.png"); talk.talking = false; talk.count = 0; break;
+			case 1: talk.dp("It about some sort of unknown language", "../Resource/Texture/book1Proto.png"); box(true); talk.f = 60; break;
+			case 2:	talk.d("It's look like the list of somethings"); break;
+			case 3:	talk.d("Whatever"); talk.f = 130; break;
+			case 4: talk.event = " ";  talk.dp(" ", "../Resource/Texture/invisible.png"); talk.talking = false; talk.count = 0; box(false); break;
 			}
 
 		}		
 		if (talk.event == "mirrors") {				
 			switch (talk.count) {
-			case 1: talk.d("Oh that's me"); uiText->SetSize(700.0f, -100.0f); setDialoguePosition();  break;
-			case 2:	talk.d("It is mirror anyway."); uiText->SetSize(400.0f, -100.0f); break;
-			
-			case 3: talk.event = " ";  talk.d(" "); talk.talking = false; talk.count = 0; break;
+			case 1: talk.nd("Avery","Oh that's me"); box(true); talk.f = 150;   break;
+			case 2:	talk.d("It is mirror anyway."); talk.f = 100; break;
+			case 3: talk.event = " ";  talk.nd(" "," "); talk.talking = false; box(false); talk.count = 0; break;
 			}
 		}
 
 		if (talk.event == "tutorial") {				//tutorial
 			switch (talk.count) {
-			case 1: talk.d("Well good job, AVERY. "); uiText->SetSize(700.0f, -100.0f); setDialoguePosition();  break;
-			case 2:	talk.d("Okay, then left-click on the book on the inventory bar”"); uiText->SetSize(400.0f, -100.0f); break;
-			case 3:	talk.d("and click on me to give book to me"); uiText->SetSize(300.0f, -100.0f); break;
-			case 4: talk.event = " ";  talk.d(" "); talk.talking = false; talk.count = 0; break;
+			case 1: talk.nd("Bird","Well good job, AVERY."); box(true); talk.f = 70; break;
+			case 2:	talk.d("Okay, then left-click on the book on the inventory bar”"); talk.f = 40;  break;
+			case 3:	talk.d("and click on me to give book to me"); talk.f = 50; break;
+			case 4: talk.event = " ";  talk.nd(" "," "); talk.talking = false; box(false); talk.count = 0; break;
 			}
 		}
 
 
 		if (talk.event == "read Hansel and Gretel") {
 			switch (talk.count) {
-			case 1: talk.dp("It's Hansel and Gretel story", "../Resource/Texture/book1Proto.png"); uiText->SetSize(700.0f, -100.0f); setDialoguePosition();  break;
-			case 2:	talk.d("What a classic story"); uiText->SetSize(400.0f, -100.0f); break;
-			case 3:	talk.d("Wait why does the ending look like this?"); uiText->SetSize(700.0f, -100.0f); break;
-			case 4:	talk.d("This is the book it means"); uiText->SetSize(700.0f, -100.0f); break;
-			case 5: talk.event = " ";  talk.dp(" ", "../Resource/Texture/invisible.png"); talk.talking = false; talk.count = 0; getItem("bookH&G", "A distorted story of Hansel and Gretel", "../Resource/Texture/HanselAndGretelBook.png"); bookHunselAndGretel->SetPosition(glm::vec3(0.0f, 5000.0f, 0.0f)); break;
+			case 1: talk.dp("It's Hansel and Gretel story", "../Resource/Texture/book1Proto.png"); box(true); talk.f = 70; break;
+			case 2:	talk.d("What a classic story"); talk.f = 100;  break;
+			case 3:	talk.d("Wait why does the ending look like this?"); talk.f = 40; break;
+			case 4:	talk.d("This is the book it means");  break;
+			case 5: talk.event = " ";  talk.dp(" ", "../Resource/Texture/invisible.png"); talk.talking = false; box(false); talk.count = 0; getItem("bookH&G", "A distorted story of Hansel and Gretel", "../Resource/Texture/HanselAndGretelBook.png"); bookHunselAndGretel->SetPosition(glm::vec3(0.0f, 5000.0f, 0.0f)); break;
 			}
 		}
 
 		if (talk.event == "enter the book") {
 			switch (talk.count) {
-			case 1: talk.d("Good job, Avery"); uiText->SetSize(700.0f, -100.0f); setDialoguePosition();  break;
-			case 2:	talk.d("Okay, hmm “Hansel and Gretel.”"); uiText->SetSize(400.0f, -100.0f); break;
-			case 3:	talk.d("That’s a good pick."); uiText->SetSize(400.0f, -100.0f); break;
-			case 4:	talk.d("Now let me explain the rules"); uiText->SetSize(400.0f, -100.0f); break;
-			case 5:	talk.d("Now let me explain the rules"); uiText->SetSize(400.0f, -100.0f); break;
-			case 6:	talk.d("Now let me explain the rules"); uiText->SetSize(400.0f, -100.0f); break;
-			case 7:	talk.dp(" ", "../Resource/Texture/Level1AverySuxInBuk.png");; uiText->SetSize(700.0f, -100.0f); break;
+			case 1: talk.nd("Bird", "Good job, Avery");  box(true);  talk.f = 100;  break;
+			case 2:	talk.d("Okay, hmm “Hansel and Gretel.”"); talk.f = 60;  break;
+			case 3:	talk.d("That’s a good pick."); talk.f = 100;  break;
+			case 4:	talk.d("Now let me explain the rules"); talk.f = 80; break;
+			case 5:	talk.d("Now let me explain the rules 2");  break;
+			case 6:	talk.d("Now let me explain the rules 3");  break;
+			case 7:	talk.ndp(" "," ", "../Resource/Texture/Level1AverySuxInBuk.png"); box(false); break;
 			case 8: talk.event = " ";  talk.dp(" ", "../Resource/Texture/Level1AverySuxInBuk.png"); talk.talking = false; 
-				talk.count = 0; GameInstance::GetInstance()->PlayerFrom = PlayerFrom::Right;
+				talk.count = 0; GameInstance::GetInstance()->PlayerFrom = PlayerFrom::Right; 
 				GameEngine::GetInstance()->GetStateController()->gameStateNext = GameState::GS_LEVEL2; break;
 			}
 		}
 
-
+		setDialoguePosition();
 		dialogueCharacter->SetTexture(talk.pictureFileName);			//SetPosition(glm::vec3(0, 0, 0));
-		uiText->LoadText(talk.dialogue, whiteText, 100);
-		
+		uiText->LoadText(talk.dialogue, blackText, talk.f);
+		nameText->LoadText(talk.name, blackText, talk.nf);
 
 	}//do talk
 
@@ -682,7 +673,7 @@ void Level1::createInventory() {
 	//inventory display stuff
 	inventoryBar = new GameObject();
 	inventoryBar->SetPosition(glm::vec3(960.0f, 100.0f, 0.0f));
-	inventoryBar->SetTexture("../Resource/Texture/inventoryBar.png");
+	inventoryBar->SetTexture("../Resource/Texture/inventoryBar2.png");
 	inventoryBar->SetSize(1980.0f, -200.0f);
 	uiList.push_back(inventoryBar);
 
@@ -849,3 +840,16 @@ void Level1::name(string input) {
 	nameText->LoadText(input, whiteText, 100);
 }
 
+void Level1::box(bool open){
+	if(open == true) {
+		dialogueBox->SetTexture("../Resource/Texture/dialogueBox.png");
+		if (player->GetX() > 960 && player->GetX() < (mapWidth - 960.0f)) {
+			dialogueBox->SetPosition(glm::vec3(player->GetX(), 200.0f, 0.0f));
+		}
+		else if(player->GetX() <= 960){ dialogueBox->SetPosition(glm::vec3(960, 200.0f, 0.0f)); }
+		else if (player->GetX() >= (mapWidth - 960.0f)) { dialogueBox->SetPosition(glm::vec3((mapWidth - 960.0f), 200.0f, 0.0f)); }
+	}
+	else {
+		dialogueBox->SetTexture("../Resource/Texture/invisible.png");
+	}
+}

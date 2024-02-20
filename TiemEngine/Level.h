@@ -32,5 +32,6 @@ public:
 	GameObject* selectUi;
 
 	talkClass talk;
+	GameObject* dialogueBox;
 	GameObject* dialogueCharacter;
 };
