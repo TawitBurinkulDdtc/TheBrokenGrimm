@@ -658,15 +658,15 @@ void Level1::refreshInventoryPic() {
 void Level1::createInventory() {
 	//inventory display stuff
 	inventoryBar = new GameObject();
-	inventoryBar->SetPosition(glm::vec3(960.0f, 100.0f, 0.0f));
-	inventoryBar->SetTexture("../Resource/Texture/inventoryBar2.png");
-	inventoryBar->SetSize(1980.0f, -200.0f);
+	inventoryBar->SetPosition(glm::vec3(960.0f, 540.0f, 0.0f));
+	inventoryBar->SetTexture("../Resource/Texture/inventoryBar.png");
+	inventoryBar->SetSize(1920.0f, -1080.0f);
 	uiList.push_back(inventoryBar);
 
 	selectUi = new GameObject();
-	selectUi->SetPosition(glm::vec3(1000.0f, 100.0f, 0.0f));
+	selectUi->SetPosition(glm::vec3(0.0f, -5000.0f, 0.0f));
 	selectUi->SetTexture("../Resource/Texture/selectionOutline.png");
-	selectUi->SetSize(120.0f, -120.0f);
+	selectUi->SetSize(200.0f, -200.0f);
 	uiList.push_back(selectUi);
 
 	ItemUi* itemSlot0 = new ItemUi();
@@ -747,7 +747,7 @@ void Level1::inventoryLogic() {
 	for (int i = 0; i < GameInstance::GetInstance()->inventory.size(); i++) {
 		if (inventoryL[i]->Interacted == true) {
 			holdedItemIndex = i;
-			selectUi->SetPosition(glm::vec3((player->GetX() - 960) + 100.0f + (200 * holdedItemIndex), 100.0f, 0.0f));
+			selectUi->SetPosition(glm::vec3((player->GetX() - 960) + 470.0f + (200 * holdedItemIndex), 100.0f, 0.0f));
 			uiText->LoadText(GameInstance::GetInstance()->inventory[i].showText, GameInstance::GetInstance()->inventory[i].textColor, GameInstance::GetInstance()->inventory[i].textFontSize);
 			uiText->SetSize(GameInstance::GetInstance()->inventory[i].textSizeX, -(GameInstance::GetInstance()->inventory[i].textSizeY));
 			inventoryL[i]->Interacted = false;
@@ -792,24 +792,6 @@ void Level1::getItem(string name, string displayText, string fileName) {
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 void Level1::objectPickableItem(ButtonObject *object, GameEventType ge,/*getItem info*/ string name, string displayText, string fileName,/*showText info*/string word, SDL_Color textColor, int fontSize, float sizeX, float sizeY){
 	if (object->Interacted == true) {
 		showText(word, textColor, fontSize, sizeX, sizeY);
@@ -844,9 +826,11 @@ void Level1::box(bool open){
 void Level1::setUiPos() {
 	uiText->SetPosition(glm::vec3(player->GetX(), 880.0f, 0.0f));
 	nameText->SetPosition(glm::vec3(player->GetX(), 990.0f, 0.0f));
-	inventoryBar->SetPosition(glm::vec3(player->GetX(), 100.0f, 0.0f));
-	selectUi->SetPosition(glm::vec3((player->GetX() - 960) + 100.0f + (200 * holdedItemIndex), 100.0f, 0.0f));
+	inventoryBar->SetPosition(glm::vec3(player->GetX(), 540.0f, 0.0f));
+	if(holdedItemIndex>=0){
+		selectUi->SetPosition(glm::vec3((player->GetX() - 960) + 470.0f + (200 * holdedItemIndex), 100.0f, 0.0f));
+	}
 	for (int i = 0; i < 8; i++) {
-		inventoryL[i]->SetPosition(glm::vec3((player->GetX() - 960) + 100.0f + (200 * i), 100.0f, 0.0f));
+		inventoryL[i]->SetPosition(glm::vec3((player->GetX() - 960) + 470.0f + (200 * i), 100.0f, 0.0f));		
 	}
 }
