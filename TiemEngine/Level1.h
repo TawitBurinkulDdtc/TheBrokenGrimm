@@ -74,6 +74,7 @@ public:
 	ButtonObject* book2;
 	ButtonObject* book3;
 	ButtonObject* bookHunselAndGretel;
+	GameObject* bookHGPic;
 	ButtonObject* mirrorInter;
 	bool checkBookInInventory = false;
 	
