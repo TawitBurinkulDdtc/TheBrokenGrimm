@@ -177,14 +177,14 @@ void Level1::LevelInit()
 	player->SetSize(540.0f * AverySizeRatio, 695.0f * AverySizeRatio);
 	objectsList.push_back(player);
 	if (GameInstance::GetInstance()->PlayerFrom == PlayerFrom::Left) {
-		player->SetPosition(glm::vec3(300.0f, 400.0f, 0.0f));
+		player->SetPosition(glm::vec3(300.0f, Avery_y_Position, 0.0f));
 		GameEngine::GetInstance()->SetDrawArea(0, 1920, 0, 1080);
 	}
 	else if (GameInstance::GetInstance()->PlayerFrom == PlayerFrom::Right) {
-		player->SetPosition(glm::vec3(mapWidth - 300.0f, 400.0f, 0.0f));
+		player->SetPosition(glm::vec3(mapWidth - 300.0f, Avery_y_Position, 0.0f));
 		GameEngine::GetInstance()->SetDrawArea(mapWidth - 1980.0f, mapWidth, 0, 1080);
 	}
-	else { player->SetPosition(glm::vec3(950.0f, 400.0f, 0.0f)); }
+	else { player->SetPosition(glm::vec3(950.0f, Avery_y_Position, 0.0f)); }
 
 
 
@@ -308,10 +308,8 @@ void Level1::LevelUpdate()
 						inventoryL[i]->SetPosition(glm::vec3((player->GetX() - 960) + 100.0f + (200 * i), 100.0f, 0.0f));
 					}
 				}
-				else if (player->GetX() >(mapWidth - 100)) {		/*level 1 special*/
-					//GameInstance::GetInstance()->PlayerFrom = PlayerFrom::Left;
-					//GameEngine::GetInstance()->GetStateController()->gameStateNext = GameState::GS_LEVEL2; 
-					player->SetPosition(glm::vec3(mapWidth - 150.0f, 400.0f, 0.0f));	//
+				else if (player->GetX() >(mapWidth - 250)) {	
+					player->SetPosition(glm::vec3(mapWidth - 250.0f, Avery_y_Position, 0.0f));	//
 				}
 				if (player->GetX() > ((mapWidth/2) - 600) && GameInstance::GetInstance()->birdTalking == 0) {
 					uiText->LoadText("I am bird    Fix my BOOK", blackText, 100);
