@@ -226,7 +226,7 @@ void Level1::LevelInit()
 
 	nameText = new TextObject();
 	nameText->LoadText(" ", textColor, 100);
-	nameText->SetPosition(glm::vec3(960.0f, 300.0f, 0.0f));
+	nameText->SetPosition(glm::vec3(960.0f, 990.0f, 0.0f));
 	nameText->SetSize(500.0f, -100.0f);
 	uiList.push_back(nameText);
 
@@ -281,13 +281,7 @@ void Level1::LevelUpdate()
 				player->Translate(glm::vec3(-playerStepPerFrame, 0, 0));
 				if (player->GetX() > 960 && player->GetX() < (mapWidth - 960.0f)) {										//set camera limit here
 					GameEngine::GetInstance()->SetDrawArea(player->GetX() - 960, 960 + player->GetX(), 0, 1080);
-					uiText->SetPosition(glm::vec3(player->GetX(), 880.0f, 0.0f));
-					nameText->SetPosition(glm::vec3(player->GetX(), 300.0f, 0.0f));
-					inventoryBar->SetPosition(glm::vec3(player->GetX(), 100.0f, 0.0f));
-					selectUi->SetPosition(glm::vec3((player->GetX() - 960) + 100.0f + (200 * holdedItemIndex), 100.0f, 0.0f));
-					for (int i = 0; i < 8; i++) {
-						inventoryL[i]->SetPosition(glm::vec3((player->GetX() - 960) + 100.0f + (200 * i), 100.0f, 0.0f));
-					}
+					setUiPos();
 				}
 				else if (player->GetX() < 100) {
 					GameInstance::GetInstance()->PlayerFrom = PlayerFrom::Right;
@@ -300,13 +294,7 @@ void Level1::LevelUpdate()
 				player->Translate(glm::vec3(playerStepPerFrame, 0, 0));
 				if (player->GetX() > 960 && player->GetX() < (mapWidth - 960.0f)) {										//set camera limit here
 					GameEngine::GetInstance()->SetDrawArea(player->GetX() - 960, 960 + player->GetX(), 0, 1080);
-					uiText->SetPosition(glm::vec3(player->GetX(), 880.0f, 0.0f));
-					nameText->SetPosition(glm::vec3(player->GetX(), 300.0f, 0.0f));
-					inventoryBar->SetPosition(glm::vec3(player->GetX(), 100.0f, 0.0f));
-					selectUi->SetPosition(glm::vec3((player->GetX() - 960) + 100.0f + (200 * holdedItemIndex), 100.0f, 0.0f));
-					for (int i = 0; i < 8; i++) {
-						inventoryL[i]->SetPosition(glm::vec3((player->GetX() - 960) + 100.0f + (200 * i), 100.0f, 0.0f));
-					}
+					setUiPos();
 				}
 				else if (player->GetX() >(mapWidth - 250)) {	
 					player->SetPosition(glm::vec3(mapWidth - 250.0f, Avery_y_Position, 0.0f));	//
@@ -838,6 +826,7 @@ void Level1::name(string input) {
 	nameText->LoadText(input, whiteText, 100);
 }
 
+
 void Level1::box(bool open){
 	if(open == true) {
 		dialogueBox->SetTexture("../Resource/Texture/dialogueBox.png");
@@ -849,5 +838,15 @@ void Level1::box(bool open){
 	}
 	else {
 		dialogueBox->SetTexture("../Resource/Texture/invisible.png");
+	}
+}
+
+void Level1::setUiPos() {
+	uiText->SetPosition(glm::vec3(player->GetX(), 880.0f, 0.0f));
+	nameText->SetPosition(glm::vec3(player->GetX(), 990.0f, 0.0f));
+	inventoryBar->SetPosition(glm::vec3(player->GetX(), 100.0f, 0.0f));
+	selectUi->SetPosition(glm::vec3((player->GetX() - 960) + 100.0f + (200 * holdedItemIndex), 100.0f, 0.0f));
+	for (int i = 0; i < 8; i++) {
+		inventoryL[i]->SetPosition(glm::vec3((player->GetX() - 960) + 100.0f + (200 * i), 100.0f, 0.0f));
 	}
 }
