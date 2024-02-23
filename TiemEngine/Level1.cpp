@@ -152,7 +152,7 @@ void Level1::LevelInit()
 
 
 
-	birdAnim = new SpriteObject("../Resource/Texture/ProtoBirdAnimation.png", 1, 2); //("..Resource/Texture/FileName.png")
+	birdAnim = new SpriteObject("../Resource/Texture/birdIdle.png", 1, 6); //("..Resource/Texture/FileName.png")
 	//birdAnim = new GameObject(); 
 	//birdAnim->SetTexture("../Resource/Texture/protoBird.png");
 	birdAnim->SetSize(-167, 225.0f); //in animation y gotta be +
