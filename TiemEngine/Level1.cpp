@@ -601,11 +601,13 @@ void Level1::HandleMouse(int type, int x, int y)
 
 		if (talk.event == "bird talking first") {		//SetPosition(glm::vec3(3500.25f, 800.0f, 0.0f));
 			switch (talk.count) {
-			case 1: talk.nd("Avery", "What"); talk.f = 170; break; //box.(true); in update func
-			case 2:	talk.nd("Bird", "Find a book with weird story for me.   Book with distorted story"); talk.f = 35;   break;
-			case 3:	talk.d("please"); talk.f = 160;  break;
-			case 4: talk.nd("Avery", "sure just fix book ez"); talk.f = 100;  GameInstance::GetInstance()->birdTalking = 1; break;
-			case 5: talk.event = " "; talk.nd(" ", " "); talk.talking = false; box(false); talk.count = 0;   break;
+			case 1: talk.nd("Graf", "Hello, Young child."); talk.f = 170; break;
+			case 2: talk.nd("Graf", "My name is Graf, the librarian of this forest."); talk.f = 170; break;//box.(true); in update func
+			case 3:	talk.nd("Avery", "What "); talk.f = 35;   break;
+			case 4:	talk.d("Sorry but how can I leave this place?"); talk.f = 160;  break;
+			case 5:	talk.d("I'm sorry but I cannot lets you leave"); talk.f = 35;  break;
+			case 6: talk.nd("Avery", "Ok..."); talk.f = 100;  GameInstance::GetInstance()->birdTalking = 1; break;
+			case 7: talk.event = " "; talk.nd(" ", " "); talk.talking = false; box(false); talk.count = 0;   break;
 			}
 		}
 	
@@ -613,8 +615,8 @@ void Level1::HandleMouse(int type, int x, int y)
 
 		if (talk.event == "bird remind objective") {		//SetPosition(glm::vec3(3500.25f, 800.0f, 0.0f));
 			switch (talk.count) {
-			case 1: talk.nd("Bird","Find a book where the story are weird");  box(true);  talk.f = 60; break;
-			case 2: talk.d("OBEY"); talk.f = 190; break;
+			case 1: talk.nd("Graf","Find a book where the story are weird");  box(true);  talk.f = 60; break;
+			case 2: talk.d("Look at the bookshelf around here"); talk.f = 190; break;
 			case 3: talk.event = " "; talk.nd(" "," "); talk.talking = false; box(false); talk.count = 0; break;
 			}
 
@@ -628,14 +630,14 @@ void Level1::HandleMouse(int type, int x, int y)
 			}
 		}if (talk.event == "read book 2") {		
 			switch (talk.count) {
-			case 1: talk.d("The book about witch history and detail about witch"); box(true); talk.f = 40; break;
-			case 2: talk.d("Roast witch sound crispy"); box(true); talk.f = 60; break;
+			case 1: talk.d("The book is about witch history and detail about witch"); box(true); talk.f = 40; break;
+			case 2: talk.d("So horrify"); box(true); talk.f = 60; break;
 			case 3: talk.event = " ";  talk.d(" "); talk.talking = false; talk.count = 0; box(false); break;
 			}
 		}if (talk.event == "read book 3") {		
 			switch (talk.count) {
 			case 1: talk.d("The history book about the medieval age"); box(true); talk.f = 60; break;
-			case 2: talk.d("It shows that people are starving");  talk.f = 60; break;
+			case 2: talk.d("It shows that there are age that people are starving");  talk.f = 60; break;
 			case 3: talk.d("due to the crisis that crops are hard to grow.");  talk.f = 50; break;
 			case 4: talk.event = " ";  talk.d(" "); talk.talking = false; talk.count = 0; box(false); break;
 			}
@@ -650,7 +652,7 @@ void Level1::HandleMouse(int type, int x, int y)
 
 		if (talk.event == "tutorial") {				//tutorial
 			switch (talk.count) {
-			case 1: talk.nd("Bird","Well good job, AVERY."); box(true); talk.f = 70; break;
+			case 1: talk.nd("Graf","Well good job, Avery."); box(true); talk.f = 70; break;
 			case 2:	talk.d("Okay, then left-click on the book on the inventory bar”"); talk.f = 40;  break;
 			case 3:	talk.d("and click on me to give book to me"); talk.f = 50; break;
 			case 4: talk.event = " ";  talk.nd(" "," "); talk.talking = false; box(false); talk.count = 0; break;
@@ -663,7 +665,7 @@ void Level1::HandleMouse(int type, int x, int y)
 			case 1: talk.dp("It's Hansel and Gretel story", "../Resource/Texture/invisible.png"); box(true); talk.f = 70; break;
 			case 2:	talk.d("What a classic story"); talk.f = 100;  break;
 			case 3:	talk.d("Wait why does the ending look like this?"); talk.f = 40; break;
-			case 4:	talk.d("This is the book it means");  break;
+			case 4:	talk.d("This is the book it talked about");  break;
 			case 5: talk.event = " ";  talk.dp(" ", "../Resource/Texture/invisible.png"); talk.talking = false; box(false); talk.count = 0; 
 				getItem("bookH&G", "A distorted story of Hansel and Gretel", "../Resource/Texture/HanselAndGretelBook.png"); 
 				bookHunselAndGretel->SetPosition(glm::vec3(0.0f, 5000.0f, 0.0f)); bookHGPic->SetPosition(glm::vec3(0.0f, 5000.0f, 0.0f));
@@ -677,10 +679,11 @@ void Level1::HandleMouse(int type, int x, int y)
 			case 2:	talk.d("Okay, hmm “Hansel and Gretel.”"); talk.f = 60;  break;
 			case 3:	talk.d("That’s a good pick."); talk.f = 100;  break;
 			case 4:	talk.d("Now let me explain the rules"); talk.f = 80; break;
-			case 5:	talk.d("Now let me explain the rules 2");  break;
-			case 6:	talk.d("Now let me explain the rules 3");  break;
-			case 7:	talk.ndp(" "," ", "../Resource/Texture/Level1AverySuxInBuk.png"); box(false); break;
-			case 8: talk.event = " ";  talk.dp(" ", "../Resource/Texture/Level1AverySuxInBuk.png"); talk.talking = false; 
+			case 5:	talk.d("There are two thoundsand rul");  break;
+			case 6:	talk.d("wait, I can't remember all!");  break;
+			case 7:	talk.d("Please tell me breifly");  break;
+			case 8:	talk.ndp(" "," ", "../Resource/Texture/Level1AverySuxInBuk.png"); box(false); break;
+			case 9: talk.event = " ";  talk.dp(" ", "../Resource/Texture/Level1AverySuxInBuk.png"); talk.talking = false; 
 				talk.count = 0; GameInstance::GetInstance()->PlayerFrom = PlayerFrom::Right; 
 				GameEngine::GetInstance()->GetStateController()->gameStateNext = GameState::GS_LEVEL2; break;
 			}
