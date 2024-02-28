@@ -601,13 +601,15 @@ void Level1::HandleMouse(int type, int x, int y)
 
 		if (talk.event == "bird talking first") {		//SetPosition(glm::vec3(3500.25f, 800.0f, 0.0f));
 			switch (talk.count) {
-			case 1: talk.nd("Graf", "Hello, Young child."); talk.f = 170; break;
-			case 2: talk.nd("Graf", "My name is Graf, the librarian of this forest."); talk.f = 170; break;//box.(true); in update func
-			case 3:	talk.nd("Avery", "What "); talk.f = 35;   break;
-			case 4:	talk.d("Sorry but how can I leave this place?"); talk.f = 160;  break;
-			case 5:	talk.d("I'm sorry but I cannot lets you leave"); talk.f = 35;  break;
-			case 6: talk.nd("Avery", "Ok..."); talk.f = 100;  GameInstance::GetInstance()->birdTalking = 1; break;
-			case 7: talk.event = " "; talk.nd(" ", " "); talk.talking = false; box(false); talk.count = 0;   break;
+			case 1: talk.nd("Graf", "Hello, Young child."); talk.f = 35; break;
+			case 2: talk.nd("Graf", "My name is Graf, the librarian of this forest."); talk.f = 35; break;//box.(true); in update func
+			case 3: talk.nd("Avery", "B-Bird can talk?! "); talk.f = 35; break;
+			case 4: talk.nd("Graf", "My name is Graf, the librarian of this forest."); talk.f = 35; break;
+			case 5:	talk.nd("Avery", "What "); talk.f = 35;   break;
+			case 6:	talk.d("Sorry but how can I leave this place?"); talk.f = 35;  break;
+			case 7:	talk.d("I'm sorry but I cannot lets you leave"); talk.f = 35;  break;
+			case 8: talk.nd("Avery", "Ok..."); talk.f = 100;  GameInstance::GetInstance()->birdTalking = 1; break;
+			case 9: talk.event = " "; talk.nd(" ", " "); talk.talking = false; box(false); talk.count = 0;   break;
 			}
 		}
 	
