@@ -18,7 +18,7 @@ void Level1::LevelInit()
 	holdedItemIndex = -1;
 
 	GameObject* background = new GameObject();
-	background->SetTexture("../Resource/Texture/BackGround.png");
+	background->SetTexture("../Resource/Texture/Back_library.png");
 	background->SetSize(mapWidth, -880.0f);//1080 + 200.0f
 	background->SetPosition(glm::vec3(mapWidth/2, 540.0f+100.0f, 0.0f));
 	backgroundList.push_back(background);
