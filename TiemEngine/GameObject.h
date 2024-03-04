@@ -22,6 +22,8 @@ public:
 
 	int renderMode = 1; //book1Pic->renderMode = 2;
 
+	string savePic = " ";
+
 };
 
 

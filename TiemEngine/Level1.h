@@ -40,6 +40,7 @@ public:
 	void name(string input);
 	void box(bool open);
 	void setUiPos();
+	void picGlow(GameObject* go,bool b);
 
 	float playerWalkTo; //might not needed anymore if change to key press movement instead of mouse movement
 	int playerFrameDelay;
@@ -74,9 +75,12 @@ public:
 	ButtonObject* book2;
 	ButtonObject* book3;
 	ButtonObject* bookHunselAndGretel;
-	GameObject* book1Pic;
-	GameObject* bookHGPic;
 	ButtonObject* mirrorInter;
+	GameObject* book1Pic;
+	GameObject* book2Pic;
+	GameObject* book3Pic;
+	GameObject* bookHGPic;
+	GameObject* mirrorPic;
 	bool checkBookInInventory = false;
 	
 

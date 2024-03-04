@@ -34,6 +34,8 @@ void Level1::LevelInit()
 	floatyEarthPic->SetPosition(glm::vec3(mapWidth / 2, 540.0f + 100.0f, 0.0f));
 	backgroundList.push_back(floatyEarthPic);
 
+	
+
 	ButtonObject* floatyEarth = new ButtonObject();
 	floatyEarth->SetTexture("../Resource/Texture/invisible.png");
 	floatyEarth->SetSize(300.0f, -300.0f);
@@ -67,7 +69,7 @@ void Level1::LevelInit()
 	objectsList.push_back(mapInter);
 	interactableList.push_back(mapInter);
 
-	GameObject* mirrorPic = new GameObject();
+	mirrorPic = new GameObject();
 	mirrorPic->SetTexture("../Resource/Texture/Interact_4.png");
 	mirrorPic->SetSize(mapWidth, -880.0f);//1080 + 200.0f
 	mirrorPic->SetPosition(glm::vec3(mapWidth / 2, 540.0f + 100.0f, 0.0f));
@@ -128,13 +130,13 @@ void Level1::LevelInit()
 	backgroundList.push_back(book1Pic);
 	//book1Pic->renderMode = 2;
 
-	GameObject* book2Pic = new GameObject();
+	book2Pic = new GameObject();
 	book2Pic->SetTexture("../Resource/Texture/Lv1_book2.png");
 	book2Pic->SetSize(mapWidth, -880.0f);//1080 + 200.0f
 	book2Pic->SetPosition(glm::vec3(mapWidth / 2, 540.0f + 100.0f, 0.0f));
 	backgroundList.push_back(book2Pic);
 
-	GameObject* book3Pic = new GameObject();
+	book3Pic = new GameObject();
 	book3Pic->SetTexture("../Resource/Texture/Lv1_book3.png");
 	book3Pic->SetSize(mapWidth, -880.0f);//1080 + 200.0f
 	book3Pic->SetPosition(glm::vec3(mapWidth / 2, 540.0f + 100.0f, 0.0f));
@@ -279,7 +281,7 @@ void Level1::LevelInit()
 
 	//--------------------- walk speed editer----------------------------
 	playerFrameDelay = 1.0f;
-	playerStepPerFrame = 10; //10 real   // 60 debug (60 will have some interact area bug abit)
+	playerStepPerFrame = 50; //10 real   // 60 debug (60 will have some interact area bug abit)
 	//---------------------------------------------------------------------
 	
 
@@ -634,29 +636,29 @@ void Level1::HandleMouse(int type, int x, int y)
 
 		if (talk.event == "read book 1") {		
 			switch (talk.count) {
-			case 1: talk.d("Story about a kid who got lost in the forest"); box(true); talk.f = 60; book1Pic->renderMode = 2; break;
+			case 1: talk.d("Story about a kid who got lost in the forest"); box(true); talk.f = 60; picGlow(book1Pic, true); break;
 			case 2: talk.d("and got the help from a fairy to bring him back home.");  talk.f = 45; break;
-			case 3: talk.event = " ";  talk.d(" "); talk.talking = false; talk.count = 0; box(false); book1Pic->renderMode = 1; ; break;
+			case 3: talk.event = " ";  talk.d(" "); talk.talking = false; talk.count = 0; box(false); picGlow(book1Pic, false); break;
 			}
 		}if (talk.event == "read book 2") {		
 			switch (talk.count) {
-			case 1: talk.d("The book is about witch history and detail about witch"); box(true); talk.f = 40; break;
+			case 1: talk.d("The book is about witch history and detail about witch"); box(true); talk.f = 40; picGlow(book2Pic, true); break;
 			case 2: talk.d("So horrify"); box(true); talk.f = 60; break;
-			case 3: talk.event = " ";  talk.d(" "); talk.talking = false; talk.count = 0; box(false); break;
+			case 3: talk.event = " ";  talk.d(" "); talk.talking = false; talk.count = 0; box(false); picGlow(book2Pic, false); break;
 			}
 		}if (talk.event == "read book 3") {		
 			switch (talk.count) {
-			case 1: talk.d("The history book about the medieval age"); box(true); talk.f = 60; break;
+			case 1: talk.d("The history book about the medieval age"); box(true); talk.f = 60; picGlow(book3Pic, true); break;
 			case 2: talk.d("It shows that there are age that people are starving");  talk.f = 60; break;
 			case 3: talk.d("due to the crisis that crops are hard to grow.");  talk.f = 50; break;
-			case 4: talk.event = " ";  talk.d(" "); talk.talking = false; talk.count = 0; box(false); break;
+			case 4: talk.event = " ";  talk.d(" "); talk.talking = false; talk.count = 0; box(false); picGlow(book3Pic, false); break;
 			}
 		}		
 		if (talk.event == "mirrors") {				
 			switch (talk.count) {
-			case 1: talk.nd("Avery","Oh that's me"); box(true); talk.f = 150;   break;
+			case 1: talk.nd("Avery","Oh that's me"); box(true); talk.f = 150; picGlow(mirrorPic, true);  break;
 			case 2:	talk.d("It is mirror anyway."); talk.f = 100; break;
-			case 3: talk.event = " ";  talk.nd(" "," "); talk.talking = false; box(false); talk.count = 0; break;
+			case 3: talk.event = " ";  talk.nd(" "," "); talk.talking = false; box(false); talk.count = 0; picGlow(mirrorPic, false); break;
 			}
 		}
 
@@ -731,7 +733,7 @@ void Level1::createInventory() {
 	//inventory display stuff
 	inventoryBar = new GameObject();
 	inventoryBar->SetPosition(glm::vec3(960.0f, 540.0f, 0.0f));
-	inventoryBar->SetTexture("../Resource/Texture/inventoryBar.png");
+	inventoryBar->SetTexture("../Resource/Texture/invisible.png");
 	inventoryBar->SetSize(1920.0f, -1080.0f);
 	uiList.push_back(inventoryBar);
 
@@ -740,73 +742,13 @@ void Level1::createInventory() {
 	selectUi->SetTexture("../Resource/Texture/selectionOutline.png");
 	selectUi->SetSize(200.0f, -200.0f);
 	uiList.push_back(selectUi);
-
-	ItemUi* itemSlot0 = new ItemUi();
-	//itemSlot0->SetTexture(GameInstance::GetInstance()->inventory[0].fileName);
-	itemSlot0->SetSize(150.0f, -150.0f);
-	itemSlot0->SetPosition(glm::vec3(100.0f, 100.0f, 0.0f));
-	uiList.push_back(itemSlot0);
-	interactableList.push_back(itemSlot0);
-
-	ItemUi* itemSlot1 = new ItemUi();
-	//itemSlot1->SetTexture(GameInstance::GetInstance()->inventory[1].fileName); 
-	itemSlot1->SetSize(150.0f, -150.0f);
-	itemSlot1->SetPosition(glm::vec3(300.0f, 100.0f, 0.0f));
-	uiList.push_back(itemSlot1);
-	interactableList.push_back(itemSlot1);
-
-	ItemUi* itemSlot2 = new ItemUi();
-	//itemSlot2->SetTexture(GameInstance::GetInstance()->inventory[1].fileName);
-	itemSlot2->SetSize(150.0f, -150.0f);
-	itemSlot2->SetPosition(glm::vec3(500.0f, 100.0f, 0.0f));
-	uiList.push_back(itemSlot2);
-	interactableList.push_back(itemSlot2);
-
-	ItemUi* itemSlot3 = new ItemUi();
-	//itemSlot3->SetTexture(GameInstance::GetInstance()->inventory[3].fileName);
-	itemSlot3->SetSize(150.0f, -150.0f);
-	itemSlot3->SetPosition(glm::vec3(700.0f, 100.0f, 0.0f));
-	uiList.push_back(itemSlot3);
-	interactableList.push_back(itemSlot3);
-
-	ItemUi* itemSlot4 = new ItemUi();
-	//itemSlot4->SetTexture(GameInstance::GetInstance()->inventory[1].fileName);
-	itemSlot4->SetSize(150.0f, -150.0f);
-	itemSlot4->SetPosition(glm::vec3(900.0f, 100.0f, 0.0f));
-	uiList.push_back(itemSlot4);
-	interactableList.push_back(itemSlot4);
-
-	ItemUi* itemSlot5 = new ItemUi();
-	//itemSlot5->SetTexture(GameInstance::GetInstance()->inventory[1].fileName);
-	itemSlot5->SetSize(150.0f, -150.0f);
-	itemSlot5->SetPosition(glm::vec3(1100.0f, 100.0f, 0.0f));
-	uiList.push_back(itemSlot5);
-	interactableList.push_back(itemSlot5);
-
-	ItemUi* itemSlot6 = new ItemUi();
-	//itemSlot6->SetTexture(GameInstance::GetInstance()->inventory[1].fileName);
-	itemSlot6->SetSize(150.0f, -150.0f);
-	itemSlot6->SetPosition(glm::vec3(1300.0f, 100.0f, 0.0f));
-	uiList.push_back(itemSlot6);
-	interactableList.push_back(itemSlot6);
-
-	ItemUi* itemSlot7 = new ItemUi();
-	//itemSlot7->SetTexture(GameInstance::GetInstance()->inventory[1].fileName);
-	itemSlot7->SetSize(150.0f, -150.0f);
-	itemSlot7->SetPosition(glm::vec3(1500.0f, 100.0f, 0.0f));
-	uiList.push_back(itemSlot7);
-	interactableList.push_back(itemSlot7);
-
-	inventoryL[0] = itemSlot0;
-	inventoryL[1] = itemSlot1;
-	inventoryL[2] = itemSlot2;
-	inventoryL[3] = itemSlot3;
-	inventoryL[4] = itemSlot4;
-	inventoryL[5] = itemSlot5;
-	inventoryL[6] = itemSlot6;
-	inventoryL[7] = itemSlot7;
-
+	
 	for (int i = 0; i < 8; i++) {
+		inventoryL[i] = new ItemUi();
+		inventoryL[i]->SetSize(150.0f, -150.0f);
+		inventoryL[i]->SetPosition(glm::vec3(250.0f+(200.0f*i), 100.0f, 0.0f));
+		uiList.push_back(inventoryL[i]);
+		interactableList.push_back(inventoryL[i]);
 		if (i >= GameInstance::GetInstance()->inventory.size()) {
 			inventoryL[i]->SetTexture("../Resource/Texture/invisible.png");
 		}
@@ -814,19 +756,40 @@ void Level1::createInventory() {
 			inventoryL[i]->SetTexture(GameInstance::GetInstance()->inventory[i].fileName);
 		}
 	}
+	for (int i = 0; i < 8; i++) {
+		inventoryBox[i] = new GameObject();
+		inventoryBox[i]->SetSize(200.0f, -200.0f);
+		inventoryBox[i]->SetPosition(glm::vec3(250.0f + (200.0f * i), 100.0f, 0.0f));
+		inventoryBox[i]->SetTexture("../Resource/Texture/UIred.png");
+		uiList.push_back(inventoryBox[i]);
+	}
 }
 void Level1::inventoryLogic() {
 	for (int i = 0; i < GameInstance::GetInstance()->inventory.size(); i++) {
 		if (inventoryL[i]->Interacted == true) {
 			holdedItemIndex = i;
-			selectUi->SetPosition(glm::vec3((player->GetX() - 960) + 470.0f + (200 * holdedItemIndex), 100.0f, 0.0f));
+			//selectUi->SetPosition(glm::vec3((player->GetX() - 960) + 470.0f + (200 * holdedItemIndex), 100.0f, 0.0f));
+			inventoryBox[holdedItemIndex]->SetTexture("../Resource/Texture/UI_Grreenn.png");
 			uiText->LoadText(GameInstance::GetInstance()->inventory[i].showText, GameInstance::GetInstance()->inventory[i].textColor, GameInstance::GetInstance()->inventory[i].textFontSize);
 			uiText->SetSize(GameInstance::GetInstance()->inventory[i].textSizeX, -(GameInstance::GetInstance()->inventory[i].textSizeY));
+			lastHold[i] = true;
 			inventoryL[i]->Interacted = false;
 
 		}
 	}
+	for (int i = 0; i < GameInstance::GetInstance()->inventory.size(); i++) {
+		if (i!= holdedItemIndex && lastHold[i]==true){
+			inventoryBox[i]->SetTexture("../Resource/Texture/UIred.png");
+			lastHold[i] = false;
+		}
+	}
+
 }
+
+
+//string interact = "../Resource/Texture/UI_Grreenn.png";
+	//string uninteract = "../Resource/Texture/UIred.png";
+
 
 void Level1::showText(string word, SDL_Color textColor, int fontSize, float sizeX, float sizeY){
 	uiText->LoadText(word, textColor, fontSize);
@@ -903,6 +866,21 @@ void Level1::setUiPos() {
 		selectUi->SetPosition(glm::vec3((player->GetX() - 960) + 470.0f + (200 * holdedItemIndex), 100.0f, 0.0f));
 	}
 	for (int i = 0; i < 8; i++) {
-		inventoryL[i]->SetPosition(glm::vec3((player->GetX() - 960) + 470.0f + (200 * i), 100.0f, 0.0f));		
+		inventoryL[i]->SetPosition(glm::vec3((player->GetX() - 960) + 250.0f + (200 * i), 100.0f, 0.0f));		
+	}
+	for (int i = 0; i < 8; i++) {
+		inventoryBox[i]->SetPosition(glm::vec3((player->GetX() - 960) + 250.0f + (200 * i), 100.0f, 0.0f));
+	}
+
+	//inventoryBox[i]
+}
+
+
+void Level1::picGlow(GameObject* go, bool b) {
+	if (b == true) {
+		go->renderMode = 2;
+	}
+	else {
+		go->renderMode = 1;
 	}
 }
