@@ -113,11 +113,20 @@ void Level1::LevelInit()
 
 
 
-	GameObject* book1Pic = new GameObject();
+	/*																//Example of picture that not need to be interact or change
+	GameObject* book2Pic = new GameObject();
+	book2Pic->SetTexture("../Resource/Texture/Lv1_book2.png");
+	book2Pic->SetSize(mapWidth, -880.0f);//1080 + 200.0f
+	book2Pic->SetPosition(glm::vec3(mapWidth / 2, 540.0f + 100.0f, 0.0f));
+	backgroundList.push_back(book2Pic);
+	*/
+
+	book1Pic = new GameObject();
 	book1Pic->SetTexture("../Resource/Texture/Lv1_book1.png");
 	book1Pic->SetSize(mapWidth, -880.0f);//1080 + 200.0f
 	book1Pic->SetPosition(glm::vec3(mapWidth / 2, 540.0f + 100.0f, 0.0f));
 	backgroundList.push_back(book1Pic);
+	//book1Pic->renderMode = 2;
 
 	GameObject* book2Pic = new GameObject();
 	book2Pic->SetTexture("../Resource/Texture/Lv1_book2.png");
@@ -207,8 +216,7 @@ void Level1::LevelInit()
 		GameEngine::GetInstance()->SetDrawArea(mapWidth - 1980.0f, mapWidth, 0, 1080);
 	}
 	else { player->SetPosition(glm::vec3(950.0f, Avery_y_Position, 0.0f)); }
-
-
+	
 
 
 	GameObject* backgroundPillar = new GameObject();
@@ -626,9 +634,9 @@ void Level1::HandleMouse(int type, int x, int y)
 
 		if (talk.event == "read book 1") {		
 			switch (talk.count) {
-			case 1: talk.d("Story about a kid who got lost in the forest"); box(true); talk.f = 60; break;
+			case 1: talk.d("Story about a kid who got lost in the forest"); box(true); talk.f = 60; book1Pic->renderMode = 2; break;
 			case 2: talk.d("and got the help from a fairy to bring him back home.");  talk.f = 45; break;
-			case 3: talk.event = " ";  talk.d(" "); talk.talking = false; talk.count = 0; box(false); break;
+			case 3: talk.event = " ";  talk.d(" "); talk.talking = false; talk.count = 0; box(false); book1Pic->renderMode = 1; ; break;
 			}
 		}if (talk.event == "read book 2") {		
 			switch (talk.count) {
@@ -664,13 +672,14 @@ void Level1::HandleMouse(int type, int x, int y)
 
 		if (talk.event == "read Hansel and Gretel") {
 			switch (talk.count) {
-			case 1: talk.dp("It's Hansel and Gretel story", "../Resource/Texture/invisible.png"); box(true); talk.f = 70; break;
+			case 1: talk.dp("It's Hansel and Gretel story", "../Resource/Texture/invisible.png"); box(true); talk.f = 70; bookHGPic->renderMode = 2;  break;
 			case 2:	talk.d("What a classic story"); talk.f = 100;  break;
 			case 3:	talk.d("Wait why does the ending look like this?"); talk.f = 40; break;
 			case 4:	talk.d("This is the book it talked about");  break;
 			case 5: talk.event = " ";  talk.dp(" ", "../Resource/Texture/invisible.png"); talk.talking = false; box(false); talk.count = 0; 
 				getItem("bookH&G", "A distorted story of Hansel and Gretel", "../Resource/Texture/HanselAndGretelBook.png"); 
 				bookHunselAndGretel->SetPosition(glm::vec3(0.0f, 5000.0f, 0.0f)); bookHGPic->SetPosition(glm::vec3(0.0f, 5000.0f, 0.0f));
+				bookHGPic->renderMode = 1;
 				break;
 			}
 		}
