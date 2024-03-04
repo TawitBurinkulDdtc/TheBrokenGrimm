@@ -47,7 +47,7 @@ void GameObject::Render(glm::mat4 globalModelTransform)
             
 		currentMatrix = globalModelTransform * currentMatrix;
 		glUniformMatrix4fv(modelMatixId, 1, GL_FALSE, glm::value_ptr(currentMatrix));
-		glUniform1i(renderModeId, 1);
+		glUniform1i(renderModeId, renderMode);
 		glBindTexture(GL_TEXTURE_2D, texture);
 		squareMesh->ResetUV();
 		squareMesh->Render();

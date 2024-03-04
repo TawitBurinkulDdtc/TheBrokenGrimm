@@ -19,6 +19,9 @@ public:
 
 	void SetTexture(string path);
 	virtual void Render(glm::mat4 globalModelTransform);
+
+	int renderMode = 1; //book1Pic->renderMode = 2;
+
 };
 
 
