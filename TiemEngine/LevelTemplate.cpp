@@ -111,7 +111,7 @@ void LevelTemplate::LevelInit()
 	uiList.push_back(selectDisplayUi);
 
 	inventoryBar = inventoryBarUi;
-	selectUi = selectDisplayUi;
+	
 
 	ItemUi* itemSlot0 = new ItemUi();
 	//itemSlot0->SetTexture(GameInstance::GetInstance()->inventory[0].fileName);
@@ -257,7 +257,7 @@ void LevelTemplate::LevelUpdate()
 					GameEngine::GetInstance()->SetDrawArea(player->GetX() - 960, 960 + player->GetX(), 0, 1080);
 					uiText->SetPosition(glm::vec3(player->GetX(), 200.0f, 0.0f));
 					inventoryBar->SetPosition(glm::vec3(player->GetX(), 100.0f, 0.0f));
-					selectUi->SetPosition(glm::vec3((player->GetX() - 960) + 100.0f + (200 * holdedItemIndex), 100.0f, 0.0f));
+					
 					for (int i = 0; i < 8; i++) {
 						inventoryL[i]->SetPosition(glm::vec3((player->GetX() - 960) + 100.0f + (200 * i), 100.0f, 0.0f));
 					}
@@ -279,7 +279,7 @@ void LevelTemplate::LevelUpdate()
 					GameEngine::GetInstance()->SetDrawArea(player->GetX() - 960, 960 + player->GetX(), 0, 1080);
 					uiText->SetPosition(glm::vec3(player->GetX(), 200.0f, 0.0f));
 					inventoryBar->SetPosition(glm::vec3(player->GetX(), 100.0f, 0.0f));
-					selectUi->SetPosition(glm::vec3((player->GetX() - 960) + 100.0f + (200 * holdedItemIndex), 100.0f, 0.0f));
+					//selectUi->SetPosition(glm::vec3((player->GetX() - 960) + 100.0f + (200 * holdedItemIndex), 100.0f, 0.0f));
 					for (int i = 0; i < 8; i++) {
 						inventoryL[i]->SetPosition(glm::vec3((player->GetX() - 960) + 100.0f + (200 * i), 100.0f, 0.0f));
 					}
@@ -487,7 +487,7 @@ void LevelTemplate::HandleMouse(int type, int x, int y)
 	for (int i = 0; i < GameInstance::GetInstance()->inventory.size(); i++) {
 		if(inventoryL[i]->Interacted == true){
 				holdedItemIndex = i;
-				selectUi->SetPosition(glm::vec3((player->GetX() - 960) + 100.0f + (200 * holdedItemIndex), 100.0f, 0.0f));
+				//selectUi->SetPosition(glm::vec3((player->GetX() - 960) + 100.0f + (200 * holdedItemIndex), 100.0f, 0.0f));
 				uiText->LoadText(GameInstance::GetInstance()->inventory[i].showText, GameInstance::GetInstance()->inventory[i].textColor, GameInstance::GetInstance()->inventory[i].textFontSize);
 				uiText->SetSize(GameInstance::GetInstance()->inventory[i].textSizeX, -(GameInstance::GetInstance()->inventory[i].textSizeY));
 				inventoryL[i]->Interacted = false;

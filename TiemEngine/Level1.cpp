@@ -737,15 +737,11 @@ void Level1::createInventory() {
 	inventoryBar->SetSize(1920.0f, -1080.0f);
 	uiList.push_back(inventoryBar);
 
-	selectUi = new GameObject();
-	selectUi->SetPosition(glm::vec3(0.0f, -5000.0f, 0.0f));
-	selectUi->SetTexture("../Resource/Texture/selectionOutline.png");
-	selectUi->SetSize(200.0f, -200.0f);
-	uiList.push_back(selectUi);
+	
 	
 	for (int i = 0; i < 8; i++) {
 		inventoryL[i] = new ItemUi();
-		inventoryL[i]->SetSize(150.0f, -150.0f);
+		inventoryL[i]->SetSize(120.0f, -120.0f);
 		inventoryL[i]->SetPosition(glm::vec3(250.0f+(200.0f*i), 100.0f, 0.0f));
 		uiList.push_back(inventoryL[i]);
 		interactableList.push_back(inventoryL[i]);
@@ -758,8 +754,8 @@ void Level1::createInventory() {
 	}
 	for (int i = 0; i < 8; i++) {
 		inventoryBox[i] = new GameObject();
-		inventoryBox[i]->SetSize(200.0f, -200.0f);
-		inventoryBox[i]->SetPosition(glm::vec3(250.0f + (200.0f * i), 100.0f, 0.0f));
+		inventoryBox[i]->SetSize(230.0f, -230.0f);
+		inventoryBox[i]->SetPosition(glm::vec3(250.0f + (200.0f * i), 110.0f, 0.0f));
 		inventoryBox[i]->SetTexture("../Resource/Texture/UIred.png");
 		uiList.push_back(inventoryBox[i]);
 	}
@@ -768,7 +764,6 @@ void Level1::inventoryLogic() {
 	for (int i = 0; i < GameInstance::GetInstance()->inventory.size(); i++) {
 		if (inventoryL[i]->Interacted == true) {
 			holdedItemIndex = i;
-			//selectUi->SetPosition(glm::vec3((player->GetX() - 960) + 470.0f + (200 * holdedItemIndex), 100.0f, 0.0f));
 			inventoryBox[holdedItemIndex]->SetTexture("../Resource/Texture/UI_Grreenn.png");
 			uiText->LoadText(GameInstance::GetInstance()->inventory[i].showText, GameInstance::GetInstance()->inventory[i].textColor, GameInstance::GetInstance()->inventory[i].textFontSize);
 			uiText->SetSize(GameInstance::GetInstance()->inventory[i].textSizeX, -(GameInstance::GetInstance()->inventory[i].textSizeY));
@@ -862,14 +857,11 @@ void Level1::setUiPos() {
 	uiText->SetPosition(glm::vec3(player->GetX(), 880.0f, 0.0f));
 	nameText->SetPosition(glm::vec3(player->GetX(), 990.0f, 0.0f));
 	inventoryBar->SetPosition(glm::vec3(player->GetX(), 540.0f, 0.0f));
-	if(holdedItemIndex>=0){
-		selectUi->SetPosition(glm::vec3((player->GetX() - 960) + 470.0f + (200 * holdedItemIndex), 100.0f, 0.0f));
-	}
 	for (int i = 0; i < 8; i++) {
 		inventoryL[i]->SetPosition(glm::vec3((player->GetX() - 960) + 250.0f + (200 * i), 100.0f, 0.0f));		
 	}
 	for (int i = 0; i < 8; i++) {
-		inventoryBox[i]->SetPosition(glm::vec3((player->GetX() - 960) + 250.0f + (200 * i), 100.0f, 0.0f));
+		inventoryBox[i]->SetPosition(glm::vec3((player->GetX() - 960) + 250.0f + (200 * i), 110.0f, 0.0f));
 	}
 
 	//inventoryBox[i]

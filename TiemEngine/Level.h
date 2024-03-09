@@ -31,7 +31,6 @@ public:
 
 	float mapWidth;
 	GameObject* inventoryBar;
-	GameObject* selectUi;
 
 	talkClass talk;
 	GameObject* dialogueBox;
