@@ -14,16 +14,16 @@ void Level1::LevelInit()
 {
 
 
-	mapWidth = 6326.6f;
-	holdedItemIndex = -1;
+	mapWidth = 6326.6f;	//Require in every level          RIQL					need custom
+	holdedItemIndex = -1;	//Require in every level          RIQL
 
+	//Require in every level          RIQL		start
 	GameObject* background = new GameObject();
-	background->SetTexture("../Resource/Texture/Back_library.png");
+	background->SetTexture("../Resource/Texture/Back_library.png");	//need custom
 	background->SetSize(mapWidth, -880.0f);//1080 + 200.0f
 	background->SetPosition(glm::vec3(mapWidth/2, 540.0f+100.0f, 0.0f));
 	backgroundList.push_back(background);
-
-
+	//Require in every level          RIQL			end
 
 
 
@@ -205,20 +205,27 @@ void Level1::LevelInit()
 	uiList.push_back(objCursor);*/
 
 
-	//Avery   y max 530   min 360
-	player = new SpriteObject("../Resource/Texture/AveryIdle.png", 1, 6);
-	player->SetSize(540.0f * AverySizeRatio, 695.0f * AverySizeRatio);
-	objectsList.push_back(player);
-	if (GameInstance::GetInstance()->PlayerFrom == PlayerFrom::Left) {
+	button1 = testButton;
+	button2 = testButton2;
+	//cursor = objCursor;
+	//player = objPlayer;
+
+	floatyGlobe = floatyEarth;
+
+
+
+	// Require in every level          RIQL start		1
+	createPlayer();
+	if (GameInstance::GetInstance()->PlayerFrom == PlayerFrom::Left) {		//Require customization start
 		player->SetPosition(glm::vec3(300.0f, Avery_y_Position, 0.0f));
 		GameEngine::GetInstance()->SetDrawArea(0, 1920, 0, 1080);
 	}
-	else if (GameInstance::GetInstance()->PlayerFrom == PlayerFrom::Right) {
+	else if (GameInstance::GetInstance()->PlayerFrom == PlayerFrom::Right) {		
 		player->SetPosition(glm::vec3(mapWidth - 300.0f, Avery_y_Position, 0.0f));
 		GameEngine::GetInstance()->SetDrawArea(mapWidth - 1980.0f, mapWidth, 0, 1080);
 	}
-	else { player->SetPosition(glm::vec3(950.0f, Avery_y_Position, 0.0f)); }
-	
+	else { player->SetPosition(glm::vec3(950.0f, Avery_y_Position, 0.0f)); }	//Require customization end
+	// RIQL end			1
 
 
 	GameObject* backgroundPillar = new GameObject();
@@ -229,12 +236,9 @@ void Level1::LevelInit()
 
 
 
-
+	// Require in every level          RIQL start		2
 	//create inventory here
 	createInventory();
-	
-
-
 	dialogueCharacter = new GameObject();			//(char for character)							///////////////
 	dialogueCharacter->SetTexture("../Resource/Texture/invisible.png");
 	dialogueCharacter->SetSize(1980, -1080.0f);//1080 + 200.0f
@@ -260,17 +264,7 @@ void Level1::LevelInit()
 	nameText->LoadText(" ", textColor, 100);
 	nameText->SetPosition(glm::vec3(960.0f, 990.0f, 0.0f));
 	nameText->SetSize(500.0f, -100.0f);
-	uiList.push_back(nameText);
-
-
-
-	button1 = testButton;
-	button2 = testButton2;
-	//cursor = objCursor;
-	//player = objPlayer;
-
-	floatyGlobe = floatyEarth;
-	
+	uiList.push_back(nameText);	
 
 
 	playerWalkTo = player->GetX();
@@ -289,7 +283,7 @@ void Level1::LevelInit()
 	playerStandStillDelay = 100;
 	//---------------------------------------------------------------------
 	//cout << "Init Level" << endl;
-
+	// RIQL end			2
 }
 
 
@@ -875,4 +869,12 @@ void Level1::picGlow(GameObject* go, bool b) {
 	else {
 		go->renderMode = 1;
 	}
+}
+
+
+
+void Level1::createPlayer(){
+	player = new SpriteObject("../Resource/Texture/AveryIdle.png", 1, 6);
+	player->SetSize(540.0f * AverySizeRatio, 695.0f * AverySizeRatio);
+	objectsList.push_back(player);
 }
