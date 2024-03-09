@@ -94,7 +94,7 @@ void Level2::LevelInit()
 	uiList.push_back(selectDisplayUi);
 
 	inventoryBar = inventoryBarUi;
-	selectUi = selectDisplayUi;
+	////selectUi = selectDisplayUi;
 
 	ItemUi* itemSlot0 = new ItemUi();
 	//itemSlot0->SetTexture(GameInstance::GetInstance()->inventory[0].fileName);
@@ -243,7 +243,7 @@ void Level2::LevelUpdate()
 				GameEngine::GetInstance()->SetDrawArea(player->GetX() - 960, 960 + player->GetX(), 0, 1080);
 				uiText->SetPosition(glm::vec3(player->GetX(), 200.0f, 0.0f));
 				inventoryBar->SetPosition(glm::vec3(player->GetX(), 100.0f, 0.0f));
-				selectUi->SetPosition(glm::vec3((player->GetX() - 960) + 100.0f + (200 * holdedItemIndex), 100.0f, 0.0f));
+				//selectUi->SetPosition(glm::vec3((player->GetX() - 960) + 100.0f + (200 * holdedItemIndex), 100.0f, 0.0f));
 				for (int i = 0; i < 8; i++) {
 					inventoryL[i]->SetPosition(glm::vec3((player->GetX() - 960) + 100.0f + (200 * i), 100.0f, 0.0f));
 				}
@@ -432,7 +432,7 @@ void Level2::HandleMouse(int type, int x, int y)
 			}
 			else if (GameInstance::GetInstance()->inventory[i].name == "fire match") {
 				holdedItemIndex = i;
-				selectUi->SetPosition(glm::vec3((player->GetX() - 960) + 100.0f + (200 * holdedItemIndex), 100.0f, 0.0f));
+				//selectUi->SetPosition(glm::vec3((player->GetX() - 960) + 100.0f + (200 * holdedItemIndex), 100.0f, 0.0f));
 				uiText->LoadText("a fire match", whiteText, 100);
 				uiText->SetSize(700.0f, -100.0f);
 
@@ -440,7 +440,7 @@ void Level2::HandleMouse(int type, int x, int y)
 			}
 			else if (GameInstance::GetInstance()->inventory[i].name == "key1") {
 				holdedItemIndex = i;
-				selectUi->SetPosition(glm::vec3((player->GetX() - 960) + 100.0f + (200 * holdedItemIndex), 100.0f, 0.0f));
+				//selectUi->SetPosition(glm::vec3((player->GetX() - 960) + 100.0f + (200 * holdedItemIndex), 100.0f, 0.0f));
 				uiText->LoadText("a key", whiteText, 100);
 				uiText->SetSize(700.0f, -100.0f);
 
@@ -448,7 +448,7 @@ void Level2::HandleMouse(int type, int x, int y)
 			}
 			else if (GameInstance::GetInstance()->inventory[i].name == "endOfDemoNote") {
 				holdedItemIndex = i;
-				selectUi->SetPosition(glm::vec3((player->GetX() - 960) + 100.0f + (200 * holdedItemIndex), 100.0f, 0.0f));
+				//selectUi->SetPosition(glm::vec3((player->GetX() - 960) + 100.0f + (200 * holdedItemIndex), 100.0f, 0.0f));
 				uiText->LoadText("END OF ENGINE DEMO", whiteText, 100);
 				uiText->SetSize(700.0f, -100.0f);
 
