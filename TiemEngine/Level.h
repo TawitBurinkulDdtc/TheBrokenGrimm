@@ -24,16 +24,4 @@ public:
 	virtual void HandleKey(char key);
 	virtual void HandleMouse(int type, int x, int y);
 
-	ItemUi* inventoryL[8];
-	int holdedItemIndex = -1;
-	bool lastHold[8] = {false};
-	GameObject* inventoryBox[8];
-
-	float mapWidth;
-	GameObject* inventoryBar;
-
-	talkClass talk;
-	GameObject* dialogueBox;
-	GameObject* dialogueCharacter;
-
 };

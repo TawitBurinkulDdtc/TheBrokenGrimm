@@ -1,10 +1,11 @@
 #pragma once
-#include "Level.h"
+//#include "Level.h"
+#include "Level1.h"
 #include "InteractableObject.h"
 #include "ButtonObject.h"
 #include "TextObject.h"
 
-class Level2 : public Level
+class Level2 : public Level1
 {
 public:
 

@@ -61,7 +61,17 @@ public:
 	SDL_Color blackText = { 0, 0, 0 };
 
 
+	ItemUi* inventoryL[8];
+	int holdedItemIndex = -1;
+	bool lastHold[8] = { false };
+	GameObject* inventoryBox[8];
 
+	float mapWidth;
+	GameObject* inventoryBar;
+
+	talkClass talk;
+	GameObject* dialogueBox;
+	GameObject* dialogueCharacter;
 
 
 	private:
