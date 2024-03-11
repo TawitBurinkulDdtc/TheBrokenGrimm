@@ -65,18 +65,7 @@ void Level2::LevelInit()
 	objCursor->SetSize(100.0f, -100.0f);
 	uiList.push_back(objCursor);
 
-	SpriteObject* Girl = new SpriteObject("../Resource/Texture/AveryIdle.png", 1, 6);
-	Girl->SetSize(64.0f * 2, 128.0f * 2);
-	objectsList.push_back(Girl);
-	if (GameInstance::GetInstance()->PlayerFrom == PlayerFrom::Right) {
-		Girl->SetPosition(glm::vec3(mapWidth - 300.0f, 300.0f, 0.0f));
-		GameEngine::GetInstance()->SetDrawArea(7764.5f - 1980.0f, mapWidth, 0, 1080);
-	}
-	else if(GameInstance::GetInstance()->PlayerFrom == PlayerFrom::Left){
-		Girl->SetPosition(glm::vec3(300.0f, 300.0f, 0.0f));
-		GameEngine::GetInstance()->SetDrawArea(0, 1920, 0, 1080);
-	}
-	else{ Girl->SetPosition(glm::vec3(950.0f, 300.0f, 0.0f)); }
+	
 	
 
 
@@ -192,21 +181,25 @@ void Level2::LevelInit()
 	uiText = objUiText;
 	button1 = testButton;
 	button2 = testButton2;
-	cursor = objCursor;
+	
 	//player = objPlayer;
-	player = Girl;
+	
 
 	chest1 = theChest1;
 
 
+
+
+	createPlayer();
+
 	playerWalkTo = player->GetX();
 	playerCurrentTime = 0;
 
-
+	
 
 
 	//--------------------- walk speed editer----------------------------
-	playerFrameDelay = 0.1;
+	playerFrameDelay = 0.1f;
 	playerStepPerFrame = 10;
 	//---------------------------------------------------------------------
 	//cout << "Init Level" << endl;
@@ -218,58 +211,7 @@ void Level2::LevelInit()
 
 void Level2::LevelUpdate()
 {	
-	/*
-	if (SDL_GetTicks() > playerCurrentTime + playerFrameDelay) {
-
-
-		if (player->GetX() < playerWalkTo - playerStepPerFrame || player->GetX() > playerWalkTo + playerStepPerFrame) {
-			if (player->GetX() < playerWalkTo) {
-				player->Translate(glm::vec3(playerStepPerFrame, 0, 0));
-				GameEngine::GetInstance()->SetDrawArea(player->GetX() - 960, 960 + player->GetX(), 0, 1080);
-			}
-			else {
-				player->Translate(glm::vec3(-playerStepPerFrame, 0, 0));
-				GameEngine::GetInstance()->SetDrawArea(player->GetX() - 960, 960 + player->GetX(), 0, 1080);
-			}
-		}
-
-		playerCurrentTime = SDL_GetTicks();
-	}
-	*/
-	//uiText->SetPosition(glm::vec3(960.0f, 200.0f, 0.0f));
-	if (SDL_GetTicks() > playerCurrentTime + playerFrameDelay) {
-		if (playerWalkSide != 0) {
-			if (player->GetX() > 960 && player->GetX() < (mapWidth-960.0f)) {										//set camera limit here
-				GameEngine::GetInstance()->SetDrawArea(player->GetX() - 960, 960 + player->GetX(), 0, 1080);
-				uiText->SetPosition(glm::vec3(player->GetX(), 200.0f, 0.0f));
-				inventoryBar->SetPosition(glm::vec3(player->GetX(), 100.0f, 0.0f));
-				//selectUi->SetPosition(glm::vec3((player->GetX() - 960) + 100.0f + (200 * holdedItemIndex), 100.0f, 0.0f));
-				for (int i = 0; i < 8; i++) {
-					inventoryL[i]->SetPosition(glm::vec3((player->GetX() - 960) + 100.0f + (200 * i), 100.0f, 0.0f));
-				}
-			}
-			else if (player->GetX() < 100) {
-				GameInstance::GetInstance()->PlayerFrom = PlayerFrom::Right;
-				GameEngine::GetInstance()->GetStateController()->gameStateNext = GameState::GS_LEVEL1;
-			}
-			else if (player->GetX() > mapWidth-100) {
-				GameInstance::GetInstance()->PlayerFrom = PlayerFrom::Left;
-				GameEngine::GetInstance()->GetStateController()->gameStateNext = GameState::GS_LEVEL1;
-			}
-			if (playerWalkSide == 2) {
-				player->Translate(glm::vec3(playerStepPerFrame, 0, 0));
-
-				//GameEngine::GetInstance()->SetDrawArea(player->GetX() - 960, 960 + player->GetX(), 0, 1080);
-				playerWalkSide = 0;
-			}
-			else if (playerWalkSide == 1) {
-				player->Translate(glm::vec3(-playerStepPerFrame, 0, 0));
-				//GameEngine::GetInstance()->SetDrawArea(player->GetX() - 960, 960 + player->GetX(), 0, 1080);
-				playerWalkSide = 0;
-			}
-		}
-		playerCurrentTime = SDL_GetTicks();
-	}
+	playerMovement(); //Require in every level          RIQL
 	player->UpdateFrame();
 
 }

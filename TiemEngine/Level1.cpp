@@ -294,28 +294,24 @@ void Level1::LevelInit()
 
 void Level1::LevelUpdate()
 {	
-	
-	//uiText->SetPosition(glm::vec3(960.0f, 200.0f, 0.0f));
-
-	if (player->GetX() > ((mapWidth / 2) - 600) && GameInstance::GetInstance()->birdTalking == 0 && talk.talking == false) {
-		uiText->LoadText("I am bird    Fix my BOOK", blackText, 100);
-		nameText->LoadText("Bird", blackText, 100);
-		bird->SetPosition(glm::vec3(mapWidth / 2, 700.0f, 0.0f));
-		birdAnim->SetPosition(glm::vec3(mapWidth / 2, 700.0f, 0.0f));
-		talk.event = "bird talking first";
-		box(true);
-		talk.talking = true;
+	if (playerWalkSide != 0) {
+		if (player->GetX() > ((mapWidth / 2) - 600) && GameInstance::GetInstance()->birdTalking == 0 && talk.talking == false) {
+			uiText->LoadText("I am bird    Fix my BOOK", blackText, 100);
+			nameText->LoadText("Bird", blackText, 100);
+			bird->SetPosition(glm::vec3(mapWidth / 2, 700.0f, 0.0f));
+			birdAnim->SetPosition(glm::vec3(mapWidth / 2, 700.0f, 0.0f));
+			talk.event = "bird talking first";
+			box(true);
+			talk.talking = true;
+		}
+		if (player->GetX() < 250) {
+			player->SetPosition(glm::vec3(250, Avery_y_Position, 0.0f));
+		}
+		else if (player->GetX() > mapWidth - 250) {
+			player->SetPosition(glm::vec3(mapWidth - 250, Avery_y_Position, 0.0f));	//
+		}//mapWidth - 250
 	}
-
-	playerMovment();
-
-	//GameEngine::GetInstance()->GetStateController()->gameStateNext = GameState::GS_LEVEL2;
-	//if (player->GetX() > ((mapWidth/2) - 600) && GameInstance::GetInstance()->birdTalking == 0) {
-
-	
-	
-	
-
+	playerMovement(); //Require in every level          RIQL
 	player->UpdateFrame();
 	birdAnim->UpdateFrame();
 }
@@ -847,9 +843,12 @@ void Level1::createPlayer(){
 }
 
 
+//GameInstance::GetInstance()->PlayerFrom = PlayerFrom::Right;
 
-void Level1::playerMovment() {
+
+void Level1::playerMovement() {
 	if (SDL_GetTicks() > playerCurrentTime + playerFrameDelay) {
+		
 		if (playerWalkSide != 0) {
 
 			if (pSpriteInt == 0) {
@@ -862,9 +861,6 @@ void Level1::playerMovment() {
 					GameEngine::GetInstance()->SetDrawArea(player->GetX() - 960, 960 + player->GetX(), 0, 1080);
 					setUiPos();
 				}
-				else if (player->GetX() < 100) {
-					GameInstance::GetInstance()->PlayerFrom = PlayerFrom::Right;
-				}
 				player->SetSize(540.0f * AverySizeRatio, 695.0f * AverySizeRatio);
 				playerWalkSide = 0;
 			}
@@ -873,9 +869,6 @@ void Level1::playerMovment() {
 				if (player->GetX() > 960 && player->GetX() < (mapWidth - 960.0f)) {										//set camera limit here
 					GameEngine::GetInstance()->SetDrawArea(player->GetX() - 960, 960 + player->GetX(), 0, 1080);
 					setUiPos();
-				}
-				else if (player->GetX() > (mapWidth - 250)) {
-					player->SetPosition(glm::vec3(mapWidth - 250.0f, Avery_y_Position, 0.0f));	//
 				}
 
 				player->SetSize(-540.0f * AverySizeRatio, 695.0f * AverySizeRatio);
