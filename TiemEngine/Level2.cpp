@@ -339,8 +339,55 @@ void Level2::HandleKey(char key)
 void Level2::HandleMouse(int type, int x, int y)
 {
 	
-	
 
+
+	float trueX = x;
+	if (player->GetX() > 960 && player->GetX() < (mapWidth - 960.0f)) {
+		trueX = (x - 960) + player->GetX();
+	}
+	else if (player->GetX() >= (mapWidth - 960.0f)) {
+		trueX = x + ((mapWidth - 1920.0f));
+	}
+	else {
+		trueX = x;
+	}
+
+
+
+	if (talk.talking == false) {	//no talk
+
+
+		for (int i = 0; i < interactableList.size(); i++) {
+			if (interactableList[i]->GetClick(trueX, y)) {
+				interactableList[i]->Interact();
+			}
+		}
+																																		/////////////will be gone soon end
+		//Logic Here
+
+	}//no talk
+
+	if (talk.talking == true) { //do talk
+		talk.count = talk.count + 1;
+
+
+		if (talk.event == "Example") {				//tutorial
+			switch (talk.count) {
+			case 1: talk.d("example 1"); box(true); talk.f = 70; break;
+			case 2:	talk.d("example 2"); talk.f = 40;  break;
+			case 3: talk.event = " ";  talk.nd(" ", " "); talk.talking = false; box(false); talk.count = 0; break;
+			}
+		}
+
+
+		setDialoguePosition();
+		dialogueCharacter->SetTexture(talk.pictureFileName);			//SetPosition(glm::vec3(0, 0, 0));
+		uiText->LoadText(talk.dialogue, blackText, talk.f);
+		nameText->LoadText(talk.name, blackText, talk.nf);
+
+	}
+
+	inventoryLogic();
 
 
 }

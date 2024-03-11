@@ -42,6 +42,7 @@ public:
 	void setUiPos();
 	void picGlow(GameObject* go,bool b);
 	void createPlayer();
+	void playerMovment();
 
 	float playerWalkTo; //might not needed anymore if change to key press movement instead of mouse movement
 	int playerFrameDelay;
