@@ -1,12 +1,9 @@
 #include "Level2.h"
-#include "sdl.h"
 #include "SpriteObject.h"
-
-#define GIRL_SCALE 2
 
 void Level2::LevelLoad()
 {
-	SquareMeshVbo * square = new SquareMeshVbo();
+	SquareMeshVbo* square = new SquareMeshVbo();
 	square->LoadData();
 	GameEngine::GetInstance()->AddMesh(SquareMeshVbo::MESH_NAME, square);
 
@@ -15,212 +12,118 @@ void Level2::LevelLoad()
 
 void Level2::LevelInit()
 {
-	mapWidth = 7764.5f;
-	holdedItemIndex = -1;
 
+
+	mapWidth = 6326.6f;	//Require in every level          RIQL					need custom
+	holdedItemIndex = -1;	//Require in every level          RIQL
+
+	//Require in every level          RIQL		start
 	GameObject* background = new GameObject();
-	background->SetTexture("../Resource/Texture/testVillage.jpeg");
-	background->SetSize(mapWidth, -1080.0f);
-	background->SetPosition(glm::vec3(3882.25f, 540.0f, 0.0f));
+	background->SetTexture("../Resource/Texture/Back_library.png");	//need custom
+	background->SetSize(mapWidth, -880.0f);//1080 + 200.0f
+	background->SetPosition(glm::vec3(mapWidth / 2, 540.0f + 100.0f, 0.0f));
 	backgroundList.push_back(background);
-
-
-	
-	ButtonObject* theChest1 = new ButtonObject();
-	if(GameInstance::GetInstance()->gameEvent[0]<2) {
-		theChest1->SetTexture("../Resource/Texture/chest1.png");
-	}
-	else {
-		theChest1->SetTexture("../Resource/Texture/chest1Open.png");
-	}
-	theChest1->SetSize(330.0f, -330.0f);
-	theChest1->SetPosition(glm::vec3(6000.25f, 584.0f, 0.0f));
-	objectsList.push_back(theChest1);
-	interactableList.push_back(theChest1);
-	
-
-	ButtonObject* testButton = new ButtonObject();
-	testButton->SetTexture("../Resource/Texture/DoNotPress.png");
-	testButton->SetSize(100.0f, -200.0f);
-	testButton->SetPosition(glm::vec3(500.0f, 800.0f, 0.0f));
-	objectsList.push_back(testButton);
-	interactableList.push_back(testButton);
-
-	ButtonObject* testButton2 = new ButtonObject();
-	testButton2->SetTexture("../Resource/Texture/DoNotPress.png");
-	testButton2->SetSize(200.0f, -100.0f);
-	testButton2->SetPosition(glm::vec3(1200.0f, 800.0f, 0.0f));
-	objectsList.push_back(testButton2);
-	interactableList.push_back(testButton2);
-
-	GameObject* objPlayer = new GameObject();
-	objPlayer->SetTexture("../Resource/Texture/penguin.png");
-	objPlayer->SetPosition(glm::vec3(950.0f, 300.0f, 0.0f));
-	objPlayer->SetSize(100.0f, -100.0f);
-	objectsList.push_back(objPlayer);
-
-	GameObject* objCursor = new GameObject();
-	//objCursor->SetTexture("../Resource/Texture/uglyHand.png");
-	objCursor->SetTexture("../Resource/Texture/invisible.png");
-	objCursor->SetSize(100.0f, -100.0f);
-	uiList.push_back(objCursor);
-
-	
-	
-
-
-		//inventory display stuff
-	GameObject* inventoryBarUi = new GameObject();
-	inventoryBarUi->SetPosition(glm::vec3(960.0f, 100.0f, 0.0f));
-	inventoryBarUi->SetTexture("../Resource/Texture/inventoryBar.png");
-	inventoryBarUi->SetSize(1980.0f, -200.0f);
-	uiList.push_back(inventoryBarUi);
-
-	GameObject* selectDisplayUi = new GameObject();
-	selectDisplayUi->SetPosition(glm::vec3(1000.0f, 100.0f, 0.0f));
-	selectDisplayUi->SetTexture("../Resource/Texture/selectionOutline.png");
-	selectDisplayUi->SetSize(120.0f, -120.0f);
-	uiList.push_back(selectDisplayUi);
-
-	inventoryBar = inventoryBarUi;
-	////selectUi = selectDisplayUi;
-
-	ItemUi* itemSlot0 = new ItemUi();
-	//itemSlot0->SetTexture(GameInstance::GetInstance()->inventory[0].fileName);
-	itemSlot0->SetSize(100.0f, -100.0f);
-	itemSlot0->SetPosition(glm::vec3(100.0f, 100.0f, 0.0f));
-	uiList.push_back(itemSlot0);
-	interactableList.push_back(itemSlot0);
-
-	ItemUi* itemSlot1 = new ItemUi();
-	//itemSlot1->SetTexture(GameInstance::GetInstance()->inventory[1].fileName); 
-	itemSlot1->SetSize(100.0f, -100.0f);
-	itemSlot1->SetPosition(glm::vec3(300.0f, 100.0f, 0.0f));
-	uiList.push_back(itemSlot1);
-	interactableList.push_back(itemSlot1);
-	
-	ItemUi* itemSlot2 = new ItemUi();
-	//itemSlot2->SetTexture(GameInstance::GetInstance()->inventory[1].fileName);
-	itemSlot2->SetSize(100.0f, -100.0f);
-	itemSlot2->SetPosition(glm::vec3(500.0f, 100.0f, 0.0f));
-	uiList.push_back(itemSlot2);
-	interactableList.push_back(itemSlot2);
-
-	ItemUi* itemSlot3 = new ItemUi();
-	//itemSlot3->SetTexture(GameInstance::GetInstance()->inventory[3].fileName);
-	itemSlot3->SetSize(100.0f, -100.0f);
-	itemSlot3->SetPosition(glm::vec3(700.0f, 100.0f, 0.0f));
-	uiList.push_back(itemSlot3);
-	interactableList.push_back(itemSlot3);
-
-	ItemUi* itemSlot4 = new ItemUi();
-	//itemSlot4->SetTexture(GameInstance::GetInstance()->inventory[1].fileName);
-	itemSlot4->SetSize(100.0f, -100.0f);
-	itemSlot4->SetPosition(glm::vec3(900.0f, 100.0f, 0.0f));
-	uiList.push_back(itemSlot4);
-	interactableList.push_back(itemSlot4);
-
-	ItemUi* itemSlot5 = new ItemUi();
-	//itemSlot5->SetTexture(GameInstance::GetInstance()->inventory[1].fileName);
-	itemSlot5->SetSize(100.0f, -100.0f);
-	itemSlot5->SetPosition(glm::vec3(1100.0f, 100.0f, 0.0f));
-	uiList.push_back(itemSlot5);
-	interactableList.push_back(itemSlot5);
-
-	ItemUi* itemSlot6 = new ItemUi();
-	//itemSlot6->SetTexture(GameInstance::GetInstance()->inventory[1].fileName);
-	itemSlot6->SetSize(100.0f, -100.0f);
-	itemSlot6->SetPosition(glm::vec3(1300.0f, 100.0f, 0.0f));
-	uiList.push_back(itemSlot6);
-	interactableList.push_back(itemSlot6);
-	
-	ItemUi* itemSlot7 = new ItemUi();
-	//itemSlot7->SetTexture(GameInstance::GetInstance()->inventory[1].fileName);
-	itemSlot7->SetSize(100.0f, -100.0f);
-	itemSlot7->SetPosition(glm::vec3(1500.0f, 100.0f, 0.0f));
-	uiList.push_back(itemSlot7);
-	interactableList.push_back(itemSlot7);
-
-	inventoryL[0] = itemSlot0;
-	inventoryL[1] = itemSlot1;
-	inventoryL[2] = itemSlot2;
-	inventoryL[3] = itemSlot3;
-	inventoryL[4] = itemSlot4;
-	inventoryL[5] = itemSlot5;
-	inventoryL[6] = itemSlot6;
-	inventoryL[7] = itemSlot7; 
-
-	for (int i = 0; i < 8; i++) {
-		if (i >= GameInstance::GetInstance()->inventory.size()) {
-			inventoryL[i]->SetTexture("../Resource/Texture/invisible.png");
-		}
-		else{
-			inventoryL[i]->SetTexture(GameInstance::GetInstance()->inventory[i].fileName);
-		}
-	}
+	//Require in every level          RIQL			end
 
 
 
-
-	TextObject* objUiText = new TextObject();
-	SDL_Color textColor = { 0, 0, 0 }; //(0 to 255)
-	objUiText->LoadText("Hello??? anybody?", textColor, 100);
-	objUiText->SetPosition(glm::vec3(960.0f, 200.0f, 0.0f));
-	objUiText->SetSize(500.0f, -100.0f);
-	uiList.push_back(objUiText);
-
-	TextObject* animationTextBug = new TextObject();
-	//SDL_Color textColor = { 0, 0, 0 }; //(0 to 255)
-	animationTextBug->LoadText("Why is this one bug.. idk probably pointer thingy", textColor, 100);
-	animationTextBug->SetPosition(glm::vec3(960.0f, 500.0f, 0.0f));
-	animationTextBug->SetSize(500.0f, -100.0f);
-	objectsList.push_back(animationTextBug);
-
-
-
-	uiText = objUiText;
-	button1 = testButton;
-	button2 = testButton2;
-	
-	//player = objPlayer;
-	
-
-	chest1 = theChest1;
-
-
-
-
+	// Require in every level          RIQL start		1
+	/*
 	createPlayer();
+	if (GameInstance::GetInstance()->PlayerFrom == PlayerFrom::Left) {		//Require customization start
+		player->SetPosition(glm::vec3(300.0f, Avery_y_Position, 0.0f));
+		GameEngine::GetInstance()->SetDrawArea(0, 1920, 0, 1080);
+	}
+	else if (GameInstance::GetInstance()->PlayerFrom == PlayerFrom::Right) {
+		player->SetPosition(glm::vec3(mapWidth - 300.0f, Avery_y_Position, 0.0f));
+		GameEngine::GetInstance()->SetDrawArea(mapWidth - 1980.0f, mapWidth, 0, 1080);
+	}
+	else { player->SetPosition(glm::vec3(950.0f, Avery_y_Position, 0.0f)); }	//Require customization end
+	*/
+	createPlayer();
+	player->SetPosition(glm::vec3(950.0f, Avery_y_Position, 0.0f));
+	// RIQL end			1
+
+
+
+	// Require in every level          RIQL start		2
+	//create inventory here
+	createInventory();
+	dialogueCharacter = new GameObject();			//(char for character)							///////////////
+	dialogueCharacter->SetTexture("../Resource/Texture/invisible.png");
+	dialogueCharacter->SetSize(1980, -1080.0f);//1080 + 200.0f
+	dialogueCharacter->SetPosition(glm::vec3(0, 0, 0));
+	uiList.push_back(dialogueCharacter);
+	talk.p("../Resource/Texture/invisible.png");
+
+
+	dialogueBox = new GameObject();
+	dialogueBox->SetPosition(glm::vec3(960.0f, 200.0f, 0.0f));
+	dialogueBox->SetTexture("../Resource/Texture/invisible.png");
+	dialogueBox->SetSize(1144.0f, -434.0f);
+	uiList.push_back(dialogueBox);
+
+	uiText = new TextObject();
+	SDL_Color textColor = { 0, 0, 0 }; //(0 to 255)
+	uiText->LoadText(" ", textColor, 100);
+	uiText->SetPosition(glm::vec3(960.0f, 880.0f, 0.0f));
+	uiText->SetSize(500.0f, -100.0f);
+	uiList.push_back(uiText);
+
+	nameText = new TextObject();
+	nameText->LoadText(" ", textColor, 100);
+	nameText->SetPosition(glm::vec3(960.0f, 990.0f, 0.0f));
+	nameText->SetSize(500.0f, -100.0f);
+	uiList.push_back(nameText);
+
 
 	playerWalkTo = player->GetX();
 	playerCurrentTime = 0;
 
-	
+
 
 
 	//--------------------- walk speed editer----------------------------
-	playerFrameDelay = 0.1f;
-	playerStepPerFrame = 10;
+	playerFrameDelay = 1.0f;
+	playerStepPerFrame = 50; //10 real   // 60 debug (60 will have some interact area bug abit)
+	//---------------------------------------------------------------------
+
+
+	// ---------------------manage animation stuff-------------------------
+	playerStandStillDelay = 100;
 	//---------------------------------------------------------------------
 	//cout << "Init Level" << endl;
-
+	// RIQL end			2
 }
+
+
+
 
 
 
 
 void Level2::LevelUpdate()
-{	
+{
+	if (playerWalkSide != 0) {
+		if (player->GetX() < 250) {
+			player->SetPosition(glm::vec3(250, Avery_y_Position, 0.0f));
+		}
+		else if (player->GetX() > mapWidth - 250) {
+			player->SetPosition(glm::vec3(mapWidth - 250, Avery_y_Position, 0.0f));	//
+		}
+	}
 	playerMovement(); //Require in every level          RIQL
 	player->UpdateFrame();
-
 }
+
+//SpriteObject* Girl = new SpriteObject("../Resource/Texture/AveryWalk.png", 1, 6);
+//Girl->SetSize(540.0f * 0.5f, 695.0f * 0.5f);
 
 void Level2::LevelDraw()
 {
-	GameEngine::GetInstance()->Render(backgroundList,true);
-	GameEngine::GetInstance()->Render(playerList,false);
-	GameEngine::GetInstance()->Render(objectsList,false);
+	GameEngine::GetInstance()->Render(backgroundList, true);
+	GameEngine::GetInstance()->Render(playerList, false);
+	GameEngine::GetInstance()->Render(objectsList, false);
 	GameEngine::GetInstance()->Render(uiList, false);
 
 	//cout << "Draw Level" << endl;
@@ -258,29 +161,29 @@ void Level2::HandleKey(char key)
 
 	switch (key)
 	{
-	case 'w':
-		if (player->GetY() < 320){player->Translate(glm::vec3(0, 3.0, 0));}
+	case 'w':	//Avery   y max 530   min 360
+		//if (player->GetY() < 530 && talk.talking == false){player->Translate(glm::vec3(0, 3.0, 0));}
 		break;
-	case 's': 
-		if (player->GetY() > 200) { player->Translate(glm::vec3(0, -3.0, 0)); }
+	case 's':
+		//if (player->GetY() > 360 && talk.talking == false) { player->Translate(glm::vec3(0, -3.0, 0)); }
 		break;
-	case 'a': playerWalkSide = 1;
-		//player->Translate(glm::vec3(-50, 0, 0)); 
-		//GameEngine::GetInstance()->SetDrawArea(player->GetX() - 960, 960 + player->GetX(), 0, 1080);
-		break;
-	case 'd': playerWalkSide = 2;
-		//player->Translate(glm::vec3(50, 0, 0)); 
-		//GameEngine::GetInstance()->SetDrawArea(player->GetX() - 960, 960 + player->GetX(), 0, 1080); 
-		break;
+	case 'a': if (talk.talking == false) { playerWalkSide = 1; }
+			//player->Translate(glm::vec3(-50, 0, 0)); 
+			//GameEngine::GetInstance()->SetDrawArea(player->GetX() - 960, 960 + player->GetX(), 0, 1080);
+			break;
+	case 'd': if (talk.talking == false) { playerWalkSide = 2; }
+			//player->Translate(glm::vec3(50, 0, 0)); 
+			//GameEngine::GetInstance()->SetDrawArea(player->GetX() - 960, 960 + player->GetX(), 0, 1080); 
+			break;
 	case 'q': GameEngine::GetInstance()->GetStateController()->gameStateNext = GameState::GS_QUIT; ; break;
 	case 'r': GameEngine::GetInstance()->GetStateController()->gameStateNext = GameState::GS_RESTART; ; break;
-	case 'e': GameEngine::GetInstance()->GetStateController()->gameStateNext = GameState::GS_LEVEL_test1; ; break; //LVC. Level change testing add by Zen d13m9y2023
+		//case 'e': GameEngine::GetInstance()->GetStateController()->gameStateNext = GameState::GS_LEVEL_Template; ; break; //LVC. Level change testing add by Zen d13m9y2023
 	}
 }
 
 void Level2::HandleMouse(int type, int x, int y)
 {
-	
+
 
 
 	float trueX = x;
@@ -295,6 +198,12 @@ void Level2::HandleMouse(int type, int x, int y)
 	}
 
 
+	cout << "pos: x " << trueX << " y " << y << endl;    //set to 1920 x 1200 to see display
+
+
+	//printf("print work  ");
+
+
 
 	if (talk.talking == false) {	//no talk
 
@@ -304,32 +213,44 @@ void Level2::HandleMouse(int type, int x, int y)
 				interactableList[i]->Interact();
 			}
 		}
-																																		/////////////will be gone soon end
-		//Logic Here
+																																	/////////////will be gone soon end
 
+
+
+		//objectPickableItem(key1, GameInstance::GetInstance()->key1,"key1", "it is a key", "../Resource/Texture/key1.png","Grabing Key", whiteText, 100, 700.0f, 100.0f);   //alternative code
+		//inventoryLogic();
 	}//no talk
 
 	if (talk.talking == true) { //do talk
 		talk.count = talk.count + 1;
 
 
-		if (talk.event == "Example") {				//tutorial
+		if (talk.event == "not read yet") {
 			switch (talk.count) {
-			case 1: talk.d("example 1"); box(true); talk.f = 70; break;
-			case 2:	talk.d("example 2"); talk.f = 40;  break;
-			case 3: talk.event = " ";  talk.nd(" ", " "); talk.talking = false; box(false); talk.count = 0; break;
+			case 1: talk.nd("Avery", "I want to check this place first before reading"); talk.f = 60;  box(true);  break;
+			case 2: talk.event = " "; talk.nd(" ", " "); talk.talking = false; talk.count = 0; box(false); break;
 			}
 		}
-
 
 		setDialoguePosition();
 		dialogueCharacter->SetTexture(talk.pictureFileName);			//SetPosition(glm::vec3(0, 0, 0));
 		uiText->LoadText(talk.dialogue, blackText, talk.f);
 		nameText->LoadText(talk.name, blackText, talk.nf);
 
-	}
+	}//do talk
 
+	//talk.dp("give my potato back", "../Resource/Texture/talkingGlobeTest1.png"); uiText->SetSize(700.0f, -100.0f); dialogueCharacter->SetPosition(glm::vec3(player->GetX(), 540.0f, 0.0f));
+	//dialogueCharacter->SetTexture(talk.pictureFileName);			//SetPosition(glm::vec3(0, 0, 0));
+	//uiText->LoadText(talk.dialogue, whiteText, 100);
+
+
+	//inventory logic
 	inventoryLogic();
 
+	//playerWalkTo = x;
 
 }
+
+
+
+
