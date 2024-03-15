@@ -857,7 +857,7 @@ void Level1::playerMovement() {
 			}
 			else if (playerWalkSide == 1) {
 				player->Translate(glm::vec3(-playerStepPerFrame, 0, 0));
-				if (player->GetX() > 960 && player->GetX() < (mapWidth - 960.0f)) {										//set camera limit here
+				if (player->GetX() > 960 && player->GetX() < (mapWidth - 960.0f)) { //&& player->GetX() < (mapWidth - 960.0f)										//set camera limit here
 					GameEngine::GetInstance()->SetDrawArea(player->GetX() - 960, 960 + player->GetX(), 0, 1080);
 					setUiPos();
 				}
@@ -866,7 +866,7 @@ void Level1::playerMovement() {
 			}
 			else if (playerWalkSide == 2) {	//player walk here
 				player->Translate(glm::vec3(playerStepPerFrame, 0, 0));
-				if (player->GetX() > 960 && player->GetX() < (mapWidth - 960.0f)) {										//set camera limit here
+				if (player->GetX() > 960 && player->GetX() < (mapWidth - 960.0f)) { //&& player->GetX() < (mapWidth - 960.0f)										//set camera limit here
 					GameEngine::GetInstance()->SetDrawArea(player->GetX() - 960, 960 + player->GetX(), 0, 1080);
 					setUiPos();
 				}

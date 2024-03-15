@@ -19,7 +19,7 @@ void Level2::LevelInit()
 
 	//Require in every level          RIQL		start
 	GameObject* background = new GameObject();
-	background->SetTexture("../Resource/Texture/Back_library.png");	//need custom
+	background->SetTexture("../Resource/Texture/testVillage.jpeg");	//need custom
 	background->SetSize(mapWidth, -880.0f);//1080 + 200.0f
 	background->SetPosition(glm::vec3(mapWidth / 2, 540.0f + 100.0f, 0.0f));
 	backgroundList.push_back(background);
@@ -42,6 +42,8 @@ void Level2::LevelInit()
 	*/
 	createPlayer();
 	player->SetPosition(glm::vec3(950.0f, Avery_y_Position, 0.0f));
+
+	GameEngine::GetInstance()->SetDrawArea(0, 1920, 0, 1080);
 	// RIQL end			1
 
 
@@ -198,8 +200,9 @@ void Level2::HandleMouse(int type, int x, int y)
 	}
 
 
-	cout << "pos: x " << trueX << " y " << y << endl;    //set to 1920 x 1200 to see display
-
+	//cout << "pos: x " << trueX << " y " << y << endl;    //set to 1920 x 1200 to see display
+	//cout <<"p:"<< player->GetX() << endl;
+	//cout << "mw-960:" << (mapWidth - 960.0f) << endl;
 
 	//printf("print work  ");
 
