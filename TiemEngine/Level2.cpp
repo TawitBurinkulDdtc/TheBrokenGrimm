@@ -14,12 +14,12 @@ void Level2::LevelInit()
 {
 
 
-	mapWidth = 6326.6f;	//Require in every level          RIQL					need custom
+	mapWidth = 1882.75f;	//Require in every level          RIQL					need custom
 	holdedItemIndex = -1;	//Require in every level          RIQL
 
 	//Require in every level          RIQL		start
 	GameObject* background = new GameObject();
-	background->SetTexture("../Resource/Texture/testVillage.jpeg");	//need custom
+	background->SetTexture("../Resource/Texture/H_And_G_Bedroom_Morning.jpg");	//need custom
 	background->SetSize(mapWidth, -880.0f);//1080 + 200.0f
 	background->SetPosition(glm::vec3(mapWidth / 2, 540.0f + 100.0f, 0.0f));
 	backgroundList.push_back(background);
