@@ -27,5 +27,4 @@ public:
 	ButtonObject* floatyGlobe;
 	ButtonObject* chest1;
 
-	float mapWidth;
 };
