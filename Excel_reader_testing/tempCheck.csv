@@ -1,0 +1,11 @@
+what,scene name,name,dialogue,picture
+,sceneTest,mr.Test,test test,testHappy.png
+,,Avery,You already dead,Kenshivery.png
+,,end,,
+f0,scene1,Gretel,I'm back,ew.png
+f0,f0,Avery,,nothing.png
+f0,f0,Gretel,Fart,fart.png
+f0,f0,Hansel,ehhh,hansel.png
+f0,f0,Hansel,,disgust.png
+f0,f3,end,F1,f2
+f0,f3,f4,,

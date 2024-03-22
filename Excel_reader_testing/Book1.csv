@@ -1,0 +1,24 @@
+what,scene name,name,dialogue,picture
+,sceneTest,mr.Test,test test,testHappy.png
+,,Avery,You already dead,hmm.png
+,,end,,
+,scene1,Gretel,I'm back,ew.png
+,,Avery,,nothing.png
+,,Gretel,Fart,fart.png
+,,Hansel,ehhh,hansel.png
+,,Hansel,,disgust.png
+,,end,,
+,scene2,Adler,I HAVE BECOME WHOLE AGAIN,grey.png
+,,,I wear no mask,AdlerUgly.png
+,,,And I HATE EVERYTHING,red.png
+,, ,,IsoInfected.png
+,,Adler,PERHAPS THIS IS HELL,black.png
+,,end,,
+,scene3,Childs,Fire got the temperature up all over the camp,LookAtFire.png
+,,,Wont last long thorough,
+,,MacReady,Neither do we,McReadyFace.png
+,,Childs,How do we made it,
+,,MacReady,May be we shouldn't,
+,,Childs,Well what should we do,ChildsFace.png
+,,MacReady,Why don't we just wait alittle while and find out,MacReadyFace.png
+,,end,,
