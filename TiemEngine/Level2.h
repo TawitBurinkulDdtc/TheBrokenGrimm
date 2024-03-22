@@ -27,4 +27,8 @@ public:
 	ButtonObject* floatyGlobe;
 	ButtonObject* chest1;
 
+	private:
+	ButtonObject* Hansel;
+	ButtonObject* Gretel;
+	ButtonObject* door;
 };

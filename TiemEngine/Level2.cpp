@@ -27,6 +27,44 @@ void Level2::LevelInit()
 
 
 
+
+
+
+
+
+	Gretel = new ButtonObject();
+	Gretel->SetTexture("../Resource/Texture/Gretel.png");
+	Gretel->SetSize(167, -225.0f);
+	Gretel->SetPosition(glm::vec3(1500.0f, 500.0f, 0.0f));
+	objectsList.push_back(Gretel);
+	interactableList.push_back(Gretel);
+
+
+	Hansel = new ButtonObject();
+	Hansel->SetTexture("../Resource/Texture/Hansel.png");
+	Hansel->SetSize(167, -225.0f);
+	Hansel->SetPosition(glm::vec3(100.0f, 500.0f, 0.0f));
+	objectsList.push_back(Hansel);
+	interactableList.push_back(Hansel);
+
+	door = new ButtonObject();
+	door->SetTexture("../Resource/Texture/test.png");
+	door->SetSize(167, -225.0f);
+	door->SetPosition(glm::vec3(300.0f, 500.0f, 0.0f));
+	objectsList.push_back(door);
+	interactableList.push_back(door);
+
+
+
+
+
+
+
+
+
+
+
+
 	// Require in every level          RIQL start		1
 	/*
 	createPlayer();
