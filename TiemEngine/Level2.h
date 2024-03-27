@@ -27,5 +27,8 @@ public:
 	ButtonObject* floatyGlobe;
 	ButtonObject* chest1;
 
-	float mapWidth;
+	private:
+	ButtonObject* Hansel;
+	ButtonObject* Gretel;
+	ButtonObject* door;
 };

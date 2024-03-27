@@ -52,7 +52,7 @@ void GameEngine::SetDrawArea(float left, float right, float bottom, float top)
 
 void GameEngine::SetBackgroundColor(float r, float g, float b)
 {
-	renderer->SetClearColor(1.0f, 1.0f, 200.0f / 255);
+	renderer->SetClearColor(0.0f, 0.0f, 0.0f);
 }
 
 void GameEngine::AddMesh(string name, MeshVbo* mesh)
