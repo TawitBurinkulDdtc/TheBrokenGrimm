@@ -681,6 +681,7 @@ void Level1::HandleMouse(int type, int x, int y)
 			case 8:	talk.ndp(" "," ", "../Resource/Texture/Level1AverySuxInBuk.png"); box(false); break;
 			case 9: talk.event = " ";  talk.dp(" ", "../Resource/Texture/Level1AverySuxInBuk.png"); talk.talking = false; 
 				talk.count = 0; GameInstance::GetInstance()->PlayerFrom = PlayerFrom::Right; 
+				loseHoldedItem();
 				GameEngine::GetInstance()->GetStateController()->gameStateNext = GameState::GS_LEVEL2; break;
 			}
 		}
@@ -840,7 +841,9 @@ void Level1::getItem(string name, string displayText, string fileName) {
 	}
 }
 
-
+void Level1::loseHoldedItem() {
+	GameInstance::GetInstance()->inventory.erase(GameInstance::GetInstance()->inventory.begin() + holdedItemIndex);
+}
 
 
 void Level1::objectPickableItem(ButtonObject *object, GameEventType ge,/*getItem info*/ string name, string displayText, string fileName,/*showText info*/string word, SDL_Color textColor, int fontSize, float sizeX, float sizeY){

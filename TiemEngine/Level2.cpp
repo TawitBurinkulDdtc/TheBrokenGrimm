@@ -201,23 +201,15 @@ void Level2::HandleKey(char key)
 
 	switch (key)
 	{
-	case 'w':	//Avery   y max 530   min 360
-		//if (player->GetY() < 530 && talk.talking == false){player->Translate(glm::vec3(0, 3.0, 0));}
-		break;
-	case 's':
-		//if (player->GetY() > 360 && talk.talking == false) { player->Translate(glm::vec3(0, -3.0, 0)); }
+	case '=':
+		inventoryOpen();
 		break;
 	case 'a': if (talk.talking == false) { playerWalkSide = 1; }
-			//player->Translate(glm::vec3(-50, 0, 0)); 
-			//GameEngine::GetInstance()->SetDrawArea(player->GetX() - 960, 960 + player->GetX(), 0, 1080);
 			break;
-	case 'd': if (talk.talking == false) { playerWalkSide = 2; }
-			//player->Translate(glm::vec3(50, 0, 0)); 
-			//GameEngine::GetInstance()->SetDrawArea(player->GetX() - 960, 960 + player->GetX(), 0, 1080); 
+	case 'd': if (talk.talking == false) { playerWalkSide = 2; } 
 			break;
-	case 'q': GameEngine::GetInstance()->GetStateController()->gameStateNext = GameState::GS_QUIT; ; break;
-	case 'r': GameEngine::GetInstance()->GetStateController()->gameStateNext = GameState::GS_RESTART; ; break;
-		//case 'e': GameEngine::GetInstance()->GetStateController()->gameStateNext = GameState::GS_LEVEL_Template; ; break; //LVC. Level change testing add by Zen d13m9y2023
+	//case 'q': GameEngine::GetInstance()->GetStateController()->gameStateNext = GameState::GS_QUIT; ; break;
+	//case 'r': GameEngine::GetInstance()->GetStateController()->gameStateNext = GameState::GS_RESTART; ; break;
 	}
 }
 
