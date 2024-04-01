@@ -250,20 +250,20 @@ void Level1::LevelInit()
 
 
 	dialogueBox = new GameObject();
-	dialogueBox->SetPosition(glm::vec3(960.0f, 200.0f, 0.0f));
+	dialogueBox->SetPosition(glm::vec3(960.0f, 540.0f, 0.0f));
 	dialogueBox->SetTexture("../Resource/Texture/invisible.png");
-	dialogueBox->SetSize(1144.0f, -434.0f);
+	dialogueBox->SetSize(1920.0f, -1080.0f);
 	uiList.push_back(dialogueBox);
 
 	uiText = new TextObject();
-	SDL_Color textColor = { 0, 0, 0 }; //(0 to 255)
-	uiText->LoadText(" ", textColor, 100);
+	//SDL_Color textColor = { 0, 0, 0 }; //(0 to 255)
+	uiText->LoadText(" ", dialogueTextColor, 100);
 	uiText->SetPosition(glm::vec3(960.0f, 880.0f, 0.0f));
 	uiText->SetSize(500.0f, -100.0f);
 	uiList.push_back(uiText);
 
 	nameText = new TextObject();
-	nameText->LoadText(" ", textColor, 100);
+	nameText->LoadText(" ", dialogueTextColor, 100);
 	nameText->SetPosition(glm::vec3(960.0f, 990.0f, 0.0f));
 	nameText->SetSize(500.0f, -100.0f);
 	uiList.push_back(nameText);	
@@ -301,8 +301,8 @@ void Level1::LevelUpdate()
 {	
 	if (playerWalkSide != 0) {
 		if (player->GetX() > ((mapWidth / 2) - 600) && GameInstance::GetInstance()->birdTalking == 0 && talk.talking == false) {
-			uiText->LoadText("I am bird    Fix my BOOK", blackText, 100);
-			nameText->LoadText("Bird", blackText, 100);
+			uiText->LoadText("I am bird    Fix my BOOK", dialogueTextColor, 100);
+			nameText->LoadText("Bird", dialogueTextColor, 100);
 			bird->SetPosition(glm::vec3(mapWidth / 2, 700.0f, 0.0f));
 			birdAnim->SetPosition(glm::vec3(mapWidth / 2, 700.0f, 0.0f));
 			talk.event = "bird talking first";
@@ -369,8 +369,9 @@ void Level1::HandleKey(char key)
 	case 'w':	//Avery   y max 530   min 360
 		//if (player->GetY() < 530 && talk.talking == false){player->Translate(glm::vec3(0, 3.0, 0));}
 		break;
-	case 's': 
+	case '=': 
 		//if (player->GetY() > 360 && talk.talking == false) { player->Translate(glm::vec3(0, -3.0, 0)); }
+		inventoryOpen();
 		break;
 	case 'a': if (talk.talking == false) { playerWalkSide = 1; }
 		//player->Translate(glm::vec3(-50, 0, 0)); 
@@ -663,6 +664,7 @@ void Level1::HandleMouse(int type, int x, int y)
 				getItem("bookH&G", "A distorted story of Hansel and Gretel", "../Resource/Texture/HanselAndGretelBook.png"); 
 				bookHunselAndGretel->SetPosition(glm::vec3(0.0f, 5000.0f, 0.0f)); bookHGPic->SetPosition(glm::vec3(0.0f, 5000.0f, 0.0f));
 				bookHGPic->renderMode = 1;
+				if (inventoryYPosition != 100) { inventoryOpen(); }
 				break;
 			}
 		}
@@ -685,8 +687,8 @@ void Level1::HandleMouse(int type, int x, int y)
 
 		setDialoguePosition();
 		dialogueCharacter->SetTexture(talk.pictureFileName);			//SetPosition(glm::vec3(0, 0, 0));
-		uiText->LoadText(talk.dialogue, blackText, talk.f);
-		nameText->LoadText(talk.name, blackText, talk.nf);
+		uiText->LoadText(talk.dialogue, dialogueTextColor, talk.f);
+		nameText->LoadText(talk.name, dialogueTextColor, talk.nf);
 
 	}//do talk
 
@@ -736,8 +738,8 @@ void Level1::createInventory() {
 	for (int i = 0; i < 8; i++) {
 		inventoryBox[i] = new GameObject();
 		inventoryBox[i]->SetSize(230.0f, -230.0f);
-		inventoryBox[i]->SetPosition(glm::vec3(250.0f + (200.0f * i), 110.0f, 0.0f));
-		inventoryBox[i]->SetTexture("../Resource/Texture/UIred.png");
+		inventoryBox[i]->SetPosition(glm::vec3(250.0f + (200.0f * i), 100.0f, 0.0f));
+		inventoryBox[i]->SetTexture("../Resource/Texture/Normal_Inventoryslot.png");
 		uiList.push_back(inventoryBox[i]);
 	}
 }
@@ -745,7 +747,7 @@ void Level1::inventoryLogic() {
 	for (int i = 0; i < GameInstance::GetInstance()->inventory.size(); i++) {
 		if (inventoryL[i]->Interacted == true) {
 			holdedItemIndex = i;
-			inventoryBox[holdedItemIndex]->SetTexture("../Resource/Texture/UI_Grreenn.png");
+			inventoryBox[holdedItemIndex]->SetTexture("../Resource/Texture/Active_InventorySlot.png");
 			uiText->LoadText(GameInstance::GetInstance()->inventory[i].showText, GameInstance::GetInstance()->inventory[i].textColor, GameInstance::GetInstance()->inventory[i].textFontSize);
 			uiText->SetSize(GameInstance::GetInstance()->inventory[i].textSizeX, -(GameInstance::GetInstance()->inventory[i].textSizeY));
 			lastHold[i] = true;
@@ -754,8 +756,47 @@ void Level1::inventoryLogic() {
 	}
 	for (int i = 0; i < GameInstance::GetInstance()->inventory.size(); i++) {
 		if (i!= holdedItemIndex && lastHold[i]==true){
-			inventoryBox[i]->SetTexture("../Resource/Texture/UIred.png");
+			inventoryBox[i]->SetTexture("../Resource/Texture/Normal_Inventoryslot.png");
 			lastHold[i] = false;
+		}
+	}
+
+}
+
+
+
+
+
+void Level1::inventoryOpen() { //inventoryPosition
+
+	if(inventoryYPosition == 100.0f){
+		inventoryYPosition = -500.0f;
+	}
+	else {
+		inventoryYPosition = 100.0f;
+	}
+
+
+
+
+	if (player->GetX() >= 960 && player->GetX() <= mapWidth - 960) {
+		for (int i = 0; i < 8; i++) {
+			inventoryL[i]->SetPosition(glm::vec3((player->GetX() - 960) + 250.0f + (200 * i), inventoryYPosition, 0.0f));
+			inventoryBox[i]->SetPosition(glm::vec3((player->GetX() - 960) + 250.0f + (200 * i), inventoryYPosition, 0.0f));
+		}
+	}
+	else if (player->GetX() < 960) {
+		dialogueCharacter->SetPosition(glm::vec3(960, 540.0f, 0.0f));
+		for (int i = 0; i < 8; i++) {
+			inventoryL[i]->SetPosition(glm::vec3(250.0f + (200 * i), inventoryYPosition, 0.0f));
+			inventoryBox[i]->SetPosition(glm::vec3(250.0f + (200 * i), inventoryYPosition, 0.0f));
+		}
+	}
+	else if (player->GetX() > mapWidth - 960) {
+		dialogueCharacter->SetPosition(glm::vec3(mapWidth - 960, 540.0f, 0.0f));
+		for (int i = 0; i < 8; i++) {
+			inventoryL[i]->SetPosition(glm::vec3((mapWidth-1920) + 250.0f + (200 * i), inventoryYPosition, 0.0f));
+			inventoryBox[i]->SetPosition(glm::vec3((mapWidth - 1920) + 250.0f + (200 * i), inventoryYPosition, 0.0f));
 		}
 	}
 
@@ -821,12 +862,12 @@ void Level1::name(string input) {
 
 void Level1::box(bool open){
 	if(open == true) {
-		dialogueBox->SetTexture("../Resource/Texture/dialogueBox.png");
+		dialogueBox->SetTexture("../Resource/Texture/Dialogue_UI.png");
 		if (player->GetX() > 960 && player->GetX() < (mapWidth - 960.0f)) {
-			dialogueBox->SetPosition(glm::vec3(player->GetX(), 880.0f, 0.0f));
+			dialogueBox->SetPosition(glm::vec3(player->GetX(), 540.0f, 0.0f));
 		}
-		else if(player->GetX() <= 960){ dialogueBox->SetPosition(glm::vec3(960, 880.0f, 0.0f)); }
-		else if (player->GetX() >= (mapWidth - 960.0f)) { dialogueBox->SetPosition(glm::vec3((mapWidth - 960.0f), 880.0f, 0.0f)); }
+		else if(player->GetX() <= 960){ dialogueBox->SetPosition(glm::vec3(960, 540.0f, 0.0f)); }
+		else if (player->GetX() >= (mapWidth - 960.0f)) { dialogueBox->SetPosition(glm::vec3((mapWidth - 960.0f), 540.0f, 0.0f)); }
 	}
 	else {
 		dialogueBox->SetTexture("../Resource/Texture/invisible.png");
@@ -834,14 +875,14 @@ void Level1::box(bool open){
 }
 
 void Level1::setUiPos() {
-	uiText->SetPosition(glm::vec3(player->GetX(), 880.0f, 0.0f));
-	nameText->SetPosition(glm::vec3(player->GetX(), 990.0f, 0.0f));
+	uiText->SetPosition(glm::vec3(player->GetX(), 150.0f, 0.0f));
+	nameText->SetPosition(glm::vec3(player->GetX()-670, 320.0f, 0.0f));
 	inventoryBar->SetPosition(glm::vec3(player->GetX(), 540.0f, 0.0f));
 	for (int i = 0; i < 8; i++) {
-		inventoryL[i]->SetPosition(glm::vec3((player->GetX() - 960) + 250.0f + (200 * i), 100.0f, 0.0f));		
+		inventoryL[i]->SetPosition(glm::vec3((player->GetX() - 960) + 250.0f + (200 * i), inventoryYPosition, 0.0f));
 	}
 	for (int i = 0; i < 8; i++) {
-		inventoryBox[i]->SetPosition(glm::vec3((player->GetX() - 960) + 250.0f + (200 * i), 110.0f, 0.0f));
+		inventoryBox[i]->SetPosition(glm::vec3((player->GetX() - 960) + 250.0f + (200 * i), inventoryYPosition, 0.0f));
 	}
 
 	//inventoryBox[i]
@@ -958,3 +999,4 @@ void Level1::excelRecClear(){
 	//readExcel.clear();
 	readExcel.seekg(0, readExcel.beg);
 }
+

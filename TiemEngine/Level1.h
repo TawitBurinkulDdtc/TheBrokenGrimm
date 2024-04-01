@@ -33,6 +33,7 @@ public:
 	void refreshInventoryPic();
 	void createInventory();
 	void inventoryLogic(); //put in handle mouse
+	void inventoryOpen();
 
 	void showText(string word, SDL_Color textColor, int fontSize, float sizeX, float sizeY);
 	void setDialoguePosition();
@@ -49,6 +50,7 @@ public:
 	void excelRecRecording(string sceneName);
 	void excelRecClear();
 
+
 	float playerWalkTo; //might not needed anymore if change to key press movement instead of mouse movement
 	int playerFrameDelay;
 	float playerStepPerFrame;
@@ -63,6 +65,7 @@ public:
 	TextObject* uiText;
 	TextObject* nameText;
 	string displayText;
+	SDL_Color dialogueTextColor = { 255, 255, 255 };
 	SDL_Color whiteText = { 255, 255, 255 };
 	SDL_Color blackText = { 0, 0, 0 };
 
@@ -71,6 +74,7 @@ public:
 	int holdedItemIndex = -1;
 	bool lastHold[8] = { false };
 	GameObject* inventoryBox[8];
+	float inventoryYPosition = 100.0f;
 
 	float mapWidth;
 	GameObject* inventoryBar;
