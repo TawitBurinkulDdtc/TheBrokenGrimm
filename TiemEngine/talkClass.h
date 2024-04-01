@@ -11,7 +11,7 @@ class talkClass {
 
 public:
 	bool talking = false;
-	int count = 0;
+	int count = -1;
 	int f = 100;
 	int nf = 70;
 	string event = " ";

@@ -5,6 +5,9 @@
 #include "ButtonObject.h"
 #include "TextObject.h"
 #include "SpriteObject.h"
+#include "talkExcelRecord.h"
+#include <fstream>
+//talkExcelRecord
 
 class Level1 : public Level
 {
@@ -43,6 +46,8 @@ public:
 	void picGlow(GameObject* go,bool b);
 	void createPlayer();
 	void playerMovement();
+	void excelRecRecording(string sceneName);
+	void excelRecClear();
 
 	float playerWalkTo; //might not needed anymore if change to key press movement instead of mouse movement
 	int playerFrameDelay;
@@ -73,6 +78,10 @@ public:
 	talkClass talk;
 	GameObject* dialogueBox;
 	GameObject* dialogueCharacter;
+	vector<talkExcelRecord> excelRec;
+	ifstream readExcel; //readExcel.open("Book1.csv");
+	bool finishRead = false;
+	int talkEndAt = 0;
 
 
 	private:
