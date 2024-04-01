@@ -493,7 +493,7 @@ void Level1::HandleMouse(int type, int x, int y)
 		}
 		if (book3->Interacted == true) {
 			if (GameInstance::GetInstance()->birdTalking == 1) {
-				talk.event = "scene1";
+				talk.event = "read book 3";
 				talk.talking = true;
 			}
 			else {
