@@ -1,7 +1,7 @@
-#include "Level2.h"
+#include "Level2Scene2.h"
 #include "SpriteObject.h"
 
-void Level2::LevelLoad()
+void Level2Scene2::LevelLoad()
 {
 	SquareMeshVbo* square = new SquareMeshVbo();
 	square->LoadData();
@@ -10,16 +10,16 @@ void Level2::LevelLoad()
 	//cout << "Load Level" << endl;
 }
 
-void Level2::LevelInit()
+void Level2Scene2::LevelInit()
 {
 
 
-	mapWidth = 2309.75f;	//Require in every level          RIQL					need custom
+	mapWidth = 5975.0f;	//Require in every level          RIQL					need custom
 	holdedItemIndex = -1;	//Require in every level          RIQL
 
 	//Require in every level          RIQL		start
 	GameObject* background = new GameObject();
-	background->SetTexture("../Resource/Texture/H_And_G_Bedroom_Morning.jpg");	//need custom
+	background->SetTexture("../Resource/Texture/Inside_H_And_G_House_Morning.jpg");	//need custom
 	background->SetSize(mapWidth, -1080.0f);//1080 + 200.0f
 	background->SetPosition(glm::vec3(mapWidth / 2, 540.0f, 0.0f));
 	backgroundList.push_back(background);
@@ -99,7 +99,7 @@ void Level2::LevelInit()
 
 	dialogueBox = new GameObject();
 	dialogueBox->SetPosition(glm::vec3(960.0f, 540.0f, 0.0f));
-	dialogueBox->SetTexture("../Resource/Texture/Dialogue_UI.png");
+	dialogueBox->SetTexture("../Resource/Texture/invisible.png");
 	dialogueBox->SetSize(1920.0f, -1080.0f);
 	uiList.push_back(dialogueBox);
 
@@ -133,12 +133,10 @@ void Level2::LevelInit()
 	//---------------------------------------------------------------------
 	//cout << "Init Level" << endl;
 	// RIQL end			2
-	readExcel.open("../Resource/Excel/Level2Scene1.csv");
+	readExcel.open("../Resource/Excel/Level2Scene2Scene1.csv");
 	excelRec.clear();
 
 	//sceneIntro
-	talk.talking = true;
-	talk.event = "sceneIntro";
 }
 
 
@@ -147,7 +145,7 @@ void Level2::LevelInit()
 
 
 
-void Level2::LevelUpdate()
+void Level2Scene2::LevelUpdate()
 {
 	if (playerWalkSide != 0) {
 		if (player->GetX() < 250) {
@@ -164,7 +162,7 @@ void Level2::LevelUpdate()
 //SpriteObject* Girl = new SpriteObject("../Resource/Texture/AveryWalk.png", 1, 6);
 //Girl->SetSize(540.0f * 0.5f, 695.0f * 0.5f);
 
-void Level2::LevelDraw()
+void Level2Scene2::LevelDraw()
 {
 	GameEngine::GetInstance()->Render(backgroundList, true);
 	GameEngine::GetInstance()->Render(playerList, false);
@@ -174,7 +172,7 @@ void Level2::LevelDraw()
 	//cout << "Draw Level" << endl;
 }
 
-void Level2::LevelFree()
+void Level2Scene2::LevelFree()
 {
 	for (DrawableObject* obj : backgroundList) {
 		delete obj;
@@ -195,13 +193,13 @@ void Level2::LevelFree()
 	//cout << "Free Level" << endl;
 }
 
-void Level2::LevelUnload()
+void Level2Scene2::LevelUnload()
 {
 	GameEngine::GetInstance()->ClearMesh();
 	//cout << "Unload Level" << endl;
 }
 
-void Level2::HandleKey(char key)
+void Level2Scene2::HandleKey(char key)
 {
 
 	switch (key)
@@ -218,7 +216,7 @@ void Level2::HandleKey(char key)
 	}
 }
 
-void Level2::HandleMouse(int type, int x, int y)
+void Level2Scene2::HandleMouse(int type, int x, int y)
 {
 
 
@@ -261,11 +259,7 @@ void Level2::HandleMouse(int type, int x, int y)
 		if (Gretel->Interacted == true) {
 			talk.talking = true;
 			talk.event = "sceneGretel";
-			Gretel->Interacted = false; 
-		}
-		if (door->Interacted == true) {
-			GameEngine::GetInstance()->GetStateController()->gameStateNext = GameState::GS_LEVEL2Scene2;
-			door->Interacted = false;
+			Gretel->Interacted = false;
 		}
 	}
 

@@ -217,7 +217,7 @@ void Level1::LevelInit()
 
 
 	// Require in every level          RIQL start		1
-	createPlayer();
+	createPlayer(1);
 	if (GameInstance::GetInstance()->PlayerFrom == PlayerFrom::Left) {		//Require customization start
 		player->SetPosition(glm::vec3(300.0f, Avery_y_Position, 0.0f));
 		GameEngine::GetInstance()->SetDrawArea(0, 1920, 0, 1080);
@@ -317,7 +317,7 @@ void Level1::LevelUpdate()
 			player->SetPosition(glm::vec3(mapWidth - 250, Avery_y_Position, 0.0f));	//
 		}//mapWidth - 250
 	}
-	playerMovement(); //Require in every level          RIQL
+	playerMovement(1); //Require in every level          RIQL
 	player->UpdateFrame();
 	birdAnim->UpdateFrame();
 }
@@ -904,8 +904,13 @@ void Level1::picGlow(GameObject* go, bool b) {
 
 
 
-void Level1::createPlayer(){
-	player = new SpriteObject("../Resource/Texture/AveryIdle.png", 1, 6);
+void Level1::createPlayer(int spriteNum){
+	if (spriteNum == 1) {
+		player = new SpriteObject("../Resource/Texture/AveryIdle.png", 1, 6);
+	}
+	else {
+		player = new SpriteObject("../Resource/Texture/AveryIdle.png", 1, 6);
+	}
 	player->SetSize(540.0f * AverySizeRatio, 695.0f * AverySizeRatio);
 	objectsList.push_back(player);
 }
@@ -914,13 +919,15 @@ void Level1::createPlayer(){
 //GameInstance::GetInstance()->PlayerFrom = PlayerFrom::Right;
 
 
-void Level1::playerMovement() {
+void Level1::playerMovement(int spriteNum) {
 	if (SDL_GetTicks() > playerCurrentTime + playerFrameDelay) {
 		
 		if (playerWalkSide != 0) {
 
 			if (pSpriteInt == 0) {
-				player->SetTexture("../Resource/Texture/AveryWalk.png");
+				if (spriteNum == 1) {
+					player->SetTexture("../Resource/Texture/AveryWalk.png");
+				}
 				pSpriteInt = 1;
 			}
 			else if (playerWalkSide == 1) {
@@ -946,7 +953,9 @@ void Level1::playerMovement() {
 			playerStartStandStill = SDL_GetTicks();
 		}
 		else if (pSpriteInt == 1 && SDL_GetTicks() > playerStartStandStill + playerStandStillDelay) {
-			player->SetTexture("../Resource/Texture/AveryIdle.png");
+			if (spriteNum == 1) {
+				player->SetTexture("../Resource/Texture/AveryIdle.png");
+			}
 			pSpriteInt = 0;
 		}
 		playerCurrentTime = SDL_GetTicks();

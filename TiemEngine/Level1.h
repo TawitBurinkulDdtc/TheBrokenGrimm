@@ -46,8 +46,8 @@ public:
 	void box(bool open);
 	void setUiPos();
 	void picGlow(GameObject* go,bool b);
-	void createPlayer();
-	void playerMovement();
+	void createPlayer(int spriteNum);
+	void playerMovement(int spriteNum);
 	void excelRecRecording(string sceneName);
 	void excelRecClear();
 

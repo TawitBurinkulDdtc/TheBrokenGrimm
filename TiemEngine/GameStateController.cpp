@@ -4,6 +4,7 @@
 #include "LevelTestZen.h"           //LVC. Level change testing add by Zen d13m9y2023
 #include "Level1.h"					// First real level we work in
 #include "Level2.h"	
+#include "Level2Scene2.h";
 
 
 
@@ -35,6 +36,9 @@ void GameStateController::LoadLevel()
 			break;
 		case GameState::GS_LEVEL2:
 			currentLevel = new Level2();
+			break;
+		case GameState::GS_LEVEL2Scene2:
+			currentLevel = new Level2Scene2();
 			break;
 		case GameState::GS_LEVEL_test1:
 			currentLevel = new Level();
