@@ -258,15 +258,16 @@ void Level1::LevelInit()
 	uiText = new TextObject();
 	//SDL_Color textColor = { 0, 0, 0 }; //(0 to 255)
 	uiText->LoadText(" ", dialogueTextColor, 100);
-	uiText->SetPosition(glm::vec3(960.0f, 880.0f, 0.0f));
+	uiText->SetPosition(glm::vec3(960, 150.0f, 0.0f));
 	uiText->SetSize(500.0f, -100.0f);
 	uiList.push_back(uiText);
 
 	nameText = new TextObject();
 	nameText->LoadText(" ", dialogueTextColor, 100);
-	nameText->SetPosition(glm::vec3(960.0f, 990.0f, 0.0f));
+	nameText->SetPosition(glm::vec3(960 - 670, 320.0f, 0.0f));
 	nameText->SetSize(500.0f, -100.0f);
 	uiList.push_back(nameText);	
+
 
 
 	playerWalkTo = player->GetX();

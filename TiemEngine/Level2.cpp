@@ -14,14 +14,14 @@ void Level2::LevelInit()
 {
 
 
-	mapWidth = 1882.75f;	//Require in every level          RIQL					need custom
+	mapWidth = 2309.75f;	//Require in every level          RIQL					need custom
 	holdedItemIndex = -1;	//Require in every level          RIQL
 
 	//Require in every level          RIQL		start
 	GameObject* background = new GameObject();
 	background->SetTexture("../Resource/Texture/H_And_G_Bedroom_Morning.jpg");	//need custom
-	background->SetSize(mapWidth, -880.0f);//1080 + 200.0f
-	background->SetPosition(glm::vec3(mapWidth / 2, 540.0f + 100.0f, 0.0f));
+	background->SetSize(mapWidth, -1080.0f);//1080 + 200.0f
+	background->SetPosition(glm::vec3(mapWidth / 2, 540.0f, 0.0f));
 	backgroundList.push_back(background);
 	//Require in every level          RIQL			end
 
@@ -100,19 +100,18 @@ void Level2::LevelInit()
 	dialogueBox = new GameObject();
 	dialogueBox->SetPosition(glm::vec3(960.0f, 200.0f, 0.0f));
 	dialogueBox->SetTexture("../Resource/Texture/invisible.png");
-	dialogueBox->SetSize(1144.0f, -434.0f);
+	dialogueBox->SetSize(1920.0f, -1080.0f);
 	uiList.push_back(dialogueBox);
 
 	uiText = new TextObject();
-	SDL_Color textColor = { 0, 0, 0 }; //(0 to 255)
-	uiText->LoadText(" ", textColor, 100);
-	uiText->SetPosition(glm::vec3(960.0f, 880.0f, 0.0f));
+	uiText->LoadText(" ", dialogueTextColor, 100);
+	uiText->SetPosition(glm::vec3(960, 150.0f, 0.0f));
 	uiText->SetSize(500.0f, -100.0f);
 	uiList.push_back(uiText);
 
 	nameText = new TextObject();
-	nameText->LoadText(" ", textColor, 100);
-	nameText->SetPosition(glm::vec3(960.0f, 990.0f, 0.0f));
+	nameText->LoadText(" ", dialogueTextColor, 100);
+	nameText->SetPosition(glm::vec3(960 - 670, 320.0f, 0.0f));
 	nameText->SetSize(500.0f, -100.0f);
 	uiList.push_back(nameText);
 
@@ -134,6 +133,12 @@ void Level2::LevelInit()
 	//---------------------------------------------------------------------
 	//cout << "Init Level" << endl;
 	// RIQL end			2
+	readExcel.open("../Resource/Excel/Level2Scene1.csv");
+	excelRec.clear();
+
+	//sceneIntro
+	talk.talking = true;
+	talk.event = "sceneIntro";
 }
 
 
@@ -208,7 +213,7 @@ void Level2::HandleKey(char key)
 			break;
 	case 'd': if (talk.talking == false) { playerWalkSide = 2; } 
 			break;
-	//case 'q': GameEngine::GetInstance()->GetStateController()->gameStateNext = GameState::GS_QUIT; ; break;
+	case 'q': GameEngine::GetInstance()->GetStateController()->gameStateNext = GameState::GS_QUIT; ; break;
 	//case 'r': GameEngine::GetInstance()->GetStateController()->gameStateNext = GameState::GS_RESTART; ; break;
 	}
 }
@@ -246,16 +251,49 @@ void Level2::HandleMouse(int type, int x, int y)
 				interactableList[i]->Interact();
 			}
 		}
-																																	/////////////will be gone soon end
+		
+		if (Hansel->Interacted == true) {
+			talk.talking = true;
+			talk.event = "sceneHansel";
+			Hansel->Interacted = false;
+		}
 
-
-
-		//objectPickableItem(key1, GameInstance::GetInstance()->key1,"key1", "it is a key", "../Resource/Texture/key1.png","Grabing Key", whiteText, 100, 700.0f, 100.0f);   //alternative code
-		//inventoryLogic();
-	}//no talk
+		if (Gretel->Interacted == true) {
+			talk.talking = true;
+			talk.event = "sceneGretel";
+			Gretel->Interacted = false;
+		}
+	}
 
 	if (talk.talking == true) { //do talk
 		talk.count = talk.count + 1;
+
+
+		if (talk.count == 1) { excelRecRecording(talk.event); box(true); }
+		if (finishRead == true && excelRec[talk.count - 1].name != "end") {
+			if (excelRec[talk.count - 1].name != "\0") {
+				talk.n(excelRec[talk.count - 1].name);
+			}
+			if (excelRec[talk.count - 1].dialogue != "\0") {
+				talk.d(excelRec[talk.count - 1].dialogue);
+			}
+			if (excelRec[talk.count - 1].pictureFileName != "\0") {
+				talk.p(excelRec[talk.count - 1].pictureFileName);
+			}
+			if (excelRec[talk.count - 1].sNFont != "\0") {
+				talk.nf = excelRec[talk.count - 1].nf;
+			}
+			if (excelRec[talk.count - 1].sFont != "\0") {
+				talk.f = excelRec[talk.count - 1].f;
+			}
+		}
+		if (excelRec.empty() == false) {
+			if (excelRec[talk.count - 1].name == "end") {
+				talk.talking = false; talk.count = 0; box(false); finishRead = false; excelRecClear(); talk.ndp(" ", " ", "../Resource/Texture/invisible.png");
+			}
+		}
+
+
 
 
 		if (talk.event == "not read yet") {
@@ -267,8 +305,8 @@ void Level2::HandleMouse(int type, int x, int y)
 
 		setDialoguePosition();
 		dialogueCharacter->SetTexture(talk.pictureFileName);			//SetPosition(glm::vec3(0, 0, 0));
-		uiText->LoadText(talk.dialogue, blackText, talk.f);
-		nameText->LoadText(talk.name, blackText, talk.nf);
+		uiText->LoadText(talk.dialogue, dialogueTextColor, talk.f);
+		nameText->LoadText(talk.name, dialogueTextColor, talk.nf);
 
 	}//do talk
 
