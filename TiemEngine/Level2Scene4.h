@@ -5,7 +5,7 @@
 #include "ButtonObject.h"
 #include "TextObject.h"
 
-class Level2Scene2 : public Level1
+class Level2Scene4 : public Level1
 {
 public:
 
@@ -22,13 +22,8 @@ public:
 	virtual void HandleMouse(int type, int x, int y);
 
 
-	ButtonObject* button1;
-	ButtonObject* button2;
-	ButtonObject* floatyGlobe;
-	ButtonObject* chest1;
 
 	private:
 	ButtonObject* Hansel;
 	ButtonObject* Gretel;
-	ButtonObject* door;
 };

@@ -262,7 +262,7 @@ void Level2Scene2::HandleMouse(int type, int x, int y)
 			Gretel->Interacted = false;
 		}
 		if (door->Interacted == true) {
-			GameEngine::GetInstance()->GetStateController()->gameStateNext = GameState::GS_LEVEL2;
+			GameEngine::GetInstance()->GetStateController()->gameStateNext = GameState::GS_LEVEL2Scene3;
 			door->Interacted = false;
 		}
 	}

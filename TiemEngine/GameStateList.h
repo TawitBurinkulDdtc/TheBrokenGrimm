@@ -6,6 +6,8 @@ enum GameState
 	GS_LEVEL1 = 0,
 	GS_LEVEL2,
 	GS_LEVEL2Scene2,
+	GS_LEVEL2Scene3,
+	GS_LEVEL2Scene4,
 	GS_LEVEL_test1, 
 	GS_LEVEL_test2,
 	GS_LEVEL_Zen,  //LVC. Level change testing add by Zen d13m9y2023

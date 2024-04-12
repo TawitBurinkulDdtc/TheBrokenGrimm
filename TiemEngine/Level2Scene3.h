@@ -5,7 +5,7 @@
 #include "ButtonObject.h"
 #include "TextObject.h"
 
-class Level2 : public Level1
+class Level2Scene3 : public Level1
 {
 public:
 

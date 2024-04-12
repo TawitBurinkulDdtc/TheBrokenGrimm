@@ -5,6 +5,8 @@
 #include "Level1.h"					// First real level we work in
 #include "Level2.h"	
 #include "Level2Scene2.h";
+#include "Level2Scene3.h";
+#include "Level2Scene4.h";
 
 
 
@@ -39,6 +41,12 @@ void GameStateController::LoadLevel()
 			break;
 		case GameState::GS_LEVEL2Scene2:
 			currentLevel = new Level2Scene2();
+			break;
+		case GameState::GS_LEVEL2Scene3:
+			currentLevel = new Level2Scene3();
+			break;
+		case GameState::GS_LEVEL2Scene4:
+			currentLevel = new Level2Scene4();
 			break;
 		case GameState::GS_LEVEL_test1:
 			currentLevel = new Level();

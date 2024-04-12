@@ -37,6 +37,8 @@
     <ClCompile Include="Level1.cpp" />
     <ClCompile Include="Level2.cpp" />
     <ClCompile Include="Level2Scene2.cpp" />
+    <ClCompile Include="Level2Scene3.cpp" />
+    <ClCompile Include="Level2Scene4.cpp" />
     <ClCompile Include="LevelTest.cpp" />
     <ClCompile Include="LevelTestZen.cpp" />
     <ClCompile Include="Main.cpp" />
@@ -69,6 +71,8 @@
     <ClInclude Include="Level1.h" />
     <ClInclude Include="Level2.h" />
     <ClInclude Include="Level2Scene2.h" />
+    <ClInclude Include="Level2Scene3.h" />
+    <ClInclude Include="Level2Scene4.h" />
     <ClInclude Include="LevelTest.h" />
     <ClInclude Include="LevelTestZen.h" />
     <ClInclude Include="MeshVbo.h" />
