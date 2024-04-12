@@ -133,7 +133,7 @@ void Level2Scene2::LevelInit()
 	//---------------------------------------------------------------------
 	//cout << "Init Level" << endl;
 	// RIQL end			2
-	readExcel.open("../Resource/Excel/Level2Scene2Scene1.csv");
+	readExcel.open("../Resource/Excel/Level2Scene1.csv");
 	excelRec.clear();
 
 	//sceneIntro
@@ -266,9 +266,9 @@ void Level2Scene2::HandleMouse(int type, int x, int y)
 	if (talk.talking == true) { //do talk
 		talk.count = talk.count + 1;
 
-
 		if (talk.count == 1) { excelRecRecording(talk.event); box(true); }
 		if (finishRead == true && excelRec[talk.count - 1].name != "end") {
+			cout << "Error?: " << talk.count << endl;
 			if (excelRec[talk.count - 1].name != "\0") {
 				talk.n(excelRec[talk.count - 1].name);
 			}
