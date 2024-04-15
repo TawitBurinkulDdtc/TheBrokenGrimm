@@ -58,6 +58,8 @@ void TextObject::Update(float deltaTime)
 
 void TextObject::LoadText(string text, SDL_Color textColor, int fontSize)
 {
+	currentText = text;
+	
 	glBindTexture( GL_TEXTURE_2D, texture);
 	glEnable(GL_BLEND);
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);

@@ -28,10 +28,6 @@ void Level2Scene4::LevelInit()
 
 
 
-
-
-
-
 	Gretel = new ButtonObject();
 	Gretel->SetTexture("../Resource/Texture/Gretel.png");
 	Gretel->SetSize(167, -225.0f);
@@ -48,17 +44,37 @@ void Level2Scene4::LevelInit()
 	interactableList.push_back(Hansel);
 
 
-	/*
-	door = new ButtonObject();
-	door->SetTexture("../Resource/Texture/test.png");
-	door->SetSize(167, -225.0f);
-	door->SetPosition(glm::vec3(300.0f, 500.0f, 0.0f));
-	objectsList.push_back(door);
-	interactableList.push_back(door);
-	*/
+	Chair = new ButtonObject();
+	Chair->SetTexture("../Resource/Texture/test.png");
+	Chair->SetSize(167, -225.0f);
+	Chair->SetPosition(glm::vec3(2000.0f, 500.0f, 0.0f));
+	objectsList.push_back(Chair);
+	interactableList.push_back(Chair);
+
+	HnGKey = new ButtonObject();
+	HnGKey->SetTexture("../Resource/Texture/test.png");
+	HnGKey->SetSize(167, -225.0f);
+	HnGKey->SetPosition(glm::vec3(2300.0f, 500.0f, 0.0f));
+	objectsList.push_back(HnGKey);
+	interactableList.push_back(HnGKey);
+
+	
 
 
+	ChairPlacerArea = new ButtonObject();
+	ChairPlacerArea->SetTexture("../Resource/Texture/test.png");
+	ChairPlacerArea->SetSize(400, -400.0f);
+	ChairPlacerArea->SetPosition(glm::vec3(2300.0f, 500.0f, 0.0f));
+	objectsList.push_back(ChairPlacerArea);
+	interactableList.push_back(ChairPlacerArea);
 
+	
+	frontDoor = new ButtonObject();
+	frontDoor->SetTexture("../Resource/Texture/test.png");
+	frontDoor->SetSize(400, -500.0f);
+	frontDoor->SetPosition(glm::vec3(mapWidth, 500.0f, 0.0f));
+	objectsList.push_back(frontDoor);
+	interactableList.push_back(frontDoor);
 
 
 
@@ -153,11 +169,21 @@ void Level2Scene4::LevelUpdate()
 		if (player->GetX() < 250) {
 			player->SetPosition(glm::vec3(250, Avery_y_Position, 0.0f));
 		}
-		else if (player->GetX() > mapWidth - 250) {
-			GameEngine::GetInstance()->GetStateController()->gameStateNext = GameState::GS_LEVEL2;
+		else if (player->GetX() > mapWidth - 250) {//frontDoor
+			if (GameInstance::GetInstance()->LV2frontDoorLock == true) {
+				player->SetPosition(glm::vec3(mapWidth - 250, Avery_y_Position, 0.0f));
+				setDialoguePosition();
+				uiText->LoadText("Door lock", dialogueTextColor, 50);
+			}
+			else {
+				GameEngine::GetInstance()->GetStateController()->gameStateNext = GameState::GS_LEVEL2;
+			}
+		}
+		if (uiText->currentText == "Door lock" && player->GetX() < mapWidth - 350) {
+			uiText->LoadText(" ", dialogueTextColor, 50);
 		}
 	}
-	playerMovement(1); //Require in every level          RIQL
+	playerMovement(1); //Require in every level          RIQL1
 	player->UpdateFrame();
 }
 
@@ -263,6 +289,52 @@ void Level2Scene4::HandleMouse(int type, int x, int y)
 			talk.event = "sceneGretel";
 			Gretel->Interacted = false;
 		}
+
+		if (Chair->Interacted == true) {
+			//talk.talking = true;
+			getItem("chair", "I could reach something high with this", "../Resource/Texture/HanselAndGretelBook.png");
+			talk.event = "grabChair";
+			Chair->SetPosition(glm::vec3(0.0f, 5000.0f, 0.0f));
+			Chair->Interacted = false;
+		}
+
+		if (HnGKey->Interacted == true) {
+			if (GameInstance::GetInstance()->LV2chairAtCabinet == false) {
+				//talk.talking = true;
+				//talk.event = "tooHigh";
+			}
+
+			else if (GameInstance::GetInstance()->LV2chairAtCabinet == true) {
+				getItem("HnGkey", "A key for front door", "../Resource/Texture/Items/Key.png");
+				HnGKey->SetPosition(glm::vec3(0.0f, 5000.0f, 0.0f));
+			}
+			talk.event = "sceneGretel";
+			HnGKey->Interacted = false;
+		} //ChairPlacerArea
+		if (ChairPlacerArea->Interacted == true) {
+			//talk.talking = true;
+			//talk.event = "placed down chair";
+			if (holdedItemIndex >= 0 && holdedItemIndex < GameInstance::GetInstance()->inventory.size()) {
+				if (GameInstance::GetInstance()->inventory[holdedItemIndex].name == "chair") {
+					GameInstance::GetInstance()->LV2chairAtCabinet = true;
+					loseHoldedItem();
+					refreshInventoryPic();
+					//Move chair texture to this possition
+				}
+			}
+			ChairPlacerArea->Interacted = false;
+		}
+
+		if (frontDoor->Interacted == true) {
+			if (holdedItemIndex >= 0 && holdedItemIndex < GameInstance::GetInstance()->inventory.size()) {
+				if (GameInstance::GetInstance()->inventory[holdedItemIndex].name == "HnGkey") {
+					GameInstance::GetInstance()->LV2frontDoorLock = false;
+					loseHoldedItem();
+					refreshInventoryPic();
+				}
+			}
+		}
+
 	}
 
 	if (talk.talking == true) { //do talk

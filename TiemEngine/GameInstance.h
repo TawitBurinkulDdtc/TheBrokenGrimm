@@ -37,5 +37,8 @@ public:
 
 	GameEventType key1 = NotPick;
 
+	bool LV2chairAtCabinet = false;
+	bool LV2frontDoorLock = true;
+
 	int birdTalking = 0;
 };

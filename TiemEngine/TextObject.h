@@ -13,6 +13,7 @@ private:
 	const char* fontFileName = "../Resource/Font/Gabilo Display Demo.otf";
 
 public:
+	string currentText= " ";
 	TextObject();
 	~TextObject();
 	void Render(glm::mat4 globalModelTransform);
