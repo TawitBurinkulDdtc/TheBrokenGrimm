@@ -61,7 +61,7 @@ public:
 	float playerStartStandStill = 0;
 	float playerStandStillDelay;
 	float AverySizeRatio = 0.68f;
-	float Avery_y_Position = 465.0f;
+	float Avery_y_Position = 330.0f;
 
 	TextObject* uiText;
 	TextObject* nameText;

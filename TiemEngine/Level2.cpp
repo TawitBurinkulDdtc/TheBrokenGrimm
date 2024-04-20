@@ -12,7 +12,7 @@ void Level2::LevelLoad()
 
 void Level2::LevelInit()
 {
-
+	
 
 	mapWidth = 2309.75f;	//Require in every level          RIQL					need custom
 	holdedItemIndex = -1;	//Require in every level          RIQL
@@ -89,6 +89,7 @@ void Level2::LevelInit()
 	// Require in every level          RIQL start		2
 	//create inventory here
 	createInventory();
+
 	dialogueCharacter = new GameObject();			//(char for character)							///////////////
 	dialogueCharacter->SetTexture("../Resource/Texture/invisible.png");
 	dialogueCharacter->SetSize(1980, -1080.0f);//1080 + 200.0f
@@ -98,20 +99,20 @@ void Level2::LevelInit()
 
 
 	dialogueBox = new GameObject();
-	dialogueBox->SetPosition(glm::vec3(960.0f, 540.0f, 0.0f));
+	dialogueBox->SetPosition(glm::vec3(960.0f, 540.0f+600, 0.0f));
 	dialogueBox->SetTexture("../Resource/Texture/Dialogue_UI.png");
-	dialogueBox->SetSize(1920.0f, -1080.0f);
+	dialogueBox->SetSize(1920.0f * 0.75f, -1080.0f * 0.75f);
 	uiList.push_back(dialogueBox);
 
 	uiText = new TextObject();
 	uiText->LoadText(" ", dialogueTextColor, 100);
-	uiText->SetPosition(glm::vec3(960, 150.0f, 0.0f));
+	uiText->SetPosition(glm::vec3(960, 150.0f+700, 0.0f));
 	uiText->SetSize(500.0f, -100.0f);
 	uiList.push_back(uiText);
 
 	nameText = new TextObject();
 	nameText->LoadText(" ", dialogueTextColor, 100);
-	nameText->SetPosition(glm::vec3(960 - 670, 320.0f, 0.0f));
+	nameText->SetPosition(glm::vec3(960 - 470, 320.0f +650, 0.0f));
 	nameText->SetSize(500.0f, -100.0f);
 	uiList.push_back(nameText);
 
@@ -139,6 +140,8 @@ void Level2::LevelInit()
 	//sceneIntro
 	talk.talking = true;
 	talk.event = "sceneIntro";
+
+	inventoryOpen();
 }
 
 

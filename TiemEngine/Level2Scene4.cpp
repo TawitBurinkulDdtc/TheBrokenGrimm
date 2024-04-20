@@ -116,20 +116,20 @@ void Level2Scene4::LevelInit()
 
 
 	dialogueBox = new GameObject();
-	dialogueBox->SetPosition(glm::vec3(960.0f, 540.0f, 0.0f));
+	dialogueBox->SetPosition(glm::vec3(960.0f, 540.0f + 600, 0.0f));
 	dialogueBox->SetTexture("../Resource/Texture/invisible.png");
-	dialogueBox->SetSize(1920.0f, -1080.0f);
+	dialogueBox->SetSize(1920.0f * 0.75f, -1080.0f * 0.75f);
 	uiList.push_back(dialogueBox);
 
 	uiText = new TextObject();
 	uiText->LoadText(" ", dialogueTextColor, 100);
-	uiText->SetPosition(glm::vec3(960, 150.0f, 0.0f));
+	uiText->SetPosition(glm::vec3(960, 150.0f + 700, 0.0f));
 	uiText->SetSize(500.0f, -100.0f);
 	uiList.push_back(uiText);
 
 	nameText = new TextObject();
 	nameText->LoadText(" ", dialogueTextColor, 100);
-	nameText->SetPosition(glm::vec3(960 - 670, 320.0f, 0.0f));
+	nameText->SetPosition(glm::vec3(960 - 470, 320.0f + 650, 0.0f));
 	nameText->SetSize(500.0f, -100.0f);
 	uiList.push_back(nameText);
 
@@ -154,7 +154,7 @@ void Level2Scene4::LevelInit()
 	readExcel.open("../Resource/Excel/Level2.csv");
 	excelRec.clear();
 
-	//sceneIntro
+	inventoryOpen();
 }
 
 

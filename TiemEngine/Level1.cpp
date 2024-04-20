@@ -14,7 +14,7 @@ void Level1::LevelLoad()
 
 void Level1::LevelInit()
 {
-
+	Avery_y_Position = 465.0f;
 
 	mapWidth = 6326.6f;	//Require in every level          RIQL					need custom
 	holdedItemIndex = -1;	//Require in every level          RIQL
@@ -241,6 +241,8 @@ void Level1::LevelInit()
 	// Require in every level          RIQL start		2
 	//create inventory here
 	createInventory();
+	//inventoryOpen();
+
 	dialogueCharacter = new GameObject();			//(char for character)							///////////////
 	dialogueCharacter->SetTexture("../Resource/Texture/invisible.png");
 	dialogueCharacter->SetSize(1980, -1080.0f);//1080 + 200.0f
@@ -290,6 +292,8 @@ void Level1::LevelInit()
 
 	readExcel.open("../Resource/Excel/Book1.csv");
 	excelRec.clear();
+
+	inventoryOpen();
 }
 
 
@@ -868,10 +872,10 @@ void Level1::box(bool open){
 	if(open == true) {
 		dialogueBox->SetTexture("../Resource/Texture/Dialogue_UI.png");
 		if (player->GetX() > 960 && player->GetX() < (mapWidth - 960.0f)) {
-			dialogueBox->SetPosition(glm::vec3(player->GetX(), 540.0f, 0.0f));
+			dialogueBox->SetPosition(glm::vec3(player->GetX(), 540.0f+600, 0.0f));
 		}
-		else if(player->GetX() <= 960){ dialogueBox->SetPosition(glm::vec3(960, 540.0f, 0.0f)); }
-		else if (player->GetX() >= (mapWidth - 960.0f)) { dialogueBox->SetPosition(glm::vec3((mapWidth - 960.0f), 540.0f, 0.0f)); }
+		else if(player->GetX() <= 960){ dialogueBox->SetPosition(glm::vec3(960, 540.0f + 600, 0.0f)); }
+		else if (player->GetX() >= (mapWidth - 960.0f)) { dialogueBox->SetPosition(glm::vec3((mapWidth - 960.0f), 540.0f + 600, 0.0f)); }
 	}
 	else {
 		dialogueBox->SetTexture("../Resource/Texture/invisible.png");
