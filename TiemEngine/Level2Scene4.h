@@ -30,4 +30,5 @@ public:
 	ButtonObject* HnGKey;
 	ButtonObject* ChairPlacerArea;
 	ButtonObject* frontDoor;
+	GameObject* GretelPic;
 };

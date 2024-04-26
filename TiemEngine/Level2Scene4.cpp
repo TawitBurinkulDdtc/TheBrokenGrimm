@@ -19,7 +19,7 @@ void Level2Scene4::LevelInit()
 
 	//Require in every level          RIQL		start
 	GameObject* background = new GameObject();
-	background->SetTexture("../Resource/Texture/Inside_H_And_G_House_Night.jpg");	//need custom
+	background->SetTexture("../Resource/Texture/Inside_house_HG_night/Bg_Inside_HG.png");	//need custom
 	background->SetSize(mapWidth, -1080.0f);//1080 + 200.0f
 	background->SetPosition(glm::vec3(mapWidth / 2, 540.0f, 0.0f));
 	backgroundList.push_back(background);
@@ -29,19 +29,17 @@ void Level2Scene4::LevelInit()
 
 
 	Gretel = new ButtonObject();
-	Gretel->SetTexture("../Resource/Texture/Gretel.png");
+	Gretel->SetTexture("../Resource/Texture/test.png");
 	Gretel->SetSize(167, -225.0f);
 	Gretel->SetPosition(glm::vec3(1500.0f, 500.0f, 0.0f));
 	objectsList.push_back(Gretel);
 	interactableList.push_back(Gretel);
 
 
-	Hansel = new ButtonObject();
-	Hansel->SetTexture("../Resource/Texture/Hansel.png");
-	Hansel->SetSize(167, -225.0f);
-	Hansel->SetPosition(glm::vec3(100.0f, 500.0f, 0.0f));
-	objectsList.push_back(Hansel);
-	interactableList.push_back(Hansel);
+	GretelPic = new SpriteObject("../Resource/Texture/Characters/Gretel_Idle.png", 1, 6); 
+	GretelPic->SetSize(-167, 225.0f); //in animation y gotta be +
+	GretelPic->SetPosition(glm::vec3(1500.0f, 500.0f, 0.0f));
+	objectsList.push_back(GretelPic);
 
 
 	Chair = new ButtonObject();
@@ -185,6 +183,7 @@ void Level2Scene4::LevelUpdate()
 	}
 	playerMovement(3); //Require in every level          RIQL1
 	player->UpdateFrame();
+	GretelPic->UpdateFrame();
 }
 
 //SpriteObject* Girl = new SpriteObject("../Resource/Texture/AveryWalk.png", 1, 6);
@@ -229,7 +228,6 @@ void Level2Scene4::LevelUnload()
 
 void Level2Scene4::HandleKey(char key)
 {
-
 	switch (key)
 	{
 	case '=':
@@ -246,9 +244,6 @@ void Level2Scene4::HandleKey(char key)
 
 void Level2Scene4::HandleMouse(int type, int x, int y)
 {
-
-
-
 	float trueX = x;
 	if (player->GetX() > 960 && player->GetX() < (mapWidth - 960.0f)) {
 		trueX = (x - 960) + player->GetX();
@@ -278,11 +273,6 @@ void Level2Scene4::HandleMouse(int type, int x, int y)
 			}
 		}
 		
-		if (Hansel->Interacted == true) {
-			talk.talking = true;
-			talk.event = "sceneHansel";
-			Hansel->Interacted = false;
-		}
 
 		if (Gretel->Interacted == true) {
 			talk.talking = true;
