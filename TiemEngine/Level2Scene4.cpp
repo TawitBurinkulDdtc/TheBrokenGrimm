@@ -96,7 +96,7 @@ void Level2Scene4::LevelInit()
 	}
 	else { player->SetPosition(glm::vec3(950.0f, Avery_y_Position, 0.0f)); }	//Require customization end
 	*/
-	createPlayer(1);
+	createPlayer(3);
 	player->SetPosition(glm::vec3(950.0f, Avery_y_Position, 0.0f));
 
 	GameEngine::GetInstance()->SetDrawArea(0, 1920, 0, 1080);
@@ -183,7 +183,7 @@ void Level2Scene4::LevelUpdate()
 			uiText->LoadText(" ", dialogueTextColor, 50);
 		}
 	}
-	playerMovement(1); //Require in every level          RIQL1
+	playerMovement(3); //Require in every level          RIQL1
 	player->UpdateFrame();
 }
 

@@ -14,6 +14,7 @@ void Level1::LevelLoad()
 
 void Level1::LevelInit()
 {
+
 	Avery_y_Position = 465.0f;
 
 	mapWidth = 6326.6f;	//Require in every level          RIQL					need custom
@@ -910,10 +911,13 @@ void Level1::picGlow(GameObject* go, bool b) {
 
 void Level1::createPlayer(int spriteNum){
 	if (spriteNum == 1) {
-		player = new SpriteObject("../Resource/Texture/AveryIdle.png", 1, 6);
+		player = new SpriteObject("../Resource/Texture/Characters/Avery_Idle.png", 1, 6);
 	}
-	else {
-		player = new SpriteObject("../Resource/Texture/AveryIdle.png", 1, 6);
+	else if (spriteNum == 2){
+		player = new SpriteObject("../Resource/Texture/Characters/Player_Gretel_Idle", 1, 6);
+	}
+	else if (spriteNum == 3) {
+		player = new SpriteObject("../Resource/Texture/Characters/Player_Hansel_Idle.png", 1, 6);
 	}
 	player->SetSize(540.0f * AverySizeRatio, 695.0f * AverySizeRatio);
 	objectsList.push_back(player);
@@ -930,7 +934,13 @@ void Level1::playerMovement(int spriteNum) {
 
 			if (pSpriteInt == 0) {
 				if (spriteNum == 1) {
-					player->SetTexture("../Resource/Texture/AveryWalk.png");
+					player->SetTexture("../Resource/Texture/Characters/Avery_Walk.png");
+				}
+				else if (spriteNum == 2) {
+					player->SetTexture("../Resource/Texture/Characters/Player_Gretel_Walk.png");
+				}
+				else if (spriteNum == 3) {
+					player->SetTexture("../Resource/Texture/Characters/Player_Hansel_Walk.png");
 				}
 				pSpriteInt = 1;
 			}
@@ -958,7 +968,13 @@ void Level1::playerMovement(int spriteNum) {
 		}
 		else if (pSpriteInt == 1 && SDL_GetTicks() > playerStartStandStill + playerStandStillDelay) {
 			if (spriteNum == 1) {
-				player->SetTexture("../Resource/Texture/AveryIdle.png");
+				player->SetTexture("../Resource/Texture/Characters/Avery_Idle.png");
+			}
+			else if (spriteNum == 2) {
+				player->SetTexture("../Resource/Texture/Characters/Player_Gretel_Idle.png");
+			}
+			else if (spriteNum == 3) {
+				player->SetTexture("../Resource/Texture/Characters/Player_Hansel_Idle.png");
 			}
 			pSpriteInt = 0;
 		}
