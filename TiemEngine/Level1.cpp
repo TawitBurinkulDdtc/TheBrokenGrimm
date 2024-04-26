@@ -325,6 +325,8 @@ void Level1::LevelUpdate()
 	playerMovement(1); //Require in every level          RIQL
 	player->UpdateFrame();
 	birdAnim->UpdateFrame();
+
+
 }
 
 //SpriteObject* Girl = new SpriteObject("../Resource/Texture/AveryWalk.png", 1, 6);
@@ -757,8 +759,9 @@ void Level1::inventoryLogic() {
 			inventoryBox[holdedItemIndex]->SetTexture("../Resource/Texture/Active_InventorySlot.png");
 			uiText->LoadText(GameInstance::GetInstance()->inventory[i].showText, GameInstance::GetInstance()->inventory[i].textColor, GameInstance::GetInstance()->inventory[i].textFontSize);
 			uiText->SetSize(GameInstance::GetInstance()->inventory[i].textSizeX, -(GameInstance::GetInstance()->inventory[i].textSizeY));
-			nameText->LoadText("Avery", GameInstance::GetInstance()->inventory[i].textColor, 60);
-			box(true);
+			//nameText->LoadText("Avery", GameInstance::GetInstance()->inventory[i].textColor, 60);
+			//box(true);
+			//wahhhhhhhhhh = true;
 			lastHold[i] = true;
 			inventoryL[i]->Interacted = false;
 		}

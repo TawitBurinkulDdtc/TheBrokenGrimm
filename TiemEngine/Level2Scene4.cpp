@@ -37,7 +37,7 @@ void Level2Scene4::LevelInit()
 	chair2Pic = new GameObject();
 	chair2Pic->SetTexture("../Resource/Texture/Inside_house_HG_night/Chair2_Inside_HG.png");	//need custom
 	chair2Pic->SetSize(mapWidth, -1080.0f);//1080 + 200.0f
-	chair2Pic->SetPosition(glm::vec3(mapWidth / 2, 540.0f, 0.0f));
+	chair2Pic->SetPosition(glm::vec3(mapWidth / 2, 5000.0f, 0.0f));
 	objectsList.push_back(chair2Pic);
 
 
@@ -50,7 +50,7 @@ void Level2Scene4::LevelInit()
 
 	frontDoorPic= new GameObject();
 	frontDoorPic->SetTexture("../Resource/Texture/Inside_house_HG_night/Front_door_Inside_HG.png");	//need custom
-	cabinetPic->SetSize(mapWidth, -1080.0f);//1080 + 200.0f
+	frontDoorPic->SetSize(mapWidth, -1080.0f);//1080 + 200.0f
 	frontDoorPic->SetPosition(glm::vec3(mapWidth / 2, 540.0f, 0.0f));
 	objectsList.push_back(frontDoorPic);
 
@@ -59,7 +59,6 @@ void Level2Scene4::LevelInit()
 	bedRoomDoor->SetSize(mapWidth, -1080.0f);//1080 + 200.0f
 	bedRoomDoor->SetPosition(glm::vec3(mapWidth / 2, 540.0f, 0.0f));
 	objectsList.push_back(bedRoomDoor);
-
 
 	Gretel = new ButtonObject();
 	Gretel->SetTexture("../Resource/Texture/test.png");
@@ -79,7 +78,7 @@ void Level2Scene4::LevelInit()
 	player->SetPosition(glm::vec3(950.0f, Avery_y_Position, 0.0f));
 
 	GameEngine::GetInstance()->SetDrawArea(0, 1920, 0, 1080);
-
+	//player->renderMode = 2;
 
 	GameObject* frontGround = new GameObject();
 	frontGround->SetTexture("../Resource/Texture/Inside_house_HG_night/Fg_Inside_HG.png");	//need custom
@@ -97,15 +96,15 @@ void Level2Scene4::LevelInit()
 
 	Chair = new ButtonObject();
 	Chair->SetTexture("../Resource/Texture/test.png");
-	Chair->SetSize(167, -225.0f);
-	Chair->SetPosition(glm::vec3(2000.0f, 500.0f, 0.0f));
+	Chair->SetSize(200, -285.0f);
+	Chair->SetPosition(glm::vec3(455.0f, 310.0f, 0.0f));
 	objectsList.push_back(Chair);
 	interactableList.push_back(Chair);
 
 	HnGKey = new ButtonObject();
 	HnGKey->SetTexture("../Resource/Texture/test.png");
-	HnGKey->SetSize(167, -225.0f);
-	HnGKey->SetPosition(glm::vec3(2300.0f, 500.0f, 0.0f));
+	HnGKey->SetSize(450, -200.0f);
+	HnGKey->SetPosition(glm::vec3(5080.0f, 750.0f, 0.0f));
 	objectsList.push_back(HnGKey);
 	interactableList.push_back(HnGKey);
 
@@ -114,15 +113,15 @@ void Level2Scene4::LevelInit()
 
 	ChairPlacerArea = new ButtonObject();
 	ChairPlacerArea->SetTexture("../Resource/Texture/test.png");
-	ChairPlacerArea->SetSize(400, -400.0f);
-	ChairPlacerArea->SetPosition(glm::vec3(2300.0f, 500.0f, 0.0f));
+	ChairPlacerArea->SetSize(1000, -1000.0f);
+	ChairPlacerArea->SetPosition(glm::vec3(5080.0f, 413.0f, 0.0f));
 	objectsList.push_back(ChairPlacerArea);
 	interactableList.push_back(ChairPlacerArea);
 
 	
 	frontDoor = new ButtonObject();
 	frontDoor->SetTexture("../Resource/Texture/test.png");
-	frontDoor->SetSize(400, -500.0f);
+	frontDoor->SetSize(600, -2000.0f);
 	frontDoor->SetPosition(glm::vec3(mapWidth, 500.0f, 0.0f));
 	objectsList.push_back(frontDoor);
 	interactableList.push_back(frontDoor);
@@ -220,6 +219,10 @@ void Level2Scene4::LevelUpdate()
 	playerMovement(3); //Require in every level          RIQL1
 	player->UpdateFrame();
 	GretelPic->UpdateFrame();
+
+	/*if (wahhhhhhhhhh == true) {
+		dialogueBox->SetPosition(glm::vec3(player->GetX(), 540.0f + 600, 0.0f));
+	}*/
 }
 
 //SpriteObject* Girl = new SpriteObject("../Resource/Texture/AveryWalk.png", 1, 6);
@@ -280,6 +283,16 @@ void Level2Scene4::HandleKey(char key)
 
 void Level2Scene4::HandleMouse(int type, int x, int y)
 {
+	/*
+	if(wahhhhhhhhhh = true){
+		wahhhhhhhhhh = false;
+		box(false);
+		uiText->LoadText(" ", dialogueTextColor, 30.0f);
+		nameText->LoadText(" ", dialogueTextColor, 30.0f);
+	}*/
+	uiText->LoadText(" ", dialogueTextColor, 30.0f);
+	nameText->LoadText(" ", dialogueTextColor, 30.0f);
+
 	float trueX = x;
 	if (player->GetX() > 960 && player->GetX() < (mapWidth - 960.0f)) {
 		trueX = (x - 960) + player->GetX();
@@ -290,6 +303,8 @@ void Level2Scene4::HandleMouse(int type, int x, int y)
 	else {
 		trueX = x;
 	}
+
+	cout << trueX << ":"<< y << endl;
 
 
 
@@ -313,6 +328,7 @@ void Level2Scene4::HandleMouse(int type, int x, int y)
 			//talk.talking = true;
 			getItem("chair", "I could reach something high with this", "../Resource/Texture/HanselAndGretelBook.png");
 			talk.event = "grabChair";
+			chairPic->SetPosition(glm::vec3(0.0f, 5000.0f, 0.0f));
 			Chair->SetPosition(glm::vec3(0.0f, 5000.0f, 0.0f));
 			Chair->Interacted = false;
 		}
@@ -325,6 +341,7 @@ void Level2Scene4::HandleMouse(int type, int x, int y)
 
 			else if (GameInstance::GetInstance()->LV2chairAtCabinet == true) {
 				getItem("HnGkey", "A key for front door", "../Resource/Texture/Items/Key.png");
+				cabinetPic->SetTexture("../Resource/Texture/Inside_house_HG_night/Cabinet_open_Inside_HG.png");
 				HnGKey->SetPosition(glm::vec3(0.0f, 5000.0f, 0.0f));
 			}
 			talk.event = "sceneGretel";
@@ -334,6 +351,7 @@ void Level2Scene4::HandleMouse(int type, int x, int y)
 			if (holdedItemIndex >= 0 && holdedItemIndex < GameInstance::GetInstance()->inventory.size()) {
 				if (GameInstance::GetInstance()->inventory[holdedItemIndex].name == "chair") {
 					GameInstance::GetInstance()->LV2chairAtCabinet = true;
+					chair2Pic->SetPosition(glm::vec3(mapWidth / 2, 540.0f, 0.0f));
 					loseHoldedItem();
 					refreshInventoryPic();
 					//Move chair texture to this possition
@@ -346,6 +364,7 @@ void Level2Scene4::HandleMouse(int type, int x, int y)
 			if (holdedItemIndex >= 0 && holdedItemIndex < GameInstance::GetInstance()->inventory.size()) {
 				if (GameInstance::GetInstance()->inventory[holdedItemIndex].name == "HnGkey") {
 					GameInstance::GetInstance()->LV2frontDoorLock = false;
+					frontDoorPic->SetPosition(glm::vec3(0, 5000.0f, 0.0f));
 					loseHoldedItem();
 					refreshInventoryPic();
 				}
