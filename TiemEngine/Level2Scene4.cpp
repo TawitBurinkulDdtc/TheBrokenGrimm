@@ -28,6 +28,39 @@ void Level2Scene4::LevelInit()
 
 
 
+	chairPic = new GameObject();
+	chairPic->SetTexture("../Resource/Texture/Inside_house_HG_night/Chair1_Inside_HG.png");	//need custom
+	chairPic->SetSize(mapWidth, -1080.0f);//1080 + 200.0f
+	chairPic->SetPosition(glm::vec3(mapWidth / 2, 540.0f, 0.0f));
+	objectsList.push_back(chairPic);
+
+	chair2Pic = new GameObject();
+	chair2Pic->SetTexture("../Resource/Texture/Inside_house_HG_night/Chair2_Inside_HG.png");	//need custom
+	chair2Pic->SetSize(mapWidth, -1080.0f);//1080 + 200.0f
+	chair2Pic->SetPosition(glm::vec3(mapWidth / 2, 540.0f, 0.0f));
+	objectsList.push_back(chair2Pic);
+
+
+	cabinetPic = new GameObject();
+	cabinetPic->SetTexture("../Resource/Texture/Inside_house_HG_night/Cabinet_close_Inside_HG.png");	//need custom
+	cabinetPic->SetSize(mapWidth, -1080.0f);//1080 + 200.0f
+	cabinetPic->SetPosition(glm::vec3(mapWidth / 2, 540.0f, 0.0f));
+	objectsList.push_back(cabinetPic);
+
+
+	frontDoorPic= new GameObject();
+	frontDoorPic->SetTexture("../Resource/Texture/Inside_house_HG_night/Front_door_Inside_HG.png");	//need custom
+	cabinetPic->SetSize(mapWidth, -1080.0f);//1080 + 200.0f
+	frontDoorPic->SetPosition(glm::vec3(mapWidth / 2, 540.0f, 0.0f));
+	objectsList.push_back(frontDoorPic);
+
+	GameObject* bedRoomDoor = new GameObject();
+	bedRoomDoor->SetTexture("../Resource/Texture/Inside_house_HG_night/Bedroom_door_Inside_HG.png");	//need custom
+	bedRoomDoor->SetSize(mapWidth, -1080.0f);//1080 + 200.0f
+	bedRoomDoor->SetPosition(glm::vec3(mapWidth / 2, 540.0f, 0.0f));
+	objectsList.push_back(bedRoomDoor);
+
+
 	Gretel = new ButtonObject();
 	Gretel->SetTexture("../Resource/Texture/test.png");
 	Gretel->SetSize(167, -225.0f);
@@ -41,6 +74,26 @@ void Level2Scene4::LevelInit()
 	GretelPic->SetPosition(glm::vec3(1500.0f, 500.0f, 0.0f));
 	objectsList.push_back(GretelPic);
 
+
+	createPlayer(3);
+	player->SetPosition(glm::vec3(950.0f, Avery_y_Position, 0.0f));
+
+	GameEngine::GetInstance()->SetDrawArea(0, 1920, 0, 1080);
+
+
+	GameObject* frontGround = new GameObject();
+	frontGround->SetTexture("../Resource/Texture/Inside_house_HG_night/Fg_Inside_HG.png");	//need custom
+	frontGround->SetSize(mapWidth, -1080.0f);//1080 + 200.0f
+	frontGround->SetPosition(glm::vec3(mapWidth / 2, 540.0f, 0.0f));
+	objectsList.push_back(frontGround);
+
+	/*
+	GameObject* lighting = new GameObject();
+	lighting->SetTexture("../Resource/Texture/Inside_house_HG_night/Light_Inside_HG.png");	//need custom
+	lighting->SetSize(mapWidth, -1080.0f);//1080 + 200.0f
+	lighting->SetPosition(glm::vec3(mapWidth / 2, 540.0f, 0.0f));
+	objectsList.push_back(lighting);
+	*/
 
 	Chair = new ButtonObject();
 	Chair->SetTexture("../Resource/Texture/test.png");
@@ -81,24 +134,7 @@ void Level2Scene4::LevelInit()
 
 
 
-	// Require in every level          RIQL start		1
-	/*
-	createPlayer();
-	if (GameInstance::GetInstance()->PlayerFrom == PlayerFrom::Left) {		//Require customization start
-		player->SetPosition(glm::vec3(300.0f, Avery_y_Position, 0.0f));
-		GameEngine::GetInstance()->SetDrawArea(0, 1920, 0, 1080);
-	}
-	else if (GameInstance::GetInstance()->PlayerFrom == PlayerFrom::Right) {
-		player->SetPosition(glm::vec3(mapWidth - 300.0f, Avery_y_Position, 0.0f));
-		GameEngine::GetInstance()->SetDrawArea(mapWidth - 1980.0f, mapWidth, 0, 1080);
-	}
-	else { player->SetPosition(glm::vec3(950.0f, Avery_y_Position, 0.0f)); }	//Require customization end
-	*/
-	createPlayer(3);
-	player->SetPosition(glm::vec3(950.0f, Avery_y_Position, 0.0f));
-
-	GameEngine::GetInstance()->SetDrawArea(0, 1920, 0, 1080);
-	// RIQL end			1
+	
 
 
 
@@ -256,13 +292,6 @@ void Level2Scene4::HandleMouse(int type, int x, int y)
 	}
 
 
-	//cout << "pos: x " << trueX << " y " << y << endl;    //set to 1920 x 1200 to see display
-	//cout <<"p:"<< player->GetX() << endl;
-	//cout << "mw-960:" << (mapWidth - 960.0f) << endl;
-
-	//printf("print work  ");
-
-
 
 	if (talk.talking == false) {	//no talk
 
@@ -302,8 +331,6 @@ void Level2Scene4::HandleMouse(int type, int x, int y)
 			HnGKey->Interacted = false;
 		} //ChairPlacerArea
 		if (ChairPlacerArea->Interacted == true) {
-			//talk.talking = true;
-			//talk.event = "placed down chair";
 			if (holdedItemIndex >= 0 && holdedItemIndex < GameInstance::GetInstance()->inventory.size()) {
 				if (GameInstance::GetInstance()->inventory[holdedItemIndex].name == "chair") {
 					GameInstance::GetInstance()->LV2chairAtCabinet = true;
@@ -372,15 +399,11 @@ void Level2Scene4::HandleMouse(int type, int x, int y)
 
 	}//do talk
 
-	//talk.dp("give my potato back", "../Resource/Texture/talkingGlobeTest1.png"); uiText->SetSize(700.0f, -100.0f); dialogueCharacter->SetPosition(glm::vec3(player->GetX(), 540.0f, 0.0f));
-	//dialogueCharacter->SetTexture(talk.pictureFileName);			//SetPosition(glm::vec3(0, 0, 0));
-	//uiText->LoadText(talk.dialogue, whiteText, 100);
 
 
 	//inventory logic
 	inventoryLogic();
 
-	//playerWalkTo = x;
 
 }
 

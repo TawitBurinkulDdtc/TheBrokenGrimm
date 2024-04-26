@@ -261,7 +261,7 @@ void Level1::LevelInit()
 	uiText = new TextObject();
 	//SDL_Color textColor = { 0, 0, 0 }; //(0 to 255)
 	uiText->LoadText(" ", dialogueTextColor, 100);
-	uiText->SetPosition(glm::vec3(960, 150.0f, 0.0f));
+	uiText->SetPosition(glm::vec3(960, 150.0f + 700, 0.0f));
 	uiText->SetSize(500.0f, -100.0f);
 	uiList.push_back(uiText);
 
@@ -757,6 +757,8 @@ void Level1::inventoryLogic() {
 			inventoryBox[holdedItemIndex]->SetTexture("../Resource/Texture/Active_InventorySlot.png");
 			uiText->LoadText(GameInstance::GetInstance()->inventory[i].showText, GameInstance::GetInstance()->inventory[i].textColor, GameInstance::GetInstance()->inventory[i].textFontSize);
 			uiText->SetSize(GameInstance::GetInstance()->inventory[i].textSizeX, -(GameInstance::GetInstance()->inventory[i].textSizeY));
+			nameText->LoadText("Avery", GameInstance::GetInstance()->inventory[i].textColor, 60);
+			box(true);
 			lastHold[i] = true;
 			inventoryL[i]->Interacted = false;
 		}
@@ -782,10 +784,6 @@ void Level1::inventoryOpen() { //inventoryPosition
 	else {
 		inventoryYPosition = 100.0f;
 	}
-
-
-
-
 	if (player->GetX() >= 960 && player->GetX() <= mapWidth - 960) {
 		for (int i = 0; i < 8; i++) {
 			inventoryL[i]->SetPosition(glm::vec3((player->GetX() - 960) + 250.0f + (200 * i), inventoryYPosition, 0.0f));
@@ -884,8 +882,8 @@ void Level1::box(bool open){
 }
 
 void Level1::setUiPos() {
-	uiText->SetPosition(glm::vec3(player->GetX(), 150.0f, 0.0f));
-	nameText->SetPosition(glm::vec3(player->GetX()-670, 320.0f, 0.0f));
+	uiText->SetPosition(glm::vec3(player->GetX(), 150.0f + 700, 0.0f));
+	nameText->SetPosition(glm::vec3(player->GetX()- 470, 320.0f + 650, 0.0f));
 	inventoryBar->SetPosition(glm::vec3(player->GetX(), 540.0f, 0.0f));
 	for (int i = 0; i < 8; i++) {
 		inventoryL[i]->SetPosition(glm::vec3((player->GetX() - 960) + 250.0f + (200 * i), inventoryYPosition, 0.0f));

@@ -31,4 +31,8 @@ public:
 	ButtonObject* ChairPlacerArea;
 	ButtonObject* frontDoor;
 	GameObject* GretelPic;
+	GameObject* chairPic;
+	GameObject* chair2Pic;
+	GameObject* cabinetPic;
+	GameObject* frontDoorPic;
 };
