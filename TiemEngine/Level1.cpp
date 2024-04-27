@@ -14,6 +14,7 @@ void Level1::LevelLoad()
 
 void Level1::LevelInit()
 {
+
 	Avery_y_Position = 465.0f;
 
 	mapWidth = 6326.6f;	//Require in every level          RIQL					need custom
@@ -260,7 +261,7 @@ void Level1::LevelInit()
 	uiText = new TextObject();
 	//SDL_Color textColor = { 0, 0, 0 }; //(0 to 255)
 	uiText->LoadText(" ", dialogueTextColor, 100);
-	uiText->SetPosition(glm::vec3(960, 150.0f, 0.0f));
+	uiText->SetPosition(glm::vec3(960, 150.0f + 700, 0.0f));
 	uiText->SetSize(500.0f, -100.0f);
 	uiList.push_back(uiText);
 
@@ -324,6 +325,8 @@ void Level1::LevelUpdate()
 	playerMovement(1); //Require in every level          RIQL
 	player->UpdateFrame();
 	birdAnim->UpdateFrame();
+
+
 }
 
 //SpriteObject* Girl = new SpriteObject("../Resource/Texture/AveryWalk.png", 1, 6);
@@ -756,6 +759,9 @@ void Level1::inventoryLogic() {
 			inventoryBox[holdedItemIndex]->SetTexture("../Resource/Texture/Active_InventorySlot.png");
 			uiText->LoadText(GameInstance::GetInstance()->inventory[i].showText, GameInstance::GetInstance()->inventory[i].textColor, GameInstance::GetInstance()->inventory[i].textFontSize);
 			uiText->SetSize(GameInstance::GetInstance()->inventory[i].textSizeX, -(GameInstance::GetInstance()->inventory[i].textSizeY));
+			//nameText->LoadText("Avery", GameInstance::GetInstance()->inventory[i].textColor, 60);
+			//box(true);
+			//wahhhhhhhhhh = true;
 			lastHold[i] = true;
 			inventoryL[i]->Interacted = false;
 		}
@@ -781,10 +787,6 @@ void Level1::inventoryOpen() { //inventoryPosition
 	else {
 		inventoryYPosition = 100.0f;
 	}
-
-
-
-
 	if (player->GetX() >= 960 && player->GetX() <= mapWidth - 960) {
 		for (int i = 0; i < 8; i++) {
 			inventoryL[i]->SetPosition(glm::vec3((player->GetX() - 960) + 250.0f + (200 * i), inventoryYPosition, 0.0f));
@@ -883,8 +885,8 @@ void Level1::box(bool open){
 }
 
 void Level1::setUiPos() {
-	uiText->SetPosition(glm::vec3(player->GetX(), 150.0f, 0.0f));
-	nameText->SetPosition(glm::vec3(player->GetX()-670, 320.0f, 0.0f));
+	uiText->SetPosition(glm::vec3(player->GetX(), 150.0f + 700, 0.0f));
+	nameText->SetPosition(glm::vec3(player->GetX()- 470, 320.0f + 650, 0.0f));
 	inventoryBar->SetPosition(glm::vec3(player->GetX(), 540.0f, 0.0f));
 	for (int i = 0; i < 8; i++) {
 		inventoryL[i]->SetPosition(glm::vec3((player->GetX() - 960) + 250.0f + (200 * i), inventoryYPosition, 0.0f));
@@ -910,10 +912,13 @@ void Level1::picGlow(GameObject* go, bool b) {
 
 void Level1::createPlayer(int spriteNum){
 	if (spriteNum == 1) {
-		player = new SpriteObject("../Resource/Texture/AveryIdle.png", 1, 6);
+		player = new SpriteObject("../Resource/Texture/Characters/Avery_Idle.png", 1, 6);
 	}
-	else {
-		player = new SpriteObject("../Resource/Texture/AveryIdle.png", 1, 6);
+	else if (spriteNum == 2){
+		player = new SpriteObject("../Resource/Texture/Characters/Player_Gretel_Idle", 1, 6);
+	}
+	else if (spriteNum == 3) {
+		player = new SpriteObject("../Resource/Texture/Characters/Player_Hansel_Idle.png", 1, 6);
 	}
 	player->SetSize(540.0f * AverySizeRatio, 695.0f * AverySizeRatio);
 	objectsList.push_back(player);
@@ -930,7 +935,13 @@ void Level1::playerMovement(int spriteNum) {
 
 			if (pSpriteInt == 0) {
 				if (spriteNum == 1) {
-					player->SetTexture("../Resource/Texture/AveryWalk.png");
+					player->SetTexture("../Resource/Texture/Characters/Avery_Walk.png");
+				}
+				else if (spriteNum == 2) {
+					player->SetTexture("../Resource/Texture/Characters/Player_Gretel_Walk.png");
+				}
+				else if (spriteNum == 3) {
+					player->SetTexture("../Resource/Texture/Characters/Player_Hansel_Walk.png");
 				}
 				pSpriteInt = 1;
 			}
@@ -958,7 +969,13 @@ void Level1::playerMovement(int spriteNum) {
 		}
 		else if (pSpriteInt == 1 && SDL_GetTicks() > playerStartStandStill + playerStandStillDelay) {
 			if (spriteNum == 1) {
-				player->SetTexture("../Resource/Texture/AveryIdle.png");
+				player->SetTexture("../Resource/Texture/Characters/Avery_Idle.png");
+			}
+			else if (spriteNum == 2) {
+				player->SetTexture("../Resource/Texture/Characters/Player_Gretel_Idle.png");
+			}
+			else if (spriteNum == 3) {
+				player->SetTexture("../Resource/Texture/Characters/Player_Hansel_Idle.png");
 			}
 			pSpriteInt = 0;
 		}

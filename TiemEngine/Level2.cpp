@@ -12,7 +12,6 @@ void Level2::LevelLoad()
 
 void Level2::LevelInit()
 {
-	
 
 	mapWidth = 2309.75f;	//Require in every level          RIQL					need custom
 	holdedItemIndex = -1;	//Require in every level          RIQL
@@ -78,7 +77,7 @@ void Level2::LevelInit()
 	}
 	else { player->SetPosition(glm::vec3(950.0f, Avery_y_Position, 0.0f)); }	//Require customization end
 	*/
-	createPlayer(1);
+	createPlayer(3);
 	player->SetPosition(glm::vec3(950.0f, Avery_y_Position, 0.0f));
 
 	GameEngine::GetInstance()->SetDrawArea(0, 1920, 0, 1080);
@@ -125,7 +124,7 @@ void Level2::LevelInit()
 
 	//--------------------- walk speed editer----------------------------
 	playerFrameDelay = 1.0f;
-	playerStepPerFrame = 50; //10 real   // 60 debug (60 will have some interact area bug abit)
+	playerStepPerFrame = 10; //10 real   // 60 debug (60 will have some interact area bug abit)
 	//---------------------------------------------------------------------
 
 
@@ -160,7 +159,7 @@ void Level2::LevelUpdate()
 			player->SetPosition(glm::vec3(mapWidth - 250, Avery_y_Position, 0.0f));	//
 		}
 	}
-	playerMovement(1); //Require in every level          RIQL
+	playerMovement(3); //Require in every level          RIQL
 	player->UpdateFrame();
 }
 

@@ -76,6 +76,7 @@ public:
 	bool lastHold[8] = { false };
 	GameObject* inventoryBox[8];
 	float inventoryYPosition = 100.0f;
+	bool wahhhhhhhhhh = false;
 
 	float mapWidth;
 	GameObject* inventoryBar;
