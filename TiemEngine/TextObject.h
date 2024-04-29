@@ -10,7 +10,7 @@ class TextObject :public DrawableObject
 {
 private:
 	unsigned int texture;
-	const char* fontFileName = "../Resource/Font/Gabilo Display Demo.otf";
+	const char* fontFileName = "../Resource/Font/Junicode.ttf";
 
 public:
 	string currentText= " ";

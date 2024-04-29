@@ -12,10 +12,12 @@ private:
 	float newUV[8];
 	float MaxRow = 0.0f;
 	float MaxCol = 0.0f;
+	
 public:
 	SpriteObject(const char* path,int MaxR, int MaxC);
 	void updateAnimate();
 	void CalculateUV(int r, int c);
 	virtual void Render(glm::mat4 globalModelTransform);
 	virtual void UpdateFrame();
+	
 };

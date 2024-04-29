@@ -21,6 +21,7 @@ void GameObject::UpdateFrame() {
 void GameObject::SetTexture(string path)
 {
 	texture = GameEngine::GetInstance()->GetRenderer()->LoadTexture(path);
+	textures.push_back(texture);
 }
 
 void GameObject::Render(glm::mat4 globalModelTransform)
@@ -53,5 +54,13 @@ void GameObject::Render(glm::mat4 globalModelTransform)
 		squareMesh->Render();
 
 	}
+}
+
+void GameObject::AddTextures(const char* path) {
+	unsigned int tex = GameEngine::GetInstance()->GetRenderer()->LoadTexture(path);
+	textures.push_back(tex);
+}
+void GameObject::ChangeTextures(int texIndex) {
+	texture = textures[texIndex];
 }
 

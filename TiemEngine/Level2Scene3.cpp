@@ -100,6 +100,7 @@ void Level2Scene3::LevelInit()
 	dialogueBox = new GameObject();
 	dialogueBox->SetPosition(glm::vec3(960.0f, 540.0f + 600, 0.0f));
 	dialogueBox->SetTexture("../Resource/Texture/Dialogue_UI.png");
+	dialogueBox->AddTextures("../Resource/Texture/Dialogue_UI.png");
 	dialogueBox->SetSize(1920.0f * 0.75f, -1080.0f * 0.75f);
 	uiList.push_back(dialogueBox);
 

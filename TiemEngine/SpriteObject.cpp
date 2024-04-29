@@ -8,6 +8,7 @@ SpriteObject::SpriteObject(const char* path,int MaxR, int MaxC) {
 	MaxRow = MaxR;
 	MaxCol = MaxC;
 	texture = GameEngine::GetInstance()->GetRenderer()->LoadTexture(path);
+	textures.push_back(texture);
 	CalculateUV(0, 0);
 }
 
@@ -99,3 +100,5 @@ void SpriteObject::Render(glm::mat4 globalModelTransform)
 		squareMesh->Render();
 	}
 }
+
+

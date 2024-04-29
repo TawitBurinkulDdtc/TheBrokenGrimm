@@ -254,8 +254,9 @@ void Level1::LevelInit()
 
 	dialogueBox = new GameObject();
 	dialogueBox->SetPosition(glm::vec3(960.0f, 540.0f, 0.0f));
-	dialogueBox->SetTexture("../Resource/Texture/invisible.png");
 	dialogueBox->SetSize(1920.0f, -1080.0f);
+	dialogueBox->SetTexture("../Resource/Texture/invisible.png");
+	dialogueBox->AddTextures("../Resource/Texture/Dialogue_UI.png");
 	uiList.push_back(dialogueBox);
 
 	uiText = new TextObject();
@@ -410,7 +411,7 @@ void Level1::HandleMouse(int type, int x, int y)
 	}
 	
 
-	cout << "pos: x " << trueX << " y " << y << endl;    //set to 1920 x 1200 to see display
+	//cout << "pos: x " << trueX << " y " << y << endl;    //set to 1920 x 1200 to see display
 
 	
 	//printf("print work  ");
@@ -719,7 +720,9 @@ void Level1::HandleMouse(int type, int x, int y)
 
 
 void Level1::refreshInventoryPic() {
-	for (int i = 0; i < 8; i++) { if (i >= GameInstance::GetInstance()->inventory.size()) { inventoryL[i]->SetTexture("../Resource/Texture/invisible.png"); } else { inventoryL[i]->SetTexture(GameInstance::GetInstance()->inventory[i].fileName); } }
+	for (int i = 0; i < 8; i++) {
+		if (i >= GameInstance::GetInstance()->inventory.size()) { /*inventoryL[i]->SetTexture("../Resource/Texture/invisible.png");*/ inventoryL[i]->ChangeTextures(0);
+	} else { inventoryL[i]->SetTexture(GameInstance::GetInstance()->inventory[i].fileName); } }
 }
 void Level1::createInventory() {
 	//inventory display stuff
@@ -749,6 +752,7 @@ void Level1::createInventory() {
 		inventoryBox[i]->SetSize(230.0f, -230.0f);
 		inventoryBox[i]->SetPosition(glm::vec3(250.0f + (200.0f * i), 100.0f, 0.0f));
 		inventoryBox[i]->SetTexture("../Resource/Texture/Normal_Inventoryslot.png");
+		inventoryBox[i]->AddTextures("../Resource/Texture/Active_InventorySlot.png");
 		uiList.push_back(inventoryBox[i]);
 	}
 }
@@ -756,7 +760,8 @@ void Level1::inventoryLogic() {
 	for (int i = 0; i < GameInstance::GetInstance()->inventory.size(); i++) {
 		if (inventoryL[i]->Interacted == true) {
 			holdedItemIndex = i;
-			inventoryBox[holdedItemIndex]->SetTexture("../Resource/Texture/Active_InventorySlot.png");
+			inventoryBox[i]->ChangeTextures(1);
+			inventoryBox[holdedItemIndex]->ChangeTextures(1);
 			uiText->LoadText(GameInstance::GetInstance()->inventory[i].showText, GameInstance::GetInstance()->inventory[i].textColor, GameInstance::GetInstance()->inventory[i].textFontSize);
 			uiText->SetSize(GameInstance::GetInstance()->inventory[i].textSizeX, -(GameInstance::GetInstance()->inventory[i].textSizeY));
 			//nameText->LoadText("Avery", GameInstance::GetInstance()->inventory[i].textColor, 60);
@@ -768,7 +773,8 @@ void Level1::inventoryLogic() {
 	}
 	for (int i = 0; i < GameInstance::GetInstance()->inventory.size(); i++) {
 		if (i!= holdedItemIndex && lastHold[i]==true){
-			inventoryBox[i]->SetTexture("../Resource/Texture/Normal_Inventoryslot.png");
+			//inventoryBox[i]->SetTexture("../Resource/Texture/Normal_Inventoryslot.png");
+			inventoryBox[holdedItemIndex]->ChangeTextures(0);
 			lastHold[i] = false;
 		}
 	}
@@ -872,7 +878,8 @@ void Level1::name(string input) {
 
 void Level1::box(bool open){
 	if(open == true) {
-		dialogueBox->SetTexture("../Resource/Texture/Dialogue_UI.png");
+		//dialogueBox->SetTexture("../Resource/Texture/Dialogue_UI.png");
+		dialogueBox->ChangeTextures(1);
 		if (player->GetX() > 960 && player->GetX() < (mapWidth - 960.0f)) {
 			dialogueBox->SetPosition(glm::vec3(player->GetX(), 540.0f+600, 0.0f));
 		}
@@ -880,7 +887,8 @@ void Level1::box(bool open){
 		else if (player->GetX() >= (mapWidth - 960.0f)) { dialogueBox->SetPosition(glm::vec3((mapWidth - 960.0f), 540.0f + 600, 0.0f)); }
 	}
 	else {
-		dialogueBox->SetTexture("../Resource/Texture/invisible.png");
+		//dialogueBox->SetTexture("../Resource/Texture/invisible.png");
+		dialogueBox->ChangeTextures(0);
 	}
 }
 
@@ -913,12 +921,15 @@ void Level1::picGlow(GameObject* go, bool b) {
 void Level1::createPlayer(int spriteNum){
 	if (spriteNum == 1) {
 		player = new SpriteObject("../Resource/Texture/Characters/Avery_Idle.png", 1, 6);
+		player->AddTextures("../Resource/Texture/Characters/Avery_Walk.png");
 	}
 	else if (spriteNum == 2){
 		player = new SpriteObject("../Resource/Texture/Characters/Player_Gretel_Idle", 1, 6);
+		player->AddTextures("../Resource/Texture/Characters/Player_Gretel_Walk.png");
 	}
 	else if (spriteNum == 3) {
 		player = new SpriteObject("../Resource/Texture/Characters/Player_Hansel_Idle.png", 1, 6);
+		player->AddTextures("../Resource/Texture/Characters/Player_Hansel_Walk.png");
 	}
 	player->SetSize(540.0f * AverySizeRatio, 695.0f * AverySizeRatio);
 	objectsList.push_back(player);
@@ -934,15 +945,7 @@ void Level1::playerMovement(int spriteNum) {
 		if (playerWalkSide != 0) {
 
 			if (pSpriteInt == 0) {
-				if (spriteNum == 1) {
-					player->SetTexture("../Resource/Texture/Characters/Avery_Walk.png");
-				}
-				else if (spriteNum == 2) {
-					player->SetTexture("../Resource/Texture/Characters/Player_Gretel_Walk.png");
-				}
-				else if (spriteNum == 3) {
-					player->SetTexture("../Resource/Texture/Characters/Player_Hansel_Walk.png");
-				}
+				player->ChangeTextures(1);
 				pSpriteInt = 1;
 			}
 			else if (playerWalkSide == 1) {
@@ -968,15 +971,7 @@ void Level1::playerMovement(int spriteNum) {
 			playerStartStandStill = SDL_GetTicks();
 		}
 		else if (pSpriteInt == 1 && SDL_GetTicks() > playerStartStandStill + playerStandStillDelay) {
-			if (spriteNum == 1) {
-				player->SetTexture("../Resource/Texture/Characters/Avery_Idle.png");
-			}
-			else if (spriteNum == 2) {
-				player->SetTexture("../Resource/Texture/Characters/Player_Gretel_Idle.png");
-			}
-			else if (spriteNum == 3) {
-				player->SetTexture("../Resource/Texture/Characters/Player_Hansel_Idle.png");
-			}
+			player->ChangeTextures(0);
 			pSpriteInt = 0;
 		}
 		playerCurrentTime = SDL_GetTicks();

@@ -19,7 +19,7 @@ void Level2Scene2::LevelInit()
 
 	//Require in every level          RIQL		start
 	GameObject* background = new GameObject();
-	background->SetTexture("../Resource/Texture/Inside_H_And_G_House_Morning.jpg");	//need custom
+	background->SetTexture("../Resource/Texture/Inside_house_HG_DAY/Background_.jpg");	//need custom
 	background->SetSize(mapWidth, -1080.0f);//1080 + 200.0f
 	background->SetPosition(glm::vec3(mapWidth / 2, 540.0f, 0.0f));
 	backgroundList.push_back(background);
@@ -27,25 +27,30 @@ void Level2Scene2::LevelInit()
 
 
 
+	GameObject* cabinetPic = new GameObject();
+	cabinetPic->SetTexture("../Resource/Texture/Inside_house_HG_DAY/Cabinet_day.png");	//need custom
+	cabinetPic->SetSize(mapWidth, -1080.0f);//1080 + 200.0f
+	cabinetPic->SetPosition(glm::vec3(mapWidth / 2, 540.0f, 0.0f));
+	objectsList.push_back(cabinetPic);
 
+	GameObject* chair = new GameObject();
+	chair->SetTexture("../Resource/Texture/Inside_house_HG_DAY/Chair_day.png");	//need custom
+	chair->SetSize(mapWidth, -1080.0f);//1080 + 200.0f
+	chair->SetPosition(glm::vec3(mapWidth / 2, 540.0f, 0.0f));
+	objectsList.push_back(chair); //Bedroom_door_day.png
 
+	GameObject* bedRoomDoors = new GameObject();
+	bedRoomDoors->SetTexture("../Resource/Texture/Inside_house_HG_DAY/Bedroom_door_day.png");	//need custom
+	bedRoomDoors->SetSize(mapWidth, -1080.0f);//1080 + 200.0f
+	bedRoomDoors->SetPosition(glm::vec3(mapWidth / 2, 540.0f, 0.0f));
+	objectsList.push_back(bedRoomDoors);
 
+	GameObject* frontDoor = new GameObject();
+	frontDoor->SetTexture("../Resource/Texture/Inside_house_HG_DAY/Door_day.png");	//need custom
+	frontDoor->SetSize(mapWidth, -1080.0f);//1080 + 200.0f
+	frontDoor->SetPosition(glm::vec3(mapWidth / 2, 540.0f, 0.0f));
+	objectsList.push_back(frontDoor);
 
-
-	Gretel = new ButtonObject();
-	Gretel->SetTexture("../Resource/Texture/Gretel.png");
-	Gretel->SetSize(167, -225.0f);
-	Gretel->SetPosition(glm::vec3(1500.0f, 500.0f, 0.0f));
-	objectsList.push_back(Gretel);
-	interactableList.push_back(Gretel);
-
-
-	Hansel = new ButtonObject();
-	Hansel->SetTexture("../Resource/Texture/Hansel.png");
-	Hansel->SetSize(167, -225.0f);
-	Hansel->SetPosition(glm::vec3(100.0f, 500.0f, 0.0f));
-	objectsList.push_back(Hansel);
-	interactableList.push_back(Hansel);
 
 	door = new ButtonObject();
 	door->SetTexture("../Resource/Texture/test.png");
@@ -55,34 +60,49 @@ void Level2Scene2::LevelInit()
 	interactableList.push_back(door);
 
 
+	Gretel = new ButtonObject();
+	Gretel->SetTexture("../Resource/Texture/Gretel.png");
+	Gretel->SetSize(540.0f * AverySizeRatio, 695.0f * AverySizeRatio);
+	Gretel->SetPosition(glm::vec3(1500.0f, 500.0f, 0.0f));
+	objectsList.push_back(Gretel);
+	interactableList.push_back(Gretel);
 
 
-
-
-
-
-
-
-
-
-	// Require in every level          RIQL start		1
 	/*
-	createPlayer();
-	if (GameInstance::GetInstance()->PlayerFrom == PlayerFrom::Left) {		//Require customization start
-		player->SetPosition(glm::vec3(300.0f, Avery_y_Position, 0.0f));
-		GameEngine::GetInstance()->SetDrawArea(0, 1920, 0, 1080);
-	}
-	else if (GameInstance::GetInstance()->PlayerFrom == PlayerFrom::Right) {
-		player->SetPosition(glm::vec3(mapWidth - 300.0f, Avery_y_Position, 0.0f));
-		GameEngine::GetInstance()->SetDrawArea(mapWidth - 1980.0f, mapWidth, 0, 1080);
-	}
-	else { player->SetPosition(glm::vec3(950.0f, Avery_y_Position, 0.0f)); }	//Require customization end
+	Hansel = new ButtonObject();
+	Hansel->SetTexture("../Resource/Texture/Hansel.png");
+	Hansel->SetSize(167, -225.0f);
+	Hansel->SetPosition(glm::vec3(100.0f, 500.0f, 0.0f));
+	objectsList.push_back(Hansel);
+	interactableList.push_back(Hansel);
 	*/
+
 	createPlayer(3);
 	player->SetPosition(glm::vec3(950.0f, Avery_y_Position, 0.0f));
 
 	GameEngine::GetInstance()->SetDrawArea(0, 1920, 0, 1080);
-	// RIQL end			1
+
+
+
+	GameObject* frontGround = new GameObject();
+	frontGround->SetTexture("../Resource/Texture/Inside_house_HG_DAY/FG_day.png");	//need custom
+	frontGround->SetSize(mapWidth, -1080.0f);//1080 + 200.0f
+	frontGround->SetPosition(glm::vec3(mapWidth / 2, 540.0f, 0.0f));
+	objectsList.push_back(frontGround);
+
+
+	/*
+	GameObject* light = new GameObject();
+	light->SetTexture("../Resource/Texture/Inside_house_HG_DAY/Light_day.png");	//need custom
+	light->SetSize(mapWidth, -1080.0f);//1080 + 200.0f
+	light->SetPosition(glm::vec3(mapWidth / 2, 540.0f, 0.0f));
+	objectsList.push_back(light);
+	*/
+
+
+
+
+
 
 
 
@@ -100,6 +120,7 @@ void Level2Scene2::LevelInit()
 	dialogueBox = new GameObject();
 	dialogueBox->SetPosition(glm::vec3(960.0f, 540.0f + 600, 0.0f));
 	dialogueBox->SetTexture("../Resource/Texture/invisible.png");
+	dialogueBox->AddTextures("../Resource/Texture/Dialogue_UI.png");
 	dialogueBox->SetSize(1920.0f * 0.75f, -1080.0f * 0.75f);
 	uiList.push_back(dialogueBox);
 
@@ -250,12 +271,12 @@ void Level2Scene2::HandleMouse(int type, int x, int y)
 				interactableList[i]->Interact();
 			}
 		}
-		
+		/*
 		if (Hansel->Interacted == true) {
 			talk.talking = true;
 			talk.event = "sceneHansel";
 			Hansel->Interacted = false;
-		}
+		}*/
 
 		if (Gretel->Interacted == true) {
 			talk.talking = true;

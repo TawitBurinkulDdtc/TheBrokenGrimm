@@ -20,10 +20,14 @@ public:
 	void SetTexture(string path);
 	virtual void Render(glm::mat4 globalModelTransform);
 
+	void AddTextures(const char* path);
+	void ChangeTextures(int texIndex);
+
 	int renderMode = 1; //book1Pic->renderMode = 2;
 
 	string savePic = " ";
 
+	vector<unsigned int> textures;
 };
 
 

@@ -62,15 +62,15 @@ void Level2Scene4::LevelInit()
 
 	Gretel = new ButtonObject();
 	Gretel->SetTexture("../Resource/Texture/test.png");
-	Gretel->SetSize(167, -225.0f);
-	Gretel->SetPosition(glm::vec3(1500.0f, 500.0f, 0.0f));
+	Gretel->SetSize(540.0f * AverySizeRatio, 695.0f * AverySizeRatio);
+	Gretel->SetPosition(glm::vec3(1500.0f, 350.0f, 0.0f));
 	objectsList.push_back(Gretel);
 	interactableList.push_back(Gretel);
 
 
 	GretelPic = new SpriteObject("../Resource/Texture/Characters/Gretel_Idle.png", 1, 6); 
-	GretelPic->SetSize(-167, 225.0f); //in animation y gotta be +
-	GretelPic->SetPosition(glm::vec3(1500.0f, 500.0f, 0.0f));
+	GretelPic->SetSize(540.0f * AverySizeRatio, 695.0f * AverySizeRatio); //in animation y gotta be +
+	GretelPic->SetPosition(glm::vec3(1500.0f, 350.0f, 0.0f));
 	objectsList.push_back(GretelPic);
 
 
@@ -151,6 +151,7 @@ void Level2Scene4::LevelInit()
 	dialogueBox = new GameObject();
 	dialogueBox->SetPosition(glm::vec3(960.0f, 540.0f + 600, 0.0f));
 	dialogueBox->SetTexture("../Resource/Texture/invisible.png");
+	dialogueBox->AddTextures("../Resource/Texture/Dialogue_UI.png");
 	dialogueBox->SetSize(1920.0f * 0.75f, -1080.0f * 0.75f);
 	uiList.push_back(dialogueBox);
 
