@@ -210,7 +210,7 @@ void Level2Scene4::LevelUpdate()
 				uiText->LoadText("Door lock", dialogueTextColor, 50);
 			}
 			else {
-				GameEngine::GetInstance()->GetStateController()->gameStateNext = GameState::GS_LEVEL2;
+				GameEngine::GetInstance()->GetStateController()->gameStateNext = GameState::GS_LEVEL2Scene5;
 			}
 		}
 		if (uiText->currentText == "Door lock" && player->GetX() < mapWidth - 350) {

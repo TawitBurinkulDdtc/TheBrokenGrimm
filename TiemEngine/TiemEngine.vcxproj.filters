@@ -99,6 +99,9 @@
     <ClCompile Include="Level2Scene4.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Level2Scene5.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CombineObject.h">
@@ -186,6 +189,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Level2Scene4.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Level2Scene5.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
