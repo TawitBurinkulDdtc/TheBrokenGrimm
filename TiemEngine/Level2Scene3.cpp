@@ -54,8 +54,8 @@ void Level2Scene3::LevelInit()
 
 	door = new ButtonObject();
 	door->SetTexture("../Resource/Texture/test.png");
-	door->SetSize(167, -225.0f);
-	door->SetPosition(glm::vec3(300.0f, 500.0f, 0.0f));
+	door->SetSize(367, -525.0f);
+	door->SetPosition(glm::vec3(411.0f, 500.0f, 0.0f));
 	objectsList.push_back(door);
 	interactableList.push_back(door);
 

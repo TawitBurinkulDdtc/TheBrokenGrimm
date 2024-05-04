@@ -43,19 +43,19 @@ void Level2::LevelInit()
 	GretelPic->SetPosition(glm::vec3(1500.0f, 350.0f, 0.0f));
 	objectsList.push_back(GretelPic);
 	
-
-
+	/*
 	Hansel = new ButtonObject();
 	Hansel->SetTexture("../Resource/Texture/Hansel.png");
 	Hansel->SetSize(167, -225.0f);
 	Hansel->SetPosition(glm::vec3(100.0f, 500.0f, 0.0f));
 	objectsList.push_back(Hansel);
 	interactableList.push_back(Hansel);
+	*/
 
 	door = new ButtonObject();
 	door->SetTexture("../Resource/Texture/test.png");
-	door->SetSize(167, -225.0f);
-	door->SetPosition(glm::vec3(300.0f, 500.0f, 0.0f));
+	door->SetSize(367, -525.0f);
+	door->SetPosition(glm::vec3(411.0f, 500.0f, 0.0f));
 	objectsList.push_back(door);
 	interactableList.push_back(door);
 
@@ -245,7 +245,7 @@ void Level2::HandleMouse(int type, int x, int y)
 	}
 
 
-	//cout << "pos: x " << trueX << " y " << y << endl;    //set to 1920 x 1200 to see display
+	cout << "pos: x " << trueX << " y " << y << endl;    //set to 1920 x 1200 to see display
 	//cout <<"p:"<< player->GetX() << endl;
 	//cout << "mw-960:" << (mapWidth - 960.0f) << endl;
 
@@ -261,13 +261,13 @@ void Level2::HandleMouse(int type, int x, int y)
 				interactableList[i]->Interact();
 			}
 		}
-		
+		/*
 		if (Hansel->Interacted == true) {
 			talk.talking = true;
 			talk.event = "sceneHansel";
 			Hansel->Interacted = false;
 		}
-
+		*/
 		if (Gretel->Interacted == true) {
 			talk.talking = true;
 			talk.event = "sceneGretel";
