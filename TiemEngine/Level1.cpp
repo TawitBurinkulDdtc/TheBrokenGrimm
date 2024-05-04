@@ -254,7 +254,7 @@ void Level1::LevelInit()
 
 	dialogueBox = new GameObject();
 	dialogueBox->SetPosition(glm::vec3(960.0f, 540.0f, 0.0f));
-	dialogueBox->SetSize(1920.0f, -1080.0f);
+	dialogueBox->SetSize(1920.0f * 0.75f, -1080.0f * 0.75f);
 	dialogueBox->SetTexture("../Resource/Texture/invisible.png");
 	dialogueBox->AddTextures("../Resource/Texture/Dialogue_UI.png");
 	uiList.push_back(dialogueBox);

@@ -61,12 +61,16 @@ void Level2Scene2::LevelInit()
 
 
 	Gretel = new ButtonObject();
-	Gretel->SetTexture("../Resource/Texture/Gretel.png");
-	Gretel->SetSize(540.0f * AverySizeRatio, 695.0f * AverySizeRatio);
-	Gretel->SetPosition(glm::vec3(1500.0f, 500.0f, 0.0f));
+	Gretel->SetTexture("../Resource/Texture/test.png");
+	Gretel->SetSize(540.0f * AverySizeRatio, -695.0f * AverySizeRatio);
+	Gretel->SetPosition(glm::vec3(1500.0f, 350.0f, 0.0f));
 	objectsList.push_back(Gretel);
 	interactableList.push_back(Gretel);
 
+	GretelPic = new SpriteObject("../Resource/Texture/Characters/Gretel_Idle.png", 1, 6);
+	GretelPic->SetSize(540.0f * AverySizeRatio, 695.0f * AverySizeRatio); //in animation y gotta be +
+	GretelPic->SetPosition(glm::vec3(1500.0f, 350.0f, 0.0f));
+	objectsList.push_back(GretelPic);
 
 	/*
 	Hansel = new ButtonObject();

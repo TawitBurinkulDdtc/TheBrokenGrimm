@@ -62,7 +62,7 @@ void Level2Scene4::LevelInit()
 
 	Gretel = new ButtonObject();
 	Gretel->SetTexture("../Resource/Texture/test.png");
-	Gretel->SetSize(540.0f * AverySizeRatio, 695.0f * AverySizeRatio);
+	Gretel->SetSize(540.0f * AverySizeRatio, -695.0f * AverySizeRatio);
 	Gretel->SetPosition(glm::vec3(1500.0f, 350.0f, 0.0f));
 	objectsList.push_back(Gretel);
 	interactableList.push_back(Gretel);

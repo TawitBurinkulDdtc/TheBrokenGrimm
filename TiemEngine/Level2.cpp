@@ -32,11 +32,17 @@ void Level2::LevelInit()
 
 
 	Gretel = new ButtonObject();
-	Gretel->SetTexture("../Resource/Texture/Gretel.png");
-	Gretel->SetSize(167, -225.0f);
-	Gretel->SetPosition(glm::vec3(1500.0f, 500.0f, 0.0f));
+	Gretel->SetTexture("../Resource/Texture/test.png");
+	Gretel->SetSize(540.0f * AverySizeRatio, -695.0f * AverySizeRatio);
+	Gretel->SetPosition(glm::vec3(1500.0f, 350.0f, 0.0f));
 	objectsList.push_back(Gretel);
 	interactableList.push_back(Gretel);
+	
+	GretelPic = new SpriteObject("../Resource/Texture/Characters/Gretel_Idle.png", 1, 6);
+	GretelPic->SetSize(540.0f * AverySizeRatio, 695.0f * AverySizeRatio); //in animation y gotta be +
+	GretelPic->SetPosition(glm::vec3(1500.0f, 350.0f, 0.0f));
+	objectsList.push_back(GretelPic);
+	
 
 
 	Hansel = new ButtonObject();
@@ -99,7 +105,7 @@ void Level2::LevelInit()
 
 	dialogueBox = new GameObject();
 	dialogueBox->SetPosition(glm::vec3(960.0f, 540.0f+600, 0.0f));
-	dialogueBox->SetTexture("../Resource/Texture/Dialogue_UI.png");
+	dialogueBox->SetTexture("../Resource/Texture/invisible.png");
 	dialogueBox->AddTextures("../Resource/Texture/Dialogue_UI.png");
 	dialogueBox->SetSize(1920.0f * 0.75f, -1080.0f * 0.75f);
 	uiList.push_back(dialogueBox);
@@ -138,9 +144,10 @@ void Level2::LevelInit()
 	excelRec.clear();
 
 	//sceneIntro
+	/*
 	talk.talking = true;
 	talk.event = "sceneIntro";
-
+	*/
 	inventoryOpen();
 }
 
@@ -264,6 +271,7 @@ void Level2::HandleMouse(int type, int x, int y)
 		if (Gretel->Interacted == true) {
 			talk.talking = true;
 			talk.event = "sceneGretel";
+			cout << "Gretel like eatting squeral" << endl;
 			Gretel->Interacted = false; 
 		}
 		if (door->Interacted == true) {
