@@ -79,6 +79,7 @@ void Level2Scene4::LevelInit()
 
 	GameEngine::GetInstance()->SetDrawArea(0, 1920, 0, 1080);
 	//player->renderMode = 2;
+	
 
 	GameObject* frontGround = new GameObject();
 	frontGround->SetTexture("../Resource/Texture/Inside_house_HG_night/Fg_Inside_HG.png");	//need custom
@@ -88,11 +89,12 @@ void Level2Scene4::LevelInit()
 
 	/*
 	GameObject* lighting = new GameObject();
-	lighting->SetTexture("../Resource/Texture/Inside_house_HG_night/Light_Inside_HG.png");	//need custom
+	lighting->SetTexture("../Resource/Texture/Inside_house_HG_night/light2.png");	//need custom
 	lighting->SetSize(mapWidth, -1080.0f);//1080 + 200.0f
 	lighting->SetPosition(glm::vec3(mapWidth / 2, 540.0f, 0.0f));
 	objectsList.push_back(lighting);
 	*/
+	
 
 	Chair = new ButtonObject();
 	Chair->SetTexture("../Resource/Texture/test.png");
@@ -176,7 +178,7 @@ void Level2Scene4::LevelInit()
 
 	//--------------------- walk speed editer----------------------------
 	playerFrameDelay = 1.0f;
-	playerStepPerFrame = 50; //10 real   // 60 debug (60 will have some interact area bug abit)
+	playerStepPerFrame = 10; //10 real   // 60 debug (60 will have some interact area bug abit)
 	//---------------------------------------------------------------------
 
 

@@ -130,7 +130,7 @@ void Level2Scene3::LevelInit()
 
 	//--------------------- walk speed editer----------------------------
 	playerFrameDelay = 1.0f;
-	playerStepPerFrame = 50; //10 real   // 60 debug (60 will have some interact area bug abit)
+	playerStepPerFrame = 10; //10 real   // 60 debug (60 will have some interact area bug abit)
 	//---------------------------------------------------------------------
 
 
