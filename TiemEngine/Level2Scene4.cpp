@@ -88,13 +88,18 @@ void Level2Scene4::LevelInit()
 	frontGround->SetPosition(glm::vec3(mapWidth / 2, 540.0f, 0.0f));
 	objectsList.push_back(frontGround);
 
-	/*
+	
 	GameObject* lighting = new GameObject();
-	lighting->SetTexture("../Resource/Texture/Inside_house_HG_night/light2.png");	//need custom
+	lighting->SetTexture("../Resource/Texture/Inside_house_HG_night/light1.png");	//need custom
 	lighting->SetSize(mapWidth, -1080.0f);//1080 + 200.0f
 	lighting->SetPosition(glm::vec3(mapWidth / 2, 540.0f, 0.0f));
 	objectsList.push_back(lighting);
-	*/
+	
+	GameObject* lighting2 = new GameObject();
+	lighting2->SetTexture("../Resource/Texture/Inside_house_HG_night/light2.png");	//need custom
+	lighting2->SetSize(mapWidth, -1080.0f);//1080 + 200.0f
+	lighting2->SetPosition(glm::vec3(mapWidth / 2, 540.0f, 0.0f));
+	objectsList.push_back(lighting2);
 	
 
 	Chair = new ButtonObject();
