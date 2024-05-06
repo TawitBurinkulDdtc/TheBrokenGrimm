@@ -19,7 +19,7 @@ void Level2Scene4::LevelInit()
 
 	//Require in every level          RIQL		start
 	GameObject* background = new GameObject();
-	background->SetTexture("../Resource/Texture/Inside_house_HG_night/Bg_Inside_HG.png");	//need custom
+	background->SetTexture("../Resource/Texture/Inside_house_HG_night/BG.png");	//need custom
 	background->SetSize(mapWidth, -1080.0f);//1080 + 200.0f
 	background->SetPosition(glm::vec3(mapWidth / 2, 540.0f, 0.0f));
 	backgroundList.push_back(background);
@@ -29,33 +29,34 @@ void Level2Scene4::LevelInit()
 
 
 	chairPic = new GameObject();
-	chairPic->SetTexture("../Resource/Texture/Inside_house_HG_night/Chair1_Inside_HG.png");	//need custom
+	chairPic->SetTexture("../Resource/Texture/Inside_house_HG_night/Chair1.png");	//need custom
 	chairPic->SetSize(mapWidth, -1080.0f);//1080 + 200.0f
 	chairPic->SetPosition(glm::vec3(mapWidth / 2, 540.0f, 0.0f));
 	objectsList.push_back(chairPic);
 
 	chair2Pic = new GameObject();
-	chair2Pic->SetTexture("../Resource/Texture/Inside_house_HG_night/Chair2_Inside_HG.png");	//need custom
+	chair2Pic->SetTexture("../Resource/Texture/Inside_house_HG_night/Chair2.png");	//need custom
 	chair2Pic->SetSize(mapWidth, -1080.0f);//1080 + 200.0f
 	chair2Pic->SetPosition(glm::vec3(mapWidth / 2, 5000.0f, 0.0f));
 	objectsList.push_back(chair2Pic);
 
 
 	cabinetPic = new GameObject();
-	cabinetPic->SetTexture("../Resource/Texture/Inside_house_HG_night/Cabinet_close_Inside_HG.png");	//need custom
+	cabinetPic->SetTexture("../Resource/Texture/Inside_house_HG_night/Carbinet_close.png");	//need custom
 	cabinetPic->SetSize(mapWidth, -1080.0f);//1080 + 200.0f
 	cabinetPic->SetPosition(glm::vec3(mapWidth / 2, 540.0f, 0.0f));
 	objectsList.push_back(cabinetPic);
 
-
+	/*
 	frontDoorPic= new GameObject();
-	frontDoorPic->SetTexture("../Resource/Texture/Inside_house_HG_night/Front_door_Inside_HG.png");	//need custom
+	frontDoorPic->SetTexture("../Resource/Texture/Inside_house_HG_night/main_door.png");	//need custom
 	frontDoorPic->SetSize(mapWidth, -1080.0f);//1080 + 200.0f
 	frontDoorPic->SetPosition(glm::vec3(mapWidth / 2, 540.0f, 0.0f));
 	objectsList.push_back(frontDoorPic);
+	*/
 
 	GameObject* bedRoomDoor = new GameObject();
-	bedRoomDoor->SetTexture("../Resource/Texture/Inside_house_HG_night/Bedroom_door_Inside_HG.png");	//need custom
+	bedRoomDoor->SetTexture("../Resource/Texture/Inside_house_HG_night/Bedroom_door.png");	//need custom
 	bedRoomDoor->SetSize(mapWidth, -1080.0f);//1080 + 200.0f
 	bedRoomDoor->SetPosition(glm::vec3(mapWidth / 2, 540.0f, 0.0f));
 	objectsList.push_back(bedRoomDoor);
@@ -82,7 +83,7 @@ void Level2Scene4::LevelInit()
 	
 
 	GameObject* frontGround = new GameObject();
-	frontGround->SetTexture("../Resource/Texture/Inside_house_HG_night/Fg_Inside_HG.png");	//need custom
+	frontGround->SetTexture("../Resource/Texture/Inside_house_HG_night/FG.png");	//need custom
 	frontGround->SetSize(mapWidth, -1080.0f);//1080 + 200.0f
 	frontGround->SetPosition(glm::vec3(mapWidth / 2, 540.0f, 0.0f));
 	objectsList.push_back(frontGround);
@@ -178,7 +179,7 @@ void Level2Scene4::LevelInit()
 
 	//--------------------- walk speed editer----------------------------
 	playerFrameDelay = 1.0f;
-	playerStepPerFrame = 10; //10 real   // 60 debug (60 will have some interact area bug abit)
+	playerStepPerFrame = 50; //10 real   // 60 debug (60 will have some interact area bug abit)
 	//---------------------------------------------------------------------
 
 
@@ -344,7 +345,7 @@ void Level2Scene4::HandleMouse(int type, int x, int y)
 
 			else if (GameInstance::GetInstance()->LV2chairAtCabinet == true) {
 				getItem("HnGkey", "A key for front door", "../Resource/Texture/Items/Key.png");
-				cabinetPic->SetTexture("../Resource/Texture/Inside_house_HG_night/Cabinet_open_Inside_HG.png");
+				cabinetPic->SetTexture("../Resource/Texture/Inside_house_HG_night/Carbinet_open.png");
 				HnGKey->SetPosition(glm::vec3(0.0f, 5000.0f, 0.0f));
 			}
 			talk.event = "sceneGretel";
@@ -367,7 +368,7 @@ void Level2Scene4::HandleMouse(int type, int x, int y)
 			if (holdedItemIndex >= 0 && holdedItemIndex < GameInstance::GetInstance()->inventory.size()) {
 				if (GameInstance::GetInstance()->inventory[holdedItemIndex].name == "HnGkey") {
 					GameInstance::GetInstance()->LV2frontDoorLock = false;
-					frontDoorPic->SetPosition(glm::vec3(0, 5000.0f, 0.0f));
+					//frontDoorPic->SetPosition(glm::vec3(0, 5000.0f, 0.0f));
 					loseHoldedItem();
 					refreshInventoryPic();
 				}
