@@ -263,7 +263,11 @@ void Level2Scene5::HandleKey(char key)
 	case 'd': if (talk.talking == false) { playerWalkSide = 2; } 
 			break;
 	case 'q': GameEngine::GetInstance()->GetStateController()->gameStateNext = GameState::GS_QUIT; ; break;
-	//case 'r': GameEngine::GetInstance()->GetStateController()->gameStateNext = GameState::GS_RESTART; ; break;
+	
+	case 'r': 
+		GameInstance::GetInstance()->PuzzleCollectPebbleDone = true;
+		GameEngine::GetInstance()->GetStateController()->gameStateNext = GameState::GS_LEVEL2Scene4; 
+		break;
 	}
 }
 
@@ -314,6 +318,7 @@ void Level2Scene5::HandleMouse(int type, int x, int y)
 			Gretel->Interacted = false; 
 		}
 		if (door->Interacted == true) {
+			GameInstance::GetInstance()->PuzzleCollectPebbleDone = true;
 			GameEngine::GetInstance()->GetStateController()->gameStateNext = GameState::GS_LEVEL2Scene2;
 			door->Interacted = false;
 		}

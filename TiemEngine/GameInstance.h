@@ -16,6 +16,7 @@ enum PlayerFrom
 	Middle
 };
 
+
 class GameInstance
 {
 	static GameInstance* instance;
@@ -32,13 +33,16 @@ public:
 	PlayerFrom PlayerFrom = PlayerFrom::Left;
 	int potatoEaten = 0;
 
-	int gameEvent[500] = { 0 };
-
+	int gameTracking = 1;
 
 	GameEventType key1 = NotPick;
 
+
 	bool LV2chairAtCabinet = false;
 	bool LV2frontDoorLock = true;
+	bool PuzzleCollectPebbleDone = false;
 
 	int birdTalking = 0;
 };
+
+//GameInstance::GetInstance()->
