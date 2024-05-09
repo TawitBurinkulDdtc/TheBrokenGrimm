@@ -19,30 +19,13 @@ void Level2Scene6::LevelInit()
 
 
 
-	GameObject* skyBackground = new GameObject();
-	skyBackground->SetTexture("../Resource/Texture/Hansel&Gretel_outside House_Night/Sky_BG.png");	//need custom
-	skyBackground->SetSize(mapWidth, -1080.0f);//1080 + 200.0f
-	skyBackground->SetPosition(glm::vec3(mapWidth / 2, 540.0f, 0.0f));
-	backgroundList.push_back(skyBackground);
 
 
-	GameObject* en = new GameObject();
-	en->SetTexture("../Resource/Texture/Hansel&Gretel_outside House_Night/Entrance_forest.png");	//need custom
-	en->SetSize(mapWidth, -1080.0f);//1080 + 200.0f
-	en->SetPosition(glm::vec3(mapWidth / 2, 540.0f, 0.0f));
-	backgroundList.push_back(en);
 
-	/*
-	GameObject* light = new GameObject();
-	light->SetTexture("../Resource/Texture/Hansel&Gretel_outside House_Night/Light.png");	//need custom
-	light->SetSize(mapWidth, -1080.0f);//1080 + 200.0f
-	light->SetPosition(glm::vec3(mapWidth / 2, 540.0f, 0.0f));
-	backgroundList.push_back(light);
-	*/
 
 	//Require in every level          RIQL		start
 	GameObject* background = new GameObject();
-	background->SetTexture("../Resource/Texture/Hansel&Gretel_outside House_Night/BG.png");	//need custom
+	background->SetTexture("../Resource/Texture/Forrest.jpg");	//need custom
 	background->SetSize(mapWidth, -1080.0f);//1080 + 200.0f
 	background->SetPosition(glm::vec3(mapWidth / 2, 540.0f, 0.0f));
 	backgroundList.push_back(background);
@@ -50,25 +33,7 @@ void Level2Scene6::LevelInit()
 
 	
 
-	GameObject* house1 = new GameObject();
-	house1->SetTexture("../Resource/Texture/Hansel&Gretel_outside House_Night/House.png");	//need custom
-	house1->SetSize(mapWidth, -1080.0f);//1080 + 200.0f
-	house1->SetPosition(glm::vec3(mapWidth / 2, 540.0f, 0.0f));
-	backgroundList.push_back(house1);
-
-	GameObject* doorPic = new GameObject();
-	doorPic->SetTexture("../Resource/Texture/Hansel&Gretel_outside House_Night/Door.png");	//need custom
-	doorPic->SetSize(mapWidth, -1080.0f);//1080 + 200.0f
-	doorPic->SetPosition(glm::vec3(mapWidth / 2, 540.0f, 0.0f));
-	backgroundList.push_back(doorPic);
-
 	
-	door = new ButtonObject();
-	door->SetTexture("../Resource/Texture/test.png");
-	door->SetSize(367, -525.0f);
-	door->SetPosition(glm::vec3(411.0f, 500.0f, 0.0f));
-	objectsList.push_back(door);
-	interactableList.push_back(door);
 
 
 
@@ -94,17 +59,7 @@ void Level2Scene6::LevelInit()
 
 
 
-	GameObject* ml = new GameObject();
-	ml->SetTexture("../Resource/Texture/Hansel&Gretel_outside House_Night/Middle_light.png");	//need custom
-	ml->SetSize(mapWidth, -1080.0f);//1080 + 200.0f
-	ml->SetPosition(glm::vec3(mapWidth / 2, 540.0f, 0.0f));
-	objectsList.push_back(ml);
-
-	GameObject* fg = new GameObject();
-	fg->SetTexture("../Resource/Texture/Hansel&Gretel_outside House_Night/Frontground.png");	//need custom
-	fg->SetSize(mapWidth, -1080.0f);//1080 + 200.0f
-	fg->SetPosition(glm::vec3(mapWidth / 2, 540.0f, 0.0f));
-	objectsList.push_back(fg);
+	
 
 
 	/*
@@ -300,23 +255,14 @@ void Level2Scene6::HandleMouse(int type, int x, int y)
 				interactableList[i]->Interact();
 			}
 		}
-		/*
-		if (Hansel->Interacted == true) {
-			talk.talking = true;
-			talk.event = "sceneHansel";
-			Hansel->Interacted = false;
-		}
-		*/
+		
 		if (Gretel->Interacted == true) {
 			talk.talking = true;
 			talk.event = "sceneGretel";
 			cout << "Gretel like eatting squeral" << endl;
 			Gretel->Interacted = false; 
 		}
-		if (door->Interacted == true) {
-			GameEngine::GetInstance()->GetStateController()->gameStateNext = GameState::GS_LEVEL2Scene2;
-			door->Interacted = false;
-		}
+		
 	}
 
 	if (talk.talking == true) { //do talk

@@ -266,6 +266,7 @@ void Level2Scene5::HandleKey(char key)
 	
 	case 'r': 
 		GameInstance::GetInstance()->PuzzleCollectPebbleDone = true;
+		GameInstance::GetInstance()->PlayerFrom = Right;
 		GameEngine::GetInstance()->GetStateController()->gameStateNext = GameState::GS_LEVEL2Scene4; 
 		break;
 	}

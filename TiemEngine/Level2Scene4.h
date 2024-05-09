@@ -30,6 +30,7 @@ public:
 	ButtonObject* HnGKey;
 	ButtonObject* ChairPlacerArea;
 	ButtonObject* frontDoor;
+	ButtonObject* bedroomDoor;
 	GameObject* GretelPic;
 	GameObject* chairPic;
 	GameObject* cabinetPic;

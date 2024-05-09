@@ -274,7 +274,12 @@ void Level2::HandleMouse(int type, int x, int y)
 			Gretel->Interacted = false; 
 		}
 		if (door->Interacted == true) {
-			GameEngine::GetInstance()->GetStateController()->gameStateNext = GameState::GS_LEVEL2Scene2;
+			if(GameInstance::GetInstance()->PuzzleCollectPebbleDone == false){
+				GameEngine::GetInstance()->GetStateController()->gameStateNext = GameState::GS_LEVEL2Scene2;
+			}
+			else {
+				GameEngine::GetInstance()->GetStateController()->gameStateNext = GameState::GS_LEVEL2Scene6;
+			}
 			door->Interacted = false;
 		}
 	}

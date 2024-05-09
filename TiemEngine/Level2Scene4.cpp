@@ -127,11 +127,21 @@ void Level2Scene4::LevelInit()
 	objectsList.push_back(frontDoor);
 	interactableList.push_back(frontDoor);
 	
+	bedroomDoor = new ButtonObject();
+	bedroomDoor->SetTexture("../Resource/Texture/test.png");
+	bedroomDoor->SetSize(400, -600.0f);
+	bedroomDoor->SetPosition(glm::vec3(870, 450.0f, 0.0f));
+	objectsList.push_back(bedroomDoor);
+	interactableList.push_back(bedroomDoor);
 	
 	if (GameInstance::GetInstance()->LV2frontDoorLock == false) {
 		chairPic->ChangeTextures(1);
 		cabinetPic->ChangeTextures(1);
 		Chair->SetPosition(glm::vec3(0.0f, 5000.0f, 0.0f));
+	}
+	if (GameInstance::GetInstance()->PlayerFrom == Right) {
+		player->SetPosition(glm::vec3(mapWidth-460, Avery_y_Position, 0.0f));
+		GameEngine::GetInstance()->SetDrawArea(mapWidth - 1920, mapWidth, 0, 1080);
 	}
 	
 
@@ -214,7 +224,10 @@ void Level2Scene4::LevelUpdate()
 				setDialoguePosition();
 				uiText->LoadText("Door lock", dialogueTextColor, 50);
 			}
-			else {
+			else if(GameInstance::GetInstance()->PuzzleCollectPebbleDone == true){
+				player->SetPosition(glm::vec3(mapWidth - 250, Avery_y_Position, 0.0f));
+			}
+			else{
 				GameEngine::GetInstance()->GetStateController()->gameStateNext = GameState::GS_LEVEL2Scene5;
 			}
 		}
@@ -380,6 +393,13 @@ void Level2Scene4::HandleMouse(int type, int x, int y)
 			}
 		}
 		
+		if (bedroomDoor->Interacted == true) {
+			if (GameInstance::GetInstance()->PuzzleCollectPebbleDone) {
+				//Cut scene
+				GameEngine::GetInstance()->GetStateController()->gameStateNext = GameState::GS_LEVEL2;
+			}
+		}
+
 	}
 	
 	if (talk.talking == true) { //do talk
