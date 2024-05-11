@@ -89,11 +89,11 @@ void Level2::LevelInit()
 	//create inventory here
 	createInventory();
 
-	dialogueCharacter = new GameObject();			//(char for character)							///////////////
-	dialogueCharacter->SetTexture("../Resource/Texture/invisible.png");
-	dialogueCharacter->SetSize(1980, -1080.0f);//1080 + 200.0f
-	dialogueCharacter->SetPosition(glm::vec3(0, 0, 0));
-	uiList.push_back(dialogueCharacter);
+	screenPic = new GameObject();			//(char for character)							///////////////
+	screenPic->SetTexture("../Resource/Texture/invisible.png");
+	screenPic->SetSize(1980, -1080.0f);//1080 + 200.0f
+	screenPic->SetPosition(glm::vec3(0, 0, 0));
+	uiList.push_back(screenPic);
 	talk.p("../Resource/Texture/invisible.png");
 
 
@@ -323,14 +323,14 @@ void Level2::HandleMouse(int type, int x, int y)
 		}
 
 		setDialoguePosition();
-		dialogueCharacter->SetTexture(talk.pictureFileName);			//SetPosition(glm::vec3(0, 0, 0));
+		screenPic->SetTexture(talk.pictureFileName);			//SetPosition(glm::vec3(0, 0, 0));
 		uiText->LoadText(talk.dialogue, dialogueTextColor, talk.f);
 		nameText->LoadText(talk.name, dialogueTextColor, talk.nf);
 
 	}//do talk
 
-	//talk.dp("give my potato back", "../Resource/Texture/talkingGlobeTest1.png"); uiText->SetSize(700.0f, -100.0f); dialogueCharacter->SetPosition(glm::vec3(player->GetX(), 540.0f, 0.0f));
-	//dialogueCharacter->SetTexture(talk.pictureFileName);			//SetPosition(glm::vec3(0, 0, 0));
+	//talk.dp("give my potato back", "../Resource/Texture/talkingGlobeTest1.png"); uiText->SetSize(700.0f, -100.0f); screenPic->SetPosition(glm::vec3(player->GetX(), 540.0f, 0.0f));
+	//screenPic->SetTexture(talk.pictureFileName);			//SetPosition(glm::vec3(0, 0, 0));
 	//uiText->LoadText(talk.dialogue, whiteText, 100);
 
 
