@@ -27,7 +27,7 @@ public:
 	ButtonObject* Hansel;
 	ButtonObject* Gretel;
 	ButtonObject* Chair;
-	ButtonObject* HnGKey;
+	ButtonObject* Cabinet;
 	ButtonObject* ChairPlacerArea;
 	ButtonObject* frontDoor;
 	ButtonObject* bedroomDoor;
