@@ -268,7 +268,7 @@ void Level1::LevelInit()
 
 	nameText = new TextObject();
 	nameText->LoadText(" ", dialogueTextColor, 100);
-	nameText->SetPosition(glm::vec3(960 - 670, 320.0f, 0.0f));
+	nameText->SetPosition(glm::vec3(960 - 470, 320.0f + 650, 0.0f));
 	nameText->SetSize(500.0f, -100.0f);
 	uiList.push_back(nameText);	
 
@@ -308,8 +308,8 @@ void Level1::LevelUpdate()
 {	
 	if (playerWalkSide != 0) {
 		if (player->GetX() > ((mapWidth / 2) - 600) && GameInstance::GetInstance()->birdTalking == 0 && talk.talking == false) {
-			uiText->LoadText("I am bird    Fix my BOOK", dialogueTextColor, 100);
-			nameText->LoadText("Bird", dialogueTextColor, 100);
+			uiText->LoadText("Hello, Young child.", dialogueTextColor, 40);
+			nameText->LoadText("Graf", dialogueTextColor, 80);
 			bird->SetPosition(glm::vec3(mapWidth / 2, 700.0f, 0.0f));
 			birdAnim->SetPosition(glm::vec3(mapWidth / 2, 700.0f, 0.0f));
 			talk.event = "bird talking first";
@@ -583,15 +583,15 @@ void Level1::HandleMouse(int type, int x, int y)
 		if (talk.event == "bird talking first") {		//SetPosition(glm::vec3(3500.25f, 800.0f, 0.0f));
 			switch (talk.count) {
 			case 1: //excelRecRecording("scene2");
-				talk.nd("Graf", "Hello, Young child."); talk.f = 35; break;
-			case 2: talk.nd("Graf", "My name is Graf, the librarian of this forest."); talk.f = 35; break;//box.(true); in update func
-			//case 2: talk.nd(excelRec[2].name, excelRec[2].dialogue); talk.f = 35; break;
-			case 3: talk.nd("Avery", "B-Bird can talk?! "); talk.f = 35; break;
-			case 4: talk.nd("Graf", "My name is Graf, the librarian of this forest."); talk.f = 35; break;
-			case 5:	talk.nd("Avery", "What "); talk.f = 35;   break;
-			case 6:	talk.d("Sorry but how can I leave this place?"); talk.f = 35;  break;
-			case 7:	talk.d("I'm sorry but I cannot lets you leave"); talk.f = 35;  break;
-			case 8: talk.nd("Avery", "Ok..."); talk.f = 100;  GameInstance::GetInstance()->birdTalking = 1; break;
+				talk.nd("Graf", "Hello, Young child."); talk.f = 40; break;
+			case 2: talk.nd("Graf", "My name is Graf, the librarian of this forest."); talk.f = 40; break;//box.(true); in update func
+			//case 2: talk.nd(excelRec[2].name, excelRec[2].dialogue); talk.f = 40; break;
+			case 3: talk.nd("Avery", "B-Bird can talk?! "); talk.f = 40; break;
+			case 4: talk.nd("Graf", "My name is Graf, the librarian of this forest."); talk.f = 40; break;
+			case 5:	talk.nd("Avery", "What "); talk.f = 40;   break;
+			case 6:	talk.d("Sorry but how can I leave this place?"); talk.f = 40;  break;
+			case 7:	talk.d("I'm sorry but I cannot lets you leave"); talk.f = 40;  break;
+			case 8: talk.nd("Avery", "Ok..."); talk.f = 40;  GameInstance::GetInstance()->birdTalking = 1; break;
 			case 9: talk.event = " "; talk.nd(" ", " "); talk.talking = false; box(false); talk.count = 0;   break;
 			}
 		}
@@ -628,6 +628,11 @@ void Level1::HandleMouse(int type, int x, int y)
 			}
 		}		
 		if (talk.event == "sceneMirror") {			//use swichcase for item and event instead
+
+			switch (talk.count) {
+			case 1:  picGlow(mirrorPic, true); break;
+			case 3:  picGlow(mirrorPic, false); break;
+			}
 			if (talk.count == 1) { excelRecRecording(talk.event); box(true);}
 			if(finishRead == true && excelRec[talk.count - 1].name != "end") {
 				if (excelRec[talk.count-1].name != "\0") {
@@ -695,10 +700,14 @@ void Level1::HandleMouse(int type, int x, int y)
 			}
 		}
 
+
+		talk.f = 40;
+		talk.nf = 100;
+
 		setDialoguePosition();
 		dialogueCharacter->SetTexture(talk.pictureFileName);			//SetPosition(glm::vec3(0, 0, 0));
-		uiText->LoadText(talk.dialogue, dialogueTextColor, talk.f);
-		nameText->LoadText(talk.name, dialogueTextColor, talk.nf);
+		uiText->LoadText(talk.dialogue, dialogueTextColor, 40);
+		nameText->LoadText(talk.name, dialogueTextColor, 80);
 
 	}//do talk
 

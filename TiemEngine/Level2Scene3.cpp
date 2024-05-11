@@ -13,7 +13,7 @@ void Level2Scene3::LevelLoad()
 void Level2Scene3::LevelInit()
 {
 
-
+	GameInstance::GetInstance()->PlayerFrom = Left;
 	mapWidth = 2309.75f;	//Require in every level          RIQL					need custom
 	holdedItemIndex = -1;	//Require in every level          RIQL
 
