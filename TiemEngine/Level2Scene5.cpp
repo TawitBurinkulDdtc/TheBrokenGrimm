@@ -40,6 +40,8 @@ void Level2Scene5::LevelInit()
 	backgroundList.push_back(light);
 	*/
 
+
+
 	//Require in every level          RIQL		start
 	GameObject* background = new GameObject();
 	background->SetTexture("../Resource/Texture/Hansel&Gretel_outside House_Night/BG.png");	//need custom
@@ -61,7 +63,6 @@ void Level2Scene5::LevelInit()
 	doorPic->SetSize(mapWidth, -1080.0f);//1080 + 200.0f
 	doorPic->SetPosition(glm::vec3(mapWidth / 2, 540.0f, 0.0f));
 	backgroundList.push_back(doorPic);
-
 	
 	door = new ButtonObject();
 	door->SetTexture("../Resource/Texture/test.png");
@@ -72,6 +73,33 @@ void Level2Scene5::LevelInit()
 
 
 
+
+	
+	pebblePic[0] = new GameObject();
+	pebblePic[0]->SetTexture("../Resource/Texture/Hansel&Gretel_outside House_Night/Stone_1.png");	//need custom
+	pebblePic[0]->SetSize(mapWidth, -1080.0f);//1080 + 200.0f
+	pebblePic[0]->SetPosition(glm::vec3(mapWidth / 2, 540.0f, 0.0f));
+	objectsList.push_back(pebblePic[0]);
+
+	pebblePic[1] = new GameObject();
+	pebblePic[1]->SetTexture("../Resource/Texture/Hansel&Gretel_outside House_Night/Stone_2.png");	//need custom
+	pebblePic[1]->SetSize(mapWidth, -1080.0f);//1080 + 200.0f
+	pebblePic[1]->SetPosition(glm::vec3(mapWidth / 2, 540.0f, 0.0f));
+	objectsList.push_back(pebblePic[1]);
+
+	pebblePic[2] = new GameObject();
+	pebblePic[2]->SetTexture("../Resource/Texture/Hansel&Gretel_outside House_Night/Stone_3.png");	//need custom
+	pebblePic[2]->SetSize(mapWidth, -1080.0f);//1080 + 200.0f
+	pebblePic[2]->SetPosition(glm::vec3(mapWidth / 2, 540.0f, 0.0f));
+	objectsList.push_back(pebblePic[2]);
+	
+	/*
+	pebblePic1 = new GameObject();
+	pebblePic1->SetTexture("../Resource/Texture/Hansel&Gretel_outside House_Night/Stone_1.png");	//need custom
+	pebblePic1->SetSize(mapWidth, -1080.0f);//1080 + 200.0f
+	pebblePic1->SetPosition(glm::vec3(mapWidth / 2, 540.0f, 0.0f));
+	objectsList.push_back(pebblePic1);
+	*/
 
 	Gretel = new ButtonObject();
 	Gretel->SetTexture("../Resource/Texture/test.png");
@@ -105,6 +133,12 @@ void Level2Scene5::LevelInit()
 	fg->SetSize(mapWidth, -1080.0f);//1080 + 200.0f
 	fg->SetPosition(glm::vec3(mapWidth / 2, 540.0f, 0.0f));
 	objectsList.push_back(fg);
+
+	GameObject* fakeStones = new GameObject();
+	fakeStones->SetTexture("../Resource/Texture/Hansel&Gretel_outside House_Night/fake_stones.png");	//need custom
+	fakeStones->SetSize(mapWidth, -1080.0f);//1080 + 200.0f
+	fakeStones->SetPosition(glm::vec3(mapWidth / 2, 540.0f, 0.0f));
+	objectsList.push_back(fakeStones);
 
 
 	/*
