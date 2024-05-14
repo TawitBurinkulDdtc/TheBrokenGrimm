@@ -106,12 +106,12 @@ void Level2Scene4::LevelInit()
 	objectsList.push_back(Chair);
 	interactableList.push_back(Chair);
 	
-	HnGKey = new ButtonObject();
-	HnGKey->SetTexture("../Resource/Texture/test.png");
-	HnGKey->SetSize(450, -200.0f);
-	HnGKey->SetPosition(glm::vec3(5080.0f, 750.0f, 0.0f));
-	objectsList.push_back(HnGKey);
-	interactableList.push_back(HnGKey);
+	Cabinet = new ButtonObject();
+	Cabinet->SetTexture("../Resource/Texture/test.png");
+	Cabinet->SetSize(450, -200.0f);
+	Cabinet->SetPosition(glm::vec3(5080.0f, 750.0f, 0.0f));
+	objectsList.push_back(Cabinet);
+	interactableList.push_back(Cabinet);
 	
 	ChairPlacerArea = new ButtonObject();
 	ChairPlacerArea->SetTexture("../Resource/Texture/test.png");
@@ -155,11 +155,11 @@ void Level2Scene4::LevelInit()
 	// Require in every level          RIQL start		2
 	//create inventory here
 	createInventory();
-	dialogueCharacter = new GameObject();			//(char for character)							///////////////
-	dialogueCharacter->SetTexture("../Resource/Texture/invisible.png");
-	dialogueCharacter->SetSize(1980, -1080.0f);//1080 + 200.0f
-	dialogueCharacter->SetPosition(glm::vec3(0, 0, 0));
-	uiList.push_back(dialogueCharacter);
+	screenPic = new GameObject();			//(char for character)							///////////////
+	screenPic->SetTexture("../Resource/Texture/invisible.png");
+	screenPic->SetSize(1980, -1080.0f);//1080 + 200.0f
+	screenPic->SetPosition(glm::vec3(0, 0, 0));
+	uiList.push_back(screenPic);
 	talk.p("../Resource/Texture/invisible.png");
 
 
@@ -323,7 +323,7 @@ void Level2Scene4::HandleMouse(int type, int x, int y)
 		trueX = x;
 	}
 
-	cout << trueX << ":"<< y << endl;
+	//cout << trueX << ":"<< y << endl;
 
 
 
@@ -352,19 +352,18 @@ void Level2Scene4::HandleMouse(int type, int x, int y)
 			Chair->Interacted = false;
 		}
 
-		if (HnGKey->Interacted == true) {
+		if (Cabinet->Interacted == true) {
 			if (GameInstance::GetInstance()->LV2chairAtCabinet == false) {
-				//talk.talking = true;
-				//talk.event = "tooHigh";
+				cout << "Cabi to high" << endl;
 			}
 
 			else if (GameInstance::GetInstance()->LV2chairAtCabinet == true) {
 				getItem("HnGkey", "A key for front door", "../Resource/Texture/Items/Key.png");
 				cabinetPic->ChangeTextures(1);
-				HnGKey->SetPosition(glm::vec3(0.0f, 5000.0f, 0.0f));
+				Cabinet->SetPosition(glm::vec3(0.0f, 5000.0f, 0.0f));
 			}
 			talk.event = "sceneGretel";
-			HnGKey->Interacted = false;
+			Cabinet->Interacted = false;
 		} //ChairPlacerArea
 		
 		if (ChairPlacerArea->Interacted == true) {
@@ -390,7 +389,14 @@ void Level2Scene4::HandleMouse(int type, int x, int y)
 					loseHoldedItem();
 					refreshInventoryPic();
 				}
+				else {
+					cout << "door lock" << endl;
+				}
 			}
+			else {
+				cout << "door lock" << endl;
+			}
+			frontDoor->Interacted = false;
 		}
 		
 		if (bedroomDoor->Interacted == true) {
@@ -441,7 +447,7 @@ void Level2Scene4::HandleMouse(int type, int x, int y)
 		}
 
 		setDialoguePosition();
-		dialogueCharacter->SetTexture(talk.pictureFileName);			//SetPosition(glm::vec3(0, 0, 0));
+		screenPic->SetTexture(talk.pictureFileName);			//SetPosition(glm::vec3(0, 0, 0));
 		uiText->LoadText(talk.dialogue, dialogueTextColor, talk.f);
 		nameText->LoadText(talk.name, dialogueTextColor, talk.nf);
 

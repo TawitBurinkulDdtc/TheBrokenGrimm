@@ -40,6 +40,8 @@ void Level2Scene5::LevelInit()
 	backgroundList.push_back(light);
 	*/
 
+
+
 	//Require in every level          RIQL		start
 	GameObject* background = new GameObject();
 	background->SetTexture("../Resource/Texture/Hansel&Gretel_outside House_Night/BG.png");	//need custom
@@ -61,7 +63,6 @@ void Level2Scene5::LevelInit()
 	doorPic->SetSize(mapWidth, -1080.0f);//1080 + 200.0f
 	doorPic->SetPosition(glm::vec3(mapWidth / 2, 540.0f, 0.0f));
 	backgroundList.push_back(doorPic);
-
 	
 	door = new ButtonObject();
 	door->SetTexture("../Resource/Texture/test.png");
@@ -71,6 +72,47 @@ void Level2Scene5::LevelInit()
 	interactableList.push_back(door);
 
 
+
+
+	
+	pebblePic[0] = new GameObject();
+	pebblePic[0]->SetTexture("../Resource/Texture/Hansel&Gretel_outside House_Night/Stone_1.png");	//need custom
+	pebblePic[0]->SetSize(mapWidth, -1080.0f);//1080 + 200.0f
+	pebblePic[0]->SetPosition(glm::vec3(mapWidth / 2, 540.0f, 0.0f));
+	objectsList.push_back(pebblePic[0]);
+
+	pebblePic[1] = new GameObject();
+	pebblePic[1]->SetTexture("../Resource/Texture/Hansel&Gretel_outside House_Night/Stone_2.png");	//need custom
+	pebblePic[1]->SetSize(mapWidth, -1080.0f);//1080 + 200.0f
+	pebblePic[1]->SetPosition(glm::vec3(mapWidth / 2, 540.0f, 0.0f));
+	objectsList.push_back(pebblePic[1]);
+
+	pebblePic[2] = new GameObject();
+	pebblePic[2]->SetTexture("../Resource/Texture/Hansel&Gretel_outside House_Night/Stone_3.png");	//need custom
+	pebblePic[2]->SetSize(mapWidth, -1080.0f);//1080 + 200.0f
+	pebblePic[2]->SetPosition(glm::vec3(mapWidth / 2, 540.0f, 0.0f));
+	objectsList.push_back(pebblePic[2]);
+	
+	pebble[0] = new ButtonObject();
+	pebble[0]->SetTexture("../Resource/Texture/test.png");
+	pebble[0]->SetSize(100.0f, -100.0f);
+	pebble[0]->SetPosition(glm::vec3(1500.0f, 800.0f, 0.0f));
+	objectsList.push_back(pebble[0]);
+	interactableList.push_back(pebble[0]);
+
+	pebble[1] = new ButtonObject();
+	pebble[1]->SetTexture("../Resource/Texture/test.png");
+	pebble[1]->SetSize(100.0f, -100.0f);
+	pebble[1]->SetPosition(glm::vec3(1650.0f, 800.0f, 0.0f));
+	objectsList.push_back(pebble[1]);
+	interactableList.push_back(pebble[1]);
+
+	pebble[2] = new ButtonObject();
+	pebble[2]->SetTexture("../Resource/Texture/test.png");
+	pebble[2]->SetSize(100.0f, -100.0f);
+	pebble[2]->SetPosition(glm::vec3(1800.0f, 800.0f, 0.0f));
+	objectsList.push_back(pebble[2]);
+	interactableList.push_back(pebble[2]);
 
 
 	Gretel = new ButtonObject();
@@ -106,6 +148,12 @@ void Level2Scene5::LevelInit()
 	fg->SetPosition(glm::vec3(mapWidth / 2, 540.0f, 0.0f));
 	objectsList.push_back(fg);
 
+	GameObject* fakeStones = new GameObject();
+	fakeStones->SetTexture("../Resource/Texture/Hansel&Gretel_outside House_Night/fake_stones.png");	//need custom
+	fakeStones->SetSize(mapWidth, -1080.0f);//1080 + 200.0f
+	fakeStones->SetPosition(glm::vec3(mapWidth / 2, 540.0f, 0.0f));
+	objectsList.push_back(fakeStones);
+
 
 	/*
 	GameObject* light = new GameObject();
@@ -134,11 +182,11 @@ void Level2Scene5::LevelInit()
 	//create inventory here
 	createInventory();
 
-	dialogueCharacter = new GameObject();			//(char for character)							///////////////
-	dialogueCharacter->SetTexture("../Resource/Texture/invisible.png");
-	dialogueCharacter->SetSize(1980, -1080.0f);//1080 + 200.0f
-	dialogueCharacter->SetPosition(glm::vec3(0, 0, 0));
-	uiList.push_back(dialogueCharacter);
+	screenPic = new GameObject();			//(char for character)							///////////////
+	screenPic->SetTexture("../Resource/Texture/invisible.png");
+	screenPic->SetSize(1980, -1080.0f);//1080 + 200.0f
+	screenPic->SetPosition(glm::vec3(0, 0, 0));
+	uiList.push_back(screenPic);
 	talk.p("../Resource/Texture/invisible.png");
 
 
@@ -289,7 +337,7 @@ void Level2Scene5::HandleMouse(int type, int x, int y)
 	}
 
 
-	cout << "pos: x " << trueX << " y " << y << endl;    //set to 1920 x 1200 to see display
+	//cout << "pos: x " << trueX << " y " << y << endl;    //set to 1920 x 1200 to see display
 	//cout <<"p:"<< player->GetX() << endl;
 	//cout << "mw-960:" << (mapWidth - 960.0f) << endl;
 
@@ -320,10 +368,46 @@ void Level2Scene5::HandleMouse(int type, int x, int y)
 		}
 		if (door->Interacted == true) {
 			GameInstance::GetInstance()->PuzzleCollectPebbleDone = true;
-			GameEngine::GetInstance()->GetStateController()->gameStateNext = GameState::GS_LEVEL2Scene2;
+			GameEngine::GetInstance()->GetStateController()->gameStateNext = GameState::GS_LEVEL2Scene5p2;
 			door->Interacted = false;
 		}
+
+
+		for (int j = 0; j < 3; j++) {
+			if (pebble[j]->Interacted == true) {
+				bool check = false;
+				for (int i = 0; i < GameInstance::GetInstance()->inventory.size(); i++) {
+					if (GameInstance::GetInstance()->inventory[i].name == "pebble") {
+						GameInstance::GetInstance()->inventory[i].amount= GameInstance::GetInstance()->inventory[i].amount+1;
+						check = true;
+						pebbleAmount = GameInstance::GetInstance()->inventory[i].amount;
+					}
+				}
+				if (check == false) {
+					getItem("pebble","Amount pebbles", "../Resource/Texture/Items/pebble.png");
+					pebbleAmount = 1;
+				}
+				pebble[j]->SetPosition(glm::vec3(0.0f, 5000.0f, 0.0f));
+				pebble[j]->Interacted = false;
+				cout << pebbleAmount << endl;
+			}
+		}
+
+
+
 	}
+
+	/*
+	if (Chair->Interacted == true) {
+		//talk.talking = true;
+		getItem("chair", "I could reach something high with this", "../Resource/Texture/HanselAndGretelBook.png");
+		talk.event = "grabChair";
+		chairPic->SetPosition(glm::vec3(0.0f, 5000.0f, 0.0f));
+		Chair->SetPosition(glm::vec3(0.0f, 5000.0f, 0.0f));
+		Chair->Interacted = false;
+	}
+	*/
+
 
 	if (talk.talking == true) { //do talk
 		talk.count = talk.count + 1;
@@ -364,14 +448,14 @@ void Level2Scene5::HandleMouse(int type, int x, int y)
 		}
 
 		setDialoguePosition();
-		dialogueCharacter->SetTexture(talk.pictureFileName);			//SetPosition(glm::vec3(0, 0, 0));
+		screenPic->SetTexture(talk.pictureFileName);			//SetPosition(glm::vec3(0, 0, 0));
 		uiText->LoadText(talk.dialogue, dialogueTextColor, talk.f);
 		nameText->LoadText(talk.name, dialogueTextColor, talk.nf);
 
 	}//do talk
 
-	//talk.dp("give my potato back", "../Resource/Texture/talkingGlobeTest1.png"); uiText->SetSize(700.0f, -100.0f); dialogueCharacter->SetPosition(glm::vec3(player->GetX(), 540.0f, 0.0f));
-	//dialogueCharacter->SetTexture(talk.pictureFileName);			//SetPosition(glm::vec3(0, 0, 0));
+	//talk.dp("give my potato back", "../Resource/Texture/talkingGlobeTest1.png"); uiText->SetSize(700.0f, -100.0f); screenPic->SetPosition(glm::vec3(player->GetX(), 540.0f, 0.0f));
+	//screenPic->SetTexture(talk.pictureFileName);			//SetPosition(glm::vec3(0, 0, 0));
 	//uiText->LoadText(talk.dialogue, whiteText, 100);
 
 

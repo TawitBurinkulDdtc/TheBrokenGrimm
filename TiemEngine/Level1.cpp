@@ -244,11 +244,11 @@ void Level1::LevelInit()
 	createInventory();
 	//inventoryOpen();
 
-	dialogueCharacter = new GameObject();			//(char for character)							///////////////
-	dialogueCharacter->SetTexture("../Resource/Texture/invisible.png");
-	dialogueCharacter->SetSize(1980, -1080.0f);//1080 + 200.0f
-	dialogueCharacter->SetPosition(glm::vec3(0, 0, 0));
-	uiList.push_back(dialogueCharacter);
+	screenPic = new GameObject();			//(char for character)							///////////////
+	screenPic->SetTexture("../Resource/Texture/invisible.png");
+	screenPic->SetSize(1980, -1080.0f);//1080 + 200.0f
+	screenPic->SetPosition(glm::vec3(0, 0, 0));
+	uiList.push_back(screenPic);
 	talk.p("../Resource/Texture/invisible.png");
 
 
@@ -296,6 +296,12 @@ void Level1::LevelInit()
 	excelRec.clear();
 
 	inventoryOpen();
+
+
+
+	talk.talking = true;
+	talk.event = "start cut scene";
+	screenPic->SetTexture("../Resource/Texture/cutScene/start/c1.png");
 }
 
 
@@ -382,11 +388,11 @@ void Level1::HandleKey(char key)
 		//if (player->GetY() > 360 && talk.talking == false) { player->Translate(glm::vec3(0, -3.0, 0)); }
 		inventoryOpen();
 		break;
-	case 'a': if (talk.talking == false) { playerWalkSide = 1; }
+	case 'a': if (talk.talking == false) {playerWalkSide = 1;}
 		//player->Translate(glm::vec3(-50, 0, 0)); 
 		//GameEngine::GetInstance()->SetDrawArea(player->GetX() - 960, 960 + player->GetX(), 0, 1080);
 		break;
-	case 'd': if (talk.talking == false) { playerWalkSide = 2; }
+	case 'd': if (talk.talking == false) {playerWalkSide = 2;}
 		//player->Translate(glm::vec3(50, 0, 0)); 
 		//GameEngine::GetInstance()->SetDrawArea(player->GetX() - 960, 960 + player->GetX(), 0, 1080); 
 		break;
@@ -570,6 +576,24 @@ void Level1::HandleMouse(int type, int x, int y)
 		talk.count = talk.count + 1;
 		
 
+		if (talk.event == "start cut scene") {
+			switch (talk.count) {
+			case 1: talk.p("../Resource/Texture/cutScene/start/c2.png"); break;
+			case 2: talk.p("../Resource/Texture/cutScene/start/c3.png"); break;
+			case 3: talk.p("../Resource/Texture/cutScene/start/c4.png"); break;
+			case 4: talk.p("../Resource/Texture/cutScene/start/c5.png"); break;
+			case 5: talk.p("../Resource/Texture/cutScene/start/c6.png"); break;
+			case 6: talk.p("../Resource/Texture/cutScene/start/c7.png"); break;
+			case 7: talk.p("../Resource/Texture/cutScene/start/c8.png"); break;
+			case 8: talk.p("../Resource/Texture/cutScene/start/c9.png"); break;
+			case 9: talk.p("../Resource/Texture/cutScene/start/c10.png"); break;
+			case 10: talk.event = " ";  talk.p("../Resource/Texture/invisible.png"); talk.talking = false; talk.count = 0; break;
+			}
+		}
+
+
+
+
 
 		if (talk.event == "not read yet") {
 			switch (talk.count) {
@@ -705,14 +729,14 @@ void Level1::HandleMouse(int type, int x, int y)
 		talk.nf = 100;
 
 		setDialoguePosition();
-		dialogueCharacter->SetTexture(talk.pictureFileName);			//SetPosition(glm::vec3(0, 0, 0));
+		screenPic->SetTexture(talk.pictureFileName);			//SetPosition(glm::vec3(0, 0, 0));
 		uiText->LoadText(talk.dialogue, dialogueTextColor, 40);
 		nameText->LoadText(talk.name, dialogueTextColor, 80);
 
 	}//do talk
 
-	//talk.dp("give my potato back", "../Resource/Texture/talkingGlobeTest1.png"); uiText->SetSize(700.0f, -100.0f); dialogueCharacter->SetPosition(glm::vec3(player->GetX(), 540.0f, 0.0f));
-	//dialogueCharacter->SetTexture(talk.pictureFileName);			//SetPosition(glm::vec3(0, 0, 0));
+	//talk.dp("give my potato back", "../Resource/Texture/talkingGlobeTest1.png"); uiText->SetSize(700.0f, -100.0f); screenPic->SetPosition(glm::vec3(player->GetX(), 540.0f, 0.0f));
+	//screenPic->SetTexture(talk.pictureFileName);			//SetPosition(glm::vec3(0, 0, 0));
 	//uiText->LoadText(talk.dialogue, whiteText, 100);
 
 
@@ -809,14 +833,14 @@ void Level1::inventoryOpen() { //inventoryPosition
 		}
 	}
 	else if (player->GetX() < 960) {
-		dialogueCharacter->SetPosition(glm::vec3(960, 540.0f, 0.0f));
+		screenPic->SetPosition(glm::vec3(960, 540.0f, 0.0f));
 		for (int i = 0; i < 8; i++) {
 			inventoryL[i]->SetPosition(glm::vec3(250.0f + (200 * i), inventoryYPosition, 0.0f));
 			inventoryBox[i]->SetPosition(glm::vec3(250.0f + (200 * i), inventoryYPosition, 0.0f));
 		}
 	}
 	else if (player->GetX() > mapWidth - 960) {
-		dialogueCharacter->SetPosition(glm::vec3(mapWidth - 960, 540.0f, 0.0f));
+		screenPic->SetPosition(glm::vec3(mapWidth - 960, 540.0f, 0.0f));
 		for (int i = 0; i < 8; i++) {
 			inventoryL[i]->SetPosition(glm::vec3((mapWidth-1920) + 250.0f + (200 * i), inventoryYPosition, 0.0f));
 			inventoryBox[i]->SetPosition(glm::vec3((mapWidth - 1920) + 250.0f + (200 * i), inventoryYPosition, 0.0f));
@@ -838,13 +862,13 @@ void Level1::showText(string word, SDL_Color textColor, int fontSize, float size
 
 void Level1::setDialoguePosition(){
 	if (player->GetX() >= 960 && player->GetX() <= mapWidth-960) {
-		dialogueCharacter->SetPosition(glm::vec3(player->GetX(), 540.0f, 0.0f));
+		screenPic->SetPosition(glm::vec3(player->GetX(), 540.0f, 0.0f));
 	}
 	else if (player->GetX() < 960) {
-		dialogueCharacter->SetPosition(glm::vec3(960, 540.0f, 0.0f));
+		screenPic->SetPosition(glm::vec3(960, 540.0f, 0.0f));
 	}
 	else if (player->GetX() > mapWidth - 960) {
-		dialogueCharacter->SetPosition(glm::vec3(mapWidth - 960, 540.0f, 0.0f));
+		screenPic->SetPosition(glm::vec3(mapWidth - 960, 540.0f, 0.0f));
 	}
 }
 

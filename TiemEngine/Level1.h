@@ -83,7 +83,7 @@ public:
 
 	talkClass talk;
 	GameObject* dialogueBox;
-	GameObject* dialogueCharacter;
+	GameObject* screenPic;
 	vector<talkExcelRecord> excelRec;
 	ifstream readExcel; //readExcel.open("Book1.csv");
 	bool finishRead = false;

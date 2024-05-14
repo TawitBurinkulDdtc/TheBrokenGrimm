@@ -11,7 +11,7 @@ class Item
 public:
 	string name= "nothing";
 	string fileName = "../Resource/Texture/invisible.png";
-	int amount = 0;
+	int amount = 1;
 	
 	string type = "holding";  //type:  using:will be use when click,holding:will be hold when click 
 
