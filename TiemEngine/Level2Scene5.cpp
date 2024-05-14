@@ -337,7 +337,7 @@ void Level2Scene5::HandleMouse(int type, int x, int y)
 	}
 
 
-	cout << "pos: x " << trueX << " y " << y << endl;    //set to 1920 x 1200 to see display
+	//cout << "pos: x " << trueX << " y " << y << endl;    //set to 1920 x 1200 to see display
 	//cout <<"p:"<< player->GetX() << endl;
 	//cout << "mw-960:" << (mapWidth - 960.0f) << endl;
 
@@ -371,7 +371,43 @@ void Level2Scene5::HandleMouse(int type, int x, int y)
 			GameEngine::GetInstance()->GetStateController()->gameStateNext = GameState::GS_LEVEL2Scene5p2;
 			door->Interacted = false;
 		}
+
+
+		for (int j = 0; j < 3; j++) {
+			if (pebble[j]->Interacted == true) {
+				bool check = false;
+				for (int i = 0; i < GameInstance::GetInstance()->inventory.size(); i++) {
+					if (GameInstance::GetInstance()->inventory[i].name == "pebble") {
+						GameInstance::GetInstance()->inventory[i].amount= GameInstance::GetInstance()->inventory[i].amount+1;
+						check = true;
+						pebbleAmount = GameInstance::GetInstance()->inventory[i].amount;
+					}
+				}
+				if (check == false) {
+					getItem("pebble","Amount pebbles", "../Resource/Texture/Items/pebble.png");
+					pebbleAmount = 1;
+				}
+				pebble[j]->SetPosition(glm::vec3(0.0f, 5000.0f, 0.0f));
+				pebble[j]->Interacted = false;
+				cout << pebbleAmount << endl;
+			}
+		}
+
+
+
 	}
+
+	/*
+	if (Chair->Interacted == true) {
+		//talk.talking = true;
+		getItem("chair", "I could reach something high with this", "../Resource/Texture/HanselAndGretelBook.png");
+		talk.event = "grabChair";
+		chairPic->SetPosition(glm::vec3(0.0f, 5000.0f, 0.0f));
+		Chair->SetPosition(glm::vec3(0.0f, 5000.0f, 0.0f));
+		Chair->Interacted = false;
+	}
+	*/
+
 
 	if (talk.talking == true) { //do talk
 		talk.count = talk.count + 1;

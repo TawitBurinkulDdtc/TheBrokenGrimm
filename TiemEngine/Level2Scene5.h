@@ -35,5 +35,5 @@ public:
 	GameObject* GretelPic;
 	GameObject* pebblePic[3];
     GameObject* pebblePic1;
-
+	int pebbleAmount = 0;
 };
