@@ -8,6 +8,7 @@
 #include "Level2Scene3.h"
 #include "Level2Scene4.h"
 #include "Level2Scene5.h"
+#include "Level2Scene5p2.h"
 #include "Level2Scene6.h"
 
 
@@ -51,6 +52,9 @@ void GameStateController::LoadLevel()
 			break;
 		case GameState::GS_LEVEL2Scene5:
 			currentLevel = new Level2Scene5();
+			break;
+		case GameState::GS_LEVEL2Scene5p2:
+			currentLevel = new Level2Scene5p2();
 			break;
 		case GameState::GS_LEVEL2Scene6:
 			currentLevel = new Level2Scene6();

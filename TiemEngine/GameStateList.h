@@ -9,6 +9,7 @@ enum GameState
 	GS_LEVEL2Scene3,
 	GS_LEVEL2Scene4,
 	GS_LEVEL2Scene5,
+	GS_LEVEL2Scene5p2,
 	GS_LEVEL2Scene6,
 	GS_LEVEL_test1, 
 	GS_LEVEL_test2,

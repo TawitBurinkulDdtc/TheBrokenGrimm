@@ -40,6 +40,7 @@
     <ClCompile Include="Level2Scene3.cpp" />
     <ClCompile Include="Level2Scene4.cpp" />
     <ClCompile Include="Level2Scene5.cpp" />
+    <ClCompile Include="Level2Scene5p2.cpp" />
     <ClCompile Include="Level2Scene6.cpp" />
     <ClCompile Include="LevelTest.cpp" />
     <ClCompile Include="LevelTestZen.cpp" />
@@ -76,6 +77,7 @@
     <ClInclude Include="Level2Scene3.h" />
     <ClInclude Include="Level2Scene4.h" />
     <ClInclude Include="Level2Scene5.h" />
+    <ClInclude Include="Level2Scene5p2.h" />
     <ClInclude Include="Level2Scene6.h" />
     <ClInclude Include="LevelTest.h" />
     <ClInclude Include="LevelTestZen.h" />
