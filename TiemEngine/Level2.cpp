@@ -134,7 +134,7 @@ void Level2::LevelInit()
 	//---------------------------------------------------------------------
 	//cout << "Init Level" << endl;
 	// RIQL end			2
-	readExcel.open("../Resource/Excel/Level2.csv");
+	readExcel.open("../Resource/Excel/ScriptDialogueBrokenGrimm_HGHouse_Outside.csv");
 	excelRec.clear();
 
 	//sceneIntro
@@ -265,7 +265,7 @@ void Level2::HandleMouse(int type, int x, int y)
 			//talk.event = "sceneGretel";
 			if (GameInstance::GetInstance()->PuzzleCollectPebbleDone == false) {
 				talk.talking = true;
-				talk.event = "sceneGretel";
+				talk.event = "Enter_Story";
 			}
 			else if (GameInstance::GetInstance()->PuzzleCollectPebbleDone == true) {
 				//talk.event = "sceneGretel2";
