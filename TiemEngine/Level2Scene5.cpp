@@ -211,13 +211,13 @@ void Level2Scene5::LevelInit()
 
 	sayPebble = new TextObject();
 	sayPebble->LoadText("Pebbles: ", dialogueTextColor, 100);
-	sayPebble->SetPosition(glm::vec3(960 , 1000, 0.0f));
+	sayPebble->SetPosition(glm::vec3(0 , 5000, 0.0f));
 	sayPebble->SetSize(500.0f, -100.0f);
 	uiList.push_back(sayPebble);
 
 	showAmount = new TextObject();
 	showAmount->LoadText(to_string(pebbleAmount), dialogueTextColor, 100);
-	showAmount->SetPosition(glm::vec3(1200, 1000, 0.0f));
+	showAmount->SetPosition(glm::vec3(0, 5000, 0.0f));
 	showAmount->SetSize(100.0f, -100.0f);
 	uiList.push_back(showAmount);
 
@@ -258,6 +258,8 @@ void Level2Scene5::LevelUpdate()
 {
 	//showAmount->LoadText(to_string(pebbleAmount), dialogueTextColor, 100);
 	if (openAmount == true) {
+		sayPebble->SetPosition(glm::vec3(player->GetX()-300, 1000, 0.0f));
+		showAmount->SetPosition(glm::vec3(player->GetX(), 1000, 0.0f));
 		if (pebbleAmount != lastAmount) {
 			showAmount->LoadText(to_string(pebbleAmount), dialogueTextColor, 100);
 			lastAmount = pebbleAmount;
@@ -324,6 +326,10 @@ void Level2Scene5::HandleKey(char key)
 	case '=':
 		inventoryOpen();
 		openAmount = !openAmount;
+		if (openAmount == false) {
+			showAmount->SetPosition(glm::vec3(0, 1000, 0.0f));
+			showAmount->SetPosition(glm::vec3(0, 5000, 0.0f));
+		}
 		break;
 	case 'a': if (talk.talking == false) { playerWalkSide = 1; }
 			break;
