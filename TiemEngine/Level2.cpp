@@ -34,9 +34,23 @@ void Level2::LevelInit()
 	
 	GretelPic = new SpriteObject("../Resource/Texture/Characters/Gretel_Idle.png", 1, 6);
 	GretelPic->SetSize(540.0f * AverySizeRatio, 695.0f * AverySizeRatio); //in animation y gotta be +
-	GretelPic->SetPosition(glm::vec3(1500.0f, 350.0f, 0.0f));
+	GretelPic->SetPosition(glm::vec3(1700.0f, 350.0f, 0.0f));
 	objectsList.push_back(GretelPic);
 	
+	HanselPic = new SpriteObject("../Resource/Texture/Characters/Hansel_Idle.png", 1, 6);
+	HanselPic->SetSize(540.0f * AverySizeRatio, 695.0f * AverySizeRatio); //in animation y gotta be +
+	HanselPic->SetPosition(glm::vec3(1500.0f, 350.0f, 0.0f));
+	objectsList.push_back(HanselPic);
+
+	
+	//Chipmunk = new SpriteObject("../Resource/Texture/Characters/Squirrel_PlaceholderforAvery.png", 1, 6);
+	Chipmunk = new GameObject();
+	Chipmunk->SetTexture("../Resource/Texture/Squirrel_PlaceholderforAvery.png");
+	Chipmunk->SetSize(540.0f * AverySizeRatio, -695.0f * AverySizeRatio); //in animation y gotta be +
+	Chipmunk->SetPosition(glm::vec3(1000.0f, 450.0f, 0.0f));
+	objectsList.push_back(Chipmunk);
+
+
 	/*
 	Hansel = new ButtonObject();
 	Hansel->SetTexture("../Resource/Texture/Hansel.png");
@@ -78,7 +92,9 @@ void Level2::LevelInit()
 	else { player->SetPosition(glm::vec3(950.0f, Avery_y_Position, 0.0f)); }	//Require customization end
 	*/
 	createPlayer(3);
-	player->SetPosition(glm::vec3(950.0f, Avery_y_Position, 0.0f));
+	player->SetPosition(glm::vec3(950.0f, 5000, 0.0f));
+	//player->SetPosition(glm::vec3(950.0f, Avery_y_Position, 0.0f));
+
 
 	GameEngine::GetInstance()->SetDrawArea(0, 1920, 0, 1080);
 	// RIQL end			1
@@ -143,6 +159,9 @@ void Level2::LevelInit()
 	talk.event = "sceneIntro";
 	*/
 	inventoryOpen();
+
+	talk.event = "Enter_Story";
+	talk.talking = true;
 }
 
 
@@ -312,7 +331,12 @@ void Level2::HandleMouse(int type, int x, int y)
 			}
 		}
 
-
+		if (talk.event == "Enter_Story") {
+			switch (talk.count) {
+			//case 1:    break;
+			case 22: player->SetPosition(glm::vec3(1500.0f, Avery_y_Position, 0.0f)); Chipmunk->SetPosition(glm::vec3(0.0f, 5000.0f, 0.0f));; HanselPic->SetPosition(glm::vec3(0.0f, 5000.0f, 0.0f)); break;
+			}
+		}
 
 
 		if (talk.event == "not read yet") {
