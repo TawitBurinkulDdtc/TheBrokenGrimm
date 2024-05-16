@@ -96,21 +96,21 @@ void Level2Scene5::LevelInit()
 	pebble[0] = new ButtonObject();
 	pebble[0]->SetTexture("../Resource/Texture/test.png");
 	pebble[0]->SetSize(100.0f, -100.0f);
-	pebble[0]->SetPosition(glm::vec3(1500.0f, 800.0f, 0.0f));
+	pebble[0]->SetPosition(glm::vec3(1845.0f, 310.0f, 0.0f));
 	objectsList.push_back(pebble[0]);
 	interactableList.push_back(pebble[0]);
 
 	pebble[1] = new ButtonObject();
 	pebble[1]->SetTexture("../Resource/Texture/test.png");
 	pebble[1]->SetSize(100.0f, -100.0f);
-	pebble[1]->SetPosition(glm::vec3(1650.0f, 800.0f, 0.0f));
+	pebble[1]->SetPosition(glm::vec3(866.0f, 530.0f, 0.0f));
 	objectsList.push_back(pebble[1]);
 	interactableList.push_back(pebble[1]);
 
 	pebble[2] = new ButtonObject();
 	pebble[2]->SetTexture("../Resource/Texture/test.png");
 	pebble[2]->SetSize(100.0f, -100.0f);
-	pebble[2]->SetPosition(glm::vec3(1800.0f, 800.0f, 0.0f));
+	pebble[2]->SetPosition(glm::vec3(623.0f, 153.0f, 0.0f));
 	objectsList.push_back(pebble[2]);
 	interactableList.push_back(pebble[2]);
 
@@ -208,7 +208,8 @@ void Level2Scene5::LevelInit()
 	nameText->SetPosition(glm::vec3(960 - 470, 320.0f +650, 0.0f));
 	nameText->SetSize(500.0f, -100.0f);
 	uiList.push_back(nameText);		//uiText->LoadText(talk.dialogue, dialogueTextColor, talk.f);
-
+	
+	/*
 	sayPebble = new TextObject();
 	sayPebble->LoadText("Pebbles: ", dialogueTextColor, 100);
 	sayPebble->SetPosition(glm::vec3(0 , 5000, 0.0f));
@@ -220,6 +221,7 @@ void Level2Scene5::LevelInit()
 	showAmount->SetPosition(glm::vec3(0, 5000, 0.0f));
 	showAmount->SetSize(100.0f, -100.0f);
 	uiList.push_back(showAmount);
+	*/
 
 	playerWalkTo = player->GetX();
 	playerCurrentTime = 0;
@@ -257,6 +259,7 @@ void Level2Scene5::LevelInit()
 void Level2Scene5::LevelUpdate()
 {
 	//showAmount->LoadText(to_string(pebbleAmount), dialogueTextColor, 100);
+	/*
 	if (openAmount == true) {
 		sayPebble->SetPosition(glm::vec3(player->GetX()-300, 1000, 0.0f));
 		showAmount->SetPosition(glm::vec3(player->GetX(), 1000, 0.0f));
@@ -265,7 +268,7 @@ void Level2Scene5::LevelUpdate()
 			lastAmount = pebbleAmount;
 		}
 	}
-
+	*/
 	if (playerWalkSide != 0) {
 		if (player->GetX() < 250) {
 			player->SetPosition(glm::vec3(250, Avery_y_Position, 0.0f));
@@ -326,10 +329,10 @@ void Level2Scene5::HandleKey(char key)
 	case '=':
 		inventoryOpen();
 		openAmount = !openAmount;
-		if (openAmount == false) {
+		/*if (openAmount == false) {
 			showAmount->SetPosition(glm::vec3(0, 1000, 0.0f));
 			showAmount->SetPosition(glm::vec3(0, 5000, 0.0f));
-		}
+		}*/
 		break;
 	case 'a': if (talk.talking == false) { playerWalkSide = 1; }
 			break;
@@ -362,7 +365,7 @@ void Level2Scene5::HandleMouse(int type, int x, int y)
 	}
 
 
-	//cout << "pos: x " << trueX << " y " << y << endl;    //set to 1920 x 1200 to see display
+	cout << "pos: x " << trueX << " y " << y << endl;    //set to 1920 x 1200 to see display
 	//cout <<"p:"<< player->GetX() << endl;
 	//cout << "mw-960:" << (mapWidth - 960.0f) << endl;
 
@@ -397,7 +400,7 @@ void Level2Scene5::HandleMouse(int type, int x, int y)
 			door->Interacted = false;
 		}
 
-
+		/*
 		for (int j = 0; j < 3; j++) {
 			if (pebble[j]->Interacted == true) {
 				bool check = false;
@@ -417,7 +420,15 @@ void Level2Scene5::HandleMouse(int type, int x, int y)
 				cout << pebbleAmount << endl;
 			}
 		}
-
+		*/
+		for (int j = 0; j < 3; j++) {
+			if (pebble[j]->Interacted == true) {
+				getItem("pebble", "Pebbles for our plan", "../Resource/Texture/Items/pebble.png");
+				pebble[j]->SetPosition(glm::vec3(0.0f, 5000.0f, 0.0f));
+				pebblePic[j]->SetPosition(glm::vec3(0,5000, 0.0f));
+				pebble[j]->Interacted = false;
+			}
+		}
 
 
 	}
