@@ -28,19 +28,36 @@ void Level2Scene5p2::LevelInit()
 
 	
 
-	
+	//Gretel
 
-	Gretel = new ButtonObject();
-	Gretel->SetTexture("../Resource/Texture/test.png");
-	Gretel->SetSize(540.0f * AverySizeRatio, -695.0f * AverySizeRatio);
-	Gretel->SetPosition(glm::vec3(1500.0f, 350.0f, 0.0f));
-	objectsList.push_back(Gretel);
-	interactableList.push_back(Gretel);
+	Spider = new ButtonObject();
+	Spider->SetTexture("../Resource/Texture/test.png");
+	Spider->SetSize(540.0f * AverySizeRatio, -695.0f * AverySizeRatio);
+	Spider->SetPosition(glm::vec3(1500.0f, 350.0f, 0.0f));
+	objectsList.push_back(Spider);
+	interactableList.push_back(Spider);
+
+	pebble = new ButtonObject();
+	pebble->SetTexture("../Resource/Texture/test.png");
+	pebble->SetSize(540.0f * AverySizeRatio, -695.0f * AverySizeRatio);
+	pebble->SetPosition(glm::vec3(1500.0f, 350.0f, 0.0f));
+	objectsList.push_back(pebble);
+	interactableList.push_back(pebble);
+
+
+	insect = new ButtonObject();
+	insect->SetTexture("../Resource/Texture/test.png");
+	insect->SetSize(200,-100);
+	insect->SetPosition(glm::vec3(3000.0f, 350.0f, 0.0f));
+	objectsList.push_back(insect);
+	interactableList.push_back(insect);
 	
-	GretelPic = new SpriteObject("../Resource/Texture/Characters/Gretel_Idle.png", 1, 6);
-	GretelPic->SetSize(540.0f * AverySizeRatio, 695.0f * AverySizeRatio); //in animation y gotta be +
-	GretelPic->SetPosition(glm::vec3(1500.0f, 350.0f, 0.0f));
-	objectsList.push_back(GretelPic);
+	//SpiderPic = new SpriteObject("../Resource/Texture/Characters/Spider_PlaceHolder.png", 1, 6);
+	SpiderPic = new GameObject();
+	SpiderPic->SetTexture("../Resource/Texture/Spider_PlaceHolder.png");
+	SpiderPic->SetSize(540.0f * AverySizeRatio, -695.0f * AverySizeRatio); //in animation y gotta be +
+	SpiderPic->SetPosition(glm::vec3(1500.0f, 350.0f, 0.0f));
+	objectsList.push_back(SpiderPic);
 	
 
 
@@ -205,7 +222,8 @@ void Level2Scene5p2::HandleKey(char key)
 void Level2Scene5p2::HandleMouse(int type, int x, int y)
 {
 
-
+	uiText->LoadText(" ", dialogueTextColor, 30.0f);
+	nameText->LoadText(" ", dialogueTextColor, 30.0f);
 
 	float trueX = x;
 	if (player->GetX() > 960 && player->GetX() < (mapWidth - 960.0f)) {
@@ -236,11 +254,19 @@ void Level2Scene5p2::HandleMouse(int type, int x, int y)
 			}
 		}
 		
-		if (Gretel->Interacted == true) {
-			talk.talking = true;
-			talk.event = "sceneGretel";
-			cout << "Gretel like eatting squeral" << endl;
-			Gretel->Interacted = false; 
+		if (Spider->Interacted == true) {
+			if (holdedItemIndex >= 0 && holdedItemIndex < GameInstance::GetInstance()->inventory.size()) {
+				if (GameInstance::GetInstance()->inventory[holdedItemIndex].name == "insect") {
+					loseHoldedItem();
+					getItem("pebble", "Pebbles for our plan", "../Resource/Texture/Items/pebble.png");
+				}
+			}
+			Spider->Interacted = false; 
+		}
+		if (insect->Interacted == true) {
+			insect->SetPosition(glm::vec3(0.0f, 5000.0f, 0.0f));
+			getItem("insect", "An insect! I name him Kevin", "../Resource/Texture/Items/test.png");
+			insect->Interacted = false;
 		}
 		
 	}

@@ -22,18 +22,12 @@ public:
 	virtual void HandleMouse(int type, int x, int y);
 
 
-	ButtonObject* button1;
-	ButtonObject* button2;
-	ButtonObject* floatyGlobe;
-	ButtonObject* chest1;
-
 	private:
-	ButtonObject* Hansel;
-	ButtonObject* Gretel;
+	ButtonObject* Spider;
 	ButtonObject* door;
-	ButtonObject* pebble[3];
-	GameObject* GretelPic;
-	GameObject* pebblePic[3];
-    GameObject* pebblePic1;
+	ButtonObject* pebble;
+	ButtonObject* insect;
+	GameObject* SpiderPic;
+	
 
 };
