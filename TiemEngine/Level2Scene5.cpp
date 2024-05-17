@@ -67,7 +67,7 @@ void Level2Scene5::LevelInit()
 	door = new ButtonObject();
 	door->SetTexture("../Resource/Texture/test.png");
 	door->SetSize(367, -525.0f);
-	door->SetPosition(glm::vec3(411.0f, 500.0f, 0.0f));
+	door->SetPosition(glm::vec3(1360.0f, 450.0f, 0.0f));
 	objectsList.push_back(door);
 	interactableList.push_back(door);
 
@@ -75,7 +75,7 @@ void Level2Scene5::LevelInit()
 
 	darkPlace = new ButtonObject();
 	darkPlace->SetTexture("../Resource/Texture/test.png");
-	darkPlace->SetSize(367, -525.0f);
+	darkPlace->SetSize(507, -1025.0f);
 	darkPlace->SetPosition(glm::vec3(3918.0f, 743.0f, 0.0f));
 	objectsList.push_back(darkPlace);
 	interactableList.push_back(darkPlace);
@@ -133,13 +133,13 @@ void Level2Scene5::LevelInit()
 	Gretel = new ButtonObject();
 	Gretel->SetTexture("../Resource/Texture/test.png");
 	Gretel->SetSize(540.0f * AverySizeRatio, -695.0f * AverySizeRatio);
-	Gretel->SetPosition(glm::vec3(1500.0f, 350.0f, 0.0f));
+	Gretel->SetPosition(glm::vec3(3000.0f, 350.0f, 0.0f));
 	objectsList.push_back(Gretel);
 	interactableList.push_back(Gretel);
 	
 	GretelPic = new SpriteObject("../Resource/Texture/Characters/Gretel_Idle.png", 1, 6);
 	GretelPic->SetSize(540.0f * AverySizeRatio, 695.0f * AverySizeRatio); //in animation y gotta be +
-	GretelPic->SetPosition(glm::vec3(1500.0f, 350.0f, 0.0f));
+	GretelPic->SetPosition(glm::vec3(3000.0f, 350.0f, 0.0f));
 	objectsList.push_back(GretelPic);
 	
 
@@ -416,8 +416,10 @@ void Level2Scene5::HandleMouse(int type, int x, int y)
 			Gretel->Interacted = false; 
 		}
 		if (door->Interacted == true) {
+			GameInstance::GetInstance()->pebbleAmount = 4;
 			if (GameInstance::GetInstance()->pebbleAmount >=4) {
 				GameInstance::GetInstance()->PuzzleCollectPebbleDone = true;
+				GameInstance::GetInstance()->PlayerFrom = Right;
 				GameEngine::GetInstance()->GetStateController()->gameStateNext = GameState::GS_LEVEL2Scene4;
 			}
 			door->Interacted = false;

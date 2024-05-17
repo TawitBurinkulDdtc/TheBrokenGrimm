@@ -139,17 +139,16 @@ void Level2Scene4::LevelInit()
 		cabinetPic->ChangeTextures(1);
 		Chair->SetPosition(glm::vec3(0.0f, 5000.0f, 0.0f));
 	}
+
 	if (GameInstance::GetInstance()->PlayerFrom == Right) {
 		player->SetPosition(glm::vec3(mapWidth-460, Avery_y_Position, 0.0f));
 		GameEngine::GetInstance()->SetDrawArea(mapWidth - 1920, mapWidth, 0, 1080);
 	}
 	
 
-
-
-
-	
-
+	if (GameInstance::GetInstance()->PuzzleCollectPebbleDone == true) {
+		GameInstance::GetInstance()->inventory.clear();
+	}
 
 
 	// Require in every level          RIQL start		2
@@ -183,6 +182,8 @@ void Level2Scene4::LevelInit()
 	uiList.push_back(nameText);
 
 
+	
+
 	playerWalkTo = player->GetX();
 	playerCurrentTime = 0;
 
@@ -204,6 +205,13 @@ void Level2Scene4::LevelInit()
 	excelRec.clear();
 
 	inventoryOpen();
+
+	
+
+	if (GameInstance::GetInstance()->PuzzleCollectPebbleDone == true) {
+		getItem("pebble", "Pebbles for our plan", "../Resource/Texture/Items/pebbles.png");
+	}
+	
 }
 
 
