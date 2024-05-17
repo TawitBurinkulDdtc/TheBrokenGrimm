@@ -416,7 +416,6 @@ void Level2Scene5::HandleMouse(int type, int x, int y)
 			Gretel->Interacted = false; 
 		}
 		if (door->Interacted == true) {
-			GameInstance::GetInstance()->pebbleAmount = 4;
 			if (GameInstance::GetInstance()->pebbleAmount >=4) {
 				GameInstance::GetInstance()->PuzzleCollectPebbleDone = true;
 				GameInstance::GetInstance()->PlayerFrom = Right;

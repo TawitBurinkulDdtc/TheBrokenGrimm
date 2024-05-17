@@ -189,7 +189,6 @@ void Level2Scene4::LevelInit()
 
 
 
-
 	//--------------------- walk speed editer----------------------------
 	playerFrameDelay = 1.0f;
 	playerStepPerFrame = 50; //10 real   // 60 debug (60 will have some interact area bug abit)
@@ -209,7 +208,7 @@ void Level2Scene4::LevelInit()
 	
 
 	if (GameInstance::GetInstance()->PuzzleCollectPebbleDone == true) {
-		getItem("pebble", "Pebbles for our plan", "../Resource/Texture/Items/pebbles.png");
+		getItem("pebbles", "Pebbles for our plan", "../Resource/Texture/Items/pebbles.png");
 	}
 	
 }

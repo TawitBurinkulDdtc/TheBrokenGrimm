@@ -13,7 +13,7 @@ void Level2Scene6::LevelLoad()
 void Level2Scene6::LevelInit()
 {
 
-	mapWidth = 4779.15f;	//Require in every level          RIQL					need custom
+	mapWidth = 3269.0f;	//Require in every level          RIQL					need custom
 	holdedItemIndex = -1;	//Require in every level          RIQL
 
 
@@ -32,7 +32,11 @@ void Level2Scene6::LevelInit()
 	//Require in every level          RIQL			end
 
 	
-
+	GameObject* pebblesPic = new GameObject();
+	pebblesPic->SetTexture("../Resource/Texture/test.png");	//need custom
+	pebblesPic->SetSize(mapWidth, -1080.0f);//1080 + 200.0f
+	pebblesPic->SetPosition(glm::vec3(0, 5000.0f, 0.0f));
+	objectsList.push_back(pebblesPic);
 	
 
 
@@ -44,6 +48,16 @@ void Level2Scene6::LevelInit()
 	Gretel->SetPosition(glm::vec3(1500.0f, 350.0f, 0.0f));
 	objectsList.push_back(Gretel);
 	interactableList.push_back(Gretel);
+
+
+	//placedPebblesHere
+
+	placedPebblesHere = new ButtonObject();
+	placedPebblesHere->SetTexture("../Resource/Texture/test.png");
+	placedPebblesHere->SetSize(mapWidth, -400);
+	placedPebblesHere->SetPosition(glm::vec3(mapWidth / 2, 150.0f, 0.0f));
+	objectsList.push_back(placedPebblesHere);
+	interactableList.push_back(placedPebblesHere);
 	
 	GretelPic = new SpriteObject("../Resource/Texture/Characters/Gretel_Idle.png", 1, 6);
 	GretelPic->SetSize(540.0f * AverySizeRatio, 695.0f * AverySizeRatio); //in animation y gotta be +
@@ -249,7 +263,6 @@ void Level2Scene6::HandleMouse(int type, int x, int y)
 
 	if (talk.talking == false) {	//no talk
 
-
 		for (int i = 0; i < interactableList.size(); i++) {
 			if (interactableList[i]->GetClick(trueX, y)) {
 				interactableList[i]->Interact();
@@ -261,8 +274,18 @@ void Level2Scene6::HandleMouse(int type, int x, int y)
 			talk.event = "sceneGretel";
 			cout << "Gretel like eatting squeral" << endl;
 			Gretel->Interacted = false; 
+		}//placedPebblesHere
+		if (placedPebblesHere->Interacted == true) {
+			if (holdedItemIndex >= 0 && holdedItemIndex < GameInstance::GetInstance()->inventory.size()) {
+				if (GameInstance::GetInstance()->inventory[holdedItemIndex].name == "pebbles") {
+					//pebblesPic->SetPosition(glm::vec3(mapWidth/2, 540.0f, 0.0f));
+					//talk.talking .event bra bla ba
+					GameEngine::GetInstance()->GetStateController()->gameStateNext = GameState::GS_LEVEL2;
+				}
+			}
+			placedPebblesHere->Interacted = false;
 		}
-		
+
 	}
 
 	if (talk.talking == true) { //do talk
