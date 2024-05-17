@@ -73,6 +73,15 @@ void Level2Scene5::LevelInit()
 
 
 
+	darkPlace = new ButtonObject();
+	darkPlace->SetTexture("../Resource/Texture/test.png");
+	darkPlace->SetSize(367, -525.0f);
+	darkPlace->SetPosition(glm::vec3(3918.0f, 743.0f, 0.0f));
+	objectsList.push_back(darkPlace);
+	interactableList.push_back(darkPlace);
+
+
+
 
 	
 	pebblePic[0] = new GameObject();
@@ -114,6 +123,12 @@ void Level2Scene5::LevelInit()
 	objectsList.push_back(pebble[2]);
 	interactableList.push_back(pebble[2]);
 
+	for (int i = 0; i < 3; i++) {
+		if (GameInstance::GetInstance()->pebbelCollect[i] == true) {
+			pebble[i]->SetPosition(glm::vec3(0.0f, 5000.0f, 0.0f));
+			pebblePic[i]->SetPosition(glm::vec3(0.0f, 5000.0f, 0.0f));
+		}
+	}
 
 	Gretel = new ButtonObject();
 	Gretel->SetTexture("../Resource/Texture/test.png");
@@ -131,7 +146,11 @@ void Level2Scene5::LevelInit()
 
 	createPlayer(3);
 	player->SetPosition(glm::vec3(950.0f, Avery_y_Position, 0.0f));
-
+	GameEngine::GetInstance()->SetDrawArea(0, 1920, 0, 1080);
+	if (GameInstance::GetInstance()->PlayerFrom == PlayerFrom::Middle) {
+		player->SetPosition(glm::vec3(3915.0f, Avery_y_Position, 0.0f));
+		GameEngine::GetInstance()->SetDrawArea(3915-960, 3915+960, 0, 1080);
+	}
 	
 
 
@@ -164,7 +183,7 @@ void Level2Scene5::LevelInit()
 	*/
 
 
-	GameEngine::GetInstance()->SetDrawArea(0, 1920, 0, 1080);
+	
 
 
 
@@ -341,9 +360,9 @@ void Level2Scene5::HandleKey(char key)
 	case 'q': GameEngine::GetInstance()->GetStateController()->gameStateNext = GameState::GS_QUIT; ; break;
 	
 	case 'r': 
-		GameInstance::GetInstance()->PuzzleCollectPebbleDone = true;
-		GameInstance::GetInstance()->PlayerFrom = Right;
-		GameEngine::GetInstance()->GetStateController()->gameStateNext = GameState::GS_LEVEL2Scene4; 
+		//GameInstance::GetInstance()->PuzzleCollectPebbleDone = true;
+		//GameInstance::GetInstance()->PlayerFrom = Right;
+		//GameEngine::GetInstance()->GetStateController()->gameStateNext = GameState::GS_LEVEL2Scene4; 
 		break;
 	}
 }
@@ -390,15 +409,22 @@ void Level2Scene5::HandleMouse(int type, int x, int y)
 		}
 		*/
 		if (Gretel->Interacted == true) {
-			talk.talking = true;
-			talk.event = "sceneGretel";
+			//talk.talking = true;
+			//talk.event = "sceneGretel";
+			cout << GameInstance::GetInstance()->pebbleAmount << endl;
 			cout << "Gretel like eatting squeral" << endl;
 			Gretel->Interacted = false; 
 		}
 		if (door->Interacted == true) {
-			GameInstance::GetInstance()->PuzzleCollectPebbleDone = true;
-			GameEngine::GetInstance()->GetStateController()->gameStateNext = GameState::GS_LEVEL2Scene5p2;
+			if (GameInstance::GetInstance()->pebbleAmount >=4) {
+				GameInstance::GetInstance()->PuzzleCollectPebbleDone = true;
+				GameEngine::GetInstance()->GetStateController()->gameStateNext = GameState::GS_LEVEL2Scene4;
+			}
 			door->Interacted = false;
+		}
+		if (darkPlace->Interacted == true) {
+			GameEngine::GetInstance()->GetStateController()->gameStateNext = GameState::GS_LEVEL2Scene5p2;
+			darkPlace->Interacted = false;
 		}
 
 		/*
@@ -426,7 +452,9 @@ void Level2Scene5::HandleMouse(int type, int x, int y)
 			if (pebble[j]->Interacted == true) {
 				getItem("pebble", "Pebbles for our plan", "../Resource/Texture/Items/pebble.png");
 				pebble[j]->SetPosition(glm::vec3(0.0f, 5000.0f, 0.0f));
+				GameInstance::GetInstance()->pebbleAmount++;
 				pebblePic[j]->SetPosition(glm::vec3(0,5000, 0.0f));
+				GameInstance::GetInstance()->pebbelCollect[j] = true;
 				pebble[j]->Interacted = false;
 			}
 		}
