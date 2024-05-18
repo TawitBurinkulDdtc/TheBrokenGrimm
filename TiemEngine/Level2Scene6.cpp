@@ -280,7 +280,8 @@ void Level2Scene6::HandleMouse(int type, int x, int y)
 				if (GameInstance::GetInstance()->inventory[holdedItemIndex].name == "pebbles") {
 					//pebblesPic->SetPosition(glm::vec3(mapWidth/2, 540.0f, 0.0f));
 					//talk.talking .event bra bla ba
-					GameEngine::GetInstance()->GetStateController()->gameStateNext = GameState::GS_LEVEL2;
+					GameInstance::GetInstance()->usePebbles = true;
+					GameEngine::GetInstance()->GetStateController()->gameStateNext = GameState::GS_LEVEL2Scene3;
 				}
 			}
 			placedPebblesHere->Interacted = false;

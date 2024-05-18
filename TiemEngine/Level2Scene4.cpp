@@ -191,7 +191,7 @@ void Level2Scene4::LevelInit()
 
 	//--------------------- walk speed editer----------------------------
 	playerFrameDelay = 1.0f;
-	playerStepPerFrame = 50; //10 real   // 60 debug (60 will have some interact area bug abit)
+	playerStepPerFrame = 10; //10 real   // 60 debug (60 will have some interact area bug abit)
 	//---------------------------------------------------------------------
 
 
@@ -352,7 +352,7 @@ void Level2Scene4::HandleMouse(int type, int x, int y)
 
 		if (Chair->Interacted == true) {
 			//talk.talking = true;
-			getItem("chair", "I could reach something high with this", "../Resource/Texture/HanselAndGretelBook.png");
+			getItem("chair", "I could reach something high with this", "../Resource/Texture/Items/chair.png");
 			talk.event = "grabChair";
 			chairPic->SetPosition(glm::vec3(0.0f, 5000.0f, 0.0f));
 			Chair->SetPosition(glm::vec3(0.0f, 5000.0f, 0.0f));
@@ -395,6 +395,7 @@ void Level2Scene4::HandleMouse(int type, int x, int y)
 					//frontDoorPic->SetPosition(glm::vec3(0, 5000.0f, 0.0f));
 					loseHoldedItem();
 					refreshInventoryPic();
+					GameEngine::GetInstance()->GetStateController()->gameStateNext = GameState::GS_LEVEL2Scene5;
 				}
 				else {
 					cout << "door lock" << endl;

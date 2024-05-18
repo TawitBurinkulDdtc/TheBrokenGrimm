@@ -44,6 +44,7 @@ public:
 	bool insectCollect = false;
 	int pebbleAmount = 0;
 	bool PuzzleCollectPebbleDone = false;
+	bool usePebbles = false;
 
 	int birdTalking = 0;
 };
