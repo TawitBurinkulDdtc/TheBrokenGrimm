@@ -69,7 +69,8 @@ public:
 	SDL_Color dialogueTextColor = { 255, 255, 255 };
 	SDL_Color whiteText = { 255, 255, 255 };
 	SDL_Color blackText = { 0, 0, 0 };
-
+	TextObject* spaceBar2open;
+	bool closeTextSp = false;
 
 	ItemUi* inventoryL[8];
 	int holdedItemIndex = -1;

@@ -230,6 +230,7 @@ void Level1::LevelInit()
 	else { player->SetPosition(glm::vec3(950.0f, Avery_y_Position, 0.0f)); }	//Require customization end
 	// RIQL end			1
 
+	player->SetSize(-540.0f * AverySizeRatio, 695.0f * AverySizeRatio);
 
 	GameObject* backgroundPillar = new GameObject();
 	backgroundPillar->SetTexture("../Resource/Texture/Level1_Library_Pillar.png");
@@ -271,6 +272,14 @@ void Level1::LevelInit()
 	nameText->SetPosition(glm::vec3(960 - 470, 320.0f + 650, 0.0f));
 	nameText->SetSize(500.0f, -100.0f);
 	uiList.push_back(nameText);	
+
+
+
+	spaceBar2open = new TextObject();
+	spaceBar2open->LoadText(" ", dialogueTextColor, 100);
+	spaceBar2open->SetPosition(glm::vec3(960, 100, 0.0f));
+	spaceBar2open->SetSize(800.0f, -100.0f);
+	uiList.push_back(spaceBar2open);
 
 
 
@@ -333,7 +342,6 @@ void Level1::LevelUpdate()
 	player->UpdateFrame();
 	birdAnim->UpdateFrame();
 
-
 }
 
 //SpriteObject* Girl = new SpriteObject("../Resource/Texture/AveryWalk.png", 1, 6);
@@ -386,7 +394,13 @@ void Level1::HandleKey(char key)
 		break;
 	case '=': 
 		//if (player->GetY() > 360 && talk.talking == false) { player->Translate(glm::vec3(0, -3.0, 0)); }
-		inventoryOpen();
+		if(talk.talking!=true){
+			inventoryOpen();
+			if (closeTextSp == false) {
+				spaceBar2open->LoadText(" ", dialogueTextColor, 100);
+				closeTextSp = true;
+			}
+		}
 		break;
 	case 'a': if (talk.talking == false) {playerWalkSide = 1;}
 		//player->Translate(glm::vec3(-50, 0, 0)); 
@@ -591,7 +605,16 @@ void Level1::HandleMouse(int type, int x, int y)
 			case 7: talk.p("../Resource/Texture/cutScene/start/c8.png"); break;
 			case 8: talk.p("../Resource/Texture/cutScene/start/c9.png"); break;
 			case 9: talk.p("../Resource/Texture/cutScene/start/c10.png"); break;
-			case 10: talk.event = " ";  talk.p("../Resource/Texture/invisible.png"); talk.talking = false; talk.count = 0; break;
+			case 10: talk.p("../Resource/Texture/cutScene/LibStart/c1.png"); break;
+			case 11: talk.p("../Resource/Texture/cutScene/LibStart/c2.png"); break;
+			case 12: talk.p("../Resource/Texture/cutScene/LibStart/c3.png"); break;
+			case 13: talk.p("../Resource/Texture/cutScene/LibStart/c4.png"); break;
+			case 14: talk.p("../Resource/Texture/cutScene/LibStart/c5.png"); break;
+			case 15: talk.p("../Resource/Texture/cutScene/LibStart/c6.png"); break;
+			case 16: talk.p("../Resource/Texture/cutScene/LibStart/c7.png"); break;
+			case 17: talk.p("../Resource/Texture/cutScene/LibStart/c8.png"); break;
+			case 18: talk.p("../Resource/Texture/cutScene/LibStart/c9.png"); break;
+			case 19: talk.event = " ";  talk.p("../Resource/Texture/invisible.png"); talk.talking = false; talk.count = 0; spaceBar2open->LoadText("SPACEBAR TO OPEN INVENTORY", dialogueTextColor, 100); closeTextSp = false; break;
 			}
 		}
 
