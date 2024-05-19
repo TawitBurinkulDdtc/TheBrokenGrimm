@@ -111,6 +111,12 @@
     <ClCompile Include="Level3.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Level3Scene2.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="LevelTemplate.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CombineObject.h">
@@ -210,6 +216,12 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Level3.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Level3Scene2.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="LevelTemplate.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

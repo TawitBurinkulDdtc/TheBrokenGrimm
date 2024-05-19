@@ -961,7 +961,7 @@ void Level1::createPlayer(int spriteNum){
 		player->AddTextures("../Resource/Texture/Characters/Avery_Walk.png");
 	}
 	else if (spriteNum == 2){
-		player = new SpriteObject("../Resource/Texture/Characters/Player_Gretel_Idle", 1, 6);
+		player = new SpriteObject("../Resource/Texture/Characters/Player_Gretel_Idle.png", 1, 6);
 		player->AddTextures("../Resource/Texture/Characters/Player_Gretel_Walk.png");
 	}
 	else if (spriteNum == 3) {

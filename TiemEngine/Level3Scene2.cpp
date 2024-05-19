@@ -1,7 +1,7 @@
-#include "Level3.h"
+#include "Level3Scene2.h"
 #include "SpriteObject.h"
 
-void Level3::LevelLoad()
+void Level3Scene2::LevelLoad()
 {
 	SquareMeshVbo* square = new SquareMeshVbo();
 	square->LoadData();
@@ -10,7 +10,7 @@ void Level3::LevelLoad()
 	//cout << "Load Level" << endl;
 }
 
-void Level3::LevelInit()
+void Level3Scene2::LevelInit()
 {
 
 	mapWidth = 3269.0f;	//Require in every level          RIQL					need custom
@@ -26,56 +26,12 @@ void Level3::LevelInit()
 	//Require in every level          RIQL			end
 
 	
-	GameObject* pebblesPic = new GameObject();
-	pebblesPic->SetTexture("../Resource/Texture/test.png");	//need custom
-	pebblesPic->SetSize(mapWidth, -1080.0f);//1080 + 200.0f
-	pebblesPic->SetPosition(glm::vec3(0, 5000.0f, 0.0f));
-	objectsList.push_back(pebblesPic);
-	
-
-
-
-
-	Hansel = new ButtonObject();
-	Hansel->SetTexture("../Resource/Texture/test.png");
-	Hansel->SetSize(540.0f * AverySizeRatio, -695.0f * AverySizeRatio);
-	Hansel->SetPosition(glm::vec3(1500.0f, 350.0f, 0.0f));
-	objectsList.push_back(Hansel);
-	interactableList.push_back(Hansel);
-
-
-	//placedPebblesHere
-
-	placedPebblesHere = new ButtonObject();
-	placedPebblesHere->SetTexture("../Resource/Texture/test.png");
-	placedPebblesHere->SetSize(mapWidth, -400);
-	placedPebblesHere->SetPosition(glm::vec3(mapWidth / 2, 150.0f, 0.0f));
-	objectsList.push_back(placedPebblesHere);
-	interactableList.push_back(placedPebblesHere);
-	
-	HanselPic = new SpriteObject("../Resource/Texture/Characters/Hansel_Idle.png", 1, 6);
-	HanselPic->SetSize(540.0f * AverySizeRatio, 695.0f * AverySizeRatio); //in animation y gotta be +
-	HanselPic->SetPosition(glm::vec3(1500.0f, 350.0f, 0.0f));
-	objectsList.push_back(HanselPic);
-	
 
 	createPlayer(2);
 	player->SetPosition(glm::vec3(950.0f, Avery_y_Position, 0.0f));
 
 	
 
-
-
-	
-
-
-	/*
-	GameObject* light = new GameObject();
-	light->SetTexture("../Resource/Texture/Hansel&Gretel_outside House_Night/Light.png");	//need custom
-	light->SetSize(mapWidth, -1080.0f);//1080 + 200.0f
-	light->SetPosition(glm::vec3(mapWidth / 2, 540.0f, 0.0f));
-	backgroundList.push_back(light);
-	*/
 	
 
 	GameEngine::GetInstance()->SetDrawArea(0, 1920, 0, 1080);
@@ -139,19 +95,14 @@ void Level3::LevelInit()
 	// ---------------------manage animation stuff-------------------------
 	playerStandStillDelay = 100;
 	//---------------------------------------------------------------------
-	//cout << "Init Level" << endl;
+	
 	// RIQL end			2
 	readExcel.open("../Resource/Excel/Level3.csv");
 	excelRec.clear();
 
-	//sceneIntro
-	/*
-	talk.talking = true;
-	talk.event = "sceneIntro";
-	*/
 	inventoryOpen();
 
-	getItem("Bread", "Bread for our plan", "../Resource/Texture/Items/honey.png");
+	
 }
 
 
@@ -160,7 +111,7 @@ void Level3::LevelInit()
 
 
 
-void Level3::LevelUpdate()
+void Level3Scene2::LevelUpdate()
 {
 	if (playerWalkSide != 0) {
 		if (player->GetX() < 250) {
@@ -177,7 +128,7 @@ void Level3::LevelUpdate()
 //SpriteObject* Girl = new SpriteObject("../Resource/Texture/AveryWalk.png", 1, 6);
 //Girl->SetSize(540.0f * 0.5f, 695.0f * 0.5f);
 
-void Level3::LevelDraw()
+void Level3Scene2::LevelDraw()
 {
 	GameEngine::GetInstance()->Render(backgroundList, true);
 	GameEngine::GetInstance()->Render(playerList, false);
@@ -187,7 +138,7 @@ void Level3::LevelDraw()
 	//cout << "Draw Level" << endl;
 }
 
-void Level3::LevelFree()
+void Level3Scene2::LevelFree()
 {
 	for (DrawableObject* obj : backgroundList) {
 		delete obj;
@@ -208,13 +159,13 @@ void Level3::LevelFree()
 	//cout << "Free Level" << endl;
 }
 
-void Level3::LevelUnload()
+void Level3Scene2::LevelUnload()
 {
 	GameEngine::GetInstance()->ClearMesh();
 	//cout << "Unload Level" << endl;
 }
 
-void Level3::HandleKey(char key)
+void Level3Scene2::HandleKey(char key)
 {
 
 	switch (key)
@@ -231,7 +182,7 @@ void Level3::HandleKey(char key)
 	}
 }
 
-void Level3::HandleMouse(int type, int x, int y)
+void Level3Scene2::HandleMouse(int type, int x, int y)
 {
 
 
@@ -248,11 +199,8 @@ void Level3::HandleMouse(int type, int x, int y)
 	}
 
 
-	cout << "pos: x " << trueX << " y " << y << endl;    //set to 1920 x 1200 to see display
-	//cout <<"p:"<< player->GetX() << endl;
-	//cout << "mw-960:" << (mapWidth - 960.0f) << endl;
-
-	//printf("print work  ");
+	//cout << "pos: x " << trueX << " y " << y << endl;    //set to 1920 x 1200 to see display
+	
 
 	
 
@@ -265,22 +213,14 @@ void Level3::HandleMouse(int type, int x, int y)
 			}
 		}
 		
-		if (Hansel->Interacted == true) {
-			talk.talking = true;
-			talk.event = "sceneHansel";
-			cout << "Hansel like eatting squeral" << endl;
-			Hansel->Interacted = false; 
-		}
-		if (placedPebblesHere->Interacted == true) {
-			if (holdedItemIndex >= 0 && holdedItemIndex < GameInstance::GetInstance()->inventory.size()) {
-				if (GameInstance::GetInstance()->inventory[holdedItemIndex].name == "Bread") {
-					//get to cut scene where bird eat bread crumb.
-				}
-			}
-			placedPebblesHere->Interacted = false;
-		}
+		
 
-	}
+
+		//Logic here
+
+
+
+	}//no talk
 
 	if (talk.talking == true) { //do talk
 		talk.count = talk.count + 1;
@@ -312,13 +252,10 @@ void Level3::HandleMouse(int type, int x, int y)
 
 
 
+		
+		//Special here (switch case stuff)
 
-		if (talk.event == "not read yet") {
-			switch (talk.count) {
-			case 1: talk.nd("Avery", "I want to check this place first before reading"); talk.f = 60;  box(true);  break;
-			case 2: talk.event = " "; talk.nd(" ", " "); talk.talking = false; talk.count = 0; box(false); break;
-			}
-		}
+
 
 		setDialoguePosition();
 		screenPic->SetTexture(talk.pictureFileName);			//SetPosition(glm::vec3(0, 0, 0));
@@ -327,15 +264,9 @@ void Level3::HandleMouse(int type, int x, int y)
 
 	}//do talk
 
-	//talk.dp("give my potato back", "../Resource/Texture/talkingGlobeTest1.png"); uiText->SetSize(700.0f, -100.0f); screenPic->SetPosition(glm::vec3(player->GetX(), 540.0f, 0.0f));
-	//screenPic->SetTexture(talk.pictureFileName);			//SetPosition(glm::vec3(0, 0, 0));
-	//uiText->LoadText(talk.dialogue, whiteText, 100);
 
-
-	//inventory logic
 	inventoryLogic();
 
-	//playerWalkTo = x;
 
 }
 

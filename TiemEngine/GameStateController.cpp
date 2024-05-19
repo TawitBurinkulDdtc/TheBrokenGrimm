@@ -11,6 +11,8 @@
 #include "Level2Scene5p2.h"
 #include "Level2Scene6.h"
 #include "Level3.h"
+#include "Level3Scene2.h"
+#include "LevelTemplate.h"
 
 GameStateController::GameStateController()
 {
@@ -36,7 +38,7 @@ void GameStateController::LoadLevel()
 	switch (gameStateCurr)
 	{
 		case GameState::GS_LEVEL1:
-			currentLevel = new Level3();
+			currentLevel = new Level1();
 			break;
 		case GameState::GS_LEVEL2:
 			currentLevel = new Level2();
@@ -62,6 +64,9 @@ void GameStateController::LoadLevel()
 		case GameState::GS_LEVEL3:
 			currentLevel = new Level3();
 			break;
+		case GameState::GS_LEVEL3Scene2:
+			currentLevel = new Level3Scene2();
+			break;
 		case GameState::GS_LEVEL_test1:
 			currentLevel = new Level();
 			break;
@@ -70,6 +75,9 @@ void GameStateController::LoadLevel()
 			break;
 		case GameState::GS_LEVEL_Zen:				//LVC. Level change testing add by Zen d13m9y2023
 			currentLevel = new LevelTestZen();
+			break;
+		case GameState::GS_LEVELTemplate:
+			currentLevel = new LevelTemplate();
 			break;
 		default:
 			cout << "gGameStateCurr : invalid state!!" << endl;

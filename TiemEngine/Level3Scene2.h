@@ -5,7 +5,7 @@
 #include "ButtonObject.h"
 #include "TextObject.h"
 
-class Level3 : public Level1
+class Level3Scene2 : public Level1
 {
 public:
 
@@ -30,6 +30,5 @@ public:
 	ButtonObject* placedPebblesHere;
 	GameObject* HanselPic;
 	GameObject* pebblesPic;
-	ButtonObject* sticks[5];
 	ButtonObject* stones[5];
 };
