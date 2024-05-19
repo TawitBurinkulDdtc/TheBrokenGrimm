@@ -177,6 +177,7 @@ void Level2Scene6::LevelUpdate()
 	}
 	playerMovement(3); //Require in every level          RIQL
 	player->UpdateFrame();
+	GretelPic->UpdateFrame();
 }
 
 //SpriteObject* Girl = new SpriteObject("../Resource/Texture/AveryWalk.png", 1, 6);

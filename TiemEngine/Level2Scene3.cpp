@@ -168,6 +168,7 @@ void Level2Scene3::LevelUpdate()
 	}
 	playerMovement(3); //Require in every level          RIQL
 	player->UpdateFrame();
+	GretelPic->UpdateFrame();
 }
 
 

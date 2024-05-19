@@ -28,7 +28,7 @@ void Level2::LevelInit()
 	Gretel = new ButtonObject();
 	Gretel->SetTexture("../Resource/Texture/test.png");
 	Gretel->SetSize(540.0f * AverySizeRatio, -695.0f * AverySizeRatio);
-	Gretel->SetPosition(glm::vec3(1500.0f, 350.0f, 0.0f));
+	Gretel->SetPosition(glm::vec3(1700.0f, 350.0f, 0.0f));
 	objectsList.push_back(Gretel);
 	interactableList.push_back(Gretel);
 	
@@ -178,6 +178,7 @@ void Level2::LevelUpdate()
 	}
 	playerMovement(3); //Require in every level          RIQL
 	player->UpdateFrame();
+	GretelPic->UpdateFrame();
 }
 
 //SpriteObject* Girl = new SpriteObject("../Resource/Texture/AveryWalk.png", 1, 6);

@@ -189,6 +189,7 @@ void Level3::LevelUpdate()
 	}
 	playerMovement(3); //Require in every level          RIQL
 	player->UpdateFrame();
+	HanselPic->UpdateFrame();
 }
 
 //SpriteObject* Girl = new SpriteObject("../Resource/Texture/AveryWalk.png", 1, 6);
