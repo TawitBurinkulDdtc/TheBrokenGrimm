@@ -28,7 +28,7 @@ void Level3Scene2::LevelInit()
 	
 
 	createPlayer(2);
-	player->SetPosition(glm::vec3(950.0f, Avery_y_Position, 0.0f));
+	player->SetPosition(glm::vec3(400.0f, Avery_y_Position, 0.0f));
 
 	
 
@@ -115,7 +115,9 @@ void Level3Scene2::LevelUpdate()
 {
 	if (playerWalkSide != 0) {
 		if (player->GetX() < 250) {
-			player->SetPosition(glm::vec3(250, Avery_y_Position, 0.0f));
+			//player->SetPosition(glm::vec3(250, Avery_y_Position, 0.0f));
+			GameInstance::GetInstance()->PlayerFrom = PlayerFrom::Right;
+			GameEngine::GetInstance()->GetStateController()->gameStateNext = GameState::GS_LEVEL3;
 		}
 		else if (player->GetX() > mapWidth - 250) {
 			player->SetPosition(glm::vec3(mapWidth - 250, Avery_y_Position, 0.0f));	//

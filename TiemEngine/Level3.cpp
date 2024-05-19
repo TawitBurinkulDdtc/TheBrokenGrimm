@@ -80,23 +80,20 @@ void Level3::LevelInit()
 	createPlayer(2);
 	player->SetPosition(glm::vec3(950.0f, Avery_y_Position, 0.0f));
 
-	
-
-
-
-	
-
-
-	/*
-	GameObject* light = new GameObject();
-	light->SetTexture("../Resource/Texture/Hansel&Gretel_outside House_Night/Light.png");	//need custom
-	light->SetSize(mapWidth, -1080.0f);//1080 + 200.0f
-	light->SetPosition(glm::vec3(mapWidth / 2, 540.0f, 0.0f));
-	backgroundList.push_back(light);
-	*/
-	
-
 	GameEngine::GetInstance()->SetDrawArea(0, 1920, 0, 1080);
+	
+	if (GameInstance::GetInstance()->PlayerFrom == PlayerFrom::Right) {
+		player->SetPosition(glm::vec3(mapWidth-400, Avery_y_Position, 0.0f));
+		GameEngine::GetInstance()->SetDrawArea(mapWidth-1920, mapWidth, 0, 1080);
+	}
+
+
+	
+
+
+	
+
+	
 
 
 
@@ -185,7 +182,9 @@ void Level3::LevelUpdate()
 			player->SetPosition(glm::vec3(250, Avery_y_Position, 0.0f));
 		}
 		else if (player->GetX() > mapWidth - 250) {
-			player->SetPosition(glm::vec3(mapWidth - 250, Avery_y_Position, 0.0f));	//
+			//player->SetPosition(glm::vec3(mapWidth - 250, Avery_y_Position, 0.0f));	//
+			GameInstance::GetInstance()->PlayerFrom = PlayerFrom::Left;
+			GameEngine::GetInstance()->GetStateController()->gameStateNext = GameState::GS_LEVEL3Scene2;
 		}
 	}
 	playerMovement(3); //Require in every level          RIQL
