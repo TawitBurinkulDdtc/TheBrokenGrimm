@@ -44,6 +44,7 @@
     <ClCompile Include="Level2Scene6.cpp" />
     <ClCompile Include="Level3.cpp" />
     <ClCompile Include="Level3Scene2.cpp" />
+    <ClCompile Include="Level4.cpp" />
     <ClCompile Include="LevelTemplate.cpp" />
     <ClCompile Include="LevelTest.cpp" />
     <ClCompile Include="LevelTestZen.cpp" />
@@ -84,6 +85,7 @@
     <ClInclude Include="Level2Scene6.h" />
     <ClInclude Include="Level3.h" />
     <ClInclude Include="Level3Scene2.h" />
+    <ClInclude Include="Level4.h" />
     <ClInclude Include="LevelTemplate.h" />
     <ClInclude Include="LevelTest.h" />
     <ClInclude Include="LevelTestZen.h" />

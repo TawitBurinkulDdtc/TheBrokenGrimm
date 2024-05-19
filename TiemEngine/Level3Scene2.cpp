@@ -185,7 +185,8 @@ void Level3Scene2::HandleKey(char key)
 void Level3Scene2::HandleMouse(int type, int x, int y)
 {
 
-
+	uiText->LoadText(" ", dialogueTextColor, 30.0f);
+	nameText->LoadText(" ", dialogueTextColor, 30.0f);
 
 	float trueX = x;
 	if (player->GetX() > 960 && player->GetX() < (mapWidth - 960.0f)) {

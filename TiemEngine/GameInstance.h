@@ -46,6 +46,8 @@ public:
 	bool PuzzleCollectPebbleDone = false;
 	bool usePebbles = false;
 
+	int campSiteRequirement = 0;
+
 	int birdTalking = 0;
 };
 
