@@ -1,7 +1,7 @@
-#include "Level2Scene6.h"
+#include "Level3.h"
 #include "SpriteObject.h"
 
-void Level2Scene6::LevelLoad()
+void Level3::LevelLoad()
 {
 	SquareMeshVbo* square = new SquareMeshVbo();
 	square->LoadData();
@@ -10,17 +10,11 @@ void Level2Scene6::LevelLoad()
 	//cout << "Load Level" << endl;
 }
 
-void Level2Scene6::LevelInit()
+void Level3::LevelInit()
 {
 
 	mapWidth = 3269.0f;	//Require in every level          RIQL					need custom
 	holdedItemIndex = -1;	//Require in every level          RIQL
-
-
-
-
-
-
 
 
 	//Require in every level          RIQL		start
@@ -42,15 +36,23 @@ void Level2Scene6::LevelInit()
 
 
 
-	Gretel = new ButtonObject();
-	Gretel->SetTexture("../Resource/Texture/test.png");
-	Gretel->SetSize(540.0f * AverySizeRatio, -695.0f * AverySizeRatio);
-	Gretel->SetPosition(glm::vec3(1500.0f, 350.0f, 0.0f));
-	objectsList.push_back(Gretel);
-	interactableList.push_back(Gretel);
+	Hansel = new ButtonObject();
+	Hansel->SetTexture("../Resource/Texture/test.png");
+	Hansel->SetSize(540.0f * AverySizeRatio, -695.0f * AverySizeRatio);
+	Hansel->SetPosition(glm::vec3(1500.0f, 350.0f, 0.0f));
+	objectsList.push_back(Hansel);
+	interactableList.push_back(Hansel);
 
 
 	//placedPebblesHere
+
+	campsite = new ButtonObject();
+	campsite->SetTexture("../Resource/Texture/test.png");
+	campsite->SetSize(400, -400);
+	campsite->SetPosition(glm::vec3(700, 150.0f, 0.0f));
+	objectsList.push_back(campsite);
+	interactableList.push_back(campsite);
+
 
 	placedPebblesHere = new ButtonObject();
 	placedPebblesHere->SetTexture("../Resource/Texture/test.png");
@@ -58,34 +60,40 @@ void Level2Scene6::LevelInit()
 	placedPebblesHere->SetPosition(glm::vec3(mapWidth / 2, 150.0f, 0.0f));
 	objectsList.push_back(placedPebblesHere);
 	interactableList.push_back(placedPebblesHere);
+
 	
-	GretelPic = new SpriteObject("../Resource/Texture/Characters/Gretel_Idle.png", 1, 6);
-	GretelPic->SetSize(540.0f * AverySizeRatio, 695.0f * AverySizeRatio); //in animation y gotta be +
-	GretelPic->SetPosition(glm::vec3(1500.0f, 350.0f, 0.0f));
-	objectsList.push_back(GretelPic);
+	HanselPic = new SpriteObject("../Resource/Texture/Characters/Hansel_Idle.png", 1, 6);
+	HanselPic->SetSize(540.0f * AverySizeRatio, 695.0f * AverySizeRatio); //in animation y gotta be +
+	HanselPic->SetPosition(glm::vec3(1500.0f, 350.0f, 0.0f));
+	objectsList.push_back(HanselPic);
+	
 	
 
+	sticks[0] = new ButtonObject();
+	sticks[0]->SetTexture("../Resource/Texture/test.png");
+	sticks[0]->SetSize(100.0f, -100.0f);
+	sticks[0]->SetPosition(glm::vec3(1845.0f, 310.0f, 0.0f));
+	objectsList.push_back(sticks[0]);
+	interactableList.push_back(sticks[0]);
 
-	createPlayer(3);
+	
+	createPlayer(2);
 	player->SetPosition(glm::vec3(950.0f, Avery_y_Position, 0.0f));
 
-	
-
-
-
-	
-
-
-	/*
-	GameObject* light = new GameObject();
-	light->SetTexture("../Resource/Texture/Hansel&Gretel_outside House_Night/Light.png");	//need custom
-	light->SetSize(mapWidth, -1080.0f);//1080 + 200.0f
-	light->SetPosition(glm::vec3(mapWidth / 2, 540.0f, 0.0f));
-	backgroundList.push_back(light);
-	*/
-
-
 	GameEngine::GetInstance()->SetDrawArea(0, 1920, 0, 1080);
+	
+	if (GameInstance::GetInstance()->PlayerFrom == PlayerFrom::Right) {
+		player->SetPosition(glm::vec3(mapWidth-400, Avery_y_Position, 0.0f));
+		GameEngine::GetInstance()->SetDrawArea(mapWidth-1920, mapWidth, 0, 1080);
+	}
+
+
+	
+
+
+	
+
+	
 
 
 
@@ -148,7 +156,7 @@ void Level2Scene6::LevelInit()
 	//---------------------------------------------------------------------
 	//cout << "Init Level" << endl;
 	// RIQL end			2
-	readExcel.open("../Resource/Excel/Level2Scene6.csv");
+	readExcel.open("../Resource/Excel/Level3.csv");
 	excelRec.clear();
 
 	//sceneIntro
@@ -157,6 +165,8 @@ void Level2Scene6::LevelInit()
 	talk.event = "sceneIntro";
 	*/
 	inventoryOpen();
+
+	getItem("Bread", "Bread for our plan", "../Resource/Texture/Items/honey.png");
 }
 
 
@@ -165,25 +175,27 @@ void Level2Scene6::LevelInit()
 
 
 
-void Level2Scene6::LevelUpdate()
+void Level3::LevelUpdate()
 {
 	if (playerWalkSide != 0) {
 		if (player->GetX() < 250) {
 			player->SetPosition(glm::vec3(250, Avery_y_Position, 0.0f));
 		}
 		else if (player->GetX() > mapWidth - 250) {
-			player->SetPosition(glm::vec3(mapWidth - 250, Avery_y_Position, 0.0f));	//
+			//player->SetPosition(glm::vec3(mapWidth - 250, Avery_y_Position, 0.0f));	//
+			GameInstance::GetInstance()->PlayerFrom = PlayerFrom::Left;
+			GameEngine::GetInstance()->GetStateController()->gameStateNext = GameState::GS_LEVEL3Scene2;
 		}
 	}
 	playerMovement(3); //Require in every level          RIQL
 	player->UpdateFrame();
-	GretelPic->UpdateFrame();
+	HanselPic->UpdateFrame();
 }
 
 //SpriteObject* Girl = new SpriteObject("../Resource/Texture/AveryWalk.png", 1, 6);
 //Girl->SetSize(540.0f * 0.5f, 695.0f * 0.5f);
 
-void Level2Scene6::LevelDraw()
+void Level3::LevelDraw()
 {
 	GameEngine::GetInstance()->Render(backgroundList, true);
 	GameEngine::GetInstance()->Render(playerList, false);
@@ -193,7 +205,7 @@ void Level2Scene6::LevelDraw()
 	//cout << "Draw Level" << endl;
 }
 
-void Level2Scene6::LevelFree()
+void Level3::LevelFree()
 {
 	for (DrawableObject* obj : backgroundList) {
 		delete obj;
@@ -214,13 +226,13 @@ void Level2Scene6::LevelFree()
 	//cout << "Free Level" << endl;
 }
 
-void Level2Scene6::LevelUnload()
+void Level3::LevelUnload()
 {
 	GameEngine::GetInstance()->ClearMesh();
 	//cout << "Unload Level" << endl;
 }
 
-void Level2Scene6::HandleKey(char key)
+void Level3::HandleKey(char key)
 {
 
 	switch (key)
@@ -237,10 +249,11 @@ void Level2Scene6::HandleKey(char key)
 	}
 }
 
-void Level2Scene6::HandleMouse(int type, int x, int y)
+void Level3::HandleMouse(int type, int x, int y)
 {
 
-
+	uiText->LoadText(" ", dialogueTextColor, 30.0f);
+	nameText->LoadText(" ", dialogueTextColor, 30.0f);
 
 	float trueX = x;
 	if (player->GetX() > 960 && player->GetX() < (mapWidth - 960.0f)) {
@@ -260,6 +273,7 @@ void Level2Scene6::HandleMouse(int type, int x, int y)
 
 	//printf("print work  ");
 
+	
 
 
 	if (talk.talking == false) {	//no talk
@@ -270,22 +284,54 @@ void Level2Scene6::HandleMouse(int type, int x, int y)
 			}
 		}
 		
-		if (Gretel->Interacted == true) {
+		if (Hansel->Interacted == true) {
 			talk.talking = true;
-			talk.event = "sceneGretel";
-			cout << "Gretel like eatting squeral" << endl;
-			Gretel->Interacted = false; 
-		}//placedPebblesHere
+			talk.event = "sceneHansel";
+			cout << "Hansel like eatting squeral" << endl;
+			Hansel->Interacted = false; 
+		}
 		if (placedPebblesHere->Interacted == true) {
 			if (holdedItemIndex >= 0 && holdedItemIndex < GameInstance::GetInstance()->inventory.size()) {
-				if (GameInstance::GetInstance()->inventory[holdedItemIndex].name == "pebbles") {
-					//pebblesPic->SetPosition(glm::vec3(mapWidth/2, 540.0f, 0.0f));
-					//talk.talking .event bra bla ba
-					GameInstance::GetInstance()->usePebbles = true;
-					GameEngine::GetInstance()->GetStateController()->gameStateNext = GameState::GS_LEVEL2Scene3;
+				if (GameInstance::GetInstance()->inventory[holdedItemIndex].name == "Bread") {
+					//get to cut scene where bird eat bread crumb.
 				}
 			}
 			placedPebblesHere->Interacted = false;
+		}
+
+
+		if (campsite->Interacted == true) {
+			if (holdedItemIndex >= 0 && holdedItemIndex < GameInstance::GetInstance()->inventory.size()) {
+				if (GameInstance::GetInstance()->inventory[holdedItemIndex].name == "stick" || GameInstance::GetInstance()->inventory[holdedItemIndex].name == "stone") {
+					loseHoldedItem();
+					refreshInventoryPic();
+					GameInstance::GetInstance()->campSiteRequirement++;
+				}
+				if (GameInstance::GetInstance()->campSiteRequirement >= 8) {
+					//cut scene bla bla bla, change level.
+					//GameEngine::GetInstance()->GetStateController()->gameStateNext = GameState::GS_LEVEL2Scene2;
+				}
+			}
+			campsite->Interacted = false;
+		}
+
+
+		/*for (int j = 0; j < 3; j++) {
+			if (sticks[j]->Interacted == true) {
+				getItem("pebble", "Pebbles for our plan", "../Resource/Texture/Items/pebble.png");
+				sticks[j]->SetPosition(glm::vec3(0.0f, 5000.0f, 0.0f));
+				GameInstance::GetInstance()->pebbleAmount++;
+				//sticksPic[j]->SetPosition(glm::vec3(0, 5000, 0.0f));
+				GameInstance::GetInstance()->pebbelCollect[j] = true;
+				sticks[j]->Interacted = false;
+			}
+		}*/
+
+		if (sticks[0]->Interacted == true) {
+			getItem("stick", "Stick for fire", "../Resource/Texture/Items/pebble.png");
+			GameInstance::GetInstance()->pebbelCollect[0] = true;
+			sticks[0]->SetPosition(glm::vec3(0.0f, 5000.0f, 0.0f));
+			sticks[0]->Interacted = false;
 		}
 
 	}

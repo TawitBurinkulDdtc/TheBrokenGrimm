@@ -5,7 +5,7 @@
 #include "ButtonObject.h"
 #include "TextObject.h"
 
-class Level2Scene5 : public Level1
+class Level4 : public Level1
 {
 public:
 
@@ -22,20 +22,8 @@ public:
 	virtual void HandleMouse(int type, int x, int y);
 
 
+	
 	private:
-	ButtonObject* Hansel;
-	ButtonObject* Gretel;
-	ButtonObject* door;
-	ButtonObject* darkPlace;
-	ButtonObject* pebble[3];
-	GameObject* GretelPic;
-	GameObject* pebblePic[3];
-    GameObject* pebblePic1;
 
 
-	int pebbleAmount = 0;
-	int lastAmount = 0;
-	TextObject* sayPebble;
-	TextObject* showAmount;
-	bool openAmount = false;
 };

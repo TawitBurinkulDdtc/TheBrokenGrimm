@@ -28,7 +28,7 @@ void Level2::LevelInit()
 	Gretel = new ButtonObject();
 	Gretel->SetTexture("../Resource/Texture/test.png");
 	Gretel->SetSize(540.0f * AverySizeRatio, -695.0f * AverySizeRatio);
-	Gretel->SetPosition(glm::vec3(1500.0f, 350.0f, 0.0f));
+	Gretel->SetPosition(glm::vec3(1700.0f, 350.0f, 0.0f));
 	objectsList.push_back(Gretel);
 	interactableList.push_back(Gretel);
 	
@@ -39,7 +39,7 @@ void Level2::LevelInit()
 	
 	HanselPic = new SpriteObject("../Resource/Texture/Characters/Hansel_Idle.png", 1, 6);
 	HanselPic->SetSize(540.0f * AverySizeRatio, 695.0f * AverySizeRatio); //in animation y gotta be +
-	HanselPic->SetPosition(glm::vec3(1500.0f, 350.0f, 0.0f));
+	HanselPic->SetPosition(glm::vec3(0.0f, 5000.0f, 0.0f));
 	objectsList.push_back(HanselPic);
 
 	
@@ -47,18 +47,9 @@ void Level2::LevelInit()
 	Chipmunk = new GameObject();
 	Chipmunk->SetTexture("../Resource/Texture/Squirrel_PlaceholderforAvery.png");
 	Chipmunk->SetSize(540.0f * AverySizeRatio, -695.0f * AverySizeRatio); //in animation y gotta be +
-	Chipmunk->SetPosition(glm::vec3(1000.0f, 450.0f, 0.0f));
+	Chipmunk->SetPosition(glm::vec3(0.0f, 5000.0f, 0.0f));
 	objectsList.push_back(Chipmunk);
 
-
-	/*
-	Hansel = new ButtonObject();
-	Hansel->SetTexture("../Resource/Texture/Hansel.png");
-	Hansel->SetSize(167, -225.0f);
-	Hansel->SetPosition(glm::vec3(100.0f, 500.0f, 0.0f));
-	objectsList.push_back(Hansel);
-	interactableList.push_back(Hansel);
-	*/
 
 	door = new ButtonObject();
 	door->SetTexture("../Resource/Texture/test.png");
@@ -92,8 +83,7 @@ void Level2::LevelInit()
 	else { player->SetPosition(glm::vec3(950.0f, Avery_y_Position, 0.0f)); }	//Require customization end
 	*/
 	createPlayer(3);
-	player->SetPosition(glm::vec3(950.0f, 5000, 0.0f));
-	//player->SetPosition(glm::vec3(950.0f, Avery_y_Position, 0.0f));
+	player->SetPosition(glm::vec3(950.0f, Avery_y_Position, 0.0f));
 
 
 	GameEngine::GetInstance()->SetDrawArea(0, 1920, 0, 1080);
@@ -160,8 +150,14 @@ void Level2::LevelInit()
 	*/
 	inventoryOpen();
 
-	talk.event = "Enter_Story";
-	talk.talking = true;
+	if(GameInstance::GetInstance()->PuzzleCollectPebbleDone == false){
+		player->SetPosition(glm::vec3(950.0f, 5000, 0.0f));
+		Chipmunk->SetPosition(glm::vec3(1000.0f, 450.0f, 0.0f));
+		HanselPic->SetPosition(glm::vec3(1500.0f, 350.0f, 0.0f));
+		box(true);
+		talk.event = "Enter_Story";
+		talk.talking = true;
+	}
 }
 
 
@@ -182,6 +178,7 @@ void Level2::LevelUpdate()
 	}
 	playerMovement(3); //Require in every level          RIQL
 	player->UpdateFrame();
+	GretelPic->UpdateFrame();
 }
 
 //SpriteObject* Girl = new SpriteObject("../Resource/Texture/AveryWalk.png", 1, 6);
@@ -258,7 +255,7 @@ void Level2::HandleMouse(int type, int x, int y)
 	}
 
 
-	cout << "pos: x " << trueX << " y " << y << endl;    //set to 1920 x 1200 to see display
+	//cout << "pos: x " << trueX << " y " << y << endl;    //set to 1920 x 1200 to see display
 	//cout <<"p:"<< player->GetX() << endl;
 	//cout << "mw-960:" << (mapWidth - 960.0f) << endl;
 

@@ -46,9 +46,9 @@ void Level2Scene5p2::LevelInit()
 
 
 	insect = new ButtonObject();
-	insect->SetTexture("../Resource/Texture/test.png");
+	insect->SetTexture("../Resource/Texture/insect_PlaceHolder.png");
 	insect->SetSize(200,-100);
-	insect->SetPosition(glm::vec3(3000.0f, 350.0f, 0.0f));
+	insect->SetPosition(glm::vec3(1000.0f, 350.0f, 0.0f));
 	objectsList.push_back(insect);
 	interactableList.push_back(insect);
 	
@@ -62,7 +62,7 @@ void Level2Scene5p2::LevelInit()
 
 
 	createPlayer(3);
-	player->SetPosition(glm::vec3(950.0f, Avery_y_Position, 0.0f));
+	player->SetPosition(glm::vec3(400.0f, Avery_y_Position, 0.0f));
 
 
 
@@ -147,7 +147,8 @@ void Level2Scene5p2::LevelUpdate()
 {
 	if (playerWalkSide != 0) {
 		if (player->GetX() < 250) {
-			player->SetPosition(glm::vec3(250, Avery_y_Position, 0.0f));
+			GameInstance::GetInstance()->PlayerFrom = PlayerFrom::Middle;
+			GameEngine::GetInstance()->GetStateController()->gameStateNext = GameState::GS_LEVEL2Scene5;
 		}
 		else if (player->GetX() > mapWidth - 250) {
 			player->SetPosition(glm::vec3(mapWidth - 250, Avery_y_Position, 0.0f));	//
@@ -225,6 +226,9 @@ void Level2Scene5p2::HandleMouse(int type, int x, int y)
 	uiText->LoadText(" ", dialogueTextColor, 30.0f);
 	nameText->LoadText(" ", dialogueTextColor, 30.0f);
 
+	uiText->LoadText(" ", dialogueTextColor, 30.0f);
+	nameText->LoadText(" ", dialogueTextColor, 30.0f);
+
 	float trueX = x;
 	if (player->GetX() > 960 && player->GetX() < (mapWidth - 960.0f)) {
 		trueX = (x - 960) + player->GetX();
@@ -256,16 +260,21 @@ void Level2Scene5p2::HandleMouse(int type, int x, int y)
 		
 		if (Spider->Interacted == true) {
 			if (holdedItemIndex >= 0 && holdedItemIndex < GameInstance::GetInstance()->inventory.size()) {
-				if (GameInstance::GetInstance()->inventory[holdedItemIndex].name == "insect") {
+				if (GameInstance::GetInstance()->inventory[holdedItemIndex].name == "insect" && GameInstance::GetInstance()->pebbelCollect[3] == false) {
 					loseHoldedItem();
 					getItem("pebble", "Pebbles for our plan", "../Resource/Texture/Items/pebble.png");
+					GameInstance::GetInstance()->pebbleAmount++;
+					GameInstance::GetInstance()->pebbelCollect[3] = true;
 				}
 			}
 			Spider->Interacted = false; 
 		}
 		if (insect->Interacted == true) {
-			insect->SetPosition(glm::vec3(0.0f, 5000.0f, 0.0f));
-			getItem("insect", "An insect! I name him Kevin", "../Resource/Texture/Items/test.png");
+			if (GameInstance::GetInstance()->insectCollect == false) {
+				insect->SetPosition(glm::vec3(0.0f, 5000.0f, 0.0f));
+				getItem("insect", "An insect! I name him Kevin", "../Resource/Texture/insect_PlaceHolder.png");
+				GameInstance::GetInstance()->insectCollect = true;
+			}
 			insect->Interacted = false;
 		}
 		

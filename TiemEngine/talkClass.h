@@ -15,6 +15,7 @@ public:
 	int f = 100;
 	int nf = 70;
 	string event = " ";
+	string eventz = " ";
 
 	string name = " ";
 	string pictureFileName = " ";

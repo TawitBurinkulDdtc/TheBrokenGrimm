@@ -1,7 +1,7 @@
-#include "Level2Scene6.h"
+#include "Level3Scene2.h"
 #include "SpriteObject.h"
 
-void Level2Scene6::LevelLoad()
+void Level3Scene2::LevelLoad()
 {
 	SquareMeshVbo* square = new SquareMeshVbo();
 	square->LoadData();
@@ -10,17 +10,11 @@ void Level2Scene6::LevelLoad()
 	//cout << "Load Level" << endl;
 }
 
-void Level2Scene6::LevelInit()
+void Level3Scene2::LevelInit()
 {
 
 	mapWidth = 3269.0f;	//Require in every level          RIQL					need custom
 	holdedItemIndex = -1;	//Require in every level          RIQL
-
-
-
-
-
-
 
 
 	//Require in every level          RIQL		start
@@ -32,58 +26,13 @@ void Level2Scene6::LevelInit()
 	//Require in every level          RIQL			end
 
 	
-	GameObject* pebblesPic = new GameObject();
-	pebblesPic->SetTexture("../Resource/Texture/test.png");	//need custom
-	pebblesPic->SetSize(mapWidth, -1080.0f);//1080 + 200.0f
-	pebblesPic->SetPosition(glm::vec3(0, 5000.0f, 0.0f));
-	objectsList.push_back(pebblesPic);
-	
 
-
-
-
-	Gretel = new ButtonObject();
-	Gretel->SetTexture("../Resource/Texture/test.png");
-	Gretel->SetSize(540.0f * AverySizeRatio, -695.0f * AverySizeRatio);
-	Gretel->SetPosition(glm::vec3(1500.0f, 350.0f, 0.0f));
-	objectsList.push_back(Gretel);
-	interactableList.push_back(Gretel);
-
-
-	//placedPebblesHere
-
-	placedPebblesHere = new ButtonObject();
-	placedPebblesHere->SetTexture("../Resource/Texture/test.png");
-	placedPebblesHere->SetSize(mapWidth, -400);
-	placedPebblesHere->SetPosition(glm::vec3(mapWidth / 2, 150.0f, 0.0f));
-	objectsList.push_back(placedPebblesHere);
-	interactableList.push_back(placedPebblesHere);
-	
-	GretelPic = new SpriteObject("../Resource/Texture/Characters/Gretel_Idle.png", 1, 6);
-	GretelPic->SetSize(540.0f * AverySizeRatio, 695.0f * AverySizeRatio); //in animation y gotta be +
-	GretelPic->SetPosition(glm::vec3(1500.0f, 350.0f, 0.0f));
-	objectsList.push_back(GretelPic);
-	
-
-
-	createPlayer(3);
-	player->SetPosition(glm::vec3(950.0f, Avery_y_Position, 0.0f));
+	createPlayer(2);
+	player->SetPosition(glm::vec3(400.0f, Avery_y_Position, 0.0f));
 
 	
 
-
-
 	
-
-
-	/*
-	GameObject* light = new GameObject();
-	light->SetTexture("../Resource/Texture/Hansel&Gretel_outside House_Night/Light.png");	//need custom
-	light->SetSize(mapWidth, -1080.0f);//1080 + 200.0f
-	light->SetPosition(glm::vec3(mapWidth / 2, 540.0f, 0.0f));
-	backgroundList.push_back(light);
-	*/
-
 
 	GameEngine::GetInstance()->SetDrawArea(0, 1920, 0, 1080);
 
@@ -146,17 +95,14 @@ void Level2Scene6::LevelInit()
 	// ---------------------manage animation stuff-------------------------
 	playerStandStillDelay = 100;
 	//---------------------------------------------------------------------
-	//cout << "Init Level" << endl;
+	
 	// RIQL end			2
-	readExcel.open("../Resource/Excel/Level2Scene6.csv");
+	readExcel.open("../Resource/Excel/Level3.csv");
 	excelRec.clear();
 
-	//sceneIntro
-	/*
-	talk.talking = true;
-	talk.event = "sceneIntro";
-	*/
 	inventoryOpen();
+
+	
 }
 
 
@@ -165,11 +111,13 @@ void Level2Scene6::LevelInit()
 
 
 
-void Level2Scene6::LevelUpdate()
+void Level3Scene2::LevelUpdate()
 {
 	if (playerWalkSide != 0) {
 		if (player->GetX() < 250) {
-			player->SetPosition(glm::vec3(250, Avery_y_Position, 0.0f));
+			//player->SetPosition(glm::vec3(250, Avery_y_Position, 0.0f));
+			GameInstance::GetInstance()->PlayerFrom = PlayerFrom::Right;
+			GameEngine::GetInstance()->GetStateController()->gameStateNext = GameState::GS_LEVEL3;
 		}
 		else if (player->GetX() > mapWidth - 250) {
 			player->SetPosition(glm::vec3(mapWidth - 250, Avery_y_Position, 0.0f));	//
@@ -177,13 +125,12 @@ void Level2Scene6::LevelUpdate()
 	}
 	playerMovement(3); //Require in every level          RIQL
 	player->UpdateFrame();
-	GretelPic->UpdateFrame();
 }
 
 //SpriteObject* Girl = new SpriteObject("../Resource/Texture/AveryWalk.png", 1, 6);
 //Girl->SetSize(540.0f * 0.5f, 695.0f * 0.5f);
 
-void Level2Scene6::LevelDraw()
+void Level3Scene2::LevelDraw()
 {
 	GameEngine::GetInstance()->Render(backgroundList, true);
 	GameEngine::GetInstance()->Render(playerList, false);
@@ -193,7 +140,7 @@ void Level2Scene6::LevelDraw()
 	//cout << "Draw Level" << endl;
 }
 
-void Level2Scene6::LevelFree()
+void Level3Scene2::LevelFree()
 {
 	for (DrawableObject* obj : backgroundList) {
 		delete obj;
@@ -214,13 +161,13 @@ void Level2Scene6::LevelFree()
 	//cout << "Free Level" << endl;
 }
 
-void Level2Scene6::LevelUnload()
+void Level3Scene2::LevelUnload()
 {
 	GameEngine::GetInstance()->ClearMesh();
 	//cout << "Unload Level" << endl;
 }
 
-void Level2Scene6::HandleKey(char key)
+void Level3Scene2::HandleKey(char key)
 {
 
 	switch (key)
@@ -237,10 +184,11 @@ void Level2Scene6::HandleKey(char key)
 	}
 }
 
-void Level2Scene6::HandleMouse(int type, int x, int y)
+void Level3Scene2::HandleMouse(int type, int x, int y)
 {
 
-
+	uiText->LoadText(" ", dialogueTextColor, 30.0f);
+	nameText->LoadText(" ", dialogueTextColor, 30.0f);
 
 	float trueX = x;
 	if (player->GetX() > 960 && player->GetX() < (mapWidth - 960.0f)) {
@@ -254,12 +202,10 @@ void Level2Scene6::HandleMouse(int type, int x, int y)
 	}
 
 
-	cout << "pos: x " << trueX << " y " << y << endl;    //set to 1920 x 1200 to see display
-	//cout <<"p:"<< player->GetX() << endl;
-	//cout << "mw-960:" << (mapWidth - 960.0f) << endl;
+	//cout << "pos: x " << trueX << " y " << y << endl;    //set to 1920 x 1200 to see display
+	
 
-	//printf("print work  ");
-
+	
 
 
 	if (talk.talking == false) {	//no talk
@@ -270,25 +216,14 @@ void Level2Scene6::HandleMouse(int type, int x, int y)
 			}
 		}
 		
-		if (Gretel->Interacted == true) {
-			talk.talking = true;
-			talk.event = "sceneGretel";
-			cout << "Gretel like eatting squeral" << endl;
-			Gretel->Interacted = false; 
-		}//placedPebblesHere
-		if (placedPebblesHere->Interacted == true) {
-			if (holdedItemIndex >= 0 && holdedItemIndex < GameInstance::GetInstance()->inventory.size()) {
-				if (GameInstance::GetInstance()->inventory[holdedItemIndex].name == "pebbles") {
-					//pebblesPic->SetPosition(glm::vec3(mapWidth/2, 540.0f, 0.0f));
-					//talk.talking .event bra bla ba
-					GameInstance::GetInstance()->usePebbles = true;
-					GameEngine::GetInstance()->GetStateController()->gameStateNext = GameState::GS_LEVEL2Scene3;
-				}
-			}
-			placedPebblesHere->Interacted = false;
-		}
+		
 
-	}
+
+		//Logic here
+
+
+
+	}//no talk
 
 	if (talk.talking == true) { //do talk
 		talk.count = talk.count + 1;
@@ -320,13 +255,10 @@ void Level2Scene6::HandleMouse(int type, int x, int y)
 
 
 
+		
+		//Special here (switch case stuff)
 
-		if (talk.event == "not read yet") {
-			switch (talk.count) {
-			case 1: talk.nd("Avery", "I want to check this place first before reading"); talk.f = 60;  box(true);  break;
-			case 2: talk.event = " "; talk.nd(" ", " "); talk.talking = false; talk.count = 0; box(false); break;
-			}
-		}
+
 
 		setDialoguePosition();
 		screenPic->SetTexture(talk.pictureFileName);			//SetPosition(glm::vec3(0, 0, 0));
@@ -335,15 +267,9 @@ void Level2Scene6::HandleMouse(int type, int x, int y)
 
 	}//do talk
 
-	//talk.dp("give my potato back", "../Resource/Texture/talkingGlobeTest1.png"); uiText->SetSize(700.0f, -100.0f); screenPic->SetPosition(glm::vec3(player->GetX(), 540.0f, 0.0f));
-	//screenPic->SetTexture(talk.pictureFileName);			//SetPosition(glm::vec3(0, 0, 0));
-	//uiText->LoadText(talk.dialogue, whiteText, 100);
 
-
-	//inventory logic
 	inventoryLogic();
 
-	//playerWalkTo = x;
 
 }
 

@@ -139,17 +139,16 @@ void Level2Scene4::LevelInit()
 		cabinetPic->ChangeTextures(1);
 		Chair->SetPosition(glm::vec3(0.0f, 5000.0f, 0.0f));
 	}
+
 	if (GameInstance::GetInstance()->PlayerFrom == Right) {
 		player->SetPosition(glm::vec3(mapWidth-460, Avery_y_Position, 0.0f));
 		GameEngine::GetInstance()->SetDrawArea(mapWidth - 1920, mapWidth, 0, 1080);
 	}
 	
 
-
-
-
-	
-
+	if (GameInstance::GetInstance()->PuzzleCollectPebbleDone == true) {
+		GameInstance::GetInstance()->inventory.clear();
+	}
 
 
 	// Require in every level          RIQL start		2
@@ -183,15 +182,16 @@ void Level2Scene4::LevelInit()
 	uiList.push_back(nameText);
 
 
+	
+
 	playerWalkTo = player->GetX();
 	playerCurrentTime = 0;
 
 
 
-
 	//--------------------- walk speed editer----------------------------
 	playerFrameDelay = 1.0f;
-	playerStepPerFrame = 50; //10 real   // 60 debug (60 will have some interact area bug abit)
+	playerStepPerFrame = 10; //10 real   // 60 debug (60 will have some interact area bug abit)
 	//---------------------------------------------------------------------
 
 
@@ -204,6 +204,13 @@ void Level2Scene4::LevelInit()
 	excelRec.clear();
 
 	inventoryOpen();
+
+	
+
+	if (GameInstance::GetInstance()->PuzzleCollectPebbleDone == true) {
+		getItem("pebbles", "Pebbles for our plan", "../Resource/Texture/Items/pebbles.png");
+	}
+	
 }
 
 
@@ -345,7 +352,7 @@ void Level2Scene4::HandleMouse(int type, int x, int y)
 
 		if (Chair->Interacted == true) {
 			//talk.talking = true;
-			getItem("chair", "I could reach something high with this", "../Resource/Texture/HanselAndGretelBook.png");
+			getItem("chair", "I could reach something high with this", "../Resource/Texture/Items/chair.png");
 			talk.event = "grabChair";
 			chairPic->SetPosition(glm::vec3(0.0f, 5000.0f, 0.0f));
 			Chair->SetPosition(glm::vec3(0.0f, 5000.0f, 0.0f));
@@ -388,6 +395,7 @@ void Level2Scene4::HandleMouse(int type, int x, int y)
 					//frontDoorPic->SetPosition(glm::vec3(0, 5000.0f, 0.0f));
 					loseHoldedItem();
 					refreshInventoryPic();
+					GameEngine::GetInstance()->GetStateController()->gameStateNext = GameState::GS_LEVEL2Scene5;
 				}
 				else {
 					cout << "door lock" << endl;

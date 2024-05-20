@@ -65,7 +65,7 @@ void Level1::LevelInit()
 	mapPic->SetPosition(glm::vec3(mapWidth / 2, 540.0f + 100.0f, 0.0f));
 	backgroundList.push_back(mapPic);
 
-	ButtonObject* mapInter = new ButtonObject();
+	mapInter = new ButtonObject();
 	mapInter->SetTexture("../Resource/Texture/test.png");
 	mapInter->SetPosition(glm::vec3(5167.0f, 872.0f, 0.0f));
 	mapInter->SetSize(140.0f, -100.0f);
@@ -230,6 +230,7 @@ void Level1::LevelInit()
 	else { player->SetPosition(glm::vec3(950.0f, Avery_y_Position, 0.0f)); }	//Require customization end
 	// RIQL end			1
 
+	player->SetSize(-540.0f * AverySizeRatio, 695.0f * AverySizeRatio);
 
 	GameObject* backgroundPillar = new GameObject();
 	backgroundPillar->SetTexture("../Resource/Texture/Level1_Library_Pillar.png");
@@ -274,6 +275,14 @@ void Level1::LevelInit()
 
 
 
+	spaceBar2open = new TextObject();
+	spaceBar2open->LoadText(" ", dialogueTextColor, 100);
+	spaceBar2open->SetPosition(glm::vec3(960, 100, 0.0f));
+	spaceBar2open->SetSize(800.0f, -100.0f);
+	uiList.push_back(spaceBar2open);
+
+
+
 	playerWalkTo = player->GetX();
 	playerCurrentTime = 0;
 
@@ -302,6 +311,11 @@ void Level1::LevelInit()
 	talk.talking = true;
 	talk.event = "start cut scene";
 	screenPic->SetTexture("../Resource/Texture/cutScene/start/c1.png");
+
+
+
+	SoundEngine = createIrrKlangDevice();
+	SoundEngine->play2D("../Resource/Texture/Bamboo.ogg",true);
 }
 
 
@@ -332,7 +346,6 @@ void Level1::LevelUpdate()
 	playerMovement(1); //Require in every level          RIQL
 	player->UpdateFrame();
 	birdAnim->UpdateFrame();
-
 
 }
 
@@ -386,7 +399,13 @@ void Level1::HandleKey(char key)
 		break;
 	case '=': 
 		//if (player->GetY() > 360 && talk.talking == false) { player->Translate(glm::vec3(0, -3.0, 0)); }
-		inventoryOpen();
+		if(talk.talking!=true){
+			inventoryOpen();
+			if (closeTextSp == false) {
+				spaceBar2open->LoadText(" ", dialogueTextColor, 100);
+				closeTextSp = true;
+			}
+		}
 		break;
 	case 'a': if (talk.talking == false) {playerWalkSide = 1;}
 		//player->Translate(glm::vec3(-50, 0, 0)); 
@@ -572,6 +591,13 @@ void Level1::HandleMouse(int type, int x, int y)
 			bird->Interacted = false;
 		}
 
+
+		if (mapInter->Interacted == true) {
+			talk.eventz = "readMap";
+			talk.talking = true;
+			mapInter->Interacted = false;
+		}
+
 		//objectPickableItem(key1, GameInstance::GetInstance()->key1,"key1", "it is a key", "../Resource/Texture/key1.png","Grabing Key", whiteText, 100, 700.0f, 100.0f);   //alternative code
 		//inventoryLogic();
 	}//no talk
@@ -591,7 +617,16 @@ void Level1::HandleMouse(int type, int x, int y)
 			case 7: talk.p("../Resource/Texture/cutScene/start/c8.png"); break;
 			case 8: talk.p("../Resource/Texture/cutScene/start/c9.png"); break;
 			case 9: talk.p("../Resource/Texture/cutScene/start/c10.png"); break;
-			case 10: talk.event = " ";  talk.p("../Resource/Texture/invisible.png"); talk.talking = false; talk.count = 0; break;
+			case 10: talk.p("../Resource/Texture/cutScene/LibStart/c1.png"); break;
+			case 11: talk.p("../Resource/Texture/cutScene/LibStart/c2.png"); break;
+			case 12: talk.p("../Resource/Texture/cutScene/LibStart/c3.png"); break;
+			case 13: talk.p("../Resource/Texture/cutScene/LibStart/c4.png"); break;
+			case 14: talk.p("../Resource/Texture/cutScene/LibStart/c5.png"); break;
+			case 15: talk.p("../Resource/Texture/cutScene/LibStart/c6.png"); break;
+			case 16: talk.p("../Resource/Texture/cutScene/LibStart/c7.png"); break;
+			case 17: talk.p("../Resource/Texture/cutScene/LibStart/c8.png"); break;
+			case 18: talk.p("../Resource/Texture/cutScene/LibStart/c9.png"); break;
+			case 19: talk.event = " ";  talk.p("../Resource/Texture/invisible.png"); talk.talking = false; talk.count = 0; spaceBar2open->LoadText("SPACEBAR TO OPEN INVENTORY", dialogueTextColor, 100); closeTextSp = false; break;
 			}
 		}
 
@@ -728,6 +763,14 @@ void Level1::HandleMouse(int type, int x, int y)
 			}
 		}
 
+		if (talk.eventz == "readMap") {
+			switch (talk.count) {
+				case 1: talk.d("map map map"); box(true); break;
+				case 2: talk.d("map map?"); break;
+				case 3: talk.d(" "); talk.talking = false; talk.eventz = " "; box(false); talk.count = 0;  break;
+			}
+		}
+		//readMap
 
 		talk.f = 40;
 		talk.nf = 100;
@@ -961,7 +1004,7 @@ void Level1::createPlayer(int spriteNum){
 		player->AddTextures("../Resource/Texture/Characters/Avery_Walk.png");
 	}
 	else if (spriteNum == 2){
-		player = new SpriteObject("../Resource/Texture/Characters/Player_Gretel_Idle", 1, 6);
+		player = new SpriteObject("../Resource/Texture/Characters/Player_Gretel_Idle.png", 1, 6);
 		player->AddTextures("../Resource/Texture/Characters/Player_Gretel_Walk.png");
 	}
 	else if (spriteNum == 3) {

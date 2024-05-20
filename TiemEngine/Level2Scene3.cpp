@@ -163,15 +163,15 @@ void Level2Scene3::LevelUpdate()
 			player->SetPosition(glm::vec3(250, Avery_y_Position, 0.0f));
 		}
 		else if (player->GetX() > mapWidth - 250) {
-			player->SetPosition(glm::vec3(mapWidth - 250, Avery_y_Position, 0.0f));	//
+			player->SetPosition(glm::vec3(mapWidth - 250, Avery_y_Position, 0.0f));
 		}
 	}
 	playerMovement(3); //Require in every level          RIQL
 	player->UpdateFrame();
+	GretelPic->UpdateFrame();
 }
 
-//SpriteObject* Girl = new SpriteObject("../Resource/Texture/AveryWalk.png", 1, 6);
-//Girl->SetSize(540.0f * 0.5f, 695.0f * 0.5f);
+
 
 void Level2Scene3::LevelDraw()
 {
@@ -273,7 +273,8 @@ void Level2Scene3::HandleMouse(int type, int x, int y)
 			Gretel->Interacted = false; 
 		}
 		if (door->Interacted == true) {
-			GameEngine::GetInstance()->GetStateController()->gameStateNext = GameState::GS_LEVEL2Scene4;
+			if(GameInstance::GetInstance()->usePebbles == false){ GameEngine::GetInstance()->GetStateController()->gameStateNext = GameState::GS_LEVEL2Scene4; }
+			else{ GameEngine::GetInstance()->GetStateController()->gameStateNext = GameState::GS_LEVEL3; }
 			door->Interacted = false;
 		}
 	}

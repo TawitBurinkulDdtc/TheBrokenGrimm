@@ -72,6 +72,18 @@ void Level2Scene2::LevelInit()
 	GretelPic->SetPosition(glm::vec3(1500.0f, 350.0f, 0.0f));
 	objectsList.push_back(GretelPic);
 
+	UnlikeableWomen = new SpriteObject("../Resource/Texture/Characters/Mom_Smile.png", 1, 4);
+	UnlikeableWomen->SetSize(540.0f * AverySizeRatio, 900.0f * AverySizeRatio); //in animation y gotta be +
+	UnlikeableWomen->SetPosition(glm::vec3(2200.0f, 450.0f, 0.0f));
+	objectsList.push_back(UnlikeableWomen);
+
+	//Dad = new SpriteObject("../Resource/Texture/Characters/Mom_Smile.png", 1, 4);
+	Dad = new GameObject();
+	Dad->SetTexture("../Resource/Texture/Characters/Dad.png");
+	Dad->SetSize(723.0f * 0.4f, -1806.0f * 0.4f); //in animation y gotta be +
+	Dad->SetPosition(glm::vec3(2900.0f, 450.0f, 0.0f));
+	objectsList.push_back(Dad);
+
 	/*
 	Hansel = new ButtonObject();
 	Hansel->SetTexture("../Resource/Texture/Hansel.png");
@@ -149,7 +161,7 @@ void Level2Scene2::LevelInit()
 
 	//--------------------- walk speed editer----------------------------
 	playerFrameDelay = 1.0f;
-	playerStepPerFrame = 10; //10 real   // 60 debug (60 will have some interact area bug abit)
+	playerStepPerFrame = 60; //10 real   // 60 debug (60 will have some interact area bug abit)
 	//---------------------------------------------------------------------
 
 
@@ -183,6 +195,8 @@ void Level2Scene2::LevelUpdate()
 	}
 	playerMovement(3); //Require in every level          RIQL
 	player->UpdateFrame();
+	UnlikeableWomen->UpdateFrame();
+	GretelPic->UpdateFrame();
 }
 
 //SpriteObject* Girl = new SpriteObject("../Resource/Texture/AveryWalk.png", 1, 6);

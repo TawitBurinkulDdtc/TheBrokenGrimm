@@ -7,7 +7,10 @@
 #include "SpriteObject.h"
 #include "talkExcelRecord.h"
 #include <fstream>
+#include <irrKlang.h>
 //talkExcelRecord
+
+using namespace irrklang;
 
 class Level1 : public Level
 {
@@ -69,7 +72,8 @@ public:
 	SDL_Color dialogueTextColor = { 255, 255, 255 };
 	SDL_Color whiteText = { 255, 255, 255 };
 	SDL_Color blackText = { 0, 0, 0 };
-
+	TextObject* spaceBar2open;
+	bool closeTextSp = false;
 
 	ItemUi* inventoryL[8];
 	int holdedItemIndex = -1;
@@ -89,6 +93,7 @@ public:
 	bool finishRead = false;
 	int talkEndAt = 0;
 
+	ISoundEngine* SoundEngine;
 
 	private:
 	ButtonObject* button1;
@@ -110,6 +115,9 @@ public:
 	GameObject* mirrorPic;
 	bool checkBookInInventory = false;
 	
+	ButtonObject* mapInter;
+
+
 
 	
 
