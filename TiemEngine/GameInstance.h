@@ -40,7 +40,7 @@ public:
 
 	bool LV2chairAtCabinet = false;
 	bool LV2frontDoorLock = true;
-	bool pebbelCollect[4] = { false };
+	bool pebbelCollect[4] = {false};
 	bool insectCollect = false;
 	int pebbleAmount = 0;
 	bool PuzzleCollectPebbleDone = false;

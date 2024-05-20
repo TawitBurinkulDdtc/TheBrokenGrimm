@@ -30,5 +30,5 @@ public:
 	ButtonObject* placedPebblesHere;
 	GameObject* HanselPic;
 	GameObject* pebblesPic;
-	ButtonObject* stones[5];
+	ButtonObject* stones;
 };

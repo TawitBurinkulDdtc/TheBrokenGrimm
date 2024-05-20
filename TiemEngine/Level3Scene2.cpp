@@ -80,6 +80,14 @@ void Level3Scene2::LevelInit()
 	uiList.push_back(nameText);
 
 
+	stones = new ButtonObject();
+	stones->SetTexture("../Resource/Texture/Items/More Stones.png");
+	stones->SetSize(200.0f, -200.0f);
+	stones->SetPosition(glm::vec3(1245.0f, 200.0f, 0.0f));
+	objectsList.push_back(stones);
+	interactableList.push_back(stones);
+
+
 	playerWalkTo = player->GetX();
 	playerCurrentTime = 0;
 
@@ -220,7 +228,12 @@ void Level3Scene2::HandleMouse(int type, int x, int y)
 
 
 		//Logic here
-
+		if (stones->Interacted == true) {
+			getItem("stone", "This will help stop fire from spreading", "../Resource/Texture/Items/More Stones.png");
+			GameInstance::GetInstance()->pebbelCollect[0] = true;
+			stones->SetPosition(glm::vec3(0.0f, 5000.0f, 0.0f));
+			stones->Interacted = false;
+		}
 
 
 	}//no talk

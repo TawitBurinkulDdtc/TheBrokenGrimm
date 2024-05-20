@@ -70,11 +70,42 @@ void Level3::LevelInit()
 	
 
 	sticks[0] = new ButtonObject();
-	sticks[0]->SetTexture("../Resource/Texture/test.png");
-	sticks[0]->SetSize(100.0f, -100.0f);
-	sticks[0]->SetPosition(glm::vec3(1845.0f, 310.0f, 0.0f));
+	sticks[0]->SetTexture("../Resource/Texture/Items/stick.png");
+	sticks[0]->SetSize(200.0f, -200.0f);
+	sticks[0]->SetPosition(glm::vec3(1845.0f, 200.0f, 0.0f));
 	objectsList.push_back(sticks[0]);
 	interactableList.push_back(sticks[0]);
+
+	sticks[1] = new ButtonObject();
+	sticks[1]->SetTexture("../Resource/Texture/Items/stick.png");
+	sticks[1]->SetSize(200.0f, -200.0f);
+	sticks[1]->SetPosition(glm::vec3(1245.0f, 200.0f, 0.0f));
+	objectsList.push_back(sticks[1]);
+	interactableList.push_back(sticks[1]);
+
+	/*
+	sticks[2] = new ButtonObject();
+	sticks[2]->SetTexture("../Resource/Texture/Items/stick.png");
+	sticks[2]->SetSize(200.0f, -200.0f);
+	sticks[2]->SetPosition(glm::vec3(245.0f, 200.0f, 0.0f));
+	objectsList.push_back(sticks[2]);
+	interactableList.push_back(sticks[2]);
+
+	sticks[3] = new ButtonObject();
+	sticks[3]->SetTexture("../Resource/Texture/Items/stick.png");
+	sticks[3]->SetSize(200.0f, -200.0f);
+	sticks[3]->SetPosition(glm::vec3(945.0f, 200.0f, 0.0f));
+	objectsList.push_back(sticks[3]);
+	interactableList.push_back(sticks[3]);
+
+	sticks[4] = new ButtonObject();
+	sticks[4]->SetTexture("../Resource/Texture/Items/stick.png");
+	sticks[4]->SetSize(200.0f, -200.0f);
+	sticks[4]->SetPosition(glm::vec3(2245.0f, 200.0f, 0.0f));
+	objectsList.push_back(sticks[4]);
+	interactableList.push_back(sticks[4]);
+	*/
+	
 
 	
 	createPlayer(2);
@@ -307,9 +338,9 @@ void Level3::HandleMouse(int type, int x, int y)
 					refreshInventoryPic();
 					GameInstance::GetInstance()->campSiteRequirement++;
 				}
-				if (GameInstance::GetInstance()->campSiteRequirement >= 8) {
+				if (GameInstance::GetInstance()->campSiteRequirement >= 3){
 					//cut scene bla bla bla, change level.
-					//GameEngine::GetInstance()->GetStateController()->gameStateNext = GameState::GS_LEVEL2Scene2;
+					GameEngine::GetInstance()->GetStateController()->gameStateNext = GameState::GS_LEVEL4;
 				}
 			}
 			campsite->Interacted = false;
@@ -328,12 +359,40 @@ void Level3::HandleMouse(int type, int x, int y)
 		}*/
 
 		if (sticks[0]->Interacted == true) {
-			getItem("stick", "Stick for fire", "../Resource/Texture/Items/pebble.png");
+			getItem("stick", "Stick for fire", "../Resource/Texture/Items/stick.png");
 			GameInstance::GetInstance()->pebbelCollect[0] = true;
 			sticks[0]->SetPosition(glm::vec3(0.0f, 5000.0f, 0.0f));
 			sticks[0]->Interacted = false;
 		}
 
+		if (sticks[1]->Interacted == true) {
+			getItem("stick", "Stick for fire", "../Resource/Texture/Items/stick.png");
+			GameInstance::GetInstance()->pebbelCollect[1] = true;
+			sticks[1]->SetPosition(glm::vec3(0.0f, 5000.0f, 0.0f));
+			sticks[1]->Interacted = false;
+		}
+		/*
+		if (sticks[2]->Interacted == true) {
+			getItem("stick", "Stick for fire", "../Resource/Texture/Items/stick.png");
+			GameInstance::GetInstance()->pebbelCollect[2] = true;
+			sticks[2]->SetPosition(glm::vec3(0.0f, 5000.0f, 0.0f));
+			sticks[2]->Interacted = false;
+		}
+
+		if (sticks[3]->Interacted == true) {
+			getItem("stick", "Stick for fire", "../Resource/Texture/Items/stick.png");
+			GameInstance::GetInstance()->pebbelCollect[3] = true;
+			sticks[3]->SetPosition(glm::vec3(0.0f, 5000.0f, 0.0f));
+			sticks[3]->Interacted = false;
+		}
+
+		if (sticks[4]->Interacted == true) {
+			getItem("stick", "Stick for fire", "../Resource/Texture/Items/stick.png");
+			GameInstance::GetInstance()->pebbelCollect[4] = true;
+			sticks[4]->SetPosition(glm::vec3(0.0f, 5000.0f, 0.0f));
+			sticks[4]->Interacted = false;
+		}
+		*/
 	}
 
 	if (talk.talking == true) { //do talk

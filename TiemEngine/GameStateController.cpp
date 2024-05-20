@@ -9,11 +9,13 @@
 #include "Level2Scene4.h"
 #include "Level2Scene5.h"
 #include "Level2Scene5p2.h"
+#include "Level2Scene5p3.h"
 #include "Level2Scene6.h"
 #include "Level3.h"
 #include "Level3Scene2.h"
 #include "Level4.h"
 #include "LevelTemplate.h"
+
 
 GameStateController::GameStateController()
 {
@@ -39,7 +41,7 @@ void GameStateController::LoadLevel()
 	switch (gameStateCurr)
 	{
 		case GameState::GS_LEVEL1:
-			currentLevel = new Level1();
+			currentLevel = new Level2Scene5p3();
 			break;
 		case GameState::GS_LEVEL2:
 			currentLevel = new Level2();
@@ -58,6 +60,9 @@ void GameStateController::LoadLevel()
 			break;
 		case GameState::GS_LEVEL2Scene5p2:
 			currentLevel = new Level2Scene5p2();
+			break;
+		case GameState::GS_LEVEL2Scene5p3:
+			currentLevel = new Level2Scene5p3();
 			break;
 		case GameState::GS_LEVEL2Scene6:
 			currentLevel = new Level2Scene6();

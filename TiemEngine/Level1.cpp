@@ -315,7 +315,7 @@ void Level1::LevelInit()
 
 
 	SoundEngine = createIrrKlangDevice();
-	SoundEngine->play2D("../Resource/Texture/Bamboo.ogg",true);
+	SoundEngine->play2D("../Resource/Sound/Level1.mp3",true);
 }
 
 
