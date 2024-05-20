@@ -7,7 +7,10 @@
 #include "SpriteObject.h"
 #include "talkExcelRecord.h"
 #include <fstream>
+#include <irrKlang.h>
 //talkExcelRecord
+
+using namespace irrklang;
 
 class Level1 : public Level
 {
@@ -90,6 +93,7 @@ public:
 	bool finishRead = false;
 	int talkEndAt = 0;
 
+	ISoundEngine* SoundEngine;
 
 	private:
 	ButtonObject* button1;
@@ -111,6 +115,9 @@ public:
 	GameObject* mirrorPic;
 	bool checkBookInInventory = false;
 	
+	ButtonObject* mapInter;
+
+
 
 	
 

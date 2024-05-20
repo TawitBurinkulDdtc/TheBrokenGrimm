@@ -65,7 +65,7 @@ void Level1::LevelInit()
 	mapPic->SetPosition(glm::vec3(mapWidth / 2, 540.0f + 100.0f, 0.0f));
 	backgroundList.push_back(mapPic);
 
-	ButtonObject* mapInter = new ButtonObject();
+	mapInter = new ButtonObject();
 	mapInter->SetTexture("../Resource/Texture/test.png");
 	mapInter->SetPosition(glm::vec3(5167.0f, 872.0f, 0.0f));
 	mapInter->SetSize(140.0f, -100.0f);
@@ -311,6 +311,11 @@ void Level1::LevelInit()
 	talk.talking = true;
 	talk.event = "start cut scene";
 	screenPic->SetTexture("../Resource/Texture/cutScene/start/c1.png");
+
+
+
+	SoundEngine = createIrrKlangDevice();
+	SoundEngine->play2D("../Resource/Texture/Bamboo.ogg",true);
 }
 
 
@@ -586,6 +591,13 @@ void Level1::HandleMouse(int type, int x, int y)
 			bird->Interacted = false;
 		}
 
+
+		if (mapInter->Interacted == true) {
+			talk.eventz = "readMap";
+			talk.talking = true;
+			mapInter->Interacted = false;
+		}
+
 		//objectPickableItem(key1, GameInstance::GetInstance()->key1,"key1", "it is a key", "../Resource/Texture/key1.png","Grabing Key", whiteText, 100, 700.0f, 100.0f);   //alternative code
 		//inventoryLogic();
 	}//no talk
@@ -751,6 +763,14 @@ void Level1::HandleMouse(int type, int x, int y)
 			}
 		}
 
+		if (talk.eventz == "readMap") {
+			switch (talk.count) {
+				case 1: talk.d("map map map"); box(true); break;
+				case 2: talk.d("map map?"); break;
+				case 3: talk.d(" "); talk.talking = false; talk.eventz = " "; box(false); talk.count = 0;  break;
+			}
+		}
+		//readMap
 
 		talk.f = 40;
 		talk.nf = 100;
