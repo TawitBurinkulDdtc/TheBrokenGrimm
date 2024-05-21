@@ -42,8 +42,8 @@ void Level4::LevelInit()
 
 	door = new ButtonObject();
 	door->SetTexture("../Resource/Texture/test.png");
-	door->SetSize(90, -100.0f);
-	door->SetPosition(glm::vec3(528.0f, 763.0f, 0.0f));
+	door->SetSize(300, -300.0f);
+	door->SetPosition(glm::vec3(3117.0f, 458.0f, 0.0f));
 	objectsList.push_back(door);
 	interactableList.push_back(door);
 
@@ -182,7 +182,7 @@ void Level4::HandleKey(char key)
 			break;
 	case 'd': if (talk.talking == false) { playerWalkSide = 2; } 
 			break;
-	case 'q': GameEngine::GetInstance()->GetStateController()->gameStateNext = GameState::GS_QUIT; ; break;
+	//case 'q': GameEngine::GetInstance()->GetStateController()->gameStateNext = GameState::GS_QUIT; ; break;
 	//case 'r': GameEngine::GetInstance()->GetStateController()->gameStateNext = GameState::GS_RESTART; ; break;
 	}
 }
@@ -204,7 +204,7 @@ void Level4::HandleMouse(int type, int x, int y)
 	}
 
 
-	//cout << "pos: x " << trueX << " y " << y << endl;    //set to 1920 x 1200 to see display
+	cout << "pos: x " << trueX << " y " << y << endl;    //set to 1920 x 1200 to see display
 	
 
 	
@@ -263,7 +263,7 @@ void Level4::HandleMouse(int type, int x, int y)
 			switch (talk.count) {
 			case 1: talk.d("This is the end of first chapter"); box(true); break;
 			case 2: talk.d("Thank for playing"); break;
-			case 3: talk.d(" "); talk.talking = false; talk.eventz = " "; box(false); talk.count = 0;  break;
+			case 3: talk.d(" "); talk.talking = false; talk.eventz = " "; box(false); talk.count = 0; GameEngine::GetInstance()->GetStateController()->gameStateNext = GameState::GS_LEVELArtGallery; break;
 			}
 		}
 

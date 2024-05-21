@@ -25,5 +25,17 @@ public:
 	
 	private:
 
+		ButtonObject* i1;
+		ButtonObject* i2;
 
 };
+
+
+/*
+i1 = new ButtonObject();
+i1->SetTexture("../Resource/Texture/ArtGal/0button.png");
+i1->SetSize(300, -150.0f);
+i1->SetPosition(glm::vec3(8800.0f, 600.0f, 0.0f));
+objectsList.push_back(i1);
+interactableList.push_back(i1);
+*/
