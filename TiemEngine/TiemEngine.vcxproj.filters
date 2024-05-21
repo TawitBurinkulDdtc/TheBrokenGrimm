@@ -123,6 +123,9 @@
     <ClCompile Include="Level2Scene5p3.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="LevelArtGallery.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CombineObject.h">
@@ -234,6 +237,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Level2Scene5p3.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="LevelArtGallery.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

@@ -29,7 +29,7 @@ void Level4::LevelInit()
 
 	createPlayer(2);
 	player->SetPosition(glm::vec3(950.0f, Avery_y_Position, 0.0f));
-
+	player->SetSize(-540.0f * AverySizeRatio, 695.0f * AverySizeRatio);
 	
 
 	
@@ -40,7 +40,12 @@ void Level4::LevelInit()
 
 
 
-
+	door = new ButtonObject();
+	door->SetTexture("../Resource/Texture/test.png");
+	door->SetSize(90, -100.0f);
+	door->SetPosition(glm::vec3(528.0f, 763.0f, 0.0f));
+	objectsList.push_back(door);
+	interactableList.push_back(door);
 
 
 
@@ -214,7 +219,11 @@ void Level4::HandleMouse(int type, int x, int y)
 		}
 		
 		
-
+		if (door->Interacted == true) {
+			talk.eventz = "ending";
+			talk.talking = true;
+			door->Interacted = false;
+		}
 
 		//Logic here
 
@@ -225,32 +234,38 @@ void Level4::HandleMouse(int type, int x, int y)
 	if (talk.talking == true) { //do talk
 		talk.count = talk.count + 1;
 
-
-		if (talk.count == 1) { excelRecRecording(talk.event); box(true); }
-		if (finishRead == true && excelRec[talk.count - 1].name != "end") {
-			if (excelRec[talk.count - 1].name != "\0") {
-				talk.n(excelRec[talk.count - 1].name);
+		if(talk.event != " "){
+			if (talk.count == 1) { excelRecRecording(talk.event); box(true); }
+			if (finishRead == true && excelRec[talk.count - 1].name != "end") {
+				if (excelRec[talk.count - 1].name != "\0") {
+					talk.n(excelRec[talk.count - 1].name);
+				}
+				if (excelRec[talk.count - 1].dialogue != "\0") {
+					talk.d(excelRec[talk.count - 1].dialogue);
+				}
+				if (excelRec[talk.count - 1].pictureFileName != "\0") {
+					talk.p(excelRec[talk.count - 1].pictureFileName);
+				}
+				if (excelRec[talk.count - 1].sNFont != "\0") {
+					talk.nf = excelRec[talk.count - 1].nf;
+				}
+				if (excelRec[talk.count - 1].sFont != "\0") {
+					talk.f = excelRec[talk.count - 1].f;
+				}
 			}
-			if (excelRec[talk.count - 1].dialogue != "\0") {
-				talk.d(excelRec[talk.count - 1].dialogue);
-			}
-			if (excelRec[talk.count - 1].pictureFileName != "\0") {
-				talk.p(excelRec[talk.count - 1].pictureFileName);
-			}
-			if (excelRec[talk.count - 1].sNFont != "\0") {
-				talk.nf = excelRec[talk.count - 1].nf;
-			}
-			if (excelRec[talk.count - 1].sFont != "\0") {
-				talk.f = excelRec[talk.count - 1].f;
+			if (excelRec.empty() == false) {
+				if (excelRec[talk.count - 1].name == "end") {
+					talk.talking = false; talk.count = 0; box(false); finishRead = false; excelRecClear(); talk.ndp(" ", " ", "../Resource/Texture/invisible.png");
+				}
 			}
 		}
-		if (excelRec.empty() == false) {
-			if (excelRec[talk.count - 1].name == "end") {
-				talk.talking = false; talk.count = 0; box(false); finishRead = false; excelRecClear(); talk.ndp(" ", " ", "../Resource/Texture/invisible.png");
+		if (talk.eventz == "ending") {
+			switch (talk.count) {
+			case 1: talk.d("This is the end of first chapter"); box(true); break;
+			case 2: talk.d("Thank for playing"); break;
+			case 3: talk.d(" "); talk.talking = false; talk.eventz = " "; box(false); talk.count = 0;  break;
 			}
 		}
-
-
 
 		
 		//Special here (switch case stuff)

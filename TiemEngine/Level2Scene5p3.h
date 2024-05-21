@@ -22,7 +22,8 @@ public:
 	virtual void HandleMouse(int type, int x, int y);
 
 private:
-	ButtonObject* longStick;
+	ButtonObject* stick;
+	GameObject* stickPic;
 	ButtonObject* pebble;
 
 };

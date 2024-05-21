@@ -53,21 +53,26 @@ void Level3::LevelInit()
 	objectsList.push_back(campsite);
 	interactableList.push_back(campsite);
 
-
+	/*
 	placedPebblesHere = new ButtonObject();
 	placedPebblesHere->SetTexture("../Resource/Texture/test.png");
 	placedPebblesHere->SetSize(mapWidth, -400);
 	placedPebblesHere->SetPosition(glm::vec3(mapWidth / 2, 150.0f, 0.0f));
 	objectsList.push_back(placedPebblesHere);
 	interactableList.push_back(placedPebblesHere);
-
+	*/
 	
 	HanselPic = new SpriteObject("../Resource/Texture/Characters/Hansel_Idle.png", 1, 6);
 	HanselPic->SetSize(540.0f * AverySizeRatio, 695.0f * AverySizeRatio); //in animation y gotta be +
 	HanselPic->SetPosition(glm::vec3(1500.0f, 350.0f, 0.0f));
 	objectsList.push_back(HanselPic);
 	
-	
+	stones = new ButtonObject();
+	stones->SetTexture("../Resource/Texture/Items/MoreStones.png");
+	stones->SetSize(200.0f, -200.0f);
+	stones->SetPosition(glm::vec3(1845.0f, 600.0f, 0.0f));
+	objectsList.push_back(stones);
+	interactableList.push_back(stones);
 
 	sticks[0] = new ButtonObject();
 	sticks[0]->SetTexture("../Resource/Texture/Items/stick.png");
@@ -117,6 +122,7 @@ void Level3::LevelInit()
 		player->SetPosition(glm::vec3(mapWidth-400, Avery_y_Position, 0.0f));
 		GameEngine::GetInstance()->SetDrawArea(mapWidth-1920, mapWidth, 0, 1080);
 	}
+
 
 
 	
@@ -178,7 +184,7 @@ void Level3::LevelInit()
 
 	//--------------------- walk speed editer----------------------------
 	playerFrameDelay = 1.0f;
-	playerStepPerFrame = 10; //10 real   // 60 debug (60 will have some interact area bug abit)
+	playerStepPerFrame = 60; //10 real   // 60 debug (60 will have some interact area bug abit)
 	//---------------------------------------------------------------------
 
 
@@ -187,7 +193,8 @@ void Level3::LevelInit()
 	//---------------------------------------------------------------------
 	//cout << "Init Level" << endl;
 	// RIQL end			2
-	readExcel.open("../Resource/Excel/Level3.csv");
+
+	readExcel.open("../Resource/Excel/Script_Dialogue_BrokenGrimm_LV3_-_Sheet1.csv");
 	excelRec.clear();
 
 	//sceneIntro
@@ -197,7 +204,13 @@ void Level3::LevelInit()
 	*/
 	inventoryOpen();
 
-	getItem("Bread", "Bread for our plan", "../Resource/Texture/Items/honey.png");
+	//getItem("Bread", "Bread for our plan", "../Resource/Texture/Items/honey.png");
+	if (GameInstance::GetInstance()->lv3StartCutScene == false) {
+		talk.talking = true;
+		talk.event = "L3S5CampsiteForest";
+		box(true);
+		GameInstance::GetInstance()->lv3StartCutScene = true;
+	}
 }
 
 
@@ -213,9 +226,9 @@ void Level3::LevelUpdate()
 			player->SetPosition(glm::vec3(250, Avery_y_Position, 0.0f));
 		}
 		else if (player->GetX() > mapWidth - 250) {
-			//player->SetPosition(glm::vec3(mapWidth - 250, Avery_y_Position, 0.0f));	//
-			GameInstance::GetInstance()->PlayerFrom = PlayerFrom::Left;
-			GameEngine::GetInstance()->GetStateController()->gameStateNext = GameState::GS_LEVEL3Scene2;
+			player->SetPosition(glm::vec3(mapWidth - 250, Avery_y_Position, 0.0f));	//
+			//GameInstance::GetInstance()->PlayerFrom = PlayerFrom::Left;
+			//GameEngine::GetInstance()->GetStateController()->gameStateNext = GameState::GS_LEVEL3Scene2;
 		}
 	}
 	playerMovement(3); //Require in every level          RIQL
@@ -315,114 +328,80 @@ void Level3::HandleMouse(int type, int x, int y)
 			}
 		}
 		
-		if (Hansel->Interacted == true) {
+		/*if (Hansel->Interacted == true) {
 			talk.talking = true;
 			talk.event = "sceneHansel";
 			cout << "Hansel like eatting squeral" << endl;
 			Hansel->Interacted = false; 
-		}
-		if (placedPebblesHere->Interacted == true) {
-			if (holdedItemIndex >= 0 && holdedItemIndex < GameInstance::GetInstance()->inventory.size()) {
-				if (GameInstance::GetInstance()->inventory[holdedItemIndex].name == "Bread") {
-					//get to cut scene where bird eat bread crumb.
-				}
-			}
-			placedPebblesHere->Interacted = false;
-		}
+		}*/
+		
 
-
+		//cout << "1.holded:" << holdedItemIndex << "   inv size:"<< GameInstance::GetInstance()->inventory.size() << endl;
 		if (campsite->Interacted == true) {
 			if (holdedItemIndex >= 0 && holdedItemIndex < GameInstance::GetInstance()->inventory.size()) {
-				if (GameInstance::GetInstance()->inventory[holdedItemIndex].name == "stick" || GameInstance::GetInstance()->inventory[holdedItemIndex].name == "stone") {
+				if (GameInstance::GetInstance()->inventory[holdedItemIndex].name == "stick") {
 					loseHoldedItem();
 					refreshInventoryPic();
-					GameInstance::GetInstance()->campSiteRequirement++;
+					campStuff = campStuff + 1; //why not use int++ instead of = int + 1? cause I'm piss!   [insert angry face]
 				}
-				if (GameInstance::GetInstance()->campSiteRequirement >= 3){
-					//cut scene bla bla bla, change level.
-					GameEngine::GetInstance()->GetStateController()->gameStateNext = GameState::GS_LEVEL4;
-				}
+			}
+			if (campStuff >= 3) {
+				GameEngine::GetInstance()->GetStateController()->gameStateNext = GameState::GS_LEVEL4;
 			}
 			campsite->Interacted = false;
 		}
+		
 
-
-		/*for (int j = 0; j < 3; j++) {
-			if (sticks[j]->Interacted == true) {
-				getItem("pebble", "Pebbles for our plan", "../Resource/Texture/Items/pebble.png");
-				sticks[j]->SetPosition(glm::vec3(0.0f, 5000.0f, 0.0f));
-				GameInstance::GetInstance()->pebbleAmount++;
-				//sticksPic[j]->SetPosition(glm::vec3(0, 5000, 0.0f));
-				GameInstance::GetInstance()->pebbelCollect[j] = true;
-				sticks[j]->Interacted = false;
-			}
-		}*/
-
+		
+		if (stones->Interacted == true) {
+			getItem("stick", "This will help to stop fire from spreading", "../Resource/Texture/Items/MoreStones.png");
+			stones->SetPosition(glm::vec3(0.0f, 5000.0f, 0.0f));
+			stones->Interacted = false;
+		}
 		if (sticks[0]->Interacted == true) {
 			getItem("stick", "Stick for fire", "../Resource/Texture/Items/stick.png");
-			GameInstance::GetInstance()->pebbelCollect[0] = true;
+			//GameInstance::GetInstance()->pebbelCollect[0] = true;
 			sticks[0]->SetPosition(glm::vec3(0.0f, 5000.0f, 0.0f));
 			sticks[0]->Interacted = false;
 		}
 
 		if (sticks[1]->Interacted == true) {
 			getItem("stick", "Stick for fire", "../Resource/Texture/Items/stick.png");
-			GameInstance::GetInstance()->pebbelCollect[1] = true;
+			//GameInstance::GetInstance()->pebbelCollect[1] = true;
 			sticks[1]->SetPosition(glm::vec3(0.0f, 5000.0f, 0.0f));
 			sticks[1]->Interacted = false;
 		}
-		/*
-		if (sticks[2]->Interacted == true) {
-			getItem("stick", "Stick for fire", "../Resource/Texture/Items/stick.png");
-			GameInstance::GetInstance()->pebbelCollect[2] = true;
-			sticks[2]->SetPosition(glm::vec3(0.0f, 5000.0f, 0.0f));
-			sticks[2]->Interacted = false;
-		}
-
-		if (sticks[3]->Interacted == true) {
-			getItem("stick", "Stick for fire", "../Resource/Texture/Items/stick.png");
-			GameInstance::GetInstance()->pebbelCollect[3] = true;
-			sticks[3]->SetPosition(glm::vec3(0.0f, 5000.0f, 0.0f));
-			sticks[3]->Interacted = false;
-		}
-
-		if (sticks[4]->Interacted == true) {
-			getItem("stick", "Stick for fire", "../Resource/Texture/Items/stick.png");
-			GameInstance::GetInstance()->pebbelCollect[4] = true;
-			sticks[4]->SetPosition(glm::vec3(0.0f, 5000.0f, 0.0f));
-			sticks[4]->Interacted = false;
-		}
-		*/
+	
 	}
 
 	if (talk.talking == true) { //do talk
 		talk.count = talk.count + 1;
 
-
-		if (talk.count == 1) { excelRecRecording(talk.event); box(true); }
-		if (finishRead == true && excelRec[talk.count - 1].name != "end") {
-			if (excelRec[talk.count - 1].name != "\0") {
-				talk.n(excelRec[talk.count - 1].name);
+		if (talk.event != " ") {
+			if (talk.count == 1) { excelRecRecording(talk.event); box(true); }
+			if (finishRead == true && excelRec[talk.count - 1].name != "end") {
+				if (excelRec[talk.count - 1].name != "\0") {
+					talk.n(excelRec[talk.count - 1].name);
+				}
+				if (excelRec[talk.count - 1].dialogue != "\0") {
+					talk.d(excelRec[talk.count - 1].dialogue);
+				}
+				if (excelRec[talk.count - 1].pictureFileName != "\0") {
+					talk.p(excelRec[talk.count - 1].pictureFileName);
+				}
+				if (excelRec[talk.count - 1].sNFont != "\0") {
+					talk.nf = excelRec[talk.count - 1].nf;
+				}
+				if (excelRec[talk.count - 1].sFont != "\0") {
+					talk.f = excelRec[talk.count - 1].f;
+				}
 			}
-			if (excelRec[talk.count - 1].dialogue != "\0") {
-				talk.d(excelRec[talk.count - 1].dialogue);
-			}
-			if (excelRec[talk.count - 1].pictureFileName != "\0") {
-				talk.p(excelRec[talk.count - 1].pictureFileName);
-			}
-			if (excelRec[talk.count - 1].sNFont != "\0") {
-				talk.nf = excelRec[talk.count - 1].nf;
-			}
-			if (excelRec[talk.count - 1].sFont != "\0") {
-				talk.f = excelRec[talk.count - 1].f;
+			if (excelRec.empty() == false) {
+				if (excelRec[talk.count - 1].name == "end") {
+					talk.talking = false; talk.count = 0; box(false); finishRead = false; excelRecClear(); talk.ndp(" ", " ", "../Resource/Texture/invisible.png");
+				}
 			}
 		}
-		if (excelRec.empty() == false) {
-			if (excelRec[talk.count - 1].name == "end") {
-				talk.talking = false; talk.count = 0; box(false); finishRead = false; excelRecClear(); talk.ndp(" ", " ", "../Resource/Texture/invisible.png");
-			}
-		}
-
 
 
 

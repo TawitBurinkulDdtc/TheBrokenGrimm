@@ -25,15 +25,36 @@ void Level2Scene5p3::LevelInit()
 	backgroundList.push_back(background);
 	//Require in every level          RIQL			end
 
-	
+	stick = new ButtonObject();
+	stick->SetTexture("../Resource/Texture/test.png");
+	stick->SetSize(350, -150);
+	stick->SetPosition(glm::vec3(2989.0f, 257.0f, 0.0f));
+	objectsList.push_back(stick);
+	interactableList.push_back(stick);
+
+	stickPic = new GameObject();
+	stickPic->SetTexture("../Resource/Texture/OutsideBirdnest/Long_stick.png");	//need custom
+	stickPic->SetSize(mapWidth, -1080.0f);//1080 + 200.0f
+	stickPic->SetPosition(glm::vec3(mapWidth / 2, 540.0f, 0.0f));
+	objectsList.push_back(stickPic);
+
+	pebble = new ButtonObject();
+	pebble->SetTexture("../Resource/Texture/Items/pebbleOnTree.png");
+	pebble->SetSize(350, -350);
+	pebble->SetPosition(glm::vec3(2588.0f, 867.0f, 0.0f));
+	objectsList.push_back(pebble);
+	interactableList.push_back(pebble);
 
 	createPlayer(3);
-	player->SetPosition(glm::vec3(950.0f, Avery_y_Position, 0.0f));
+	player->SetPosition(glm::vec3(350.0f, Avery_y_Position, 0.0f));
 
-	
-
-	
-
+	if(GameInstance::GetInstance()->pebbelCollect[4] == true){
+		pebble->SetPosition(glm::vec3(0.0f, 5000.0f, 0.0f));
+	}
+	if (GameInstance::GetInstance()->stickCollect == true) {
+		stick->SetPosition(glm::vec3(0.0f, 5000.0f, 0.0f));
+		stickPic->SetPosition(glm::vec3(0, 5000.0f, 0.0f));
+	}
 	GameEngine::GetInstance()->SetDrawArea(0, 1920, 0, 1080);
 
 
@@ -97,10 +118,11 @@ void Level2Scene5p3::LevelInit()
 	//---------------------------------------------------------------------
 	
 	// RIQL end			2
-	readExcel.open("../Resource/Excel/Level3.csv");
+	readExcel.open("../Resource/Excel/Script_Dialogue_BrokenGrimm_LV3_-_Sheet1.csv");
 	excelRec.clear();
 
 	inventoryOpen();
+
 
 	
 }
@@ -115,7 +137,8 @@ void Level2Scene5p3::LevelUpdate()
 {
 	if (playerWalkSide != 0) {
 		if (player->GetX() < 250) {
-			player->SetPosition(glm::vec3(250, Avery_y_Position, 0.0f));
+			GameEngine::GetInstance()->GetStateController()->gameStateNext = GameState::GS_LEVEL2Scene5;
+			GameInstance::GetInstance()->PlayerFrom = PlayerFrom::Left;
 		}
 		else if (player->GetX() > mapWidth - 250) {
 			player->SetPosition(glm::vec3(mapWidth - 250, Avery_y_Position, 0.0f));	//
@@ -186,6 +209,8 @@ void Level2Scene5p3::HandleMouse(int type, int x, int y)
 {
 
 
+	uiText->LoadText(" ", dialogueTextColor, 30.0f);
+	nameText->LoadText(" ", dialogueTextColor, 30.0f);
 
 	float trueX = x;
 	if (player->GetX() > 960 && player->GetX() < (mapWidth - 960.0f)) {
@@ -199,7 +224,7 @@ void Level2Scene5p3::HandleMouse(int type, int x, int y)
 	}
 
 
-	//cout << "pos: x " << trueX << " y " << y << endl;    //set to 1920 x 1200 to see display
+	cout << "pos: x " << trueX << " y " << y << endl;    //set to 1920 x 1200 to see display
 	
 
 	
@@ -213,9 +238,26 @@ void Level2Scene5p3::HandleMouse(int type, int x, int y)
 			}
 		}
 		
-		
-
-
+	
+		if (pebble->Interacted == true) {
+			if (holdedItemIndex >= 0 && holdedItemIndex < GameInstance::GetInstance()->inventory.size()) {
+				if (GameInstance::GetInstance()->inventory[holdedItemIndex].name == "stick" && GameInstance::GetInstance()->pebbelCollect[4] == false) {
+					loseHoldedItem();
+					getItem("pebble", "Pebbles for our plan", "../Resource/Texture/Items/pebble.png");
+					GameInstance::GetInstance()->pebbleAmount++;
+					GameInstance::GetInstance()->pebbelCollect[4] = true;
+					pebble->SetPosition(glm::vec3(0.0f, 5000.0f, 0.0f));
+				}
+			}
+			pebble->Interacted = false;
+		}
+		if (stick->Interacted == true) {
+			stickPic->SetPosition(glm::vec3(0.0f, 5000.0f, 0.0f));
+			getItem("stick", "Could use to reach high stuff", "../Resource/Texture/Items/stick.png");
+			GameInstance::GetInstance()->stickCollect = true;
+			stick->SetPosition(glm::vec3(0.0f, 5000.0f, 0.0f));
+			stick->Interacted = false;
+		}
 		//Logic here
 
 

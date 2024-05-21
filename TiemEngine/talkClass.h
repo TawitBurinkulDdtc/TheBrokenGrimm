@@ -15,7 +15,7 @@ public:
 	int f = 100;
 	int nf = 70;
 	string event = " ";
-	string eventz = " ";
+	string eventz = " ";  //add if(talk.event != " "){    over excel stuff for this to work  
 
 	string name = " ";
 	string pictureFileName = " ";

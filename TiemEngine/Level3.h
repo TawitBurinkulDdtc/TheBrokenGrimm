@@ -33,5 +33,7 @@ public:
 
 	ButtonObject* campsite;
 	ButtonObject* sticks[5];
-	ButtonObject* stones[5];
+	//ButtonObject* stones[5];
+	ButtonObject* stones;
+	int campStuff = 0;
 };

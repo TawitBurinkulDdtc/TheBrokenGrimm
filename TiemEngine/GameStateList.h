@@ -15,6 +15,7 @@ enum GameState
 	GS_LEVEL3,
 	GS_LEVEL3Scene2,
 	GS_LEVEL4,
+	GS_LEVELArtGallery,
 	GS_LEVEL_test1, 
 	GS_LEVEL_test2,
 	GS_LEVEL_Zen,  //LVC. Level change testing add by Zen d13m9y2023

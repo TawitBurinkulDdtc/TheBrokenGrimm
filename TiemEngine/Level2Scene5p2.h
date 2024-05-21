@@ -25,7 +25,8 @@ public:
 	private:
 	ButtonObject* Spider;
 	ButtonObject* door;
-	ButtonObject* pebble;
+	//ButtonObject* pebble;
+	GameObject* pebblePic;
 	ButtonObject* insect;
 	GameObject* SpiderPic;
 	

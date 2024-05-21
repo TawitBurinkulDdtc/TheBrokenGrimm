@@ -31,18 +31,26 @@ void Level2Scene5p2::LevelInit()
 	//Gretel
 
 	Spider = new ButtonObject();
-	Spider->SetTexture("../Resource/Texture/test.png");
-	Spider->SetSize(540.0f * AverySizeRatio, -695.0f * AverySizeRatio);
-	Spider->SetPosition(glm::vec3(1500.0f, 350.0f, 0.0f));
+	Spider->SetTexture("../Resource/Texture/Characters/spiderL.png");
+	Spider->SetSize(2055*0.3f,-1668 * 0.3f);
+	Spider->SetPosition(glm::vec3(2880.0f, 350.0f, 0.0f));
 	objectsList.push_back(Spider);
 	interactableList.push_back(Spider);
-
+	/*
 	pebble = new ButtonObject();
 	pebble->SetTexture("../Resource/Texture/test.png");
 	pebble->SetSize(540.0f * AverySizeRatio, -695.0f * AverySizeRatio);
 	pebble->SetPosition(glm::vec3(1500.0f, 350.0f, 0.0f));
 	objectsList.push_back(pebble);
 	interactableList.push_back(pebble);
+	*/
+
+
+	pebblePic = new GameObject();
+	pebblePic->SetTexture("../Resource/Texture/Items/pebble.png");	//need custom
+	pebblePic->SetSize(100, -100.0f);//1080 + 200.0f
+	pebblePic->SetPosition(glm::vec3(2893.0f, 183.0f, 0.0f));
+	objectsList.push_back(pebblePic);
 
 
 	insect = new ButtonObject();
@@ -53,12 +61,20 @@ void Level2Scene5p2::LevelInit()
 	interactableList.push_back(insect);
 	
 	//SpiderPic = new SpriteObject("../Resource/Texture/Characters/Spider_PlaceHolder.png", 1, 6);
-	SpiderPic = new GameObject();
+	/*SpiderPic = new GameObject();
 	SpiderPic->SetTexture("../Resource/Texture/Spider_PlaceHolder.png");
 	SpiderPic->SetSize(540.0f * AverySizeRatio, -695.0f * AverySizeRatio); //in animation y gotta be +
 	SpiderPic->SetPosition(glm::vec3(1500.0f, 350.0f, 0.0f));
 	objectsList.push_back(SpiderPic);
-	
+	*/
+
+
+	if (GameInstance::GetInstance()->pebbelCollect[3] == true) {
+		pebblePic->SetPosition(glm::vec3(0, 5000.0f, 0.0f));
+	}
+	if (GameInstance::GetInstance()->insectCollect == true) {
+		insect->SetPosition(glm::vec3(0.0f, 5000.0f, 0.0f));
+	}
 
 
 	createPlayer(3);
@@ -226,9 +242,7 @@ void Level2Scene5p2::HandleMouse(int type, int x, int y)
 	uiText->LoadText(" ", dialogueTextColor, 30.0f);
 	nameText->LoadText(" ", dialogueTextColor, 30.0f);
 
-	uiText->LoadText(" ", dialogueTextColor, 30.0f);
-	nameText->LoadText(" ", dialogueTextColor, 30.0f);
-
+	
 	float trueX = x;
 	if (player->GetX() > 960 && player->GetX() < (mapWidth - 960.0f)) {
 		trueX = (x - 960) + player->GetX();
@@ -265,6 +279,7 @@ void Level2Scene5p2::HandleMouse(int type, int x, int y)
 					getItem("pebble", "Pebbles for our plan", "../Resource/Texture/Items/pebble.png");
 					GameInstance::GetInstance()->pebbleAmount++;
 					GameInstance::GetInstance()->pebbelCollect[3] = true;
+					pebblePic->SetPosition(glm::vec3(0.0f, 5000.0f, 0.0f));
 				}
 			}
 			Spider->Interacted = false; 

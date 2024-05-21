@@ -765,9 +765,10 @@ void Level1::HandleMouse(int type, int x, int y)
 
 		if (talk.eventz == "readMap") {
 			switch (talk.count) {
-				case 1: talk.d("map map map"); box(true); break;
-				case 2: talk.d("map map?"); break;
-				case 3: talk.d(" "); talk.talking = false; talk.eventz = " "; box(false); talk.count = 0;  break;
+				case 1: talk.d("The scroll of meaningless phases"); box(true); break;
+				case 2: talk.d("August 12 2036 the heat death of the universe."); break;
+				case 3: talk.d("Whatever"); break;
+				case 4: talk.d(" "); talk.talking = false; talk.eventz = " "; box(false); talk.count = 0;  break;
 			}
 		}
 		//readMap
@@ -936,6 +937,7 @@ void Level1::getItem(string name, string displayText, string fileName) {
 
 void Level1::loseHoldedItem() {
 	GameInstance::GetInstance()->inventory.erase(GameInstance::GetInstance()->inventory.begin() + holdedItemIndex);
+	//holdedItemIndex = -1;
 }
 
 

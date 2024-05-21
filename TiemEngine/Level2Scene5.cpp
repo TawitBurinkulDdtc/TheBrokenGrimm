@@ -151,6 +151,10 @@ void Level2Scene5::LevelInit()
 		player->SetPosition(glm::vec3(3915.0f, Avery_y_Position, 0.0f));
 		GameEngine::GetInstance()->SetDrawArea(3915-960, 3915+960, 0, 1080);
 	}
+	if (GameInstance::GetInstance()->PlayerFrom == PlayerFrom::Left) {
+		player->SetPosition(glm::vec3(mapWidth-350, Avery_y_Position, 0.0f));
+		GameEngine::GetInstance()->SetDrawArea(mapWidth - 1920, mapWidth, 0, 1080);
+	}
 	
 
 
@@ -293,7 +297,8 @@ void Level2Scene5::LevelUpdate()
 			player->SetPosition(glm::vec3(250, Avery_y_Position, 0.0f));
 		}
 		else if (player->GetX() > mapWidth - 250) {
-			player->SetPosition(glm::vec3(mapWidth - 250, Avery_y_Position, 0.0f));	//
+			//player->SetPosition(glm::vec3(mapWidth - 250, Avery_y_Position, 0.0f));	//
+			GameEngine::GetInstance()->GetStateController()->gameStateNext = GameState::GS_LEVEL2Scene5p3;
 		}
 	}
 	playerMovement(3); //Require in every level          RIQL

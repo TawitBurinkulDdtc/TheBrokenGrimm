@@ -40,13 +40,15 @@ public:
 
 	bool LV2chairAtCabinet = false;
 	bool LV2frontDoorLock = true;
-	bool pebbelCollect[4] = {false};
+	bool pebbelCollect[5] = {false};
 	bool insectCollect = false;
+	bool stickCollect = false;
 	int pebbleAmount = 0;
 	bool PuzzleCollectPebbleDone = false;
 	bool usePebbles = false;
 
 	int campSiteRequirement = 0;
+	bool lv3StartCutScene = false;
 
 	int birdTalking = 0;
 };
