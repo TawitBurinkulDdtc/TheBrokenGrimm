@@ -34,4 +34,6 @@ public:
 	GameObject* GretelPic;
 	GameObject* HanselPic;
 	GameObject* Chipmunk;
+
+	GameObject* UnlikeableWomen;
 };

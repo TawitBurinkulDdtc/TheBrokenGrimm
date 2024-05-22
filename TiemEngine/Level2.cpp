@@ -44,9 +44,9 @@ void Level2::LevelInit()
 
 	
 	//Chipmunk = new SpriteObject("../Resource/Texture/Characters/Squirrel_PlaceholderforAvery.png", 1, 6);
-	Chipmunk = new GameObject();
-	Chipmunk->SetTexture("../Resource/Texture/Squirrel_PlaceholderforAvery.png");
-	Chipmunk->SetSize(540.0f * AverySizeRatio, -695.0f * AverySizeRatio); //in animation y gotta be +
+	Chipmunk = new SpriteObject("../Resource/Texture/Characters/Squirrel_Avery.png", 1, 4);
+	//Chipmunk->SetTexture("../Resource/Texture/Squirrel_PlaceholderforAvery.png");
+	Chipmunk->SetSize(-267.0f * 0.7f, 274.0f * 0.7f); //in animation y gotta be +
 	Chipmunk->SetPosition(glm::vec3(0.0f, 5000.0f, 0.0f));
 	objectsList.push_back(Chipmunk);
 
@@ -60,7 +60,10 @@ void Level2::LevelInit()
 
 
 
-
+	UnlikeableWomen = new SpriteObject("../Resource/Texture/Characters/Mom.png", 1, 4);
+	UnlikeableWomen->SetSize(540.0f * AverySizeRatio, 900.0f * AverySizeRatio); //in animation y gotta be +
+	UnlikeableWomen->SetPosition(glm::vec3(0.0f, 5000.0f, 0.0f));
+	objectsList.push_back(UnlikeableWomen);
 
 
 
@@ -152,12 +155,15 @@ void Level2::LevelInit()
 
 	if(GameInstance::GetInstance()->PuzzleCollectPebbleDone == false){
 		player->SetPosition(glm::vec3(950.0f, 5000, 0.0f));
-		Chipmunk->SetPosition(glm::vec3(1000.0f, 450.0f, 0.0f));
-		HanselPic->SetPosition(glm::vec3(1500.0f, 350.0f, 0.0f));
+		Chipmunk->SetPosition(glm::vec3(1000.0f, 500.0f, 0.0f));
+		HanselPic->SetPosition(glm::vec3(1400.0f, 350.0f, 0.0f));
 		box(true);
 		talk.event = "Enter_Story";
 		talk.talking = true;
 	}
+	//SoundEngine->drop();
+	SoundEngine = createIrrKlangDevice();
+	SoundEngine->play2D("../Resource/Sound/Level2_DayTime.mp3", true);
 }
 
 
@@ -179,6 +185,9 @@ void Level2::LevelUpdate()
 	playerMovement(3); //Require in every level          RIQL
 	player->UpdateFrame();
 	GretelPic->UpdateFrame();
+	HanselPic->UpdateFrame();
+	Chipmunk->UpdateFrame();
+	UnlikeableWomen->UpdateFrame();
 }
 
 //SpriteObject* Girl = new SpriteObject("../Resource/Texture/AveryWalk.png", 1, 6);
@@ -331,7 +340,8 @@ void Level2::HandleMouse(int type, int x, int y)
 		if (talk.event == "Enter_Story") {
 			switch (talk.count) {
 			//case 1:    break;
-			case 22: player->SetPosition(glm::vec3(1500.0f, Avery_y_Position, 0.0f)); Chipmunk->SetPosition(glm::vec3(0.0f, 5000.0f, 0.0f));; HanselPic->SetPosition(glm::vec3(0.0f, 5000.0f, 0.0f)); break;
+			case 20:UnlikeableWomen->SetPosition(glm::vec3(450.0f, 400.0f, 0.0f)); Chipmunk->SetPosition(glm::vec3(0.0f, 5000.0f, 0.0f)); player->SetPosition(glm::vec3(1500.0f, Avery_y_Position, 0.0f)); HanselPic->SetPosition(glm::vec3(0.0f, 5000.0f, 0.0f)); break;
+			case 22:  UnlikeableWomen->SetPosition(glm::vec3(0.0f, 5000.0f, 0.0f));   break;
 			}
 		}
 
@@ -342,11 +352,11 @@ void Level2::HandleMouse(int type, int x, int y)
 			case 2: talk.event = " "; talk.nd(" ", " "); talk.talking = false; talk.count = 0; box(false); break;
 			}
 		}
-
+		
 		setDialoguePosition();
 		screenPic->SetTexture(talk.pictureFileName);			//SetPosition(glm::vec3(0, 0, 0));
-		uiText->LoadText(talk.dialogue, dialogueTextColor, talk.f);
-		nameText->LoadText(talk.name, dialogueTextColor, talk.nf);
+		uiText->LoadText(talk.dialogue, dialogueTextColor, 40);
+		nameText->LoadText(talk.name, dialogueTextColor, 40);
 
 	}//do talk
 

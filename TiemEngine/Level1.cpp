@@ -328,7 +328,7 @@ void Level1::LevelUpdate()
 {	
 	if (playerWalkSide != 0) {
 		if (player->GetX() > ((mapWidth / 2) - 600) && GameInstance::GetInstance()->birdTalking == 0 && talk.talking == false) {
-			uiText->LoadText("Hello, Young child.", dialogueTextColor, 40);
+			uiText->LoadText("Nice to meet you young child.My name is Graf", dialogueTextColor, 40);
 			nameText->LoadText("Graf", dialogueTextColor, 80);
 			bird->SetPosition(glm::vec3(mapWidth / 2, 700.0f, 0.0f));
 			birdAnim->SetPosition(glm::vec3(mapWidth / 2, 700.0f, 0.0f));
@@ -646,16 +646,26 @@ void Level1::HandleMouse(int type, int x, int y)
 		if (talk.event == "bird talking first") {		//SetPosition(glm::vec3(3500.25f, 800.0f, 0.0f));
 			switch (talk.count) {
 			case 1: //excelRecRecording("scene2");
-				talk.nd("Graf", "Hello, Young child."); talk.f = 40; break;
-			case 2: talk.nd("Graf", "My name is Graf, the librarian of this forest."); talk.f = 40; break;//box.(true); in update func
-			//case 2: talk.nd(excelRec[2].name, excelRec[2].dialogue); talk.f = 40; break;
-			case 3: talk.nd("Avery", "B-Bird can talk?! "); talk.f = 40; break;
-			case 4: talk.nd("Graf", "My name is Graf, the librarian of this forest."); talk.f = 40; break;
-			case 5:	talk.nd("Avery", "What "); talk.f = 40;   break;
-			case 6:	talk.d("Sorry but how can I leave this place?"); talk.f = 40;  break;
-			case 7:	talk.d("I'm sorry but I cannot lets you leave"); talk.f = 40;  break;
-			case 8: talk.nd("Avery", "Ok..."); talk.f = 40;  GameInstance::GetInstance()->birdTalking = 1; break;
-			case 9: talk.event = " "; talk.nd(" ", " "); talk.talking = false; box(false); talk.count = 0;   break;
+				talk.nd("Graf", "I'm the librarian of the Grimm library."); talk.f = 40; break;
+			case 2: talk.nd("Avery", "EH?! Wha-What are you?!Are you a g-ghost?"); talk.f = 40; break;//box.(true); in update func
+			case 3: talk.nd("Graf", "Oh I'm not a ghost.I'm a librarian.Look how cute I am!"); talk.f = 40; break;
+			case 4: talk.d("How could you call me a ghost!."); talk.f = 40; break;
+			case 5:	talk.d("I just have a form that differs from humans like you."); talk.f = 40;   break;
+			case 6:	talk.nd("Avery", "Then,tell me what this place is and How can I get out of here?"); talk.f = 40;  break;
+			case 7:	talk.nd("Graf", "I'm sorry to say this but I cannot let you leave."); talk.f = 40;  break;
+			case 8:	talk.nd("Avery","Why? Is there a problem or . . .Y you are a kidnapper?!"); talk.f = 40;  break;
+			case 9:	talk.nd("Graf", "Please calm down. I have my reason for keeping you here which is"); talk.f = 40;  break;
+			case 10: talk.d("Help me fix these books"); talk.f = 40;  break;
+			case 11:	talk.d("You see in this library many tales are twisted"); talk.f = 40;  break;
+			case 12:	talk.d("and the main character suffered from a tragic ending."); talk.f = 40;  break;
+			case 13:	talk.d("Our goal is to fix the story and give it the right ending."); talk.f = 40;  break;
+			case 14:	talk.nd("Avery", "Why me? Can't you do it yourself?"); talk.f = 40;  break;
+			case 15:	talk.nd("Graf", "I can't since I have to guard this library and no one come here other than you."); talk.f = 40;  break;
+			case 16:	talk.nd("Avery", "Okay. I will help you but don’t you dare break the promise"); talk.f = 40;  break;
+			case 17:	talk.nd("Graf", "Thank you so much, you can grab any books"); talk.f = 40;  break;
+			case 18:	talk.d("from the third bookshelf"); talk.f = 40;  break;
+			case 19:	talk.d("Those books need to be fixed."); GameInstance::GetInstance()->birdTalking = 1;  talk.f = 40;  break;
+			case 20: talk.event = " "; talk.nd(" ", " "); talk.talking = false; box(false); talk.count = 0;   break;
 			}
 		}
 	
@@ -755,8 +765,7 @@ void Level1::HandleMouse(int type, int x, int y)
 			case 5:	talk.d("There are two thoundsand rul");  break;
 			case 6:	talk.d("wait, I can't remember all!");  break;
 			case 7:	talk.d("Please tell me breifly");  break;
-			case 8:	talk.ndp(" "," ", "../Resource/Texture/Level1AverySuxInBuk.png"); box(false); break;
-			case 9: talk.event = " ";  talk.dp(" ", "../Resource/Texture/Level1AverySuxInBuk.png"); talk.talking = false; 
+			case 8: talk.event = " "; SoundEngine->drop(); talk.nd(" ", " "); box(false); talk.talking = false;
 				talk.count = 0; GameInstance::GetInstance()->PlayerFrom = PlayerFrom::Right; 
 				loseHoldedItem();
 				GameEngine::GetInstance()->GetStateController()->gameStateNext = GameState::GS_LEVEL2; break;

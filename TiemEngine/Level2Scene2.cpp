@@ -63,25 +63,25 @@ void Level2Scene2::LevelInit()
 	Gretel = new ButtonObject();
 	Gretel->SetTexture("../Resource/Texture/test.png");
 	Gretel->SetSize(540.0f * AverySizeRatio, -695.0f * AverySizeRatio);
-	Gretel->SetPosition(glm::vec3(1500.0f, 350.0f, 0.0f));
+	Gretel->SetPosition(glm::vec3(700.0f, 350.0f, 0.0f));
 	objectsList.push_back(Gretel);
 	interactableList.push_back(Gretel);
 
 	GretelPic = new SpriteObject("../Resource/Texture/Characters/Gretel_Idle.png", 1, 6);
-	GretelPic->SetSize(540.0f * AverySizeRatio, 695.0f * AverySizeRatio); //in animation y gotta be +
-	GretelPic->SetPosition(glm::vec3(1500.0f, 350.0f, 0.0f));
+	GretelPic->SetSize(-540.0f * AverySizeRatio, 695.0f * AverySizeRatio); //in animation y gotta be +
+	GretelPic->SetPosition(glm::vec3(700.0f, 350.0f, 0.0f));
 	objectsList.push_back(GretelPic);
 
 	UnlikeableWomen = new SpriteObject("../Resource/Texture/Characters/Mom_Smile.png", 1, 4);
 	UnlikeableWomen->SetSize(540.0f * AverySizeRatio, 900.0f * AverySizeRatio); //in animation y gotta be +
-	UnlikeableWomen->SetPosition(glm::vec3(2200.0f, 450.0f, 0.0f));
+	UnlikeableWomen->SetPosition(glm::vec3(1300.0f, 400.0f, 0.0f));
 	objectsList.push_back(UnlikeableWomen);
 
 	//Dad = new SpriteObject("../Resource/Texture/Characters/Mom_Smile.png", 1, 4);
 	Dad = new GameObject();
 	Dad->SetTexture("../Resource/Texture/Characters/Dad.png");
 	Dad->SetSize(723.0f * 0.4f, -1806.0f * 0.4f); //in animation y gotta be +
-	Dad->SetPosition(glm::vec3(2900.0f, 450.0f, 0.0f));
+	Dad->SetPosition(glm::vec3(1700.0f, 450.0f, 0.0f));
 	objectsList.push_back(Dad);
 
 	/*
@@ -95,7 +95,7 @@ void Level2Scene2::LevelInit()
 
 	createPlayer(3);
 	player->SetPosition(glm::vec3(950.0f, Avery_y_Position, 0.0f));
-
+	player->SetSize(-540.0f * AverySizeRatio, 695.0f * AverySizeRatio);
 	GameEngine::GetInstance()->SetDrawArea(0, 1920, 0, 1080);
 
 
@@ -170,11 +170,15 @@ void Level2Scene2::LevelInit()
 	//---------------------------------------------------------------------
 	//cout << "Init Level" << endl;
 	// RIQL end			2
-	readExcel.open("../Resource/Excel/Level2.csv");
+	readExcel.open("../Resource/Excel/ScriptDialogueBrokenGrimm_HGHouse_Outside.csv");
 	excelRec.clear();
 
 	inventoryOpen();
 	//sceneIntro
+
+	talk.talking = true;
+	talk.event = "Father_comeback";
+	box(true);
 }
 
 
@@ -342,6 +346,12 @@ void Level2Scene2::HandleMouse(int type, int x, int y)
 			switch (talk.count) {
 			case 1: talk.nd("Avery", "I want to check this place first before reading"); talk.f = 60;  box(true);  break;
 			case 2: talk.event = " "; talk.nd(" ", " "); talk.talking = false; talk.count = 0; box(false); break;
+			}
+		}
+
+		if (talk.event == "Father_comeback") {
+			switch (talk.count) {
+			case 8: GameEngine::GetInstance()->GetStateController()->gameStateNext = GameState::GS_LEVEL2Scene3; talk.event = " "; talk.nd(" ", " "); talk.talking = false; talk.count = 0; box(false); break;
 			}
 		}
 

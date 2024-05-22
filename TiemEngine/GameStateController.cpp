@@ -41,7 +41,7 @@ void GameStateController::LoadLevel()
 	switch (gameStateCurr)
 	{
 		case GameState::GS_LEVEL1:
-			currentLevel = new Level4();
+			currentLevel = new Level2Scene2();
 			break;
 		case GameState::GS_LEVEL2:
 			currentLevel = new Level2();

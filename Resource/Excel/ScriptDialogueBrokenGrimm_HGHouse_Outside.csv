@@ -30,6 +30,7 @@ bug,Scene_Name,Name,Dialogue,Image,1,2,bug
 ,,Avery,(What the ?! ),,80,40,
 ,,Avery,(She became a different woman when their dad came home).,,80,40,
 ,,Avery,(She even lied about the kids. What a sly fox.),,80,40,
+,, , ,,80,40,
 ,,end,,,1,1,
 ,After_Dinner,Avery,"Your mom is always like that?",,80,40,
 ,,Hansel,Yeah she has always been like this.,,80,40,
