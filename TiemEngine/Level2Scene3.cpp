@@ -18,8 +18,9 @@ void Level2Scene3::LevelInit()
 	holdedItemIndex = -1;	//Require in every level          RIQL
 
 	//Require in every level          RIQL		start
-	GameObject* background = new GameObject();
+	background = new GameObject();
 	background->SetTexture("../Resource/Texture/H_And_G_Bedroom_Night.jpg");	//need custom
+	//background->AddTexture("../Resource/Texture/H_And_G_Bedroom_Night.jpg");
 	background->SetSize(mapWidth, -1080.0f);//1080 + 200.0f
 	background->SetPosition(glm::vec3(mapWidth / 2, 540.0f, 0.0f));
 	backgroundList.push_back(background);
@@ -139,7 +140,7 @@ void Level2Scene3::LevelInit()
 	//---------------------------------------------------------------------
 	//cout << "Init Level" << endl;
 	// RIQL end			2
-	readExcel.open("../Resource/Excel/Level2.csv");
+	readExcel.open("../Resource/Excel/ScriptDialogueBrokenGrimm_HGHouse_Outside.csv");
 	excelRec.clear();
 
 	//sceneIntro
@@ -148,6 +149,10 @@ void Level2Scene3::LevelInit()
 	talk.event = "sceneIntro";
 	*/
 	inventoryOpen();
+
+	if (GameInstance::GetInstance()->usePebbles == false) { talk.event = "After_Dinner"; talk.talking = true; background->SetTexture("../Resource/Texture/H_And_G_Bedroom_Morning.jpg");}
+	
+
 }
 
 
@@ -314,10 +319,9 @@ void Level2Scene3::HandleMouse(int type, int x, int y)
 			}
 		}
 
-		if (talk.event == "not read yet") {
+		if (talk.event == "After_Dinner") {
 			switch (talk.count) {
-			case 1: talk.nd("Avery", "I want to check this place first before reading"); talk.f = 60;  box(true);  break;
-			case 2: talk.event = " "; talk.nd(" ", " "); talk.talking = false; talk.count = 0; box(false); break;
+			case 2: background->SetTexture("../Resource/Texture/H_And_G_Bedroom_Night.jpg"); break;
 			}
 		}
 

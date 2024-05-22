@@ -52,8 +52,8 @@ bug,Scene_Name,Name,Dialogue,Image,1,2,bug
 ,,Avery,"We have to wait until they sleep and then we can go out.",,80,40,
 ,,Avery,I will help you guys as I promise in the name of an apprentice of fairy godmother!,,80,40,
 ,,Hansel,Okay we believe Mr.Fairy !,,80,40,
-,,end,,,1,1,
-,LeavingBedroom,Avery,Guys wake up! Looks like they are sleeping now.,,80,40,
+,,,(sleeping),,1,1,
+,,Avery,Guys wake up! Looks like they are sleeping now.,,80,40,
 ,,Hansel,"Hmm..okay",,80,40,
 ,,Avery,Let's leave the house,,80,40,
 ,,end,,,1,1,
