@@ -152,7 +152,9 @@ void Level2Scene3::LevelInit()
 
 	if (GameInstance::GetInstance()->usePebbles == false) { talk.event = "After_Dinner"; talk.talking = true; background->SetTexture("../Resource/Texture/H_And_G_Bedroom_Morning.jpg");}
 	
-
+	//SoundEngine->drop();
+	SoundEngine = createIrrKlangDevice();
+	SoundEngine->play2D("../Resource/Sound/Level2_NightTime.mp3", true);
 }
 
 
@@ -227,7 +229,7 @@ void Level2Scene3::HandleKey(char key)
 			break;
 	case 'd': if (talk.talking == false) { playerWalkSide = 2; } 
 			break;
-	case 'q': GameEngine::GetInstance()->GetStateController()->gameStateNext = GameState::GS_QUIT; ; break;
+	//case 'q': GameEngine::GetInstance()->GetStateController()->gameStateNext = GameState::GS_QUIT; ; break;
 	//case 'r': GameEngine::GetInstance()->GetStateController()->gameStateNext = GameState::GS_RESTART; ; break;
 	}
 }
@@ -266,20 +268,20 @@ void Level2Scene3::HandleMouse(int type, int x, int y)
 			}
 		}
 		
-		if (Hansel->Interacted == true) {
+		/*if (Hansel->Interacted == true) {
 			talk.talking = true;
 			talk.event = "sceneHansel";
 			Hansel->Interacted = false;
-		}
+		}*/
 
 		if (Gretel->Interacted == true) {
 			talk.talking = true;
-			talk.event = "sceneGretel";
+			talk.event = "g2";
 			Gretel->Interacted = false; 
 		}
 		if (door->Interacted == true) {
-			if(GameInstance::GetInstance()->usePebbles == false){ GameEngine::GetInstance()->GetStateController()->gameStateNext = GameState::GS_LEVEL2Scene4; }
-			else{ GameEngine::GetInstance()->GetStateController()->gameStateNext = GameState::GS_LEVEL3; }
+			if(GameInstance::GetInstance()->usePebbles == false){ SoundEngine->drop();  GameEngine::GetInstance()->GetStateController()->gameStateNext = GameState::GS_LEVEL2Scene4; }
+			else{ SoundEngine->drop();  GameEngine::GetInstance()->GetStateController()->gameStateNext = GameState::GS_LEVEL3; }
 			door->Interacted = false;
 		}
 	}

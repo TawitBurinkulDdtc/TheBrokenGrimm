@@ -55,8 +55,8 @@ void Level2Scene5p2::LevelInit()
 
 	insect = new ButtonObject();
 	insect->SetTexture("../Resource/Texture/Items/Kevin.png");
-	insect->SetSize(200,-100);
-	insect->SetPosition(glm::vec3(1000.0f, 350.0f, 0.0f));
+	insect->SetSize(200,-200);
+	insect->SetPosition(glm::vec3(1442.0f, 393.0f, 0.0f));
 	objectsList.push_back(insect);
 	interactableList.push_back(insect);
 	
@@ -144,7 +144,7 @@ void Level2Scene5p2::LevelInit()
 	//---------------------------------------------------------------------
 	//cout << "Init Level" << endl;
 	// RIQL end			2
-	readExcel.open("../Resource/Excel/Level2Scene5p2.csv");
+	readExcel.open("../Resource/Excel/ScriptDialogueBrokenGrimm_HGHouse_Outside.csv");
 	excelRec.clear();
 
 	//sceneIntro
@@ -153,6 +153,9 @@ void Level2Scene5p2::LevelInit()
 	talk.event = "sceneIntro";
 	*/
 	inventoryOpen();
+	//SoundEngine->drop();
+	SoundEngine = createIrrKlangDevice();
+	SoundEngine->play2D("../Resource/Sound/Level2_NightTime.mp3", true);
 }
 
 
@@ -166,6 +169,7 @@ void Level2Scene5p2::LevelUpdate()
 	if (playerWalkSide != 0) {
 		if (player->GetX() < 250) {
 			GameInstance::GetInstance()->PlayerFrom = PlayerFrom::Middle;
+			SoundEngine->drop();
 			GameEngine::GetInstance()->GetStateController()->gameStateNext = GameState::GS_LEVEL2Scene5;
 		}
 		else if (player->GetX() > mapWidth - 250) {
@@ -228,7 +232,7 @@ void Level2Scene5p2::HandleKey(char key)
 			break;
 	case 'd': if (talk.talking == false) { playerWalkSide = 2; } 
 			break;
-	case 'q': GameEngine::GetInstance()->GetStateController()->gameStateNext = GameState::GS_QUIT; ; break;
+	//case 'q': GameEngine::GetInstance()->GetStateController()->gameStateNext = GameState::GS_QUIT; ; break;
 	
 	case 'r': 
 		GameInstance::GetInstance()->PuzzleCollectPebbleDone = true;
@@ -283,6 +287,14 @@ void Level2Scene5p2::HandleMouse(int type, int x, int y)
 					GameInstance::GetInstance()->pebbelCollect[3] = true;
 					pebblePic->SetPosition(glm::vec3(0.0f, 5000.0f, 0.0f));
 				}
+				else {
+					talk.talking = true;
+					talk.event = "spi";
+				}
+			}
+			else {
+				talk.talking = true;
+				talk.event = "spi";
 			}
 			Spider->Interacted = false; 
 		}

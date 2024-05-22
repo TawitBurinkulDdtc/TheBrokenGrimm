@@ -250,7 +250,7 @@ void Level2::HandleKey(char key)
 			break;
 	case 'd': if (talk.talking == false) { playerWalkSide = 2; } 
 			break;
-	case 'q': GameEngine::GetInstance()->GetStateController()->gameStateNext = GameState::GS_QUIT; ; break;
+	//case 'q': GameEngine::GetInstance()->GetStateController()->gameStateNext = GameState::GS_QUIT; ; break;
 	//case 'r': GameEngine::GetInstance()->GetStateController()->gameStateNext = GameState::GS_RESTART; ; break;
 	}
 }
@@ -298,11 +298,11 @@ void Level2::HandleMouse(int type, int x, int y)
 			//talk.event = "sceneGretel";
 			if (GameInstance::GetInstance()->PuzzleCollectPebbleDone == false) {
 				talk.talking = true;
-				talk.event = "Enter_Story";
+				talk.event = "g1";
 			}
 			else if (GameInstance::GetInstance()->PuzzleCollectPebbleDone == true) {
-				//talk.event = "sceneGretel2";
-				printf("collect pebbles nice");
+				talk.talking = true;
+				talk.event = "g4";
 			}
 			Gretel->Interacted = false; 
 		}
@@ -351,7 +351,7 @@ void Level2::HandleMouse(int type, int x, int y)
 			switch (talk.count) {
 			//case 1:    break;
 			case 20:UnlikeableWomen->SetPosition(glm::vec3(450.0f, 400.0f, 0.0f)); Chipmunk->SetPosition(glm::vec3(0.0f, 5000.0f, 0.0f)); player->SetPosition(glm::vec3(1500.0f, Avery_y_Position, 0.0f)); HanselPic->SetPosition(glm::vec3(0.0f, 5000.0f, 0.0f)); break;
-			case 22:  UnlikeableWomen->SetPosition(glm::vec3(0.0f, 5000.0f, 0.0f));   break;
+			case 22:UnlikeableWomen->SetPosition(glm::vec3(0.0f, 5000.0f, 0.0f));  GameEngine::GetInstance()->SetDrawArea(mapWidth - 1920, mapWidth, 0, 1080); setUiPos(); break;
 			}
 		}
 

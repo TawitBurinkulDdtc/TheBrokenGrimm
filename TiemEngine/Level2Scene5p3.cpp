@@ -118,12 +118,14 @@ void Level2Scene5p3::LevelInit()
 	//---------------------------------------------------------------------
 	
 	// RIQL end			2
-	readExcel.open("../Resource/Excel/Script_Dialogue_BrokenGrimm_LV3_-_Sheet1.csv");
+	readExcel.open("../Resource/Excel/ScriptDialogueBrokenGrimm_HGHouse_Outside.csv");
 	excelRec.clear();
 
 	inventoryOpen();
 
-
+	//SoundEngine->drop();
+	SoundEngine = createIrrKlangDevice();
+	SoundEngine->play2D("../Resource/Sound/Level2_NightTime.mp3", true);
 	
 }
 
@@ -137,6 +139,7 @@ void Level2Scene5p3::LevelUpdate()
 {
 	if (playerWalkSide != 0) {
 		if (player->GetX() < 250) {
+			SoundEngine->drop();
 			GameEngine::GetInstance()->GetStateController()->gameStateNext = GameState::GS_LEVEL2Scene5;
 			GameInstance::GetInstance()->PlayerFrom = PlayerFrom::Right;
 		}
@@ -200,7 +203,7 @@ void Level2Scene5p3::HandleKey(char key)
 			break;
 	case 'd': if (talk.talking == false) { playerWalkSide = 2; } 
 			break;
-	case 'q': GameEngine::GetInstance()->GetStateController()->gameStateNext = GameState::GS_QUIT; ; break;
+	//case 'q': GameEngine::GetInstance()->GetStateController()->gameStateNext = GameState::GS_QUIT; ; break;
 	//case 'r': GameEngine::GetInstance()->GetStateController()->gameStateNext = GameState::GS_RESTART; ; break;
 	}
 }
@@ -248,6 +251,14 @@ void Level2Scene5p3::HandleMouse(int type, int x, int y)
 					GameInstance::GetInstance()->pebbelCollect[4] = true;
 					pebble->SetPosition(glm::vec3(0.0f, 5000.0f, 0.0f));
 				}
+				else {
+					talk.talking = true;
+					talk.event = "high";
+				}
+			}
+			else {
+				talk.talking = true;
+				talk.event = "high";
 			}
 			pebble->Interacted = false;
 		}

@@ -196,8 +196,6 @@ void Level2Scene5::LevelInit()
 
 
 
-
-
 	
 
 
@@ -279,6 +277,9 @@ void Level2Scene5::LevelInit()
 		GameInstance::GetInstance()->talkOnceOutside = true; 
 	}
 
+	//SoundEngine->drop();
+	SoundEngine = createIrrKlangDevice();
+	SoundEngine->play2D("../Resource/Sound/Level2_NightTime.mp3", true);
 }
 
 
@@ -306,6 +307,7 @@ void Level2Scene5::LevelUpdate()
 		}
 		else if (player->GetX() > mapWidth - 250) {
 			//player->SetPosition(glm::vec3(mapWidth - 250, Avery_y_Position, 0.0f));	//
+			SoundEngine->drop();
 			GameEngine::GetInstance()->GetStateController()->gameStateNext = GameState::GS_LEVEL2Scene5p3;
 		}
 	}
@@ -371,7 +373,7 @@ void Level2Scene5::HandleKey(char key)
 			break;
 	case 'd': if (talk.talking == false) { playerWalkSide = 2; } 
 			break;
-	case 'q': GameEngine::GetInstance()->GetStateController()->gameStateNext = GameState::GS_QUIT; ; break;
+	//case 'q': GameEngine::GetInstance()->GetStateController()->gameStateNext = GameState::GS_QUIT; ; break;
 	
 	case 'r': 
 		//GameInstance::GetInstance()->PuzzleCollectPebbleDone = true;
@@ -423,14 +425,14 @@ void Level2Scene5::HandleMouse(int type, int x, int y)
 		}
 		*/
 		if (Gretel->Interacted == true) {
-			//talk.talking = true;
-			//talk.event = "sceneGretel";
-			cout << GameInstance::GetInstance()->pebbleAmount << endl;
-			cout << "Gretel like eatting squeral" << endl;
+			talk.talking = true;
+			talk.event = "g5";
+			//cout << GameInstance::GetInstance()->pebbleAmount << endl;
+			//cout << "Gretel like eatting squeral" << endl;
 			Gretel->Interacted = false; 
 		}
 		if (door->Interacted == true) {
-			if (GameInstance::GetInstance()->pebbleAmount >=4) {
+			if (GameInstance::GetInstance()->pebbleAmount >=5) {
 				GameInstance::GetInstance()->PuzzleCollectPebbleDone = true;
 				GameInstance::GetInstance()->PlayerFrom = Right;
 				GameEngine::GetInstance()->GetStateController()->gameStateNext = GameState::GS_LEVEL2Scene4;
@@ -438,6 +440,7 @@ void Level2Scene5::HandleMouse(int type, int x, int y)
 			door->Interacted = false;
 		}
 		if (darkPlace->Interacted == true) {
+			SoundEngine->drop();
 			GameEngine::GetInstance()->GetStateController()->gameStateNext = GameState::GS_LEVEL2Scene5p2;
 			darkPlace->Interacted = false;
 		}

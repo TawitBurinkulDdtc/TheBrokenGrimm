@@ -37,7 +37,7 @@ public:
 
 	GameEventType key1 = NotPick;
 
-
+	bool chairPick = false;
 	bool LV2chairAtCabinet = false;
 	bool LV2frontDoorLock = true;
 	bool talkOnceOutside = false;

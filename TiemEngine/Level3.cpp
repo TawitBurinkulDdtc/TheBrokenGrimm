@@ -39,19 +39,25 @@ void Level3::LevelInit()
 	Hansel = new ButtonObject();
 	Hansel->SetTexture("../Resource/Texture/test.png");
 	Hansel->SetSize(540.0f * AverySizeRatio, -695.0f * AverySizeRatio);
-	Hansel->SetPosition(glm::vec3(1500.0f, 350.0f, 0.0f));
+	Hansel->SetPosition(glm::vec3(1700.0f, 350.0f, 0.0f));
 	objectsList.push_back(Hansel);
 	interactableList.push_back(Hansel);
 
+	HanselPic = new SpriteObject("../Resource/Texture/Characters/Hansel_Idle.png", 1, 6);
+	HanselPic->SetSize(540.0f * AverySizeRatio, 695.0f * AverySizeRatio); //in animation y gotta be +
+	HanselPic->SetPosition(glm::vec3(1700.0f, 350.0f, 0.0f));
+	objectsList.push_back(HanselPic);
 
 	//placedPebblesHere
 
 	campsite = new ButtonObject();
-	campsite->SetTexture("../Resource/Texture/test.png");
+	campsite->SetTexture("../Resource/Texture/fireCamp2.png");
+	campsite->AddTextures("../Resource/Texture/fireCamp1.png");
 	campsite->SetSize(400, -400);
-	campsite->SetPosition(glm::vec3(700, 150.0f, 0.0f));
+	campsite->SetPosition(glm::vec3(1305, 300.0f, 0.0f));
 	objectsList.push_back(campsite);
 	interactableList.push_back(campsite);
+
 
 	/*
 	placedPebblesHere = new ButtonObject();
@@ -62,29 +68,25 @@ void Level3::LevelInit()
 	interactableList.push_back(placedPebblesHere);
 	*/
 	
-	HanselPic = new SpriteObject("../Resource/Texture/Characters/Hansel_Idle.png", 1, 6);
-	HanselPic->SetSize(540.0f * AverySizeRatio, 695.0f * AverySizeRatio); //in animation y gotta be +
-	HanselPic->SetPosition(glm::vec3(1500.0f, 350.0f, 0.0f));
-	objectsList.push_back(HanselPic);
 	
 	stones = new ButtonObject();
-	stones->SetTexture("../Resource/Texture/Items/MoreStones.png");
+	stones->SetTexture("../Resource/Texture/Items/coupleOfStones.png");
 	stones->SetSize(200.0f, -200.0f);
-	stones->SetPosition(glm::vec3(1845.0f, 600.0f, 0.0f));
+	stones->SetPosition(glm::vec3(200.0f, 200.0f, 0.0f));
 	objectsList.push_back(stones);
 	interactableList.push_back(stones);
 
 	sticks[0] = new ButtonObject();
 	sticks[0]->SetTexture("../Resource/Texture/Items/stick.png");
 	sticks[0]->SetSize(200.0f, -200.0f);
-	sticks[0]->SetPosition(glm::vec3(1845.0f, 200.0f, 0.0f));
+	sticks[0]->SetPosition(glm::vec3(2431.0f, 200.0f, 0.0f));
 	objectsList.push_back(sticks[0]);
 	interactableList.push_back(sticks[0]);
 
 	sticks[1] = new ButtonObject();
 	sticks[1]->SetTexture("../Resource/Texture/Items/stick.png");
 	sticks[1]->SetSize(200.0f, -200.0f);
-	sticks[1]->SetPosition(glm::vec3(1245.0f, 200.0f, 0.0f));
+	sticks[1]->SetPosition(glm::vec3(3000.0f, 200.0f, 0.0f));
 	objectsList.push_back(sticks[1]);
 	interactableList.push_back(sticks[1]);
 
@@ -118,10 +120,10 @@ void Level3::LevelInit()
 
 	GameEngine::GetInstance()->SetDrawArea(0, 1920, 0, 1080);
 	
-	if (GameInstance::GetInstance()->PlayerFrom == PlayerFrom::Right) {
+	/*if (GameInstance::GetInstance()->PlayerFrom == PlayerFrom::Right) {
 		player->SetPosition(glm::vec3(mapWidth-400, Avery_y_Position, 0.0f));
 		GameEngine::GetInstance()->SetDrawArea(mapWidth-1920, mapWidth, 0, 1080);
-	}
+	}*/
 
 
 
@@ -184,7 +186,7 @@ void Level3::LevelInit()
 
 	//--------------------- walk speed editer----------------------------
 	playerFrameDelay = 1.0f;
-	playerStepPerFrame = 60; //10 real   // 60 debug (60 will have some interact area bug abit)
+	playerStepPerFrame = 10; //10 real   // 60 debug (60 will have some interact area bug abit)
 	//---------------------------------------------------------------------
 
 
@@ -211,6 +213,10 @@ void Level3::LevelInit()
 		box(true);
 		GameInstance::GetInstance()->lv3StartCutScene = true;
 	}
+
+	//SoundEngine->drop();
+	SoundEngine = createIrrKlangDevice();
+	SoundEngine->play2D("../Resource/Sound/Level2_NightTime.mp3", true);
 }
 
 
@@ -288,7 +294,7 @@ void Level3::HandleKey(char key)
 			break;
 	case 'd': if (talk.talking == false) { playerWalkSide = 2; } 
 			break;
-	case 'q': GameEngine::GetInstance()->GetStateController()->gameStateNext = GameState::GS_QUIT; ; break;
+	//case 'q': GameEngine::GetInstance()->GetStateController()->gameStateNext = GameState::GS_QUIT; ; break;
 	//case 'r': GameEngine::GetInstance()->GetStateController()->gameStateNext = GameState::GS_RESTART; ; break;
 	}
 }
@@ -328,12 +334,11 @@ void Level3::HandleMouse(int type, int x, int y)
 			}
 		}
 		
-		/*if (Hansel->Interacted == true) {
+		if (Hansel->Interacted == true) {
 			talk.talking = true;
-			talk.event = "sceneHansel";
-			cout << "Hansel like eatting squeral" << endl;
+			talk.event = "h1";
 			Hansel->Interacted = false; 
-		}*/
+		}
 		
 
 		//cout << "1.holded:" << holdedItemIndex << "   inv size:"<< GameInstance::GetInstance()->inventory.size() << endl;
@@ -346,7 +351,10 @@ void Level3::HandleMouse(int type, int x, int y)
 				}
 			}
 			if (campStuff >= 3) {
-				GameEngine::GetInstance()->GetStateController()->gameStateNext = GameState::GS_LEVEL4;
+				campsite->ChangeTextures(1);
+				talk.talking = true;
+				talk.event = "lightUp";
+				//GameEngine::GetInstance()->GetStateController()->gameStateNext = GameState::GS_LEVEL4;
 			}
 			campsite->Interacted = false;
 		}
@@ -354,7 +362,7 @@ void Level3::HandleMouse(int type, int x, int y)
 
 		
 		if (stones->Interacted == true) {
-			getItem("stick", "This will help to stop fire from spreading", "../Resource/Texture/Items/MoreStones.png");
+			getItem("stick", "Couple of stones", "../Resource/Texture/Items/coupleOfStones.png");
 			stones->SetPosition(glm::vec3(0.0f, 5000.0f, 0.0f));
 			stones->Interacted = false;
 		}
@@ -405,10 +413,10 @@ void Level3::HandleMouse(int type, int x, int y)
 
 
 
-		if (talk.event == "not read yet") {
+		if (talk.event == "lightUp") {
 			switch (talk.count) {
-			case 1: talk.nd("Avery", "I want to check this place first before reading"); talk.f = 60;  box(true);  break;
-			case 2: talk.event = " "; talk.nd(" ", " "); talk.talking = false; talk.count = 0; box(false); break;
+			case 6: talk.p("../Resource/Texture/black.png"); talk.f = 60;  box(false);  break;
+			case 7: talk.event = " "; SoundEngine->drop(); talk.ndp(" ", " "," "); talk.talking = false; talk.count = 0; box(false); GameEngine::GetInstance()->GetStateController()->gameStateNext = GameState::GS_LEVEL4;  break;
 			}
 		}
 

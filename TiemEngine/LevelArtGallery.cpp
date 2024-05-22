@@ -273,7 +273,9 @@ void LevelArtGallery::LevelInit()
 
 	inventoryOpen();
 
-	
+	//SoundEngine->drop();
+	SoundEngine = createIrrKlangDevice();
+	SoundEngine->play2D("../Resource/Sound/Level1.mp3", true);
 }
 
 

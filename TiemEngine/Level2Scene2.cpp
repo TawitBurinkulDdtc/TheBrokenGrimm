@@ -161,7 +161,7 @@ void Level2Scene2::LevelInit()
 
 	//--------------------- walk speed editer----------------------------
 	playerFrameDelay = 1.0f;
-	playerStepPerFrame = 60; //10 real   // 60 debug (60 will have some interact area bug abit)
+	playerStepPerFrame = 10; //10 real   // 60 debug (60 will have some interact area bug abit)
 	//---------------------------------------------------------------------
 
 
@@ -179,6 +179,10 @@ void Level2Scene2::LevelInit()
 	talk.talking = true;
 	talk.event = "Father_comeback";
 	box(true);
+
+	//SoundEngine->drop();
+	SoundEngine = createIrrKlangDevice();
+	SoundEngine->play2D("../Resource/Sound/Level2_DayTime.mp3", true);
 }
 
 
@@ -255,7 +259,7 @@ void Level2Scene2::HandleKey(char key)
 			break;
 	case 'd': if (talk.talking == false) { playerWalkSide = 2; } 
 			break;
-	case 'q': GameEngine::GetInstance()->GetStateController()->gameStateNext = GameState::GS_QUIT; ; break;
+	//case 'q': GameEngine::GetInstance()->GetStateController()->gameStateNext = GameState::GS_QUIT; ; break;
 	//case 'r': GameEngine::GetInstance()->GetStateController()->gameStateNext = GameState::GS_RESTART; ; break;
 	}
 }
@@ -351,7 +355,7 @@ void Level2Scene2::HandleMouse(int type, int x, int y)
 
 		if (talk.event == "Father_comeback") {
 			switch (talk.count) {
-			case 8: GameEngine::GetInstance()->GetStateController()->gameStateNext = GameState::GS_LEVEL2Scene3; talk.event = " "; talk.nd(" ", " "); talk.talking = false; talk.count = 0; box(false); break;
+			case 8: SoundEngine->drop(); GameEngine::GetInstance()->GetStateController()->gameStateNext = GameState::GS_LEVEL2Scene3; talk.event = " "; talk.nd(" ", " "); talk.talking = false; talk.count = 0; box(false); break;
 			}
 		}
 

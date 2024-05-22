@@ -61,14 +61,14 @@ void Level2Scene4::LevelInit()
 	Gretel = new ButtonObject();
 	Gretel->SetTexture("../Resource/Texture/test.png");
 	Gretel->SetSize(540.0f * AverySizeRatio, -695.0f * AverySizeRatio);
-	Gretel->SetPosition(glm::vec3(1500.0f, 350.0f, 0.0f));
+	Gretel->SetPosition(glm::vec3(2200.0f, 350.0f, 0.0f));
 	objectsList.push_back(Gretel);
 	interactableList.push_back(Gretel);
 
 
 	GretelPic = new SpriteObject("../Resource/Texture/Characters/Gretel_Idle.png", 1, 6); 
 	GretelPic->SetSize(540.0f * AverySizeRatio, 695.0f * AverySizeRatio); //in animation y gotta be +
-	GretelPic->SetPosition(glm::vec3(1500.0f, 350.0f, 0.0f));
+	GretelPic->SetPosition(glm::vec3(2200.0f, 350.0f, 0.0f));
 	objectsList.push_back(GretelPic);
 
 
@@ -209,9 +209,16 @@ void Level2Scene4::LevelInit()
 		getItem("pebbles", "Pebbles for our plan", "../Resource/Texture/Items/pebbles.png");
 		talk.talking = true;
 		talk.event = "Aftercollectpebble";
+		uiText->SetPosition(glm::vec3(mapWidth - 960, 150.0f + 700, 0.0f));
+		nameText->SetPosition(glm::vec3(mapWidth - 960 - 470, 320.0f + 650, 0.0f));
+		//setUiPos();
 		box(true);
 	}
 	
+
+	//SoundEngine->drop();
+	SoundEngine = createIrrKlangDevice();
+	SoundEngine->play2D("../Resource/Sound/Level2_NightTime.mp3", true);
 }
 
 
@@ -236,6 +243,7 @@ void Level2Scene4::LevelUpdate()
 				player->SetPosition(glm::vec3(mapWidth - 250, Avery_y_Position, 0.0f));
 			}
 			else{
+				SoundEngine->drop();
 				GameEngine::GetInstance()->GetStateController()->gameStateNext = GameState::GS_LEVEL2Scene5;
 			}
 		}
@@ -303,7 +311,7 @@ void Level2Scene4::HandleKey(char key)
 			break;
 	case 'd': if (talk.talking == false) { playerWalkSide = 2; } 
 			break;
-	case 'q': GameEngine::GetInstance()->GetStateController()->gameStateNext = GameState::GS_QUIT; ; break;
+	//case 'q': GameEngine::GetInstance()->GetStateController()->gameStateNext = GameState::GS_QUIT; ; break;
 	//case 'r': GameEngine::GetInstance()->GetStateController()->gameStateNext = GameState::GS_RESTART; ; break;
 	}
 }
@@ -346,15 +354,22 @@ void Level2Scene4::HandleMouse(int type, int x, int y)
 		
 
 		if (Gretel->Interacted == true) {
-			talk.talking = true;
-			talk.event = "sceneGretel";
+			if(GameInstance::GetInstance()->PuzzleCollectPebbleDone == false){
+				talk.talking = true;
+				talk.event = "g3";
+			}
+			else{
+				talk.talking = true;
+				talk.event = "g4";
+			}
 			Gretel->Interacted = false;
 		}
 
 		if (Chair->Interacted == true) {
 			//talk.talking = true;
 			getItem("chair", "I could reach something high with this", "../Resource/Texture/Items/chair.png");
-			talk.event = "grabChair";
+			//talk.event = "grabChair";
+			GameInstance::GetInstance()->chairPick = true;
 			chairPic->SetPosition(glm::vec3(0.0f, 5000.0f, 0.0f));
 			Chair->SetPosition(glm::vec3(0.0f, 5000.0f, 0.0f));
 			Chair->Interacted = false;
@@ -396,6 +411,7 @@ void Level2Scene4::HandleMouse(int type, int x, int y)
 					//frontDoorPic->SetPosition(glm::vec3(0, 5000.0f, 0.0f));
 					loseHoldedItem();
 					refreshInventoryPic();
+					SoundEngine->drop();
 					GameEngine::GetInstance()->GetStateController()->gameStateNext = GameState::GS_LEVEL2Scene5;
 				}
 				else {
