@@ -1,0 +1,27 @@
+#version 330
+
+uniform sampler2D ourTexture;
+uniform int renderMode = 0;
+
+in vec3 OutColor;
+in vec2 TexCoord;
+
+out vec4 finalColor;
+
+void main()
+{
+	if(renderMode == 0)
+	{
+		finalColor = vec4( OutColor, 1.0 ); 
+	} 
+    else if(renderMode == 1)
+    {
+    	finalColor = texture(ourTexture, TexCoord);
+
+    }
+	else{
+		finalColor = texture(ourTexture, TexCoord);
+		float offset = 3.0f;
+		finalColor = vec4( finalColor.x*offset,finalColor.y*offset,finalColor.z*offset,finalColor.w);
+	}
+}
