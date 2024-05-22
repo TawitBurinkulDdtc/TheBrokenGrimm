@@ -32,5 +32,5 @@ public:
 	ButtonObject* Gretel;
 	ButtonObject* door;
 	GameObject* GretelPic;
-	GameObject* background
+	GameObject* background;
 };

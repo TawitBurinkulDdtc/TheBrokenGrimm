@@ -138,7 +138,7 @@ void Level2Scene5p3::LevelUpdate()
 	if (playerWalkSide != 0) {
 		if (player->GetX() < 250) {
 			GameEngine::GetInstance()->GetStateController()->gameStateNext = GameState::GS_LEVEL2Scene5;
-			GameInstance::GetInstance()->PlayerFrom = PlayerFrom::Left;
+			GameInstance::GetInstance()->PlayerFrom = PlayerFrom::Right;
 		}
 		else if (player->GetX() > mapWidth - 250) {
 			player->SetPosition(glm::vec3(mapWidth - 250, Avery_y_Position, 0.0f));	//
@@ -253,7 +253,7 @@ void Level2Scene5p3::HandleMouse(int type, int x, int y)
 		}
 		if (stick->Interacted == true) {
 			stickPic->SetPosition(glm::vec3(0.0f, 5000.0f, 0.0f));
-			getItem("stick", "Could use to reach high stuff", "../Resource/Texture/Items/stick.png");
+			getItem("stick", "Could use to reach high stuff", "../Resource/Texture/Items/stickDark.png");
 			GameInstance::GetInstance()->stickCollect = true;
 			stick->SetPosition(glm::vec3(0.0f, 5000.0f, 0.0f));
 			stick->Interacted = false;

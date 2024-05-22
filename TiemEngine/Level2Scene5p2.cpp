@@ -54,12 +54,14 @@ void Level2Scene5p2::LevelInit()
 
 
 	insect = new ButtonObject();
-	insect->SetTexture("../Resource/Texture/insect_PlaceHolder.png");
+	insect->SetTexture("../Resource/Texture/Items/Kevin.png");
 	insect->SetSize(200,-100);
 	insect->SetPosition(glm::vec3(1000.0f, 350.0f, 0.0f));
 	objectsList.push_back(insect);
 	interactableList.push_back(insect);
 	
+
+
 	//SpiderPic = new SpriteObject("../Resource/Texture/Characters/Spider_PlaceHolder.png", 1, 6);
 	/*SpiderPic = new GameObject();
 	SpiderPic->SetTexture("../Resource/Texture/Spider_PlaceHolder.png");
@@ -287,7 +289,7 @@ void Level2Scene5p2::HandleMouse(int type, int x, int y)
 		if (insect->Interacted == true) {
 			if (GameInstance::GetInstance()->insectCollect == false) {
 				insect->SetPosition(glm::vec3(0.0f, 5000.0f, 0.0f));
-				getItem("insect", "An insect! I name him Kevin", "../Resource/Texture/insect_PlaceHolder.png");
+				getItem("insect", "A Moth! I name him Kevin", "../Resource/Texture/Items/Kevin.png");
 				GameInstance::GetInstance()->insectCollect = true;
 			}
 			insect->Interacted = false;

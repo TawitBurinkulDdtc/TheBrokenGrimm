@@ -321,7 +321,7 @@ void Level2Scene3::HandleMouse(int type, int x, int y)
 
 		if (talk.event == "After_Dinner") {
 			switch (talk.count) {
-			case 2: background->SetTexture("../Resource/Texture/H_And_G_Bedroom_Night.jpg"); break;
+			case 21: background->SetTexture("../Resource/Texture/H_And_G_Bedroom_Night.jpg"); break;
 			}
 		}
 

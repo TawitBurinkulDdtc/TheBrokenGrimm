@@ -200,15 +200,16 @@ void Level2Scene4::LevelInit()
 	//---------------------------------------------------------------------
 	//cout << "Init Level" << endl;
 	// RIQL end			2
-	readExcel.open("../Resource/Excel/Level2.csv");
+	readExcel.open("../Resource/Excel/ScriptDialogueBrokenGrimm_HGHouse_Outside.csv");
 	excelRec.clear();
 
 	inventoryOpen();
 
-	
-
 	if (GameInstance::GetInstance()->PuzzleCollectPebbleDone == true) {
 		getItem("pebbles", "Pebbles for our plan", "../Resource/Texture/Items/pebbles.png");
+		talk.talking = true;
+		talk.event = "Aftercollectpebble";
+		box(true);
 	}
 	
 }
@@ -398,11 +399,11 @@ void Level2Scene4::HandleMouse(int type, int x, int y)
 					GameEngine::GetInstance()->GetStateController()->gameStateNext = GameState::GS_LEVEL2Scene5;
 				}
 				else {
-					cout << "door lock" << endl;
+					talk.event = "doorLock"; talk.talking = true;
 				}
 			}
 			else {
-				cout << "door lock" << endl;
+				talk.event = "doorLock"; talk.talking = true;
 			}
 			frontDoor->Interacted = false;
 		}

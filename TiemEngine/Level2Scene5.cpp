@@ -151,7 +151,7 @@ void Level2Scene5::LevelInit()
 		player->SetPosition(glm::vec3(3915.0f, Avery_y_Position, 0.0f));
 		GameEngine::GetInstance()->SetDrawArea(3915-960, 3915+960, 0, 1080);
 	}
-	if (GameInstance::GetInstance()->PlayerFrom == PlayerFrom::Left) {
+	if (GameInstance::GetInstance()->PlayerFrom == PlayerFrom::Right) {
 		player->SetPosition(glm::vec3(mapWidth-350, Avery_y_Position, 0.0f));
 		GameEngine::GetInstance()->SetDrawArea(mapWidth - 1920, mapWidth, 0, 1080);
 	}
@@ -262,7 +262,7 @@ void Level2Scene5::LevelInit()
 	//---------------------------------------------------------------------
 	//cout << "Init Level" << endl;
 	// RIQL end			2
-	readExcel.open("../Resource/Excel/Level2Scene5.csv");
+	readExcel.open("../Resource/Excel/ScriptDialogueBrokenGrimm_HGHouse_Outside.csv");
 	excelRec.clear();
 
 	//sceneIntro
@@ -271,6 +271,14 @@ void Level2Scene5::LevelInit()
 	talk.event = "sceneIntro";
 	*/
 	inventoryOpen();
+
+	if (GameInstance::GetInstance()->talkOnceOutside == false) { 
+		talk.talking = true; 
+		talk.event = "Sneak_Out"; 
+		box(true);
+		GameInstance::GetInstance()->talkOnceOutside = true; 
+	}
+
 }
 
 

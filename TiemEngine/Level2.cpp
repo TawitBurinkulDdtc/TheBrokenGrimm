@@ -153,12 +153,20 @@ void Level2::LevelInit()
 	*/
 	inventoryOpen();
 
+	
+
 	if(GameInstance::GetInstance()->PuzzleCollectPebbleDone == false){
 		player->SetPosition(glm::vec3(950.0f, 5000, 0.0f));
 		Chipmunk->SetPosition(glm::vec3(1000.0f, 500.0f, 0.0f));
 		HanselPic->SetPosition(glm::vec3(1400.0f, 350.0f, 0.0f));
 		box(true);
 		talk.event = "Enter_Story";
+		talk.talking = true;
+	}
+
+	else if (GameInstance::GetInstance()->PuzzleCollectPebbleDone == true) {
+		box(true);
+		talk.event = "Family_Out";
 		talk.talking = true;
 	}
 	//SoundEngine->drop();
@@ -301,9 +309,11 @@ void Level2::HandleMouse(int type, int x, int y)
 		if (door->Interacted == true) {
 			if(GameInstance::GetInstance()->PuzzleCollectPebbleDone == false){
 				GameEngine::GetInstance()->GetStateController()->gameStateNext = GameState::GS_LEVEL2Scene2;
+				SoundEngine->drop();
 			}
 			else {
-				GameEngine::GetInstance()->GetStateController()->gameStateNext = GameState::GS_LEVEL2Scene6;
+				talk.talking = true;
+				talk.eventz = "skip";
 			}
 			door->Interacted = false;
 		}
@@ -312,31 +322,31 @@ void Level2::HandleMouse(int type, int x, int y)
 	if (talk.talking == true) { //do talk
 		talk.count = talk.count + 1;
 
-
-		if (talk.count == 1) { excelRecRecording(talk.event); box(true); }
-		if (finishRead == true && excelRec[talk.count - 1].name != "end") {
-			if (excelRec[talk.count - 1].name != "\0") {
-				talk.n(excelRec[talk.count - 1].name);
+		if (talk.event != " ") {
+			if (talk.count == 1) { excelRecRecording(talk.event); box(true); }
+			if (finishRead == true && excelRec[talk.count - 1].name != "end") {
+				if (excelRec[talk.count - 1].name != "\0") {
+					talk.n(excelRec[talk.count - 1].name);
+				}
+				if (excelRec[talk.count - 1].dialogue != "\0") {
+					talk.d(excelRec[talk.count - 1].dialogue);
+				}
+				if (excelRec[talk.count - 1].pictureFileName != "\0") {
+					talk.p(excelRec[talk.count - 1].pictureFileName);
+				}
+				if (excelRec[talk.count - 1].sNFont != "\0") {
+					talk.nf = excelRec[talk.count - 1].nf;
+				}
+				if (excelRec[talk.count - 1].sFont != "\0") {
+					talk.f = excelRec[talk.count - 1].f;
+				}
 			}
-			if (excelRec[talk.count - 1].dialogue != "\0") {
-				talk.d(excelRec[talk.count - 1].dialogue);
-			}
-			if (excelRec[talk.count - 1].pictureFileName != "\0") {
-				talk.p(excelRec[talk.count - 1].pictureFileName);
-			}
-			if (excelRec[talk.count - 1].sNFont != "\0") {
-				talk.nf = excelRec[talk.count - 1].nf;
-			}
-			if (excelRec[talk.count - 1].sFont != "\0") {
-				talk.f = excelRec[talk.count - 1].f;
+			if (excelRec.empty() == false) {
+				if (excelRec[talk.count - 1].name == "end") {
+					talk.event = " "; talk.talking = false; talk.count = 0; box(false); finishRead = false; excelRecClear(); talk.ndp(" ", " ", "../Resource/Texture/invisible.png");
+				}
 			}
 		}
-		if (excelRec.empty() == false) {
-			if (excelRec[talk.count - 1].name == "end") {
-				talk.talking = false; talk.count = 0; box(false); finishRead = false; excelRecClear(); talk.ndp(" ", " ", "../Resource/Texture/invisible.png");
-			}
-		}
-
 		if (talk.event == "Enter_Story") {
 			switch (talk.count) {
 			//case 1:    break;
@@ -346,10 +356,10 @@ void Level2::HandleMouse(int type, int x, int y)
 		}
 
 
-		if (talk.event == "not read yet") {
+		if (talk.eventz == "skip") {
 			switch (talk.count) {
-			case 1: talk.nd("Avery", "I want to check this place first before reading"); talk.f = 60;  box(true);  break;
-			case 2: talk.event = " "; talk.nd(" ", " "); talk.talking = false; talk.count = 0; box(false); break;
+			case 1: talk.p("../Resource/Texture/skipScene.png"); talk.f = 60;  box(false);  break;
+			case 2: SoundEngine->drop(); talk.eventz = " "; talk.nd(" ", " "); talk.talking = false; talk.count = 0; box(false); GameEngine::GetInstance()->GetStateController()->gameStateNext = GameState::GS_LEVEL3; break;
 			}
 		}
 		

@@ -25,7 +25,7 @@ void Level2Scene6::LevelInit()
 
 	//Require in every level          RIQL		start
 	GameObject* background = new GameObject();
-	background->SetTexture("../Resource/Texture/Forrest.jpg");	//need custom
+	background->SetTexture("../Resource/Texture/Forest with trial.png");	//need custom
 	background->SetSize(mapWidth, -1080.0f);//1080 + 200.0f
 	background->SetPosition(glm::vec3(mapWidth / 2, 540.0f, 0.0f));
 	backgroundList.push_back(background);
@@ -96,7 +96,7 @@ void Level2Scene6::LevelInit()
 
 
 
-	
+	GameInstance::GetInstance()->inventory.clear();
 
 
 
@@ -148,7 +148,7 @@ void Level2Scene6::LevelInit()
 	//---------------------------------------------------------------------
 	//cout << "Init Level" << endl;
 	// RIQL end			2
-	readExcel.open("../Resource/Excel/Level2Scene6.csv");
+	readExcel.open("../Resource/Excel/Script_Dialogue_BrokenGrimm_LV3_-_Sheet1.csv");
 	excelRec.clear();
 
 	//sceneIntro
@@ -156,6 +156,8 @@ void Level2Scene6::LevelInit()
 	talk.talking = true;
 	talk.event = "sceneIntro";
 	*/
+	talk.talking = true;
+	talk.event = "L3S1OutsideHousePebble";
 	inventoryOpen();
 }
 
@@ -279,8 +281,6 @@ void Level2Scene6::HandleMouse(int type, int x, int y)
 		if (placedPebblesHere->Interacted == true) {
 			if (holdedItemIndex >= 0 && holdedItemIndex < GameInstance::GetInstance()->inventory.size()) {
 				if (GameInstance::GetInstance()->inventory[holdedItemIndex].name == "pebbles") {
-					//pebblesPic->SetPosition(glm::vec3(mapWidth/2, 540.0f, 0.0f));
-					//talk.talking .event bra bla ba
 					GameInstance::GetInstance()->usePebbles = true;
 					GameEngine::GetInstance()->GetStateController()->gameStateNext = GameState::GS_LEVEL2Scene3;
 				}
@@ -321,10 +321,9 @@ void Level2Scene6::HandleMouse(int type, int x, int y)
 
 
 
-		if (talk.event == "not read yet") {
+		if (talk.event == "L3S1OutsideHousePebble") {
 			switch (talk.count) {
-			case 1: talk.nd("Avery", "I want to check this place first before reading"); talk.f = 60;  box(true);  break;
-			case 2: talk.event = " "; talk.nd(" ", " "); talk.talking = false; talk.count = 0; box(false); break;
+			case 3:GameEngine::GetInstance()->GetStateController()->gameStateNext = GameState::GS_LEVEL2Scene3; break;
 			}
 		}
 

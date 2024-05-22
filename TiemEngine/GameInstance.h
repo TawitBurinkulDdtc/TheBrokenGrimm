@@ -40,6 +40,7 @@ public:
 
 	bool LV2chairAtCabinet = false;
 	bool LV2frontDoorLock = true;
+	bool talkOnceOutside = false;
 	bool pebbelCollect[5] = {false};
 	bool insectCollect = false;
 	bool stickCollect = false;
