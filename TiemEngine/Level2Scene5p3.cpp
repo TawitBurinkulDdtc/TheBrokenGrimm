@@ -38,6 +38,12 @@ void Level2Scene5p3::LevelInit()
 	stickPic->SetPosition(glm::vec3(mapWidth / 2, 540.0f, 0.0f));
 	objectsList.push_back(stickPic);
 
+	GameObject* tee = new GameObject();
+	tee->SetTexture("../Resource/Texture/OutsideBirdnest/tree.png");	//need custom
+	tee->SetSize(mapWidth, -1080.0f);//1080 + 200.0f
+	tee->SetPosition(glm::vec3(mapWidth / 2, 540.0f, 0.0f));
+	objectsList.push_back(tee);
+
 	pebble = new ButtonObject();
 	pebble->SetTexture("../Resource/Texture/Items/pebbleOnTree.png");
 	pebble->SetSize(350, -350);

@@ -4,6 +4,8 @@ space bar - open inventory
 left click - continue dialogue or cutscene/interacted.
 
 
-Computer requirement.
-Maybe need space more that 3gb in drive c. Not sure how much but my computer got 3gb and it stop working at collecting pebbles part.
-Maybe not work on window 11, Test on another computer with widow 11 and it not work. Not test on other computer yet.
+Computer requirement:
+Atleast more than 3gb(Maybe even more) in deive c
+Might not work on window 11
+
+
