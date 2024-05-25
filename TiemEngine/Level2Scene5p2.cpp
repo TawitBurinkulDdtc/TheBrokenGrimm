@@ -53,6 +53,15 @@ void Level2Scene5p2::LevelInit()
 	objectsList.push_back(pebblePic);
 
 
+	createPlayer(3);
+	player->SetPosition(glm::vec3(400.0f, Avery_y_Position, 0.0f));
+
+	GameObject* tree = new GameObject();
+	tree->SetTexture("../Resource/Texture/Spider_forest/spiderTrees.png");	//need custom
+	tree->SetSize(mapWidth, -1080.0f);//1080 + 200.0f
+	tree->SetPosition(glm::vec3(mapWidth / 2, 540.0f, 0.0f));
+	objectsList.push_back(tree);
+
 	insect = new ButtonObject();
 	insect->SetTexture("../Resource/Texture/Items/Kevin.png");
 	insect->SetSize(200,-200);
@@ -79,8 +88,7 @@ void Level2Scene5p2::LevelInit()
 	}
 
 
-	createPlayer(3);
-	player->SetPosition(glm::vec3(400.0f, Avery_y_Position, 0.0f));
+	
 
 
 
