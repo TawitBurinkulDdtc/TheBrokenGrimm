@@ -129,7 +129,7 @@ void Level2::LevelInit()
 	playerWalkTo = player->GetX();
 	playerCurrentTime = 0;
 
-
+	
 
 
 	//--------------------- walk speed editer----------------------------
@@ -360,7 +360,7 @@ void Level2::HandleMouse(int type, int x, int y)
 		if (talk.eventz == "skip") {
 			switch (talk.count) {
 			case 1: talk.p("../Resource/Texture/skipScene.png"); talk.f = 60;  box(false);  break;
-			case 2: SoundEngine->drop(); talk.eventz = " "; talk.nd(" ", " "); talk.talking = false; talk.count = 0; box(false); GameEngine::GetInstance()->GetStateController()->gameStateNext = GameState::GS_LEVEL3; break;
+			case 2: SoundEngine->drop(); GameInstance::GetInstance()->inventory.clear(); talk.eventz = " "; talk.nd(" ", " "); talk.talking = false; talk.count = 0; box(false); GameEngine::GetInstance()->GetStateController()->gameStateNext = GameState::GS_LEVEL3; break;
 			}
 		}
 		
