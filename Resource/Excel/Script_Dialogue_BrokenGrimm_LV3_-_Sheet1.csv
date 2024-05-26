@@ -4,21 +4,22 @@ bug,Scene_Name,Name,Dialogue,Image,1,2,bug
 ,,Hansel,Yes Father,,70,40,
 ,,Gretel,Please come back quickly. I'm scared,,70,40,
 ,,end,,,1,40,
-,L3S1OutsideHousePebble,Gretel,"I..I..I.. I can’t believe dad will really abandoned us…",,70,40,
+,L3S1OutsideHousePebble,Gretel,"I..I..I.. I can't believe dad will abandoned us
+",,70,40,
 ,,Hansel,Do not cry Gretel. Avery will bring us back home right?,,70,40,
 ,,Avery,"Of course I can ! Follow me !",,70,40,
 ,,end,,,1,1,
-,L3S3OutsideHouse,Father,Kids! I’m so glad you’re back! I thought I’d lose you two forever.,,70,40,
+,L3S3OutsideHouse,Father,Kids! I'm so glad you are back! I thought I'll lost you two forever.,,70,40,
 ,,Step-Mother,Where have you been ! We’ve look every where for you!,,70,40,
 ,,,,70,40,,
 ,,end,,,1,1,
 ,L3S4H&GRoom,Gretel,"Thanks Avery, If it weren’t for you we’d be dead by now",,70,40,
-,,Hansel,We’re safe now right? ,,70,40,
+,,Hansel,We're safe now right? ,,70,40,
 ,,Hansel,We will live like this as always...right?,,70,40,
 ,,Avery,"O..of..of course Hansel, you two are saved now.",,70,40,
 ,,Avery,(How can I said to them that...they will get abandon next time...),,70,40,
 ,,Gretel,"But we should collect more pebble incase this happen again",,70,40,
-,,Hansel,Good idea! Let’s go!,,70,40,
+,,Hansel,Good idea! Let's go!,,70,40,
 ,,Hansel,Wait? The door is locked?!,,70,40,
 ,,Gretel,What should we do?,,70,40,
 ,,Avery,D..Don't worry! You can...use bread!  ,,70,40,
@@ -53,9 +54,9 @@ bug,Scene_Name,Name,Dialogue,Image,1,2,bug
 ,,end,,,1,1,
 ,lightUp,Hansel and Gretel,Hooray! Fire!,,70,40,
 ,,Avery,I'm pretty tried,,70,40,
-,,Avery,Let sleep for now,,70,40,
+,,Avery,Let sleep for now kid,,70,40,
 ,,Gretel,Fairy get sleepy?,,70,40,
-,,Avery,Yeahh zzZ,,70,40,
+,,Avery,"Everyone can feel tried, so let's take some rest.",,70,40,
 ,, , ,,70,40,
 ,, , ,,70,40,
 ,,end,,,1,40,
