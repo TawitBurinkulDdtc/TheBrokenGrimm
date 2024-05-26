@@ -86,7 +86,7 @@ void Level2::LevelInit()
 	else { player->SetPosition(glm::vec3(950.0f, Avery_y_Position, 0.0f)); }	//Require customization end
 	*/
 	createPlayer(3);
-	player->SetPosition(glm::vec3(950.0f, Avery_y_Position, 0.0f));
+	player->SetPosition(glm::vec3(960, Avery_y_Position, 0.0f));
 
 
 	GameEngine::GetInstance()->SetDrawArea(0, 1920, 0, 1080);
@@ -129,7 +129,7 @@ void Level2::LevelInit()
 	playerWalkTo = player->GetX();
 	playerCurrentTime = 0;
 
-
+	
 
 
 	//--------------------- walk speed editer----------------------------
@@ -350,16 +350,17 @@ void Level2::HandleMouse(int type, int x, int y)
 		if (talk.event == "Enter_Story") {
 			switch (talk.count) {
 			//case 1:    break;
-			case 20:UnlikeableWomen->SetPosition(glm::vec3(450.0f, 400.0f, 0.0f)); Chipmunk->SetPosition(glm::vec3(0.0f, 5000.0f, 0.0f)); player->SetPosition(glm::vec3(1500.0f, Avery_y_Position, 0.0f)); HanselPic->SetPosition(glm::vec3(0.0f, 5000.0f, 0.0f)); break;
-			case 22:UnlikeableWomen->SetPosition(glm::vec3(0.0f, 5000.0f, 0.0f));  GameEngine::GetInstance()->SetDrawArea(mapWidth - 1920, mapWidth, 0, 1080); setUiPos(); break;
+			case 20:UnlikeableWomen->SetPosition(glm::vec3(450.0f, 400.0f, 0.0f)); Chipmunk->SetPosition(glm::vec3(0.0f, 5000.0f, 0.0f)); player->SetPosition(glm::vec3(960.0f, Avery_y_Position, 0.0f)); HanselPic->SetPosition(glm::vec3(0.0f, 5000.0f, 0.0f)); break;
+			case 22:UnlikeableWomen->SetPosition(glm::vec3(0.0f, 5000.0f, 0.0f)); break;
+				//dialogueBox->SetPosition(glm::vec3(player->GetX(), 540.0f + 600, 0.0f));
+			//GameEngine::GetInstance()->SetDrawArea(mapWidth - 1920, mapWidth, 0, 1080); setUiPos(); break;
 			}
 		}
-
 
 		if (talk.eventz == "skip") {
 			switch (talk.count) {
 			case 1: talk.p("../Resource/Texture/skipScene.png"); talk.f = 60;  box(false);  break;
-			case 2: SoundEngine->drop(); talk.eventz = " "; talk.nd(" ", " "); talk.talking = false; talk.count = 0; box(false); GameEngine::GetInstance()->GetStateController()->gameStateNext = GameState::GS_LEVEL3; break;
+			case 2: SoundEngine->drop(); GameInstance::GetInstance()->inventory.clear(); talk.eventz = " "; talk.nd(" ", " "); talk.talking = false; talk.count = 0; box(false); GameEngine::GetInstance()->GetStateController()->gameStateNext = GameState::GS_LEVEL3; break;
 			}
 		}
 		

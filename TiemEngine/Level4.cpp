@@ -265,7 +265,8 @@ void Level4::HandleMouse(int type, int x, int y)
 			switch (talk.count) {
 			case 1: talk.d("This is the end of first chapter"); box(true); break;
 			case 2: talk.d("Thank for playing"); break;
-			case 3: talk.d(" "); SoundEngine->drop(); talk.talking = false; talk.eventz = " "; box(false); talk.count = 0; GameEngine::GetInstance()->GetStateController()->gameStateNext = GameState::GS_LEVELArtGallery; break;
+			case 3: talk.dp(" ","../Resource/Texture/endCredit.png"); box(false);  break;
+			case 4: talk.d(" "); SoundEngine->drop(); talk.talking = false; talk.eventz = " ";  talk.count = 0; GameEngine::GetInstance()->GetStateController()->gameStateNext = GameState::GS_LEVELArtGallery; break;
 			}
 		}
 
